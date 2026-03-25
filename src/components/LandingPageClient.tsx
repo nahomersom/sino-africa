@@ -16,7 +16,7 @@ export function LandingPageClient() {
   const body = data?.attributes.body ?? "Edit the content in Strapi to update this section.";
 
   return (
-    <section className="flex w-full flex-1 flex-col items-start gap-6">
+    <section className="flex w-full flex-1 flex-col items-start gap-6 bg-primary">
       {isLoading && <div className="text-sm text-zinc-600">Loading landing content...</div>}
       {error && <div className="text-sm text-red-600">Failed to load landing content.</div>}
 
