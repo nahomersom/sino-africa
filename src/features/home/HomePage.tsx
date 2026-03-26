@@ -21,7 +21,7 @@ export function HomePage() {
 
   return (
     <div className="flex w-full flex-1 flex-col gap-10">
-      <HeroSection title={title} subtitle={subtitle} body={body} isLoading={isLoading} hasError={Boolean(error)} />
+      <HeroSection  />
       <AboutSection
         heading={homeContent.about.heading}
         bodyOne={homeContent.about.bodyOne}

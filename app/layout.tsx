@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Footer } from "@/src/components/layout/Footer";
+import { Nav } from "@/src/components/layout/Nav";
 import "./globals.css";
 import { Providers } from "./providers";
 
@@ -21,8 +23,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${outfit.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
-        <Providers>{children}</Providers>
+      <body className="min-h-full bg-zinc-50 dark:bg-black">
+        <Providers>
+          <div className="relative flex min-h-full flex-col">
+            <Nav />
+            {children}
+            <Footer />
+          </div>
+        </Providers>
       </body>
     </html>
   );
