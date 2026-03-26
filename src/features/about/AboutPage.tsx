@@ -4,7 +4,7 @@ import { useGetAboutPageQuery } from "@/src/store/strapiApi";
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
 
-export function AboutPageClient() {
+export function AboutPage() {
   const { data, isLoading, error } = useGetAboutPageQuery(undefined, {
     skip: !STRAPI_URL,
   });
@@ -18,12 +18,9 @@ export function AboutPageClient() {
       {error && <div className="text-sm text-red-600">Failed to load about content.</div>}
 
       <div className="flex flex-col gap-3">
-        <h1 className="max-w-2xl text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
-          {title}
-        </h1>
+        <h1 className="max-w-2xl text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">{title}</h1>
         <div className="max-w-3xl text-zinc-700 dark:text-zinc-300">{body}</div>
       </div>
     </section>
   );
 }
-
