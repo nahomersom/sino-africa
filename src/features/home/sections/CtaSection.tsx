@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button } from "@/src/components/ui/app-button";
 
 type CtaSectionProps = {
   heading: string;
@@ -16,12 +17,9 @@ export function CtaSection({ heading, text, buttonLabel }: CtaSectionProps) {
         <h2 className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">{heading}</h2>
         <p className="max-w-2xl text-sm leading-6 text-zinc-600 dark:text-zinc-300">{text}</p>
       </div>
-      <Link
-        href="/#contact"
-        className="rounded-full bg-primary px-5 py-3 text-sm font-medium text-zinc-900 transition-opacity hover:opacity-90"
-      >
-        {buttonLabel}
-      </Link>
+      <Button asChild variant="primary">
+        <Link href="/#contact">{buttonLabel}</Link>
+      </Button>
     </section>
   );
 }

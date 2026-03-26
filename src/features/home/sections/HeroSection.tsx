@@ -1,24 +1,39 @@
-type HeroSectionProps = {
-  title: string;
-  subtitle: string;
-  body: string;
-  isLoading: boolean;
-  hasError: boolean;
-};
+import { Button } from "@/src/components/ui/app-button";
+import Image from "next/image";
+import Link from "next/link";
 
-export function HeroSection({ title, subtitle, body, isLoading, hasError }: HeroSectionProps) {
+export function HeroSection() {
   return (
-    <section className="flex w-full flex-1 flex-col items-start gap-6 rounded-3xl bg-primary px-8 py-14">
-      {isLoading && <div className="text-sm text-zinc-700">Loading landing content...</div>}
-      {hasError && <div className="text-sm text-red-700">Failed to load landing content.</div>}
+    <section className="relative w-full min-h-screen overflow-hidden bg-black/40 flex items-between justify-center">
+      <Image
+        src="/images/hero-background.jpg"
+        alt="Sino Africa hero background"
+        fill
+        priority
+        className="object-cover"
+      />
+      <div className="absolute inset-0 bg-black/40" />
 
-      <div className="flex flex-col gap-3">
-        <p className="text-sm font-semibold tracking-[0.16em] text-zinc-900/70">SINO AFRICA</p>
-        <h1 className="max-w-2xl text-4xl font-semibold tracking-tight text-zinc-900">{title}</h1>
-        <p className="max-w-2xl text-lg leading-7 text-zinc-800">{subtitle}</p>
+      <div className="z-10 flex flex-col items-center justify-center gap-4  max-w-[574px]">
+      <span className="text-[13px] text-primary ">SINO AFRICA</span>
+      <h1 className="text-[100px] leading-[100px] text-white tracking-[-2px]">Sino Africa</h1>
+      <p className="text-center text-2xl font-normal leading-[150%] tracking-[-1px] text-white">Building scalable infrastructure systems across Africa through partnerships, technology, and institutional capital.</p>
+     <div className="space-x-4">
+        <Button asChild variant="primary" className="min-w-[187px]">
+              <Link href="/#contact">Explore Our Platforms</Link>
+            </Button>
+            <Button asChild variant="secondary" className="min-w-[187px]">
+              <Link href="/#contact">Contact us</Link>
+            </Button>
+     </div>
       </div>
-
-      <p className="max-w-2xl text-zinc-800">{body}</p>
+      <Image
+        src="/icons/down-arrow.svg"
+        alt="Scroll down"
+        width={24}
+        height={24}
+        className="absolute bottom-[7px] left-1/2 z-10 -translate-x-1/2 size-10"
+      />
     </section>
   );
 }

@@ -23,13 +23,14 @@ export type AboutPageAttributes = {
 };
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+const STRAPI_BASE_URL = STRAPI_URL?.replace(/\/api\/?$/, "");
 
 export const strapiApi = createApi({
   reducerPath: "strapiApi",
   baseQuery: fetchBaseQuery({
     // Strapi base is typically: http://localhost:1337
     // Collection endpoints live under: /api/<collection-name>
-    baseUrl: STRAPI_URL ? `${STRAPI_URL}/api` : "",
+    baseUrl: STRAPI_BASE_URL ? `${STRAPI_BASE_URL}/api` : "",
   }),
   endpoints: (builder) => ({
     // Change `landing-pages` to your Strapi collection/content type name.
