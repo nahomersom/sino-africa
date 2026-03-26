@@ -21,15 +21,15 @@ export function LandingPageClient() {
       {error && <div className="text-sm text-red-600">Failed to load landing content.</div>}
 
       <div className="flex flex-col gap-3">
-        <h1 className="max-w-2xl text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
+        <h1 className="max-w-2xl text-4xl font-semibold tracking-tight text-zinc-900">
           {title}
         </h1>
-        <p className="max-w-2xl text-lg leading-7 text-zinc-700 dark:text-zinc-300">
+        <p className="max-w-2xl text-lg leading-7 text-zinc-700">
           {subtitle}
         </p>
       </div>
 
-      <div className="max-w-2xl text-zinc-700 dark:text-zinc-300">{body}</div>
+      <div className="max-w-2xl text-zinc-700">{body}</div>
     </section>
   );
 }
