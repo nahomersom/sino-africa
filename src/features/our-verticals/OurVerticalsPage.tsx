@@ -5,8 +5,8 @@ import { VerticalsSection } from "./sections/VerticalsSection";
 
 export function OurVerticalsPage() {
   return (
-    <div className="min-h-full bg-[#f8fafc]">
-      <div className="mx-auto w-full max-w-6xl px-6 pt-8">
+    <div className="min-h-full bg-white">
+      <div className="mx-auto w-full max-w-[1254px] px-6 pt-8 md:px-0">
         <Image src="/brand/logo-full.svg" alt="Sino Africa" width={130} height={24} priority />
       </div>
 
