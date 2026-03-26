@@ -5,8 +5,25 @@ export function HeroSection() {
     <section className="relative mx-auto flex w-full max-w-[1254px] flex-col items-center gap-10 overflow-hidden px-6 pb-10 pt-14 md:flex-row md:items-end md:gap-[8px] md:px-0 md:pb-[40px] md:pt-[152px]">
       <div
         aria-hidden
-        className="verticals-pattern pointer-events-none absolute inset-0 -z-10 opacity-80"
-      />
+        className="pointer-events-none absolute -z-10"
+        style={{
+          top: 0,
+          left: "50%",
+          width: 1845,
+          height: 1845,
+          opacity: 0.5,
+          transform: "translateX(-50%) rotate(0deg)",
+        }}
+      >
+        <Image
+          src="/images/verticals-pattern.png"
+          alt=""
+          fill
+          priority
+          unoptimized
+          className="object-cover"
+        />
+      </div>
       <div className="max-w-xl space-y-4 md:max-w-[638px] md:flex-[0_0_638px] md:self-stretch">
         <p className="text-[13px] font-normal tracking-[0.125em] text-primary">OUR VERTICALS</p>
         <h1
