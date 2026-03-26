@@ -1,6 +1,6 @@
-import { Nav } from "@/src/components/Nav";
-import { Footer } from "@/src/components/Footer";
-import { LandingPageClient } from "@/src/components/LandingPageClient";
+import { Footer } from "@/src/components/layout/Footer";
+import { Nav } from "@/src/components/layout/Nav";
+import { HomePage } from "@/src/features/home";
 
 export default function Home() {
   return (
@@ -8,7 +8,7 @@ export default function Home() {
       <Nav />
 
       <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-4 py-10">
-        <LandingPageClient />
+        <HomePage />
       </main>
 
       <Footer />
