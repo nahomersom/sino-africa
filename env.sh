@@ -6,7 +6,7 @@ escape_sed() {
 }
 
 # Loop through each environment variable that starts with ABLAZE_LANDING
-for i in $(env | grep VITE)
+for i in $(env | grep NEXT)
 do
     # Extract key and value
     key=$(echo "$i" | cut -d '=' -f 1)
