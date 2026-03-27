@@ -13,6 +13,10 @@ export function HeroSection() {
         className="object-cover"
       />
       <div className="absolute inset-0 bg-black/40" />
+      <div
+        className="pointer-events-none absolute inset-0 z-[1]"
+        style={{ background: "linear-gradient(180deg, rgba(255,255,255,0) 88%, rgba(255,255,255,1) 98%)" }}
+      />
 
       <div className="z-10 flex flex-col items-center justify-center gap-4  max-w-[574px]">
       <span className="text-[13px] text-primary ">SINO AFRICA</span>

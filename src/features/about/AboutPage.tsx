@@ -1,26 +1,38 @@
 "use client";
 
-import { useGetAboutPageQuery } from "@/src/store/strapiApi";
-
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+import { ContactSection } from "@/src/features/home/sections/ContactSection";
+import { aboutContent } from "./constants";
+import { AboutHeroSection } from "./sections/AboutHeroSection";
+import { TeamSection } from "./sections/TeamSection";
+import { WhatDefinesUsSection } from "./sections/WhatDefinesUsSection";
 
 export function AboutPage() {
-  const { data, isLoading, error } = useGetAboutPageQuery(undefined, {
-    skip: !STRAPI_URL,
-  });
-
-  const title = data?.attributes.title ?? "About Sino Africa";
-  const body = data?.attributes.body ?? "Edit the about content in Strapi.";
-
   return (
-    <section className="flex w-full flex-1 flex-col items-start gap-6">
-      {isLoading && <div className="text-sm text-zinc-600">Loading about content...</div>}
-      {error && <div className="text-sm text-red-600">Failed to load about content.</div>}
-
-      <div className="flex flex-col gap-3">
-        <h1 className="max-w-2xl text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">{title}</h1>
-        <div className="max-w-3xl text-zinc-700 dark:text-zinc-300">{body}</div>
-      </div>
-    </section>
+    <div className="flex w-full flex-1 flex-col">
+      <AboutHeroSection
+        label={aboutContent.hero.label}
+        heading={aboutContent.hero.heading}
+      />
+      <WhatDefinesUsSection
+        heading={aboutContent.whatDefinesUs.heading}
+        description={aboutContent.whatDefinesUs.description}
+        mission={aboutContent.whatDefinesUs.mission}
+        vision={aboutContent.whatDefinesUs.vision}
+        values={aboutContent.whatDefinesUs.values}
+      />
+      <TeamSection
+        heading={aboutContent.team.heading}
+        description={aboutContent.team.description}
+        ceo={aboutContent.team.ceo}
+        managers={aboutContent.team.managers}
+        staff={aboutContent.team.staff}
+      />
+      <ContactSection
+        heading={aboutContent.contact.heading}
+        description={aboutContent.contact.description}
+        buttonLabel={aboutContent.contact.buttonLabel}
+        variant="inner-page"
+      />
+    </div>
   );
 }
