@@ -1,4 +1,8 @@
 import Image from "next/image";
+import {
+  StaggerContainer,
+  StaggerItem,
+} from "@/src/components/ui/scroll-reveal";
 
 type KeyStatement = {
   icon: string;
@@ -49,26 +53,31 @@ export function WhyChooseUsSection({
         </p>
       </div>
 
-      <div className="mt-12 grid w-full max-w-5xl grid-cols-1 gap-x-10 gap-y-14 md:grid-cols-2">
+      <StaggerContainer
+        className="mt-12 grid w-full max-w-5xl grid-cols-1 gap-x-10 gap-y-14 md:grid-cols-2"
+        stagger={0.15}
+      >
         {statements.map((item) => (
-          <div key={item.title} className="flex items-start gap-6">
-            <div className="shrink-0">
-              <Image
-                src={item.icon}
-                alt=""
-                width={79}
-                height={79}
-              />
+          <StaggerItem key={item.title}>
+            <div className="flex items-start gap-6">
+              <div className="shrink-0">
+                <Image
+                  src={item.icon}
+                  alt=""
+                  width={79}
+                  height={79}
+                />
+              </div>
+              <div className="flex flex-col gap-2.5">
+                <h3 className="text-2xl text-text-100">{item.title}</h3>
+                <p className="text-base leading-6 text-muted">
+                  {item.description}
+                </p>
+              </div>
             </div>
-            <div className="flex flex-col gap-2.5">
-              <h3 className="text-2xl text-text-100">{item.title}</h3>
-              <p className="text-base leading-6 text-muted">
-                {item.description}
-              </p>
-            </div>
-          </div>
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerContainer>
     </section>
   );
 }

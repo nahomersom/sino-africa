@@ -27,7 +27,7 @@ export function TeamSection({
   return (
     <section className="relative flex w-full flex-col items-center gap-12 overflow-hidden bg-surface px-6 py-20 md:px-16 lg:gap-12 lg:px-[296px] lg:py-[152px]">
       {/* Decorative dot pattern — top-left */}
-      <div className="pointer-events-none absolute -left-[60px] top-[56px] hidden select-none opacity-20 lg:block">
+      <div className="pointer-events-none absolute -left-[60px] top-[56px] hidden select-none  lg:block">
         <Image
           src="/images/about/team/team-pattern.svg"
           alt=""
@@ -38,13 +38,14 @@ export function TeamSection({
       </div>
 
       {/* Decorative corner icon — bottom-right */}
-      <div className="pointer-events-none absolute bottom-0 right-0 hidden select-none lg:block">
+      <div className="pointer-events-none absolute bottom-[115px] -right-20 hidden select-none lg:block">
         <Image
           src="/images/about/team/team-corner-icon.svg"
           alt=""
           aria-hidden="true"
-          width={123}
-          height={121}
+          width={166.54}
+          height={64.11}
+          className="h-[100.11px]! w-[166.54px]!"
         />
       </div>
 
@@ -62,7 +63,7 @@ export function TeamSection({
       <div className="relative z-10 flex w-full flex-col items-center gap-10">
         {/* CEO card */}
         <div className="flex w-full max-w-[734px] gap-1.5 rounded-2xl bg-white p-4">
-          <div className="relative w-2/5 shrink-0 overflow-hidden rounded-2xl bg-[#E2E3E7]">
+          <div className="relative min-w-[245px] shrink-0 overflow-hidden rounded-2xl bg-[#E2E3E7] min-h-[287px]">
             <Image
               src={ceo.image}
               alt={ceo.name}
@@ -127,15 +128,15 @@ export function TeamSection({
         </h4>
 
         {/* Staff grid */}
-        <div className="flex w-full flex-col gap-4">
+        <div className="flex w-full flex-col gap-4 lg:h-[528px]">
           {[staffRow1, staffRow2].map((row, rowIdx) => (
-            <div key={rowIdx} className="flex w-full gap-4">
+            <div key={rowIdx} className="flex w-full flex-1 gap-4">
               {row.map((member) => (
                 <div
                   key={member.name}
-                  className="flex flex-1 flex-col justify-end gap-1.5 overflow-hidden rounded-2xl bg-white"
+                  className="flex flex-1 flex-col justify-end gap-[6px] overflow-hidden rounded-2xl"
                 >
-                  <div className="relative flex-1 overflow-hidden rounded-lg mx-1 mt-1">
+                  <div className="relative min-h-[140px] flex-1 overflow-hidden rounded-lg">
                     <Image
                       src={member.image}
                       alt={member.name}

@@ -1,4 +1,8 @@
 import Image from "next/image";
+import {
+  StaggerContainer,
+  StaggerItem,
+} from "@/src/components/ui/scroll-reveal";
 
 type WhatDefinesUsSectionProps = {
   heading: string;
@@ -37,102 +41,102 @@ export function WhatDefinesUsSection({
       </div>
 
       {/* Cards */}
-      <div className="relative z-10 flex w-full flex-col gap-4">
+      <StaggerContainer className="relative z-10 flex w-full flex-col gap-4" stagger={0.2}>
         {/* Top row: Mission + Vision */}
-        <div className="flex flex-col gap-4 md:flex-row">
-          {/* Mission card */}
-          <div className="flex flex-1 flex-col justify-between gap-2 rounded-3xl bg-primary/20 p-6">
-            <Image
-              src="/images/about/mission-icon.svg"
-              alt=""
-              width={65}
-              height={65}
-            />
-            <div className="flex flex-col gap-1">
-              <h3 className="text-base font-light uppercase leading-[1.5] tracking-[0.0625em] text-muted">
-                {mission.title}
-              </h3>
-              <p className="text-lg leading-[1.5] text-text-100">
-                {mission.description}
-              </p>
+        <StaggerItem>
+          <div className="flex flex-col gap-4 md:flex-row">
+            <div className="flex flex-1 flex-col justify-between gap-2 rounded-3xl bg-primary/20 p-6 min-h-[384px]">
+              <Image
+                src="/images/about/mission-icon.svg"
+                alt=""
+                width={65}
+                height={65}
+              />
+              <div className="flex flex-col gap-1">
+                <h3 className="text-base font-light uppercase leading-[1.5] tracking-[0.0625em] text-muted">
+                  {mission.title}
+                </h3>
+                <p className="text-lg leading-[1.5] text-text-100">
+                  {mission.description}
+                </p>
+              </div>
             </div>
-          </div>
 
-          {/* Vision card */}
-          <div className="flex flex-1 flex-col justify-between gap-2 rounded-3xl bg-accent-60 p-6">
-            <Image
-              src="/images/about/vision-icon.svg"
-              alt=""
-              width={65}
-              height={65}
-            />
-            <div className="flex flex-col gap-1">
-              <h3 className="text-base font-light uppercase leading-[1.5] tracking-[0.0625em] text-muted">
-                {vision.title}
-              </h3>
-              <p className="text-lg leading-[1.5] text-text-100">
-                {vision.description}
-              </p>
+            <div className="flex flex-1 flex-col justify-between gap-2 rounded-3xl bg-accent-60 p-6 min-h-[384px]">
+              <Image
+                src="/images/about/vision-icon.svg"
+                alt=""
+                width={65}
+                height={65}
+              />
+              <div className="flex flex-col gap-1">
+                <h3 className="text-base font-light uppercase leading-[1.5] tracking-[0.0625em] text-muted">
+                  {vision.title}
+                </h3>
+                <p className="text-lg leading-[1.5] text-text-100">
+                  {vision.description}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        </StaggerItem>
 
         {/* Bottom row: Values */}
-        <div className="flex flex-col gap-6 rounded-3xl bg-surface p-6 md:flex-row md:gap-2">
-          {/* Leading: icon + label */}
-          <div className="flex shrink-0 flex-col justify-between pb-2 md:self-stretch">
-            <Image
-              src="/images/about/values-icon.svg"
-              alt=""
-              width={65}
-              height={65}
-            />
-            <h3 className="text-2xl font-medium leading-[1.5] text-text-100">
-              {values.title}
-            </h3>
-          </div>
+        <StaggerItem>
+          <div className="flex flex-col gap-6 rounded-3xl bg-surface p-6 md:flex-row md:gap-2">
+            <div className="flex shrink-0 flex-col justify-between pb-2 md:self-stretch">
+              <Image
+                src="/images/about/values-icon.svg"
+                alt=""
+                width={65}
+                height={65}
+              />
+              <h3 className="text-2xl font-medium leading-[1.5] text-text-100">
+                {values.title}
+              </h3>
+            </div>
 
-          {/* Trailing: 2x2 grid */}
-          <div className="flex flex-1 flex-col gap-2">
-            <div className="flex flex-col gap-2 sm:flex-row">
-              {values.items.slice(0, 2).map((item, i) => (
-                <div
-                  key={i}
-                  className="flex flex-1 flex-col justify-between gap-2 rounded-2xl bg-white p-4"
-                >
-                  <Image
-                    src="/images/about/value-check.svg"
-                    alt=""
-                    width={41}
-                    height={41}
-                  />
-                  <span className="text-lg leading-[1.5] text-text-100">
-                    {item}
-                  </span>
-                </div>
-              ))}
-            </div>
-            <div className="flex flex-col gap-2 sm:flex-row">
-              {values.items.slice(2, 4).map((item, i) => (
-                <div
-                  key={i}
-                  className="flex flex-1 flex-col justify-between gap-2 rounded-2xl bg-white p-4"
-                >
-                  <Image
-                    src="/images/about/value-check.svg"
-                    alt=""
-                    width={41}
-                    height={41}
-                  />
-                  <span className="text-lg leading-[1.5] text-text-100">
-                    {item}
-                  </span>
-                </div>
-              ))}
+            <div className="flex flex-1 flex-col gap-2">
+              <div className="flex flex-col gap-2 sm:flex-row">
+                {values.items.slice(0, 2).map((item, i) => (
+                  <div
+                    key={i}
+                    className="flex flex-1 flex-col justify-between gap-2 rounded-2xl bg-white p-4"
+                  >
+                    <Image
+                      src="/images/about/value-check.svg"
+                      alt=""
+                      width={41}
+                      height={41}
+                    />
+                    <span className="text-lg leading-[1.5] text-text-100">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-col gap-2 sm:flex-row">
+                {values.items.slice(2, 4).map((item, i) => (
+                  <div
+                    key={i}
+                    className="flex flex-1 flex-col justify-between gap-2 rounded-2xl bg-white p-4"
+                  >
+                    <Image
+                      src="/images/about/value-check.svg"
+                      alt=""
+                      width={41}
+                      height={41}
+                    />
+                    <span className="text-lg leading-[1.5] text-text-100">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </StaggerItem>
+      </StaggerContainer>
     </section>
   );
 }

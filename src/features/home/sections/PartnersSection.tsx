@@ -1,4 +1,8 @@
 import Image from "next/image";
+import {
+  StaggerContainer,
+  StaggerItem,
+} from "@/src/components/ui/scroll-reveal";
 
 type PartnerLogo = {
   src: string;
@@ -45,18 +49,19 @@ export function PartnersSection({
         </p>
       </div>
 
-      <div className="flex w-full max-w-4xl flex-wrap items-center justify-center gap-x-16 gap-y-10">
+      <StaggerContainer className="flex w-full max-w-4xl flex-wrap items-center justify-center gap-x-16 gap-y-10" stagger={0.1}>
         {logos.map((logo) => (
-          <Image
-            key={logo.alt}
-            src={logo.src}
-            alt={logo.alt}
-            width={logo.width}
-            height={logo.height}
-            className="h-auto"
-          />
+          <StaggerItem key={logo.alt} direction="none">
+            <Image
+              src={logo.src}
+              alt={logo.alt}
+              width={logo.width}
+              height={logo.height}
+              className="h-auto"
+            />
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerContainer>
     </section>
   );
 }
