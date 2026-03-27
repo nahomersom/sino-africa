@@ -1,18 +1,25 @@
-FROM node:20-alpine AS build
+FROM node:20-alpine AS base
+
+FROM base AS deps
 WORKDIR /app
 COPY package*.json ./
-COPY tsconfig.json ./
-COPY vite.config.* ./
-RUN npm install
+RUN npm ci
+
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
 
-FROM nginx:alpine
+FROM base AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+ENV PORT=8020
 
-COPY --from=build /app/dist /var/www/html
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 
-COPY env.sh /docker-entrypoint.d/env.sh
-
-RUN chmod +x /docker-entrypoint.d/env.sh
+EXPOSE 8020
+CMD ["node", "server.js"]
