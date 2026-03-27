@@ -35,7 +35,7 @@ stages:
         sshEndpoint: 'sc-sinodeployment'
         runOptions: 'inline'
         inline: |
-          cd /home/azureuser/sino-website
+          cd /home/azureuser/sinowebsite
           docker compose pull
           sudo docker compose up -d
         failOnStdErr: false
