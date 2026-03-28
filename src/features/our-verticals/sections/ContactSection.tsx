@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export function ContactSection() {
   return (
-    <section id="contact" className="bg-[#F4F7FA] px-6 py-16 lg:px-[240px] lg:py-[100px]">
+    <section id="contact" className="bg-surface px-6 py-16 lg:px-[240px] lg:py-[100px]">
       <div className="mx-auto flex w-full max-w-[522px] flex-col items-center justify-center gap-[49px]">
         <div className="flex h-[78px] w-[78px] items-center justify-center">
           <Image
@@ -15,11 +15,11 @@ export function ContactSection() {
         </div>
 
         <div className="flex w-full max-w-[502px] flex-col items-center gap-0 text-center sm:h-[132px] sm:justify-start">
-          <h2 className="w-full max-w-[487px] text-[36px] font-medium leading-[1.4em] text-[#161C2D] sm:min-h-[50px]">
+          <h2 className="w-full max-w-[487px] text-[36px] font-medium leading-[1.4em] text-text-100 sm:min-h-[50px]">
             Get In Touch with us
           </h2>
           <p
-            className="mt-4 w-full max-w-[502px] text-[18px] font-light leading-[1.5em] text-[#5C606C] sm:mt-[18px]"
+            className="mt-4 w-full max-w-[502px] text-[18px] font-light leading-[1.5em] text-muted sm:mt-[18px]"
             style={{ letterSpacing: "-0.011111111276679568em" }}
           >
             Feel free to reach out! Whether you&apos;re looking for more details, have feedback, or just want to say

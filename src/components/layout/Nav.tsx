@@ -8,7 +8,7 @@ import { Button } from "../ui/app-button";
 const navItems = [
   { label: "Home", href: "/" },
   { label: "About us", href: "/about" },
-  { label: "Our Verticals", href: "/#platforms" },
+  { label: "Our Verticals", href: "/our-verticals" },
   { label: "Projects", href: "/#contact" },
   { label: "Technology and Infrastructure", href: "/#contact" },
   { label: "Blogs", href: "/#contact" },
@@ -47,7 +47,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
           <nav className="flex items-center gap-2">
             {navItems.map((item) => {
               const isActive =
-                item.href === "/" || item.href === "/about"
+                item.href === "/" || item.href === "/about" || item.href === "/our-verticals"
                   ? pathname === item.href
                   : false;
 

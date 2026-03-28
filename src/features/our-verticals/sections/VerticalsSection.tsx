@@ -10,14 +10,19 @@ const slugId: Record<string, string> = {
 export function VerticalsSection() {
   return (
     <section
-      className="relative w-full overflow-x-hidden"
+      className="relative w-full overflow-x-hidden bg-white"
       style={{
-        backgroundColor: "#FFFFFF",
-        backgroundSize: "20% 20%",
+        backgroundImage: "url(/images/sino-symbol-tile.svg)",
+        backgroundSize: "28px",
         backgroundPosition: "left top",
         backgroundRepeat: "repeat",
       }}
     >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0 bg-white/90"
+      />
+
       <div
         aria-hidden
         className="pointer-events-none absolute bottom-[45px] right-[-30px] z-[1] hidden lg:block"
@@ -43,34 +48,41 @@ export function VerticalsSection() {
       <div className="relative z-[2] mx-auto flex w-full max-w-[1728px] flex-col items-center gap-[45px] px-6 pb-[88px] pt-24 lg:px-[237px] lg:pt-[152px]">
         <div className="flex w-full max-w-[552px] flex-col items-center gap-4 text-center">
           <h2
-            className="w-full max-w-[454.85px] text-[36px] font-normal text-[#161C2D]"
+            className="w-full max-w-[454.85px] text-[36px] font-normal text-text-100"
             style={{ letterSpacing: "-0.03333333465788099em", lineHeight: "1.5em" }}
           >
             Our Verticals
           </h2>
           <p
-            className="max-w-[382px] text-[18px] font-normal leading-[1.5em] text-[#161C2D]/70"
+            className="max-w-[382px] text-[18px] font-normal leading-[1.5em] text-muted"
             style={{ letterSpacing: "-0.011111111276679568em" }}
           >
-            Lorem ipsum dolor sit amet consectetur. Elit eget mauris sed diam urna.
+            Three focused businesses—each delivering depth, compliance, and outcomes where it matters most.
           </p>
         </div>
 
-        <div className="relative w-full">
-          <div className="flex w-full flex-col gap-2 lg:flex-row lg:items-stretch">
+        <div className="relative mx-auto w-full max-w-[1254px]">
+          <div className="grid w-full grid-cols-1 gap-2 lg:auto-rows-[552px] lg:grid-cols-3">
             {verticalItems.map((item) => (
               <article
                 key={item.title}
                 id={slugId[item.title] ?? undefined}
-                className={`${item.colorClass} flex flex-1 flex-col items-center justify-center gap-[45px] rounded-lg px-16 py-10`}
+                className={`${item.colorClass} flex w-full flex-col items-center justify-between rounded-[8px] px-16 py-10 lg:h-full lg:min-h-0`}
               >
-                <div className="flex h-[142px] w-[142px] flex-col items-center justify-center">
-                  <div className="relative mx-auto h-[68px] w-full max-w-[142px]">
-                    <Image src={item.iconSrc} alt="" fill sizes="142px" className="object-contain object-bottom" />
+                <div className="flex w-full shrink-0 flex-col items-center">
+                  <div className="flex h-[142px] w-[142px] flex-col items-center justify-center">
+                    <div className="relative mx-auto h-[142px] w-full max-w-[142px]">
+                      <Image
+                        src={item.iconSrc}
+                        alt=""
+                        fill
+                        className=""
+                      />
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex w-full flex-col gap-[15px] text-center">
+                <div className="flex w-full min-h-0 flex-col gap-[15px] text-center">
                   <h3
                     className="text-[24px] font-semibold text-white"
                     style={{ letterSpacing: "-0.020833333333333332em", lineHeight: "1.5em" }}
@@ -87,7 +99,7 @@ export function VerticalsSection() {
 
                 <button
                   type="button"
-                  className="flex w-full cursor-pointer items-center justify-center gap-4"
+                  className="flex w-full shrink-0 cursor-pointer items-center justify-center gap-4"
                   aria-label={`${item.title} - Read more`}
                 >
                   <span

@@ -10,25 +10,25 @@ export const verticalItems: VerticalItem[] = [
   {
     title: "ACT IT",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Molestie metus lectus eleifend interdum aenean id et. Auctor amet ut at non.",
+      "End-to-end IT services and digital transformation—from infrastructure and cloud to support that keeps teams productive.",
     colorClass: "bg-[#3FAF7E]",
-    iconSrc: "/images/our-verticals/vertical-card-icon-1.png",
+    iconSrc: "/icons/vertical-cards-icon.png",
     arrowSrc: "/images/our-verticals/vertical-card-arrow-1.svg",
   },
   {
     title: "SINO SEC",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Pretium lacus non hendrerit aliquam. Tincidunt pellentesque tincidunt ut quam.",
+      "Security consulting, risk reduction, and resilient operations so your organisation can operate with confidence.",
     colorClass: "bg-[#4A5568]",
-    iconSrc: "/images/our-verticals/vertical-card-icon-1.png",
+    iconSrc: "/icons/vertical-cards-icon.png",
     arrowSrc: "/images/our-verticals/vertical-card-arrow-3.svg",
   },
   {
     title: "MOBILITEX",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Pellentesque vel vulputate sed sollicitudin risus eget morbi. Id vitae est ut amet.",
+      "Mobility and logistics solutions that connect assets, routes, and people—designed for reliability at scale.",
     colorClass: "bg-[#2F6FED]",
-    iconSrc: "/images/our-verticals/vertical-card-icon-1.png",
+    iconSrc: "/icons/vertical-cards-icon.png",
     arrowSrc: "/images/our-verticals/vertical-card-arrow-2.svg",
   },
 ];
