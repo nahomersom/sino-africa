@@ -1,14 +1,19 @@
-import { Nav } from "@/src/components/Nav";
-import { Footer } from "@/src/components/Footer";
-import { TechnologyPageClient } from "@/src/components/TechnologyPageClient";
+import { Footer } from "@/src/components/layout/Footer";
+import { Nav } from "@/src/components/layout/Nav";
+import { TechnologyHero, ChallengeSection, KeyDomainsSection, RoleSection, HowWeWorkSection, ContactSection } from "@/src/features/technology";
 
-export default function TechnologyPage() {
+export default function Technology() {
   return (
-    <div className="flex min-h-full flex-col bg-white">
+    <div className="flex min-h-full flex-col bg-zinc-50">
       <Nav />
 
       <main className="flex-1">
-        <TechnologyPageClient />
+        <TechnologyHero />
+        <ChallengeSection />
+        <KeyDomainsSection />
+        <RoleSection />
+        <HowWeWorkSection />
+        <ContactSection />
       </main>
 
       <Footer />
