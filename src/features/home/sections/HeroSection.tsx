@@ -6,6 +6,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 export function HeroSection() {
+  const handleScrollDown = () => {
+    window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
+  };
+
   return (
     <section className="relative w-full min-h-screen overflow-hidden bg-black/40 flex items-between justify-center">
       <Image
@@ -17,12 +21,12 @@ export function HeroSection() {
       />
       <div className="absolute inset-0 bg-black/40" />
       <div
-        className="pointer-events-none absolute inset-0 z-[1]"
+        className="pointer-events-none absolute inset-0 z-1"
         style={{ background: "linear-gradient(180deg, rgba(255,255,255,0) 88%, rgba(255,255,255,1) 98%)" }}
       />
 
       <motion.div
-        className="z-10 flex flex-col items-center justify-center gap-4 max-w-[574px]"
+        className="z-10 flex flex-col items-center justify-center gap-4 px-6 md:px-10 lg:px-0 max-w-[574px]"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -65,20 +69,27 @@ export function HeroSection() {
           </Button>
         </motion.div>
       </motion.div>
-      <motion.div
-        className="absolute bottom-[7px] left-1/2 z-10 -translate-x-1/2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, y: [0, 8, 0] }}
-        transition={{ delay: 1.2, duration: 1.5, repeat: Infinity, repeatType: "loop" }}
+      <motion.button
+        type="button"
+        onClick={handleScrollDown}
+        aria-label="Scroll down"
+        className="absolute bottom-[7px] left-1/2 z-10 -translate-x-1/2 cursor-pointer"
+        initial={{ opacity: 0, y: 0 }}
+        animate={{ opacity: 1, y: [0, 6, 0] }}
+        transition={{
+          opacity: { delay: 1.2, duration: 0.4, ease: "easeOut" },
+          y: { delay: 1.2, duration: 1.2, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" },
+        }}
       >
         <Image
           src="/icons/down-arrow.svg"
-          alt="Scroll down"
+          alt=""
+          aria-hidden="true"
           width={24}
           height={24}
           className="size-10"
         />
-      </motion.div>
+      </motion.button>
     </section>
   );
 }

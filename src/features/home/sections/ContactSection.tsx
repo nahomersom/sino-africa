@@ -19,7 +19,7 @@ export function ContactSection({
   return (
     <section
       id="contact"
-      className="relative flex w-full flex-col items-center gap-[49px] overflow-hidden bg-white px-6 py-20 lg:px-[240px] lg:py-[100px]"
+      className="relative flex w-full flex-col items-center gap-[49px] overflow-hidden bg-white px-6 py-20 md:px-20 md:py-[100px] lg:px-[240px] lg:py-[100px]"
     >
       {variant === "home" && (
         <>

@@ -25,7 +25,7 @@ export function WhySinoAfricaSection({
   steps,
 }: WhySinoAfricaSectionProps) {
   return (
-    <section className="relative flex w-full flex-col items-center gap-24 overflow-hidden bg-white px-6 py-20 md:px-16 lg:px-[143px] lg:py-[152px]">
+    <section className="relative flex w-full flex-col items-center gap-24 overflow-hidden bg-white px-6 py-20 md:px-20 md:py-20 lg:px-[143px] lg:py-[152px]">
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.04]"
         style={{
@@ -57,7 +57,7 @@ export function WhySinoAfricaSection({
           </div>
         </ScrollReveal>
 
-        <StaggerContainer className="flex w-full max-w-[364.33px] flex-col gap-[43px] lg:w-[364.33px]" stagger={0.2}>
+        <StaggerContainer className="flex w-full max-w-[364.33px] flex-col gap-[43px] md:grid md:max-w-none md:grid-cols-2 md:gap-4 lg:flex lg:w-[364.33px] lg:max-w-[364.33px] lg:flex-col lg:gap-[43px]" stagger={0.2}>
           {steps.map((step) => (
             <StaggerItem key={step.number} direction="right" distance={30}>
               <div className="flex items-start gap-4">

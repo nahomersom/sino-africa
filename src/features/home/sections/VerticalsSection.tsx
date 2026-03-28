@@ -33,7 +33,7 @@ export function VerticalsSection({
 
   return (
     <section
-      className="relative flex min-h-[1009px] w-full flex-col gap-4 overflow-hidden px-6 py-16 transition-all duration-500 md:px-16 lg:px-[286px] lg:pb-16 lg:pt-[160px]"
+      className="relative flex min-h-[1009px] w-full flex-col gap-4 overflow-hidden px-6 py-16 transition-all duration-500 md:px-20 md:py-20 lg:px-[286px] lg:pb-16 lg:pt-[160px]"
       style={{ background: GRADIENTS[activeIndex] }}
     >
       {/* Pattern overlay */}
@@ -63,7 +63,7 @@ export function VerticalsSection({
         </div>
 
         <div className="flex flex-col items-center gap-2">
-          <span className="text-center text-4xl font-black leading-[1.4] text-white lg:text-[56px]">
+          <span className="text-center text-4xl font-black leading-[1.4] text-white md:text-[56px] lg:text-[56px]">
             {items[activeIndex]?.name}
           </span>
 
@@ -74,7 +74,7 @@ export function VerticalsSection({
       </div>
 
       {/* Cards row */}
-      <StaggerContainer className="relative flex w-full flex-col gap-2 md:flex-row" stagger={0.15}>
+      <StaggerContainer className="relative flex w-full flex-col gap-2 lg:flex-row" stagger={0.15}>
         {items.map((item, i) => {
           const isActive = i === activeIndex;
           return (

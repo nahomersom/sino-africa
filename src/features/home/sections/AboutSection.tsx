@@ -8,7 +8,7 @@ type AboutSectionProps = {
 
 export function AboutSection({ heading, bodyOne, bodyTwo }: AboutSectionProps) {
   return (
-    <section className="relative flex w-full flex-col items-center gap-6 overflow-hidden bg-white px-6 py-16 md:px-16 lg:px-60 lg:py-24">
+    <section className="relative flex w-full flex-col items-center gap-6 overflow-hidden bg-white px-6 py-16 md:px-20 md:py-20 lg:px-60 lg:py-24">
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.04]"
         style={{ backgroundImage: "url('/images/sino-symbol-tile.svg')", backgroundSize: "28px", backgroundRepeat: "repeat" }}
