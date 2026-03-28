@@ -1,9 +1,22 @@
+import Image from "next/image";
+
+import type { VerticalDetailSlug } from "../types";
+
+const INSTITUTIONAL_TITLE_DOT_BY_SLUG: Record<VerticalDetailSlug, string> = {
+  "act-it": "/images/our-verticals/green-dot.png",
+  "sino-sec": "/images/our-verticals/black-dot.png",
+  mobilitex: "/images/our-verticals/blue-dot.png",
+};
+
 type Props = {
+  slug: VerticalDetailSlug;
   title: string;
   paragraphs: string[];
 };
 
-export function CenteredProseSection({ title, paragraphs }: Props) {
+export function CenteredProseSection({ slug, title, paragraphs }: Props) {
+  const titleDotSrc = INSTITUTIONAL_TITLE_DOT_BY_SLUG[slug];
+
   return (
     <section className="relative w-full overflow-hidden bg-white px-6 py-20 lg:px-[min(15rem,12vw)] lg:py-[100px]">
       <div
@@ -15,7 +28,16 @@ export function CenteredProseSection({ title, paragraphs }: Props) {
         }}
       />
 
-      <div className="relative mx-auto flex w-full max-w-[804px] flex-col items-center gap-6 text-center lg:gap-6">
+      <Image
+        src={titleDotSrc}
+        alt=""
+        width={226}
+        height={225}
+        className="pointer-events-none absolute z-[1] h-[225.3955841064453px] w-[226.28517150878906px] -translate-y-1/2 translate-x-[22%] opacity-100 max-lg:top-[calc(5rem+1.35rem)] lg:top-[calc(100px+12.35rem)] lg:translate-x-[26%] -right-6 lg:-right-[min(3rem,12vw)]"
+        aria-hidden
+      />
+
+      <div className="relative z-[2] mx-auto flex w-full max-w-[804px] flex-col items-center gap-6 text-center lg:gap-6">
         <h2 className="font-heading text-4xl font-semibold leading-[1.33] tracking-[-0.04em] text-text-100">
           {title}
         </h2>

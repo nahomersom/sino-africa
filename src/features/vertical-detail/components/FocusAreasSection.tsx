@@ -4,8 +4,6 @@ import { cn } from "@/src/lib/utils";
 
 import type { FocusRow as FocusRowType } from "../types";
 
-const FOCUS_PATTERN_SRC = "/images/our-verticals/left-pattern.png";
-
 /** Focus row title + body stack (design: 434px wide, 21px gap). */
 const focusRowCopyStack = "flex w-full max-w-[434px] min-w-0 flex-col gap-[21px]";
 const focusRowCopyTitle =
@@ -26,6 +24,7 @@ type Props = {
   title: string;
   subtitle: string;
   rows: FocusRowType[];
+  patternSrc: string;
 };
 
 /** First focus row image mosaic: 449×511, staggered 212px columns, 25px gaps (design spec). */
@@ -37,26 +36,26 @@ function FocusGridTextImages({ gridImages }: { gridImages: [string, string, stri
         {[topLeft, rightTop, leftBottom, rightBottom].map((src, j) => (
           <div
             key={`${src}-${j}`}
-            className="relative aspect-square overflow-hidden rounded-lg bg-border-light shadow-sm"
+            className="relative aspect-square overflow-hidden rounded-lg"
           >
             <Image src={src} alt="" fill className="object-cover" sizes="(max-width: 1024px) 50vw, 240px" />
           </div>
         ))}
       </div>
-      <div className="relative hidden h-[511px] w-[449px] max-w-full shrink-0 overflow-hidden rounded-lg shadow-sm lg:flex lg:flex-row lg:gap-[25px]">
+      <div className="relative hidden h-[511px] w-[449px] max-w-full shrink-0 overflow-hidden rounded-lg lg:flex lg:flex-row lg:gap-[25px]">
         <div className="flex w-[212px] shrink-0 flex-col gap-[25px]">
-          <div className="relative h-[206px] w-[212px] shrink-0 overflow-hidden rounded-lg bg-border-light">
+          <div className="relative h-[206px] w-[212px] shrink-0 overflow-hidden rounded-lg">
             <Image src={topLeft} alt="" fill className="object-cover" sizes="212px" />
           </div>
-          <div className="relative h-[255px] w-[212px] shrink-0 overflow-hidden rounded-lg bg-border-light">
+          <div className="relative h-[255px] w-[212px] shrink-0 overflow-hidden rounded-lg">
             <Image src={leftBottom} alt="" fill className="object-cover" sizes="212px" />
           </div>
         </div>
         <div className="flex w-[212px] shrink-0 flex-col gap-[25px] pt-[25px]">
-          <div className="relative h-[255px] w-[212px] shrink-0 overflow-hidden rounded-lg bg-border-light">
+          <div className="relative h-[255px] w-[212px] shrink-0 overflow-hidden rounded-lg">
             <Image src={rightTop} alt="" fill className="object-cover" sizes="212px" />
           </div>
-          <div className="relative h-[206px] w-[212px] shrink-0 overflow-hidden rounded-lg bg-border-light">
+          <div className="relative h-[206px] w-[212px] shrink-0 overflow-hidden rounded-lg">
             <Image src={rightBottom} alt="" fill className="object-cover" sizes="212px" />
           </div>
         </div>
@@ -121,22 +120,12 @@ function FocusRowBlock({ row }: { row: FocusRowType }) {
   );
 }
 
-export function FocusAreasSection({ title, subtitle, rows }: Props) {
+export function FocusAreasSection({ title, subtitle, rows, patternSrc }: Props) {
   return (
-    <section className="relative w-full overflow-hidden py-20 lg:py-[100px]">
-      <div aria-hidden className="absolute inset-0 z-0 bg-white" />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 z-[1] w-[min(120px,32vw)] sm:w-[min(280px,42vw)] lg:w-[min(480px,50vw)]"
-      >
-        <Image
-          src={FOCUS_PATTERN_SRC}
-          alt=""
-          fill
-          className="object-cover object-right"
-          sizes="(max-width: 640px) 120px, (max-width: 1024px) 280px, 480px"
-        />
-      </div>
+    <section
+      className="relative isolate w-full overflow-hidden bg-white bg-[position:right_center] bg-no-repeat py-20 bg-[length:auto_72%] sm:bg-[length:auto_84%] lg:bg-[length:auto_100%] lg:py-[100px]"
+      style={{ backgroundImage: `url('${patternSrc}')` }}
+    >
       <div
         aria-hidden
         className="pointer-events-none absolute right-[-80px] top-1/2 z-[2] hidden h-[520px] w-[520px] -translate-y-1/2 rounded-full border border-border-light/80 opacity-40 lg:block"

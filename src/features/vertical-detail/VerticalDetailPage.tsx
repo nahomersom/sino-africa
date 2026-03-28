@@ -21,24 +21,30 @@ export function VerticalDetailPage({ content }: Props) {
           name={content.name}
           heroDescription={content.heroDescription}
           heroImageAlt={content.heroImageAlt}
+          theme={theme}
         />
-        <CenteredProseSection title={content.institutionalTitle} paragraphs={content.institutionalParagraphs} />
+        <CenteredProseSection
+          slug={content.slug}
+          title={content.institutionalTitle}
+          paragraphs={content.institutionalParagraphs}
+        />
         <FocusAreasSection
           title={content.focusIntroTitle}
           subtitle={content.focusIntroSubtitle}
           rows={content.focusRows}
+          patternSrc={theme.focusPatternSrc}
         />
         <PartnerCardsSection
           title={content.partnersTitle}
           subtitle={content.partnersSubtitle}
           partners={content.partners}
-          theme={theme}
         />
         <ContactSection
           heading={homeContent.contact.heading}
           description={content.contactSubtitle}
           buttonLabel={homeContent.contact.buttonLabel}
           variant="inner-page"
+          accentColor={theme.focusHeadingColor}
         />
       </main>
     </div>

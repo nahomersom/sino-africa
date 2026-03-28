@@ -1,7 +1,11 @@
 export type VerticalDetailSlug = "act-it" | "sino-sec" | "mobilitex";
 
 export type VerticalDetailTheme = {
+  /** Partner cards, hero logo tint, contact CTA accent */
   focusHeadingColor: string;
+  heroBgSrc: string;
+  heroImageSrc: string;
+  focusPatternSrc: string;
 };
 
 export type FocusRow =

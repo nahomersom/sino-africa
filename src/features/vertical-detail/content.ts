@@ -64,7 +64,10 @@ export const verticalDetailBySlug: Record<VerticalDetailSlug, VerticalDetailCont
     contactSubtitle:
       "Tell us about your environment and goals—we will route your message to the right practice lead.",
     theme: {
-      focusHeadingColor: "#0f3d2e",
+      focusHeadingColor: "#3FAF7E",
+      heroBgSrc: "/images/our-verticals/bg-green.png",
+      heroImageSrc: "/images/our-verticals/green-hero.png",
+      focusPatternSrc: "/images/our-verticals/green-pattern.png",
     },
   },
   "sino-sec": {
@@ -125,7 +128,10 @@ export const verticalDetailBySlug: Record<VerticalDetailSlug, VerticalDetailCont
     contactSubtitle:
       "Share your context in confidence—we will respond with a clear next step and the right subject-matter contact.",
     theme: {
-      focusHeadingColor: "#1a202c",
+      focusHeadingColor: "#4A5568",
+      heroBgSrc: "/images/our-verticals/bg-black.png",
+      heroImageSrc: "/images/our-verticals/black-hero.png",
+      focusPatternSrc: "/images/our-verticals/black-pattern.png",
     },
   },
   mobilitex: {
@@ -186,7 +192,10 @@ export const verticalDetailBySlug: Record<VerticalDetailSlug, VerticalDetailCont
     contactSubtitle:
       "Reach out with your corridor, fleet, or programme context—we will connect you with a mobililty lead.",
     theme: {
-      focusHeadingColor: "#0c2744",
+      focusHeadingColor: "#2F6FED",
+      heroBgSrc: "/images/our-verticals/bg-blue.png",
+      heroImageSrc: "/images/our-verticals/blue-hero.png",
+      focusPatternSrc: "/images/our-verticals/blue-pattern.png",
     },
   },
 };

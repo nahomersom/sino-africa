@@ -1,21 +1,26 @@
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import type { VerticalDetailContent } from "../types";
+import type { VerticalDetailContent, VerticalDetailTheme } from "../types";
 import { HeroWave } from "./HeroWave";
 
-const HERO_BG_SRC = "/images/our-verticals/BG.png";
-const HERO_RIGHT_SRC = "/images/our-verticals/detail-1-hero.png";
+const VERTICAL_LOGO_MASK_SRC = "/icons/vertical-cards-icon.png";
+const HERO_DOTS_SRC = "/images/our-verticals/hero-dots.png";
 const DOWN_ARROW_SRC = "/icons/down-arrow.svg";
 
-type Props = Pick<VerticalDetailContent, "name" | "heroDescription" | "heroImageAlt">;
+type Props = Pick<VerticalDetailContent, "name" | "heroDescription" | "heroImageAlt"> & {
+  theme: VerticalDetailTheme;
+};
 
-export function DetailHero({ name, heroDescription, heroImageAlt }: Props) {
+export function DetailHero({ name, heroDescription, heroImageAlt, theme }: Props) {
+  const { heroBgSrc, heroImageSrc } = theme;
+
   return (
     <section className="relative isolate flex w-full flex-col overflow-x-clip">
       <div className="relative order-0 z-0 mx-auto flex w-full flex-none shrink-0 grow-0 flex-col pb-10 pt-0 lg:mb-[-230px] lg:min-h-[953px] lg:pb-16">
         <Image
-          src={HERO_BG_SRC}
+          src={heroBgSrc}
           alt=""
           fill
           priority
@@ -29,7 +34,7 @@ export function DetailHero({ name, heroDescription, heroImageAlt }: Props) {
             <div className="flex min-w-0 w-full max-w-[596px] flex-1 flex-col justify-center gap-3 p-2 opacity-100 lg:min-h-[653px] ml-10">
               <Link
                 href="/our-verticals"
-                className="inline-flex w-fit items-center gap-2 text-sm font-medium text-white/85 transition hover:text-white"
+                className="inline-flex w-fit items-center gap-2 text-sm font-medium text-white transition hover:opacity-90"
               >
                 <span aria-hidden className="text-lg leading-none">
                   ←
@@ -38,30 +43,49 @@ export function DetailHero({ name, heroDescription, heroImageAlt }: Props) {
               </Link>
 
               <div className="flex flex-col gap-4 text-white lg:gap-4">
-                <Image
-                  src="/icons/vertical-cards-Icon.png"
-                  alt=""
-                  width={142}
-                  height={142}
-                  className="size-[142px]"
+                <div
+                  className="size-[142px] shrink-0"
+                  style={
+                    {
+                      backgroundColor: "#ffffff",
+                      maskImage: `url(${VERTICAL_LOGO_MASK_SRC})`,
+                      maskSize: "contain",
+                      maskRepeat: "no-repeat",
+                      maskPosition: "center",
+                      WebkitMaskImage: `url(${VERTICAL_LOGO_MASK_SRC})`,
+                      WebkitMaskSize: "contain",
+                      WebkitMaskRepeat: "no-repeat",
+                      WebkitMaskPosition: "center",
+                    } satisfies CSSProperties
+                  }
                 />
-                <h1 className="font-heading text-4xl font-bold leading-none tracking-[-0.033em] lg:text-[60px]">
+                <h1 className="font-heading text-4xl font-bold leading-none tracking-[-0.033em] text-white lg:text-[60px]">
                   {name}
                 </h1>
-                <p className="max-w-xl text-lg font-normal leading-normal tracking-[-0.011em] text-white/65">
+                <p className="max-w-xl text-lg font-normal leading-normal tracking-[-0.011em] text-white">
                   {heroDescription}
                 </p>
               </div>
             </div>
 
-            <div className="z-[2] mt-15 aspect-square w-full overflow-hidden rounded-[10px] lg:max-w-[685px] lg:translate-y-[clamp(2.25rem,1rem,1rem)]">
+            <div className="relative z-[2] mt-15 aspect-square w-full lg:max-w-[685px] lg:translate-y-[clamp(2.25rem,1rem,1rem)]">
               <Image
-                src={HERO_RIGHT_SRC}
-                alt={heroImageAlt}
-                fill
-                className="object-cover"
-                priority
+                src={HERO_DOTS_SRC}
+                alt=""
+                width={131}
+                height={104}
+                className="pointer-events-none absolute -right-5 -top-10 z-[1] h-auto w-[min(131px,30%)]"
+                aria-hidden
               />
+              <div className="relative z-[2] h-full w-full overflow-hidden rounded-[10px]">
+                <Image
+                  src={heroImageSrc}
+                  alt={heroImageAlt}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -76,7 +100,7 @@ export function DetailHero({ name, heroDescription, heroImageAlt }: Props) {
             alt=""
             width={42}
             height={42}
-            className="size-10"
+            className="size-10 brightness-0 invert"
           />
         </span>
       </div>

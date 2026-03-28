@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 
-import type { PartnerCard, VerticalDetailTheme } from "../types";
+import type { PartnerCard } from "../types";
 
 const PARTNER_ICON_SRC = "/icons/partner-icon.png";
 
@@ -8,10 +8,9 @@ type Props = {
   title: string;
   subtitle: string;
   partners: [PartnerCard, PartnerCard, PartnerCard];
-  theme: VerticalDetailTheme;
 };
 
-export function PartnerCardsSection({ title, subtitle, partners, theme }: Props) {
+export function PartnerCardsSection({ title, subtitle, partners }: Props) {
   return (
     <section className="w-full bg-white px-6 py-20 lg:px-[min(15rem,12vw)] lg:py-[100px]">
       <div className="mx-auto flex w-full max-w-[1248px] flex-col gap-14">
@@ -32,7 +31,7 @@ export function PartnerCardsSection({ title, subtitle, partners, theme }: Props)
                 className="size-[88px] shrink-0 opacity-100"
                 style={
                   {
-                    backgroundColor: theme.focusHeadingColor,
+                    backgroundColor: "#000000",
                     maskImage: `url(${PARTNER_ICON_SRC})`,
                     maskSize: "contain",
                     maskRepeat: "no-repeat",
