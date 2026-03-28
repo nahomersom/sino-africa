@@ -18,7 +18,7 @@ export function Nav() {
     <header className="w-full border-b border-zinc-200/80 bg-white dark:border-zinc-800 dark:bg-black">
       <div className="mx-auto w-full max-w-6xl px-4 py-3">
         <div className="flex items-center justify-between rounded-full border border-zinc-200/80 bg-white px-3 py-2 shadow-[0_8px_30px_rgba(15,23,42,0.08)] dark:border-zinc-800 dark:bg-zinc-950">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex cursor-pointer items-center gap-2">
             <Image src="/brand/logo-full.svg" alt="Sino Africa" width={126} height={24} priority />
           </Link>
 
@@ -30,7 +30,7 @@ export function Nav() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`rounded-full px-4 py-2 text-sm transition-colors ${
+                  className={`cursor-pointer rounded-full px-4 py-2 text-sm transition-colors ${
                     isActive
                       ? "bg-primary text-zinc-900"
                       : "text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-zinc-100"

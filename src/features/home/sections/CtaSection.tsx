@@ -18,7 +18,7 @@ export function CtaSection({ heading, text, buttonLabel }: CtaSectionProps) {
       </div>
       <Link
         href="/#contact"
-        className="rounded-full bg-primary px-5 py-3 text-sm font-medium text-zinc-900 transition-opacity hover:opacity-90"
+        className="cursor-pointer rounded-full bg-primary px-5 py-3 text-sm font-medium text-zinc-900 transition-opacity hover:opacity-90"
       >
         {buttonLabel}
       </Link>

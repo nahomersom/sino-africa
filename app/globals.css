@@ -27,14 +27,9 @@ body {
 }
 
 .verticals-pattern {
-  background-image: url("/images/verticals-pattern.png");
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-size: 1845px 1845px;
-  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.95), transparent 70%);
-  -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.95), transparent 70%);
-  mask-repeat: no-repeat;
-  -webkit-mask-repeat: no-repeat;
-  mask-size: 100% 100%;
-  -webkit-mask-size: 100% 100%;
+  background-color: #ffffff;
+  background-image: url("/images/our-verticals/verticals-section-pattern-tile.svg");
+  background-position: left top;
+  background-repeat: repeat;
+  background-size: 20% 20%;
 }
