@@ -10,10 +10,12 @@ const slugId: Record<string, string> = {
 export function VerticalsSection() {
   return (
     <section
-      className="relative w-full overflow-x-hidden bg-[#FFFFFF] bg-left-top bg-repeat"
+      className="relative w-full overflow-x-hidden"
       style={{
-        backgroundImage: "url(/images/our-verticals/verticals-section-pattern-tile.svg)",
+        backgroundColor: "#FFFFFF",
         backgroundSize: "20% 20%",
+        backgroundPosition: "left top",
+        backgroundRepeat: "repeat",
       }}
     >
       <div
