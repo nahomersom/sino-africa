@@ -1,10 +1,11 @@
-import { AboutPage } from "@/src/features/about";
+import { Nav } from "@/src/components/layout/Nav";
+import { AboutPage } from "@/src/features/about/AboutPage";
 
 export default function About() {
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-4 pb-10 pt-28">
+    <main className="flex w-full">
+      <Nav variant="inner-page" />
       <AboutPage />
     </main>
   );
 }
-
