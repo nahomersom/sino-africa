@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Button } from "@/src/components/ui/app-button";
+import { ContactSectionSideBackgrounds } from "@/src/components/ui/contact-section-side-bg";
 
 type ContactSectionProps = {
   heading: string;
@@ -19,7 +20,7 @@ export function ContactSection({
   return (
     <section
       id="contact"
-      className="relative flex w-full flex-col items-center gap-[49px] overflow-hidden bg-white px-6 py-20 md:px-20 md:py-[100px] lg:px-[240px] lg:py-[100px]"
+      className="relative flex w-full flex-col items-center gap-[49px] overflow-hidden bg-surface px-6 py-20 md:px-20 md:py-[100px] lg:px-[240px] lg:py-[100px]"
     >
       {variant === "home" && (
         <>
@@ -27,6 +28,8 @@ export function ContactSection({
           <div className="pointer-events-none absolute -left-[532px] top-[70px] size-[847px] rounded-full bg-primary/20 blur-[252px]" />
         </>
       )}
+
+      <ContactSectionSideBackgrounds />
 
       <Image
         src="/images/contact-icon.svg"

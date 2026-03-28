@@ -1,4 +1,6 @@
-import { ContactSection } from "./sections/ContactSection";
+import { homeContent } from "@/src/features/home/constants";
+import { ContactSection } from "@/src/features/home/sections/ContactSection";
+
 import { HeroSection } from "./sections/HeroSection";
 import { VerticalsSection } from "./sections/VerticalsSection";
 
@@ -8,7 +10,12 @@ export function OurVerticalsPage() {
       <main className="w-full min-w-0">
         <HeroSection />
         <VerticalsSection />
-        <ContactSection />
+        <ContactSection
+          heading={homeContent.contact.heading}
+          description={homeContent.contact.description}
+          buttonLabel={homeContent.contact.buttonLabel}
+          variant="inner-page"
+        />
       </main>
     </div>
   );

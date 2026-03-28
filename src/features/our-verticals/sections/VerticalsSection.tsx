@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { verticalItems } from "../constants";
 
 const slugId: Record<string, string> = {
@@ -64,10 +65,12 @@ export function VerticalsSection() {
         <div className="relative mx-auto w-full max-w-[1254px]">
           <div className="grid w-full grid-cols-1 gap-2 lg:auto-rows-[552px] lg:grid-cols-3">
             {verticalItems.map((item) => (
-              <article
+              <Link
                 key={item.title}
                 id={slugId[item.title] ?? undefined}
-                className={`${item.colorClass} flex w-full flex-col items-center justify-between rounded-[8px] px-16 py-10 lg:h-full lg:min-h-0`}
+                href={`/our-verticals/${slugId[item.title] ?? "#"}`}
+                aria-label={`${item.title}: read more`}
+                className={`${item.colorClass} flex w-full flex-col items-center justify-between rounded-[8px] px-16 py-10 transition hover:brightness-105 lg:h-full lg:min-h-0`}
               >
                 <div className="flex w-full shrink-0 flex-col items-center">
                   <div className="flex h-[142px] w-[142px] flex-col items-center justify-center">
@@ -97,11 +100,7 @@ export function VerticalsSection() {
                   </p>
                 </div>
 
-                <button
-                  type="button"
-                  className="flex w-full shrink-0 cursor-pointer items-center justify-center gap-4"
-                  aria-label={`${item.title} - Read more`}
-                >
+                <div className="flex w-full shrink-0 items-center justify-center gap-4">
                   <span
                     className="text-[17px] font-medium text-white"
                     style={{ letterSpacing: "-0.03529411904952105em", lineHeight: "1.8823529411764706em" }}
@@ -111,8 +110,8 @@ export function VerticalsSection() {
                   <span className="relative h-[10.4px] w-3 shrink-0">
                     <Image src={item.arrowSrc} alt="" fill sizes="12px" unoptimized />
                   </span>
-                </button>
-              </article>
+                </div>
+              </Link>
             ))}
           </div>
         </div>

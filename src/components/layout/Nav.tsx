@@ -47,9 +47,13 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
           <nav className="flex items-center gap-2">
             {navItems.map((item) => {
               const isActive =
-                item.href === "/" || item.href === "/about" || item.href === "/our-verticals"
-                  ? pathname === item.href
-                  : false;
+                item.href === "/"
+                  ? pathname === "/"
+                  : item.href === "/about"
+                    ? pathname === "/about"
+                    : item.href === "/our-verticals"
+                      ? pathname === "/our-verticals" || pathname.startsWith("/our-verticals/")
+                      : false;
 
               return (
                 <Link
