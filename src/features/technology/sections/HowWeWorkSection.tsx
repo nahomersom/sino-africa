@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export function HowWeWorkSection() {
   const steps = [
     {
@@ -25,8 +27,24 @@ export function HowWeWorkSection() {
 
   return (
     <section
-      className="flex w-full flex-col items-center bg-white h-auto pt-[40px] pb-[40px] px-[32px] gap-[40px] md:px-[80px] md:py-[40px] lg:h-[828px] lg:pt-[100px] lg:pb-[100px] lg:px-[464px] lg:gap-[40px]"
+      className="relative overflow-hidden flex w-full flex-col items-center bg-white h-auto pt-[40px] pb-[40px] px-[32px] gap-[40px] md:px-[80px] md:py-[40px] lg:h-[828px] lg:pt-[100px] lg:pb-[100px] lg:px-[464px] lg:gap-[40px]"
     >
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.04] hidden lg:block"
+        style={{
+          backgroundImage: "url('/images/sino-symbol-tile.svg')",
+          backgroundSize: "28px",
+          backgroundRepeat: "repeat",
+        }}
+      />
+      <Image
+        src="/images/partners/partner-dot-pattern.svg"
+        alt=""
+        aria-hidden="true"
+        width={123}
+        height={121}
+        className="pointer-events-none absolute bottom-4 -right-10 hidden select-none lg:block"
+      />
       {/* Header */}
       <div
         className="flex flex-col items-center text-center w-full max-w-[366px] gap-[16px] md:max-w-[677px] lg:max-w-none lg:w-[552px]"

@@ -1,6 +1,6 @@
 import { Footer } from "@/src/components/layout/Footer";
 import { Nav } from "@/src/components/layout/Nav";
-import { TechnologyHero, ChallengeSection, KeyDomainsSection, RoleSection, HowWeWorkSection, ContactSection } from "@/src/features/technology";
+import { TechnologyPage } from "@/src/features/technology";
 
 export default function Technology() {
   return (
@@ -8,15 +8,8 @@ export default function Technology() {
       <Nav />
 
       <main className="flex-1">
-        <TechnologyHero />
-        <ChallengeSection />
-        <KeyDomainsSection />
-        <RoleSection />
-        <HowWeWorkSection />
-        <ContactSection />
+        <TechnologyPage />
       </main>
-
-      <Footer />
     </div>
   );
 }

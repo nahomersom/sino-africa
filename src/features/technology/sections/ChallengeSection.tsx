@@ -1,12 +1,26 @@
-"use client";
-
 import Image from "next/image";
 
 export function ChallengeSection() {
   return (
     <section
-      className="flex w-full items-center justify-center bg-white flex-col lg:flex-row h-auto lg:h-[611px] pt-[40px] lg:pt-[152px] pb-[40px] px-[32px] md:px-[80px] lg:px-[237px] gap-[32px]"
+      className="relative overflow-hidden flex w-full items-center justify-center bg-white flex-col lg:flex-row h-auto lg:h-[611px] pt-[40px] lg:pt-[152px] pb-[40px] px-[32px] md:px-[80px] lg:px-[237px] gap-[32px]"
     >
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.04] hidden lg:block"
+        style={{
+          backgroundImage: "url('/images/sino-symbol-tile.svg')",
+          backgroundSize: "28px",
+          backgroundRepeat: "repeat",
+        }}
+      />
+      <Image
+        src="/images/partners/partner-dot-pattern.svg"
+        alt=""
+        aria-hidden="true"
+        width={123}
+        height={121}
+        className="pointer-events-none absolute bottom-4 -right-10 hidden select-none lg:block"
+      />
       {/* Top/Left side: Challenge heading and description */}
       <div
         className="flex flex-col w-[346px] h-auto lg:h-[290px] gap-[40px] lg:gap-0 items-center lg:items-start shrink-0"

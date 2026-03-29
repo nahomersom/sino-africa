@@ -7,6 +7,9 @@
   --text-100: #161c2d;
   --accent-60: #f6f7fb;
   --theme-secondary: #1a1919;
+  --muted: #5c606c;
+  --border-light: #e8e8e9;
+  --surface: #f4f7fa;
 }
 
 @theme inline {
@@ -16,6 +19,9 @@
   --color-text-100: var(--text-100);
   --color-accent-60: var(--accent-60);
   --color-theme-secondary: var(--theme-secondary);
+  --color-muted: var(--muted);
+  --color-border-light: var(--border-light);
+  --color-surface: var(--surface);
   --font-sans: var(--font-outfit);
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }

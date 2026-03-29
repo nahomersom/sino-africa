@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 
@@ -24,6 +22,22 @@ export function KeyDomainsSection() {
 
   return (
     <section className="relative flex flex-col items-center overflow-hidden bg-white w-full pt-10 px-8 pb-10 gap-[45px] md:py-10 md:px-20 md:gap-10 lg:pt-[152px] lg:pb-[140px] lg:px-[237px] lg:min-h-[961px] lg:gap-[45px]">
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.04] hidden lg:block"
+        style={{
+          backgroundImage: "url('/images/sino-symbol-tile.svg')",
+          backgroundSize: "28px",
+          backgroundRepeat: "repeat",
+        }}
+      />
+      <Image
+        src="/images/partners/partner-dot-pattern.svg"
+        alt=""
+        aria-hidden="true"
+        width={123}
+        height={121}
+        className="pointer-events-none absolute bottom-4 -right-10 hidden select-none lg:block"
+      />
       {/* Header Container */}
       <div className="flex flex-col items-center text-center w-full max-w-[366px] md:max-w-[677px] lg:max-w-[552px] gap-4">
         <h2 className="font-bold text-[#161C2D] text-[36px] lg:text-[32px] leading-[150%]">
@@ -76,19 +90,6 @@ export function KeyDomainsSection() {
         ))}
       </div>
 
-      {/* Decoration */}
-      <div
-        className="absolute bottom-[55px] right-[-35px] hidden lg:block"
-        style={{ width: "120px", height: "120px" }}
-      >
-        <Image
-          src="/assets/images/decoration.png"
-          alt="decoration"
-          width={80}
-          height={100}
-          className="object-contain w-[80px] h-[150px]"
-        />
-      </div>
     </section>
   );
 }

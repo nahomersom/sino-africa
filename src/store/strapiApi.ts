@@ -98,44 +98,64 @@ export type AboutPageAttributes = {
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
 
+// Normalize base URL (remove /api if present)
+const STRAPI_BASE_URL = STRAPI_URL?.replace(/\/api\/?$/, "");
+
 // Helper to resolve Strapi media URLs (relative or absolute)
 export function getStrapiMediaUrl(url: string | null | undefined): string {
   if (!url) return "";
   if (url.startsWith("http")) return url;
-  // Strip trailing slash from base, prepend to relative url
-  const base = STRAPI_URL ? STRAPI_URL.replace(/\/api\/?$/, "") : "";
+
+  const base = STRAPI_BASE_URL || "";
   return `${base}${url}`;
 }
 
 export const strapiApi = createApi({
   reducerPath: "strapiApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: STRAPI_URL || "",
+    // Ensures /api is appended exactly once
+    baseUrl: STRAPI_BASE_URL ? `${STRAPI_BASE_URL}/api` : "",
   }),
   endpoints: (builder) => ({
     // Legacy endpoints
-    getLandingPage: builder.query<StrapiEntity<LandingPageAttributes> | null, void>({
-      query: () => "landing-pages?populate=*&pagination[pageSize]=1",
-      transformResponse: (response: StrapiPagedResponse<LandingPageAttributes>) => {
+    getLandingPage: builder.query<
+      StrapiEntity<LandingPageAttributes> | null,
+      void
+    >({
+      query: () =>
+        "landing-pages?populate=*&pagination[pageSize]=1",
+      transformResponse: (
+        response: StrapiPagedResponse<LandingPageAttributes>
+      ) => {
         return response?.data?.[0] ?? null;
       },
     }),
-    getAboutPage: builder.query<StrapiEntity<AboutPageAttributes> | null, void>({
-      query: () => "about-pages?populate=*&pagination[pageSize]=1",
-      transformResponse: (response: StrapiPagedResponse<AboutPageAttributes>) => {
+
+    getAboutPage: builder.query<
+      StrapiEntity<AboutPageAttributes> | null,
+      void
+    >({
+      query: () =>
+        "about-pages?populate=*&pagination[pageSize]=1",
+      transformResponse: (
+        response: StrapiPagedResponse<AboutPageAttributes>
+      ) => {
         return response?.data?.[0] ?? null;
       },
     }),
 
     // Blog endpoints
     getBlogs: builder.query<Blog[], void>({
-      query: () => "blogs?populate=*&pagination[pageSize]=100",
+      query: () =>
+        "blogs?populate=*&pagination[pageSize]=100",
       transformResponse: (response: StrapiBlogsResponse) => {
         return response?.data ?? [];
       },
     }),
+
     getBlogByDocumentId: builder.query<Blog | null, string>({
-      query: (documentId) => `blogs/${documentId}?populate=*`,
+      query: (documentId) =>
+        `blogs/${documentId}?populate=*`,
       transformResponse: (response: StrapiBlogResponse) => {
         return response?.data ?? null;
       },

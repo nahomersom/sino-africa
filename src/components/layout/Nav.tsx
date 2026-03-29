@@ -3,44 +3,60 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Button } from "../ui/app-button";
 
 const navItems = [
   { label: "Home", href: "/" },
   { label: "About us", href: "/about" },
+  { label: "Our Verticals", href: "/#platforms" },
+  { label: "Projects", href: "/#contact" },
   { label: "Technology and Infrastructure", href: "/technology" },
   { label: "Blogs", href: "/blogs" },
-  { label: "Platforms", href: "/#platforms" },
-  { label: "Contact", href: "/#contact" },
 ];
 
-export function Nav() {
+type NavVariant = "default" | "inner-page";
+
+type NavProps = {
+  variant?: NavVariant;
+  className?: string;
+};
+
+export function Nav({ variant = "default", className = "" }: NavProps) {
   const pathname = usePathname();
 
   return (
-    <header className="w-full border-b border-zinc-200/80 bg-white">
-      <div className="mx-auto w-full max-w-[1254px] px-4 lg:px-0 py-3">
-        <div className="flex items-center justify-between rounded-full border border-zinc-200/80 bg-white px-3 py-2 shadow-[0_8px_30px_rgba(15,23,42,0.08)]">
+    <header className={`fixed inset-x-0 top-0 z-30 w-full ${className}`}>
+      <div className="mx-auto w-full max-w-[1252px] px-4 pt-8">
+        <div
+          className={`flex items-center justify-between rounded-[32px] bg-white/80 p-4 backdrop-blur-[32px] ${variant === "default"
+            ? "shadow-[0_8px_30px_rgba(15,23,42,0.2)]"
+            : "shadow-[0_4px_20px_rgba(15,23,42,0.08)]"
+            }`}
+        >
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/brand/logo-full.svg" alt="Sino Africa" width={126} height={24} priority />
+            <Image
+              src="/brand/logo.svg"
+              alt="Sino Africa"
+              width={142.5}
+              height={53.8}
+              priority
+            />
           </Link>
 
-          <nav className="flex items-center gap-1">
+          <nav className="flex items-center gap-2">
             {navItems.map((item) => {
               const isActive =
-                item.href === "/" || 
-                item.href === "/about" || 
-                item.href === "/technology" || 
-                item.href === "/blogs"
-                  ? pathname === item.href
-                  : false;
+                item.href === "/"
+                  ? pathname === "/"
+                  : item.href !== "#" && !item.href.startsWith("/#") && pathname.startsWith(item.href);
 
               return (
                 <Link
-                  key={item.href}
+                  key={`${item.label}-${item.href}`}
                   href={item.href}
-                  className={`rounded-full px-4 py-2 text-sm transition-colors ${isActive
-                    ? "bg-primary text-zinc-900"
-                    : "text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900"
+                  className={`px-2 py-3 text-sm transition-colors ${isActive
+                    ? "font-medium text-primary"
+                    : "font-normal text-text-100"
                     }`}
                 >
                   {item.label}
@@ -49,12 +65,11 @@ export function Nav() {
             })}
           </nav>
 
-          <div className="hidden items-center gap-2 text-xs text-zinc-600 md:flex">
-            <span className="h-2 w-2 rounded-full bg-primary" />
-            <span>sinoafricatrading.com</span>
-          </div>
-        </div>
-      </div>
-    </header>
+          <Button asChild variant="primary" className="min-w-[142px]">
+            <Link href="/#contact">Contact us</Link>
+          </Button>
+        </div >
+      </div >
+    </header >
   );
 }

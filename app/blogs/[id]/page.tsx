@@ -9,10 +9,9 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
 
   return (
-    <>
+    <main className="flex min-h-screen flex-col bg-white mt-28">
       <Nav />
       <BlogDetailPage id={id} />
-      <Footer />
-    </>
+    </main>
   );
 }

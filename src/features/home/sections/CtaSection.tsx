@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button } from "@/src/components/ui/app-button";
 
 type CtaSectionProps = {
   heading: string;
@@ -8,20 +9,26 @@ type CtaSectionProps = {
 
 export function CtaSection({ heading, text, buttonLabel }: CtaSectionProps) {
   return (
-    <section
-      id="platforms"
-      className="flex w-full items-center justify-between gap-6 rounded-3xl border border-zinc-200 bg-white p-8"
-    >
-      <div className="flex flex-col gap-2">
-        <h2 className="text-2xl font-semibold tracking-tight text-zinc-900">{heading}</h2>
-        <p className="max-w-2xl text-sm leading-6 text-zinc-600">{text}</p>
+    <section className="w-full bg-surface px-6 pb-16 md:px-20 md:pb-20 lg:px-[279px] lg:pb-[76px]">
+      <div className="w-full max-w-[962px] border-t border-[#E7E9ED] pt-10 lg:pt-12">
+        <div className="flex flex-col items-start gap-8 md:items-center md:gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-12">
+          <div className="flex w-full max-w-[589px] flex-col md:items-center lg:items-start">
+            <h2 className="text-2xl font-medium tracking-tight text-text-100 md:text-[32px] md:leading-[48px] md:tracking-[-0.03125em] md:text-center lg:text-left">
+              {heading}
+            </h2>
+            <p className="text-base font-light leading-6 text-muted md:text-center lg:text-left">{text}</p>
+          </div>
+          <Button
+            asChild
+            variant="primary"
+            className="shrink-0 rounded-[23px] p-6 text-base font-bold"
+          >
+            <Link href="/#contact" className="font-(family-name:--font-nata-sans) font-bold ">
+              {buttonLabel}
+            </Link>
+          </Button>
+        </div>
       </div>
-      <Link
-        href="/#contact"
-        className="rounded-full bg-primary px-5 py-3 text-sm font-medium text-zinc-900 transition-opacity hover:opacity-90"
-      >
-        {buttonLabel}
-      </Link>
     </section>
   );
 }
