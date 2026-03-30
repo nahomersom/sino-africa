@@ -1,4 +1,4 @@
-import Image from "next/image";
+
 
 export function HowWeWorkSection() {
   const steps = [
@@ -44,14 +44,14 @@ export function HowWeWorkSection() {
           backgroundRepeat: "repeat",
         }}
       />
-      <Image
+      {/* <Image
         src="/images/partners/partner-dot-pattern.svg"
         alt=""
         aria-hidden="true"
         width={123}
         height={121}
         className="pointer-events-none absolute bottom-4 -right-10 hidden select-none lg:block"
-      />
+      /> */}
 
       {/* Header */}
       <div
@@ -67,7 +67,7 @@ export function HowWeWorkSection() {
           How We Work
         </h2>
         <p
-          className="font-normal text-[#161C2D] w-full"
+          className="font-normal text-[#161C2D] w-full max-w-[382px] mx-auto"
           style={{
             fontSize: "18px",
             lineHeight: "150%",

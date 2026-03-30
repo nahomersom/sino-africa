@@ -31,12 +31,12 @@ export function KeyDomainsSection() {
         }}
       />
       <Image
-        src="/images/partners/partner-dot-pattern.svg"
+        src="/assets/images/decoration.png"
         alt=""
         aria-hidden="true"
-        width={123}
-        height={121}
-        className="pointer-events-none absolute bottom-4 -right-10 hidden select-none lg:block"
+        width={80}
+        height={120}
+        className="pointer-events-none absolute bottom-15 right-0 hidden select-none lg:block w-[75px]"
       />
       {/* Header Container */}
       <div className="flex flex-col items-center text-center w-full max-w-[366px] md:max-w-[677px] lg:max-w-[552px] gap-4">
