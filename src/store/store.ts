@@ -6,7 +6,10 @@ export const store = configureStore({
     [strapiApi.reducerPath]: strapiApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(strapiApi.middleware),
+    getDefaultMiddleware({
+      immutableCheck: false,
+      serializableCheck: false,
+    }).concat(strapiApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

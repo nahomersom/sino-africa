@@ -26,9 +26,9 @@ const navItems: readonly NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About us", href: "/about" },
   { label: "Our Verticals", href: "/#platforms", children: verticalSubLinks },
-  { label: "Projects", href: "/projects" },
-  { label: "Technology and Infrastructure", href: "/#contact" },
-  { label: "Blogs", href: "/#contact" },
+  { label: "Projects", href: "/#contact" },
+  { label: "Technology and Infrastructure", href: "/technology" },
+  { label: "Blogs", href: "/blogs" },
 ];
 
 /** Figma node 6:2281 "Backdrop" — effect_V9Q2NO */
@@ -72,22 +72,21 @@ function NavSubLinkRow({
         {label}
       </span>
       <svg
-                    width="14"
-                    height="12"
-                    viewBox="0 0 14 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M1 6H13M13 6L8 1M13 6L8 11"
-                      className={`transition-all duration-300 ${
-                         "stroke-[#1A1919]"
-                      }`}
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+        width="14"
+        height="12"
+        viewBox="0 0 14 12"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M1 6H13M13 6L8 1M13 6L8 11"
+          className={`transition-all duration-300 ${"stroke-[#1A1919]"
+            }`}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
     </Link>
   );
 }
@@ -116,11 +115,10 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
     <header className={`fixed inset-x-0 top-0 z-30 w-full ${className}`}>
       <div className="mx-auto w-full max-w-[1252px] px-8 py-6 lg:px-4 lg:pt-8 lg:pb-0">
         <div
-          className={`flex items-center justify-between lg:rounded-[32px] lg:p-4 lg:backdrop-blur-[32px] ${
-            variant === "default"
-              ? "lg:bg-white/80 lg:shadow-[0_8px_30px_rgba(15,23,42,0.2)]"
-              : "lg:bg-white/80 lg:shadow-[0_4px_20px_rgba(15,23,42,0.08)]"
-          }`}
+          className={`flex items-center justify-between lg:rounded-[32px] lg:p-4 lg:backdrop-blur-[32px] ${variant === "default"
+            ? "lg:bg-white/80 lg:shadow-[0_8px_30px_rgba(15,23,42,0.2)]"
+            : "lg:bg-white/80 lg:shadow-[0_4px_20px_rgba(15,23,42,0.08)]"
+            }`}
         >
           <Link href="/" className="flex shrink-0 items-center gap-2">
             {variant === "default" ? (
@@ -178,9 +176,9 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
           <nav className="hidden items-center gap-2 lg:flex" aria-label="Main">
             {navItems.map((item) => {
               const isActive =
-                item.href === "/" || item.href === "/about" || item.href === "/projects"
-                  ? pathname === item.href
-                  : false;
+                item.href === "/"
+                  ? pathname === "/"
+                  : item.href !== "#" && !item.href.startsWith("/#") && pathname.startsWith(item.href);
 
               if (item.children?.length) {
                 return (
@@ -197,7 +195,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
                       aria-haspopup="menu"
                     >
                       {item.label}
-                     
+
                     </button>
                     <div
                       role="menu"
@@ -229,11 +227,10 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
                 <Link
                   key={`${item.label}-${item.href}`}
                   href={item.href}
-                  className={`px-2 py-3 text-sm transition-colors ${
-                    isActive
-                      ? "font-medium text-primary"
-                      : "font-normal text-text-100"
-                  }`}
+                  className={`px-2 py-3 text-sm transition-colors ${isActive
+                    ? "font-medium text-primary"
+                    : "font-normal text-text-100"
+                    }`}
                 >
                   {item.label}
                 </Link>
@@ -286,7 +283,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
             >
               {navItems.map((item) => {
                 const isActive =
-                  item.href === "/" || item.href === "/about" || item.href === "/projects"
+                  item.href === "/" || item.href === "/about"
                     ? pathname === item.href
                     : false;
 

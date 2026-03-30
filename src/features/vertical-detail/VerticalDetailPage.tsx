@@ -44,7 +44,6 @@ export function VerticalDetailPage({ content }: Props) {
           description={content.contactSubtitle}
           buttonLabel={homeContent.contact.buttonLabel}
           variant="inner-page"
-          accentColor={theme.focusHeadingColor}
         />
       </main>
     </div>
