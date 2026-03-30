@@ -5,6 +5,7 @@ import { BlogDetailHero } from "./sections/BlogDetailHero";
 import { BlogContent } from "./sections/BlogContent";
 import { SharingSidebar } from "./sections/SharingSidebar";
 import { AllBlogs } from "./sections/AllBlogs";
+import { ErrorState } from "@/src/components/ui/ErrorState";
 
 interface BlogDetailPageProps {
   id: string;
@@ -13,7 +14,7 @@ interface BlogDetailPageProps {
 const placeholderImage = "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071&auto=format&fit=crop";
 
 export function BlogDetailPage({ id }: BlogDetailPageProps) {
-  const { data: blog, isLoading } = useGetBlogByDocumentIdQuery(id);
+  const { data: blog, isLoading, isError, refetch } = useGetBlogByDocumentIdQuery(id);
 
   if (isLoading) {
     return (
@@ -35,10 +36,22 @@ export function BlogDetailPage({ id }: BlogDetailPageProps) {
     );
   }
 
+  if (isError) {
+    return (
+      <main className="flex min-h-screen flex-col items-center justify-center p-4">
+        <ErrorState onRetry={refetch} />
+      </main>
+    );
+  }
+
   if (!blog) {
     return (
-      <main className="flex min-h-screen flex-col items-center justify-center">
-        <h1 className="text-[24px] font-semibold text-[#161C2D]">Blog not found</h1>
+      <main className="flex min-h-screen flex-col items-center justify-center p-4">
+        <ErrorState
+          title="Blog not found"
+          message="The blog post you're looking for doesn't exist or has been removed."
+          onRetry={() => window.history.back()}
+        />
       </main>
     );
   }

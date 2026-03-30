@@ -2,6 +2,12 @@ export const aboutContent = {
   hero: {
     label: "ABOUT US",
     heading: "We empower growth by connecting global markets and unlocking new opportunities.",
+    /** Photo collage slots — artboard 1236×611 (Figma); dot grid is `hero-dots.svg` */
+    images: {
+      center: "/images/about/hero-photo-0.jpg",
+      left: "/images/about/hero-photo-2.png",
+      right: "/images/about/hero-photo-1.jpg",
+    },
     description:
       "Lorem ipsum dolor sit amet consectetur. Nunc euismod consectetur arcu nunc etiam lobortis montes enim. Ut risus neque lectus donec id pretium orci platea habitant. Sed placerat varius id curabitur ut arcu. Vitae congue.",
   },

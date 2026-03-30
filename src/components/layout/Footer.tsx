@@ -39,7 +39,7 @@ const footerLinks = {
 export function Footer() {
   return (
     <footer className="w-full bg-theme-secondary">
-      <div className="mx-auto flex w-full flex-col justify-between gap-12 px-6 py-16 md:px-16 lg:flex-row lg:px-36 lg:py-20">
+      <div className="mx-auto flex w-full flex-col justify-between gap-12 px-8 py-10 md:px-16 lg:flex-row lg:px-36 lg:py-20">
         <div className="flex max-w-md flex-col gap-9">
           <Image
             src="/brand/whiteLogo.svg"

@@ -4,6 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useGetBlogsQuery, Blog, getStrapiMediaUrl } from "@/src/store/strapiApi";
+import { ErrorState } from "@/src/components/ui/ErrorState";
 
 interface BlogCardProps {
   slug: string;
@@ -89,7 +90,7 @@ function getBlogImage(blog: Blog): string {
 
 export function BlogHero() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const { data: blogs = [], isLoading } = useGetBlogsQuery();
+  const { data: blogs = [], isLoading, isError, refetch } = useGetBlogsQuery();
 
   const featuredBlogs = blogs.filter((blog) => blog.isFeatured);
 
@@ -128,6 +129,10 @@ export function BlogHero() {
             Array.from({ length: 3 }).map((_, index) => (
               <div key={index} className="shrink-0 w-[366px] md:w-[326px] lg:w-[615px] h-[446px] lg:h-[485px] rounded-[16px] bg-gray-200 animate-pulse" />
             ))
+          ) : isError ? (
+            <div className="w-full">
+              <ErrorState onRetry={refetch} />
+            </div>
           ) : featuredBlogs.length > 0 ? (
             featuredBlogs.map((blog) => (
               <BlogCard

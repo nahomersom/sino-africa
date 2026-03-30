@@ -23,7 +23,7 @@ export function PartnersSection({
   logos,
 }: PartnersSectionProps) {
   return (
-    <section className="relative flex w-full flex-col items-center gap-20 overflow-hidden bg-white px-6 py-20 md:gap-10 md:px-20 md:py-20 lg:gap-20 lg:px-60 lg:py-40">
+    <section className="relative flex w-full flex-col items-center gap-[90px] overflow-hidden bg-white px-8 py-10 md:gap-10 md:px-20 md:py-20 lg:gap-20 lg:px-60 lg:py-40">
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.04]"
         style={{
@@ -41,10 +41,10 @@ export function PartnersSection({
         className="pointer-events-none absolute bottom-4 -right-10 hidden select-none lg:block"
       />
       <div className="flex flex-col items-center gap-4">
-        <h2 className="text-center text-4xl font-semibold tracking-tight text-text-100">
+        <h2 className="text-center font-(family-name:--font-nata-sans) text-[36px] font-semibold leading-[1.4] tracking-[-0.04em] text-text-100 md:text-4xl md:tracking-tight">
           {heading}
         </h2>
-        <p className="max-w-2xl text-center text-lg leading-7 text-muted">
+        <p className="max-w-2xl text-center text-base font-light leading-7 text-muted md:text-lg">
           {description}
         </p>
       </div>

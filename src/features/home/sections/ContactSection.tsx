@@ -19,12 +19,12 @@ export function ContactSection({
   return (
     <section
       id="contact"
-      className="relative flex w-full flex-col items-center gap-[49px] overflow-hidden bg-white px-6 py-20 md:px-20 md:py-[100px] lg:px-[240px] lg:py-[100px]"
+      className="relative flex w-full flex-col items-center gap-[49px] overflow-hidden bg-white px-8 py-10 md:px-20 md:py-[100px] lg:px-[240px] lg:py-[100px]"
     >
       {variant === "home" && (
         <>
-          <div className="pointer-events-none absolute right-[-532px] top-[2px] size-[847px] rounded-full bg-primary/20 blur-[252px]" />
-          <div className="pointer-events-none absolute -left-[532px] top-[70px] size-[847px] rounded-full bg-primary/20 blur-[252px]" />
+          <div className="pointer-events-none absolute right-[-532px] top-[2px] size-[847px] rounded-full bg-primary/20 blur-[252px] hidden lg:block" />
+          <div className="pointer-events-none absolute -left-[532px] top-[70px] size-[847px] rounded-full bg-primary/20 blur-[252px] hidden lg:block" />
         </>
       )}
 
@@ -40,7 +40,7 @@ export function ContactSection({
         <h2 className="text-center font-(family-name:--font-nata-sans) text-[36px] font-semibold leading-[1.4] tracking-[-0.04em] text-text-100">
           {heading}
         </h2>
-        <p className="max-w-[502px] text-center text-lg font-light leading-[1.5] tracking-[-0.011em] text-muted">
+        <p className="max-w-[502px] text-center text-base font-light leading-[1.5] tracking-[-0.0125em] text-muted md:text-lg md:tracking-[-0.011em]">
           {description}
         </p>
       </div>

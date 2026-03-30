@@ -1,8 +1,7 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { useGetBlogsQuery, getStrapiMediaUrl, Blog } from "@/src/store/strapiApi";
+import { ErrorState } from "@/src/components/ui/ErrorState";
 
 interface RecentBlogCardProps {
   slug: string;
@@ -56,7 +55,7 @@ function getBlogImage(blog: Blog): string {
 }
 
 export function RecentBlogs() {
-  const { data: allBlogs = [], isLoading } = useGetBlogsQuery();
+  const { data: allBlogs = [], isLoading, isError, refetch } = useGetBlogsQuery();
 
   // Sort by publishedDate descending (most recent first) and take top 6
   const blogs = [...allBlogs]
@@ -77,12 +76,13 @@ export function RecentBlogs() {
               <div key={index} className="h-[360px] rounded-[16px] bg-gray-200 animate-pulse" />
             ))}
           </div>
+        ) : isError ? (
+          <ErrorState onRetry={refetch} />
         ) : (
           <>
-            {/* =========================================
+            {/* 
                 DESKTOP VIEW (1024px and up)
-                Original grid layout, 360px height
-            ========================================= */}
+             */}
             <div className="hidden lg:flex flex-col gap-[8px]">
               {/* Row 1 - Custom Alignment (487px, 375.5px, 375.5px) */}
               <div className="grid gap-[8px] w-full" style={{ gridTemplateColumns: '487px 1fr 1fr' }}>
@@ -117,7 +117,6 @@ export function RecentBlogs() {
 
             {/* =========================================
                 TABLET & MOBILE VIEW (Below 1024px)
-                Responsive grid, 326px fill width, 240px fixed height
             ========================================= */}
             <div className="grid lg:hidden grid-cols-1 md:grid-cols-[repeat(auto-fill,minmax(326px,1fr))] gap-[8px] w-full">
               {blogs.map((blog) => (

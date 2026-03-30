@@ -1,11 +1,17 @@
 "use client";
 
+import { motion, type Transition } from "framer-motion";
 import { useState } from "react";
 import Image from "next/image";
 import {
   StaggerContainer,
   StaggerItem,
 } from "@/src/components/ui/scroll-reveal";
+import {
+  VERTICALS_ELLIPSE_TOP_PX_BY_GRADIENT,
+  VERTICALS_REFERENCE_ELLIPSES,
+} from "@/src/lib/verticals-reference-ellipses";
+
 
 type VerticalItem = {
   name: string;
@@ -24,30 +30,63 @@ const GRADIENTS = [
   "linear-gradient(180deg, rgba(30, 77, 183, 1) 1%, rgba(47, 111, 237, 1) 100%)",
 ];
 
+/** Per-layer motion when gradient changes — duration, delay, easing differ by ellipse */
+const VERTICALS_ELLIPSE_TRANSITIONS: readonly Transition[] = [
+  { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
+  { duration: 0.65, delay: 0.06, ease: "easeOut" },
+  { duration: 0.55, delay: 0.14, ease: [0.33, 1, 0.68, 1] },
+];
+
+/** Title entrance per vertical (Figma): x & z from top→bottom, y from bottom→top */
+const VERTICALS_TITLE_ENTRANCE = [
+  { initial: { opacity: 0, y: -100 }, animate: { opacity: 1, y: 0 } },
+  { initial: { opacity: 0, y: 100 }, animate: { opacity: 1, y: 0 } },
+  { initial: { opacity: 0, y: -100 }, animate: { opacity: 1, y: 0 } },
+] as const;
+
+const VERTICALS_TITLE_TRANSITIONS: readonly Transition[] = [
+  { duration: 0.5, ease: "easeOut" },
+  { duration: 0.5, ease: "easeOut" },
+  { duration: 0.5, ease: "easeOut" },
+];
+
 export function VerticalsSection({
   label,
   description,
   items,
 }: VerticalsSectionProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const titleEntrance =
+    VERTICALS_TITLE_ENTRANCE[activeIndex] ?? VERTICALS_TITLE_ENTRANCE[0];
+  const titleTransition =
+    VERTICALS_TITLE_TRANSITIONS[activeIndex] ?? VERTICALS_TITLE_TRANSITIONS[0];
 
   return (
     <section
-      className="relative flex min-h-[1009px] w-full flex-col gap-4 overflow-hidden px-6 py-16 transition-all duration-500 md:px-20 md:py-20 lg:px-[286px] lg:pb-16 lg:pt-[160px]"
+      id="platforms"
+      className="relative flex h-screen max-w-screen w-full flex-col gap-4 overflow-hidden px-8 py-20 transition-all duration-500 md:px-20 md:py-20 lg:px-[286px] lg:pb-16 lg:pt-[160px]"
       style={{ background: GRADIENTS[activeIndex] }}
     >
-      {/* Pattern overlay */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.07]"
-        style={{
-          backgroundImage: "url(/images/sino-symbol-tile.svg)",
-          backgroundSize: "28px 28px",
-          backgroundRepeat: "repeat",
-        }}
-      />
+{VERTICALS_REFERENCE_ELLIPSES.map((ellipse, i) => {
+        const topPx = VERTICALS_ELLIPSE_TOP_PX_BY_GRADIENT[activeIndex][i];
+        const fill = `rgba(255, 255, 255, ${ellipse.opacity / 100})`;
+        return (
+          <motion.div
+            key={i}
+            initial={false}
+            className="pointer-events-none absolute left-1/2 -translate-x-1/2 rounded-full"
+            animate={{ top: topPx, width: ellipse.w, height: ellipse.h, backgroundColor: fill }}
+            transition={VERTICALS_ELLIPSE_TRANSITIONS[i]}
+            aria-hidden
+          />
+        );
+      })}
+
+      {/* Pattern overlay — subtle so 6:2077 circles read clearly */}
+      
 
       {/* Leading */}
-      <div className="relative flex flex-1 flex-col items-center justify-center gap-6">
+      <div className="relative z-10 flex flex-1 flex-col items-center justify-center gap-6">
         <span className="rounded-[40px] bg-white px-4 py-2 text-base leading-[1.5] text-text-100">
           {label}
         </span>
@@ -63,9 +102,15 @@ export function VerticalsSection({
         </div>
 
         <div className="flex flex-col items-center gap-2">
-          <span className="text-center text-4xl font-black leading-[1.4] text-white md:text-[56px] lg:text-[56px]">
+          <motion.div
+            key={activeIndex}
+            initial={titleEntrance.initial}
+            animate={titleEntrance.animate}
+            transition={titleTransition}
+            className="text-center text-4xl font-black leading-[1.4] text-white md:text-[56px] lg:text-[56px]"
+          >
             {items[activeIndex]?.name}
-          </span>
+          </motion.div>
 
           <p className="max-w-[444px] text-center text-base leading-[1.5] text-white">
             {description}
@@ -74,7 +119,7 @@ export function VerticalsSection({
       </div>
 
       {/* Cards row */}
-      <StaggerContainer className="relative flex w-full flex-col gap-2 lg:flex-row" stagger={0.15}>
+      <StaggerContainer className="relative z-10 flex w-full flex-col gap-2 lg:flex-row" stagger={0.15}>
         {items.map((item, i) => {
           const isActive = i === activeIndex;
           return (
@@ -82,25 +127,19 @@ export function VerticalsSection({
               <div
                 onMouseEnter={() => setActiveIndex(i)}
                 className={`flex cursor-pointer items-center gap-4 p-4 backdrop-blur-[20px] transition-all duration-300 ${
-                  isActive
-                    ? "rounded-[32px] bg-white/[0.22]"
-                    : "rounded-2xl bg-accent-60"
+                   "rounded-2xl bg-accent-60"
                 }`}
               >
                 {/* Card icon */}
                 <div
-                  className={`flex size-[77px] shrink-0 items-center justify-center rounded-lg transition-colors duration-300 ${
-                    isActive ? "bg-white/20" : ""
-                  }`}
+                  className={`flex size-[77px] shrink-0 items-center justify-center rounded-lg transition-colors duration-300`}
                 >
                   <Image
                     src="/images/home/verticals-brand-icon.png"
                     alt=""
                     width={77}
                     height={37}
-                    className={`h-auto w-full object-contain transition-all duration-300 ${
-                      isActive ? "brightness-0 invert" : ""
-                    }`}
+                    className={`h-auto w-full object-contain transition-all duration-300 `}
                   />
                 </div>
 
@@ -108,7 +147,7 @@ export function VerticalsSection({
                 <div className="flex flex-1 flex-col gap-1.5">
                   <h3
                     className={`text-2xl font-medium leading-[1.2] transition-colors duration-300 ${
-                      isActive ? "text-white" : "text-text-100"
+                      "text-text-100"
                     }`}
                   >
                     {item.name}
@@ -116,7 +155,7 @@ export function VerticalsSection({
                   <div className="py-2">
                     <span
                       className={`text-xs font-light leading-[1.5] transition-colors duration-300 ${
-                        isActive ? "text-white" : "text-text-100"
+                        "text-text-100"
                       }`}
                     >
                       {item.subtitle}
@@ -127,7 +166,7 @@ export function VerticalsSection({
                 {/* Arrow button */}
                 <div
                   className={`flex shrink-0 items-center justify-center rounded-full p-4 transition-colors duration-300 ${
-                    isActive ? "bg-white/20" : "bg-[#F2F2F2]"
+                    "bg-[#F2F2F2]"
                   }`}
                 >
                   <svg
@@ -140,7 +179,7 @@ export function VerticalsSection({
                     <path
                       d="M1 6H13M13 6L8 1M13 6L8 11"
                       className={`transition-all duration-300 ${
-                        isActive ? "stroke-white" : "stroke-[#1A1919]"
+                         "stroke-[#1A1919]"
                       }`}
                       strokeWidth="1.5"
                       strokeLinecap="round"

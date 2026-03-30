@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useGetBlogsQuery, Blog, getStrapiMediaUrl } from "@/src/store/strapiApi";
+import { ErrorState } from "@/src/components/ui/ErrorState";
 
 interface AllBlogCardProps {
   slug: string;
@@ -53,7 +54,7 @@ function getBlogImage(blog: Blog): string {
 }
 
 export function AllBlogs({ showTitle = true }: { showTitle?: boolean }) {
-  const { data: blogs = [], isLoading } = useGetBlogsQuery();
+  const { data: blogs = [], isLoading, isError, refetch } = useGetBlogsQuery();
 
   return (
     <section className="w-full bg-white py-[16px]">
@@ -79,6 +80,8 @@ export function AllBlogs({ showTitle = true }: { showTitle?: boolean }) {
                 </div>
               ))}
             </div>
+          ) : isError ? (
+            <ErrorState onRetry={refetch} />
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-[16px]">
               {blogs.map((blog) => (
