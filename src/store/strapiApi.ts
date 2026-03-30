@@ -96,6 +96,20 @@ export type AboutPageAttributes = {
   body?: string;
 };
 
+export type ContactSubmission = {
+  name: string;
+  title: string;
+  email: string;
+  phone: string;
+  message: string;
+  locale?: string;
+  localizations?: (string | number)[];
+};
+
+export type ContactSubmissionRequest = {
+  data: ContactSubmission;
+};
+
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
 
 // Normalize base URL (remove /api if present)
@@ -160,6 +174,17 @@ export const strapiApi = createApi({
         return response?.data ?? null;
       },
     }),
+
+    createContactSubmission: builder.mutation<
+      void,
+      ContactSubmissionRequest
+    >({
+      query: (body) => ({
+        url: "contact-submissions",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -168,4 +193,5 @@ export const {
   useGetAboutPageQuery,
   useGetBlogsQuery,
   useGetBlogByDocumentIdQuery,
+  useCreateContactSubmissionMutation,
 } = strapiApi;

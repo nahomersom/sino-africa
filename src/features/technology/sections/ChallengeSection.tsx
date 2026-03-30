@@ -3,7 +3,7 @@ import Image from "next/image";
 export function ChallengeSection() {
   return (
     <section
-      className="relative overflow-hidden flex w-full items-center justify-center bg-white flex-col lg:flex-row h-auto lg:h-[611px] pt-[40px] lg:pt-[152px] pb-[40px] px-[32px] md:px-[80px] lg:px-[237px] gap-[32px]"
+      className="relative overflow-hidden flex w-full max-w-[1728px] mx-auto items-center justify-center bg-white flex-col lg:flex-row h-auto lg:h-[996px] pt-[40px] lg:pt-[152px] pb-[40px] px-[32px] md:px-[80px] lg:px-[237px] gap-[32px]"
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.04] hidden lg:block"
@@ -21,31 +21,31 @@ export function ChallengeSection() {
         height={121}
         className="pointer-events-none absolute bottom-4 -right-10 hidden select-none lg:block"
       />
+
       {/* Top/Left side: Challenge heading and description */}
       <div
-        className="flex flex-col w-[346px] h-auto lg:h-[290px] gap-[40px] lg:gap-0 items-center lg:items-start shrink-0"
+        className="flex flex-col w-full md:max-w-[677px] lg:flex-1 lg:max-w-[346px] h-auto lg:h-[804px] gap-[40px] lg:gap-0 lg:justify-center items-center lg:items-start shrink text-center lg:text-left"
       >
         <h2
-          className="font-bold text-[#161C2D] text-[32px] leading-[44px] tracking-[-1.2px] text-center lg:text-left lg:mb-[24px]"
+          className="font-bold text-[#161C2D] text-[32px] leading-[44px] tracking-[-1.2px] lg:mb-[24px]"
         >
           The Challenge
         </h2>
 
         <div
-          className="flex flex-col gap-6 text-[16px] leading-[150%] tracking-[-0.2px] font-normal text-[#5C606C] text-center lg:text-left"
+          className="flex flex-col gap-6 text-[16px] leading-[150%] tracking-[-0.2px] font-normal text-[#5C606C]"
         >
           <p>
-            Lorem ipsum dolor sit amet consectetur. Bibendum at non ut consequat dictum ut libero. Faucibus sapien amet pretium etiam neque est.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur. Bibendum at non ut consequat dictum ut libero. Faucibus sapien amet pretium etiam neque est.
+            Africa’s infrastructure faces a persistent gap, where technology exists but disciplined execution is lacking.
+            Fragmented deployments with weak accountability and reactive maintenance cause integration failures, compliance gaps, and unsustainable systems.
+            Dense regulatory environments compound institutional risk, eroding trust and limiting population access to essential services.
           </p>
         </div>
       </div>
 
       {/* Center Image */}
       <div
-        className="relative overflow-hidden w-[366px] md:w-[677px] lg:w-[308px] h-[419px] rounded-[8px] lg:rounded-[12px] shrink-0"
+        className="relative overflow-hidden w-full max-w-[530px] md:max-w-[677px] lg:max-w-[530px] lg:w-[530px] lg:flex-1 h-[400px] md:h-[419px] lg:h-[804px] rounded-[8px] shrink-0"
       >
         <Image
           src="/assets/images/centerimage.png"
@@ -57,25 +57,33 @@ export function ChallengeSection() {
 
       {/* Bottom/Right side: Challenge points */}
       <div
-        className="flex flex-col md:flex-row lg:flex-col w-[314px] md:w-[677px] lg:w-[314px] h-auto lg:min-h-[374px] gap-[24px] lg:gap-[28px] shrink-0"
+        className="flex flex-col md:grid md:grid-cols-2 lg:flex lg:flex-col w-full md:max-w-[677px] lg:max-w-[314px] lg:w-[314px] lg:flex-1 h-auto lg:h-[804px] lg:justify-between gap-[24px] lg:gap-0 shrink-0"
       >
         {[
           {
-            title: "Challenge #1",
-            description: "Lorem ipsum dolor sit amet consectetur. Vestibulum sed purus."
+            title: "Industry Challenge",
+            description: "Technology exists, but disciplined execution is lacking."
           },
           {
-            title: "Challenge #1",
-            description: "Lorem ipsum dolor sit amet consectetur. Quam massa diam."
+            title: "Fragmented Delivery",
+            description: "Multiple vendors operate without end-to-end accountability, causing integration failures and compliance gaps."
           },
           {
-            title: "Challenge #1",
-            description: "Lorem ipsum dolor sit amet consectetur. Lacus cras metus."
+            title: "Regulatory Complexity",
+            description: "Complex governance frameworks are often mismanaged, creating institutional risk."
+          },
+          {
+            title: "Lifecycle Neglect",
+            description: "Deployment is treated as completion; maintenance is reactive, leading to system degradation."
+          },
+          {
+            title: "Consequence",
+            description: "Fragmented execution and weak accountability result in failed systems, eroded trust, and reduced access to essential services."
           }
         ].map((item, index) => (
           <div
             key={index}
-            className="flex flex-col gap-[8px] items-start text-left md:flex-1"
+            className="flex flex-col gap-[8px] items-start text-left"
           >
             <h3
               className="font-semibold text-[#161C2D] text-[24px] leading-[150%] tracking-[-1.2px] text-left"
@@ -83,7 +91,7 @@ export function ChallengeSection() {
               {item.title}
             </h3>
             <p
-              className="font-light text-[#5C606C] text-[18px] leading-[150%] tracking-[-0.2px] text-center md:text-left"
+              className="font-light text-[#5C606C] text-[18px] leading-[150%] tracking-[-0.2px] text-center lg:text-left"
             >
               {item.description}
             </p>

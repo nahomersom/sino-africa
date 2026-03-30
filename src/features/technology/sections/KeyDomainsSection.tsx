@@ -5,17 +5,17 @@ export function KeyDomainsSection() {
   const cards = [
     {
       title: "ACT IT",
-      description: "Lorem ipsum dolor sit amet consectetur. Molestie metus lectus eleifend interdum aenean id et. Auctor amet ut at non.",
+      description: "Provides financial transaction rails and payment infrastructure for mobility platforms and identity-linked disbursements.",
       color: "#3FAF7E",
     },
     {
       title: "SINO SEC",
-      description: "Lorem ipsum dolor sit amet consectetur. Pretium lacus non hendrerit aliquam. Tincidunt pellentesque tincidunt ut quam.",
+      description: "Delivers foundational identity services, including verification, biometric authentication, and secure data infrastructure for financial and mobility systems.",
       color: "#4A5568",
     },
     {
       title: "MOBILITEX",
-      description: "Lorem ipsum dolor sit amet consectetur. Pellentesque vel vulputate sed sollicitudin risus eget morbi. Id vitae est ut amet.",
+      description: "Offers physical transport and mobility platforms, including logistics infrastructure, network management, and operational support for mobility services.",
       color: "#2F6FED",
     },
   ];
@@ -43,8 +43,8 @@ export function KeyDomainsSection() {
         <h2 className="font-bold text-[#161C2D] text-[36px] lg:text-[32px] leading-[150%]">
           Key Infrastructure Domains
         </h2>
-        <p className="font-normal text-[#5C606C] text-[18px] lg:text-[16px] leading-[150%] w-full lg:w-[382px] mx-auto">
-          Lorem ipsum dolor sit amet consectetur. Elit eget mauris sed diam urna.
+        <p className="font-normal text-[#5C606C] text-[18px] lg:text-[18px] leading-[150%] w-full lg:w-[552px] mx-auto">
+          Our verticals operate with specialized focus but shared architecture. They maintain distinct execution mandates while enabling seamless integration. They deliver discrete systems that function as unified infrastructure.
         </p>
       </div>
 

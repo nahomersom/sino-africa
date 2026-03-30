@@ -10,13 +10,15 @@ export function TechnologyHero() {
 
         {/* Text Content */}
         <div className="flex min-h-[177px] w-full max-w-[366px] flex-col items-center gap-[18px] text-center md:min-h-[218px] md:min-w-[324px] md:max-w-[324px] md:items-start md:text-left lg:min-h-[230px] lg:max-w-[511.6px]">
-          <h1 className="text-[46px] text-center font-semibold leading-[56px] tracking-[-1px] text-[#161C2D] lg:text-[48px] lg:leading-[58px] lg:tracking-[-1.8px]">
+          <h1 className="text-[13px] text-center text-[#64C294] font-semibold leading-[56px] lg:text-[13px] lg:text-left">
+            Technology and infrastructure
+          </h1>
+          <h1 className="text-[46px] text-center font-semibold leading-[56px] tracking-[-1px] text-[#161C2D] lg:text-[48px] lg:leading-[58px] lg:tracking-[-1.8px] lg:text-left">
             Technology and Infrastructure
           </h1>
-          <p className="text-[14px] text-center font-normal leading-[24px] tracking-[-0.2px] text-[#676D80] lg:text-[19px] lg:leading-[32px]">
-            Lorem ipsum dolor sit amet consectetur. Nunc nec dolor sed justo.
-            Sodales bibendum vitae pellentesque consectetur adipiscing sit.
-            Pretium sit elementum sagittis cursus. Sed.
+          <p className="text-[14px] text-center font-normal leading-[24px] tracking-[-0.2px] text-[#676D80] lg:text-[19px] lg:leading-[32px] lg:text-left">
+            Global technology reaches Africa. But disciplined, end-to-end execution does not follow.
+            Sino Africa closes the gap owning delivery from integration to long-term continuity.
           </p>
         </div>
 

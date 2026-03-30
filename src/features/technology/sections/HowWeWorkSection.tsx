@@ -5,29 +5,36 @@ export function HowWeWorkSection() {
     {
       number: 1,
       color: "#F64B4B",
-      title: "Lorem",
+      title: "We Assess",
       description:
-        "Lorem ipsum dolor sit amet consectetur. Commodo ut elit pretium facilisis vel mus lobortis.",
+        "We enter only where regulatory clarity exists and failure carries consequence. No grey areas. No speculative opportunities.",
     },
     {
       number: 2,
       color: "#68D585",
-      title: "Lorem ipsum dolor",
+      title: "We Design",
       description:
-        "Lorem ipsum dolor sit amet consectetur. Diam ac urna iaculis at morbi tellus. Massa et leo.",
+        "We architect systems with integration, compliance, and long-term continuity built in not added later.",
     },
     {
       number: 3,
       color: "#473BF0",
-      title: "Lorem ipsum",
+      title: "We Deploy",
       description:
-        "Lorem ipsum dolor sit amet consectetur. Tellus amet duis convallis volutpat pharetra sit.",
+        "We execute with single-party accountability, bridging global technology with local institutional environments.",
+    },
+    {
+      number: 4,
+      color: "#64C294",
+      title: "We Sustain",
+      description:
+        "Deployment is the beginning. We maintain, support, and upgrade across the lifecycle. We do not depart.",
     },
   ];
 
   return (
     <section
-      className="relative overflow-hidden flex w-full flex-col items-center bg-white h-auto pt-[40px] pb-[40px] px-[32px] gap-[40px] md:px-[80px] md:py-[40px] lg:h-[828px] lg:pt-[100px] lg:pb-[100px] lg:px-[464px] lg:gap-[40px]"
+      className="relative overflow-hidden flex w-full max-w-[1728px] mx-auto flex-col items-center bg-white h-auto pt-[40px] pb-[40px] px-[32px] gap-[40px] md:px-[80px] md:py-[40px] lg:min-h-[828px] lg:pt-[100px] lg:pb-[100px] lg:px-[80px] xl:px-[188px] lg:gap-[40px]"
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.04] hidden lg:block"
@@ -45,9 +52,10 @@ export function HowWeWorkSection() {
         height={121}
         className="pointer-events-none absolute bottom-4 -right-10 hidden select-none lg:block"
       />
+
       {/* Header */}
       <div
-        className="flex flex-col items-center text-center w-full max-w-[366px] gap-[16px] md:max-w-[677px] lg:max-w-none lg:w-[552px]"
+        className="flex flex-col items-center text-center w-full max-w-[366px] gap-[16px] md:max-w-[677px] lg:max-w-[552px]"
       >
         <h2
           className="font-normal text-[#161C2D]"
@@ -59,7 +67,7 @@ export function HowWeWorkSection() {
           How We Work
         </h2>
         <p
-          className="font-normal text-[#161C2D] w-full md:max-w-[677px] lg:w-[382px] mx-auto"
+          className="font-normal text-[#161C2D] w-full"
           style={{
             fontSize: "18px",
             lineHeight: "150%",
@@ -72,10 +80,9 @@ export function HowWeWorkSection() {
 
       {/* Steps Container */}
       <div
-        className="relative flex flex-col md:flex-row justify-between items-center md:items-start w-full max-w-[353px] mt-0 gap-[8px] md:max-w-[677px] lg:max-w-none lg:w-[1009px] lg:mt-[100px] lg:gap-0 lg:items-center"
+        className="relative flex flex-col md:flex-row justify-between items-center md:items-start w-full max-w-[353px] mt-0 gap-[8px] md:max-w-[677px] lg:max-w-[1352px] h-auto lg:min-h-[261px] lg:mt-[100px] lg:gap-[32px] lg:items-start"
       >
         {/* Horizontal Dashed Line (Tablet & Desktop) */}
-        {/* Adjusted top position: 20px for 40px circles on tab, 36.5px for 73px circles on desktop */}
         <div
           className="hidden md:block absolute left-[12%] right-[12%] top-[20px] lg:top-[36.5px] border-t-2 border-dashed border-[#E2E4E8] z-0"
         />
@@ -83,7 +90,7 @@ export function HowWeWorkSection() {
         {steps.map((step, index) => [
           <div
             key={`step-${index}`}
-            className="z-10 flex flex-col items-center text-center w-full gap-[24px] md:gap-[8px] lg:gap-[24px] md:flex-1 lg:flex-none lg:w-[252px]"
+            className="z-10 flex flex-col items-center text-center w-full gap-[24px] md:gap-[8px] lg:gap-[24px] md:flex-1 lg:flex-1"
           >
             {/* Number Circle */}
             <div
@@ -96,7 +103,7 @@ export function HowWeWorkSection() {
             </div>
 
             {/* Content */}
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full max-w-[280px]">
               <h3
                 className="font-semibold text-[#161C2D]"
                 style={{ fontSize: "21px", lineHeight: "150%" }}
