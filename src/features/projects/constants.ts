@@ -92,6 +92,40 @@ export const projectsContent = {
       },
     ] satisfies ProjectCard[],
   },
+  detail: {
+    /** Eyebrow above the project title (detail page hero). */
+    heroBadge: "OUR PROJECT",
+    sharedWhatWeDid: [
+      "Discovery workshops with leadership and field teams",
+      "Architecture and integration planning across core systems",
+      "Implementation, testing, and staged rollout with training",
+      "Hypercare, KPI reviews, and continuous optimisation",
+    ] as const,
+    sharedTechnologies: [
+      "Cloud-native services and API gateways",
+      "Identity, access management, and encryption standards",
+      "Observability, logging, and automated alerting",
+      "Data pipelines and governed reporting layers",
+      "Secure CI/CD and infrastructure-as-code",
+    ] as const,
+    sharedClient: "Sino Africa delivery team with regional enterprise partners",
+    sharedOverview:
+      "Lorem ipsum dolor sit amet consectetur. Auctor quisque accumsan eu facilisis pharetra quisque. Nibh egestas dictum scelerisque ullamcorper id. Risus netus tellus leo pulvinar pellentesque diam pretium gravida. A lacus nec augue nunc accumsan posuere. Imperdiet massa molestie metus lectus sed orci augue nec nam.",
+    sharedChallenges:
+      "Lorem ipsum dolor sit amet consectetur. Cum commodo fermentum orci ultrices vitae. Porttitor aliquet a egestas tincidunt senectus enim tincidunt cras nulla. Fermentum pretium nunc molestie fusce amet vulputate diam sit tempor. Sed blandit et at tristique magna cras tortor viverra nibh. Felis orci egestas tincidunt nunc senectus imperdiet.",
+    sharedResults:
+      "Lorem ipsum dolor sit amet consectetur. Scelerisque mauris dui sit orci nam. Enim et nunc lacus purus adipiscing venenatis cras. Vel odio aliquet est integer molestie in feugiat consectetur pellentesque. Dolor consectetur nisl ut pellentesque sem orci mauris viverra in. Sollicitudin id ullamcorper enim purus eu massa erat nunc pellentesque.",
+    heroTail:
+      " We aligned stakeholders on scope, de-risked delivery milestones, and focused on adoption so outcomes stick after go-live.",
+    gallery: [
+      { src: "/images/about/hero-photo-0.jpg", alt: "Project environment" },
+      { src: "/images/about/hero-photo-1.jpg", alt: "Field perspective" },
+      { src: "/images/about/hero-photo-2.png", alt: "Program delivery" },
+      { src: "/images/hero-background.jpg", alt: "Regional landscape" },
+      { src: "/images/about/hero-photo-1.jpg", alt: "Operations overview" },
+      { src: "/images/about/hero-photo-0.jpg", alt: "Stakeholder alignment" },
+    ] as const,
+  },
   contact: {
     heading: "Get In Touch with us",
     description:
@@ -99,3 +133,64 @@ export const projectsContent = {
     buttonLabel: "Contact us",
   },
 } as const;
+
+export type ProjectDetail = {
+  slug: string;
+  title: string;
+  heroDescription: string;
+  heroImageSrc: string;
+  heroImageAlt: string;
+  whatWeDid: readonly string[];
+  technologies: readonly string[];
+  client: string;
+  overview: string;
+  challenges: string;
+  results: string;
+  gallery: readonly { src: string; alt: string }[];
+};
+
+const d = projectsContent.detail;
+
+/** Long-form copy overrides per card; imagery and titles come from the grid card. */
+const projectDetailExtras: Partial<
+  Record<
+    string,
+    {
+      heroDescription?: string;
+      whatWeDid?: readonly string[];
+      technologies?: readonly string[];
+      client?: string;
+      overview?: string;
+      challenges?: string;
+      results?: string;
+      gallery?: readonly { src: string; alt: string }[];
+    }
+  >
+> = {};
+
+export function getProjectDetail(slug: string): ProjectDetail | undefined {
+  const card = projectsContent.grid.items.find((item) => item.id === slug);
+  if (!card) return undefined;
+
+  const extra = projectDetailExtras[slug] ?? {};
+
+  return {
+    slug,
+    title: card.title,
+    heroDescription:
+      extra.heroDescription ?? `${card.description}${d.heroTail}`,
+    heroImageSrc: card.imageSrc,
+    heroImageAlt: card.imageAlt,
+    whatWeDid: extra.whatWeDid ?? d.sharedWhatWeDid,
+    technologies: extra.technologies ?? d.sharedTechnologies,
+    client: extra.client ?? d.sharedClient,
+    overview: extra.overview ?? d.sharedOverview,
+    challenges: extra.challenges ?? d.sharedChallenges,
+    results: extra.results ?? d.sharedResults,
+    gallery: extra.gallery ?? d.gallery,
+  };
+}
+
+export function getAllProjectDetailSlugs(): string[] {
+  return projectsContent.grid.items.map((item) => item.id);
+}

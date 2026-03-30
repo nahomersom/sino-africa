@@ -9,6 +9,7 @@ import { ProjectsPatternBackdrop } from "@/src/features/projects/components/Proj
 import type { ProjectCard, ProjectFilterId } from "../constants";
 import { projectFilterTabs } from "../constants";
 import Image from "next/image";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 type ProjectsGridSectionProps = {
@@ -26,7 +27,7 @@ export function ProjectsGridSection({ heading, intro, items }: ProjectsGridSecti
   }, [items, activeFilter]);
 
   return (
-    <section className="relative w-full overflow-hidden px-8 pb-14 pt-8 md:px-20 md:pb-[100px] md:pt-10 lg:px-[120px] lg:pb-[100px] lg:pt-12">
+    <section className="relative mt-8 w-full overflow-hidden px-8 pb-14 pt-8 md:mt-10 md:px-20 md:pb-[100px] md:pt-10 lg:mt-12 lg:px-[120px] lg:pb-[100px] lg:pt-12">
       <ProjectsPatternBackdrop />
 
       <div className="relative z-[1] mx-auto mt-8 flex w-full max-w-[1200px] flex-col gap-10 md:mt-10 lg:mt-14 lg:gap-14">
@@ -75,26 +76,31 @@ export function ProjectsGridSection({ heading, intro, items }: ProjectsGridSecti
         >
           {filteredItems.map((project) => (
             <StaggerItem key={project.id}>
-              <article className="flex h-full flex-col gap-4 rounded-[24px] border border-[#E7E9ED] border-[2px] bg-transparent p-3 md:gap-5 md:p-4">
-                <div className="relative aspect-[319.33331298828125/313] w-full shrink-0 overflow-hidden rounded-[10px] bg-transparent">
-                  <Image
-                    src={project.imageSrc}
-                    alt={project.imageAlt}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                </div>
+              <Link
+                href={`/projects/${project.id}`}
+                className="flex h-full flex-col rounded-[24px] border border-[#E7E9ED] border-[2px] bg-transparent p-3 transition-colors hover:border-primary/40 hover:bg-white/60 md:gap-5 md:p-4"
+              >
+                <article className="flex h-full flex-col gap-4 md:gap-5">
+                  <div className="relative aspect-[319.33331298828125/313] w-full shrink-0 overflow-hidden rounded-[10px] bg-transparent">
+                    <Image
+                      src={project.imageSrc}
+                      alt={project.imageAlt}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                  </div>
 
-                <div className="flex min-h-0 flex-1 flex-col gap-2">
-                  <h3 className="font-(family-name:--font-nata-sans) text-xl font-semibold leading-snug tracking-[-0.03em] text-text-100 md:text-[22px]">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm font-light leading-[1.55] tracking-[-0.01em] text-muted md:text-[15px]">
-                    {project.description}
-                  </p>
-                </div>
-              </article>
+                  <div className="flex min-h-0 flex-1 flex-col gap-2">
+                    <h3 className="font-(family-name:--font-nata-sans) text-xl font-semibold leading-snug tracking-[-0.03em] text-text-100 md:text-[22px]">
+                      {project.title}
+                    </h3>
+                    <p className="text-sm font-light leading-[1.55] tracking-[-0.01em] text-muted md:text-[15px]">
+                      {project.description}
+                    </p>
+                  </div>
+                </article>
+              </Link>
             </StaggerItem>
           ))}
         </StaggerContainer>
