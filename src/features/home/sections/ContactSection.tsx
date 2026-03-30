@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Button } from "@/src/components/ui/app-button";
 import { ContactSectionSideBackgrounds } from "@/src/components/ui/contact-section-side-bg";
+import { ContactBadgeIcon } from "@/src/components/icons/ContactBadgeIcon";
 
 type ContactSectionProps = {
   heading: string;
@@ -37,11 +38,9 @@ export function ContactSection({
 
       {variant === "inner-page" && <ContactSectionSideBackgrounds />}
 
-      <Image
-        src="/images/contact-icon.svg"
-        alt=""
-        width={78}
-        height={78}
+      <ContactBadgeIcon
+        size={78}
+        backgroundColor={accentColor}
         className="relative z-10"
       />
 
