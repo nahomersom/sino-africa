@@ -17,9 +17,9 @@ type NavItem = {
 };
 
 const verticalSubLinks: readonly NavSubLink[] = [
-  { label: "Act IT", href: "/#platforms" },
-  { label: "SINO Sec", href: "/#platforms" },
-  { label: "Mobilitex", href: "/#platforms" },
+  { label: "Act IT", href: "/our-verticals/act-it" },
+  { label: "SINO Sec", href: "/our-verticals/sino-sec" },
+  { label: "Mobilitex", href: "/our-verticals/mobilitex" },
 ];
 
 const navItems: readonly NavItem[] = [
@@ -31,7 +31,6 @@ const navItems: readonly NavItem[] = [
   { label: "Blogs", href: "/#contact" },
 ];
 
-/** Figma node 6:2281 "Backdrop" — effect_V9Q2NO */
 const SUBMENU_BACKDROP_SHADOW =
   "0px 4px 8px 0px rgba(71, 71, 71, 0.1), 0px 15px 15px 0px rgba(71, 71, 71, 0.09), 0px 33px 20px 0px rgba(71, 71, 71, 0.05), 0px 58px 23px 0px rgba(71, 71, 71, 0.01), 0px 91px 26px 0px rgba(71, 71, 71, 0)";
 

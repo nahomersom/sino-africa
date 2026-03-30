@@ -3,6 +3,7 @@ import {
   StaggerContainer,
   StaggerItem,
 } from "@/src/components/ui/scroll-reveal";
+import { EmailIcon } from "@/src/components/icons/EmailIcon";
 
 type ContactInfoItem = {
   icon: string;
@@ -12,9 +13,17 @@ type ContactInfoItem = {
 
 type ContactInfoSectionProps = {
   items: readonly ContactInfoItem[];
+  accentColor?: string;
+  emailIconBackgroundColor?: string;
 };
 
-export function ContactInfoSection({ items }: ContactInfoSectionProps) {
+const EMAIL_ICON_SRC = "/images/contact/email-icon.svg";
+
+export function ContactInfoSection({
+  items,
+  accentColor,
+  emailIconBackgroundColor,
+}: ContactInfoSectionProps) {
   return (
     <section className="flex w-full flex-col items-center px-6 pt-40 pb-12 md:px-16 lg:px-60">
       <StaggerContainer
@@ -25,13 +34,22 @@ export function ContactInfoSection({ items }: ContactInfoSectionProps) {
         {items.map((item) => (
           <StaggerItem key={item.title}>
             <div className="flex items-start gap-5">
-              <Image
-                src={item.icon}
-                alt=""
-                width={54}
-                height={54}
-                className="shrink-0"
-              />
+              {item.icon === EMAIL_ICON_SRC ? (
+                <EmailIcon
+                  size={54}
+                  color={accentColor}
+                  backgroundColor={emailIconBackgroundColor}
+                  className="shrink-0"
+                />
+              ) : (
+                <Image
+                  src={item.icon}
+                  alt=""
+                  width={54}
+                  height={54}
+                  className="shrink-0"
+                />
+              )}
               <div className="flex flex-col gap-3">
                 <h3 className="text-2xl font-normal tracking-tight text-text-100">
                   {item.title}
