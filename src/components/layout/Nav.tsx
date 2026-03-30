@@ -26,7 +26,7 @@ const navItems: readonly NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About us", href: "/about" },
   { label: "Our Verticals", href: "/#platforms", children: verticalSubLinks },
-  { label: "Projects", href: "/#contact" },
+  { label: "Projects", href: "/projects" },
   { label: "Technology and Infrastructure", href: "/#contact" },
   { label: "Blogs", href: "/#contact" },
 ];
@@ -178,7 +178,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
           <nav className="hidden items-center gap-2 lg:flex" aria-label="Main">
             {navItems.map((item) => {
               const isActive =
-                item.href === "/" || item.href === "/about"
+                item.href === "/" || item.href === "/about" || item.href === "/projects"
                   ? pathname === item.href
                   : false;
 
@@ -286,7 +286,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
             >
               {navItems.map((item) => {
                 const isActive =
-                  item.href === "/" || item.href === "/about"
+                  item.href === "/" || item.href === "/about" || item.href === "/projects"
                     ? pathname === item.href
                     : false;
 
