@@ -53,7 +53,7 @@ export function KeyDomainsSection() {
         {cards.map((card, index) => (
           <div
             key={index}
-            className="flex flex-col items-center justify-center text-center rounded-[8px] pt-10 pb-10 px-16 gap-[45px] h-[491.35px] md:w-[220px] md:h-[459px] md:py-6 md:px-4 md:gap-10 lg:flex-1 lg:h-[552px] lg:py-10 lg:px-16 lg:gap-[45px]"
+            className="flex flex-col items-center justify-center text-center rounded-[8px] pt-10 pb-10 px-16 gap-[45px] h-[491.35px] md:w-[220px] md:h-[459px] md:py-6 md:px-4 md:gap-10 lg:flex-1 lg:h-[552px] lg:py-10 lg:px-16 lg:gap-[45px] z-50"
             style={{ backgroundColor: card.color }}
           >
             {/* Icon */}
