@@ -13,14 +13,14 @@ export function ChallengeSection() {
           backgroundRepeat: "repeat",
         }}
       />
-      <Image
+      {/* <Image
         src="/images/partners/partner-dot-pattern.svg"
         alt=""
         aria-hidden="true"
         width={123}
         height={121}
         className="pointer-events-none absolute bottom-4 -right-10 hidden select-none lg:block"
-      />
+      /> */}
 
       {/* Top/Left side: Challenge heading and description */}
       <div
