@@ -1,6 +1,8 @@
 import { ScrollReveal } from "@/src/components/ui/scroll-reveal";
+import { homeContent } from "@/src/features/home/constants";
+import { ContactSection } from "@/src/features/home/sections/ContactSection";
+
 import { contactContent } from "./constants";
-import { ContactFormSection } from "./sections/ContactFormSection";
 import { ContactInfoSection } from "./sections/ContactInfoSection";
 
 export function ContactPage() {
@@ -10,10 +12,11 @@ export function ContactPage() {
         <ContactInfoSection items={contactContent.info} />
       </ScrollReveal>
       <ScrollReveal>
-        <ContactFormSection
-          heading={contactContent.form.heading}
-          description={contactContent.form.description}
-          buttonLabel={contactContent.form.buttonLabel}
+        <ContactSection
+          heading={homeContent.contact.heading}
+          description={homeContent.contact.description}
+          buttonLabel={homeContent.contact.buttonLabel}
+          variant="inner-page"
         />
       </ScrollReveal>
     </div>

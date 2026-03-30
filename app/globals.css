@@ -9,6 +9,7 @@
   --theme-secondary: #1a1919;
   --muted: #5c606c;
   --border-light: #e8e8e9;
+  --border-card: #e7e9ed;
   --surface: #f4f7fa;
 }
 
@@ -21,8 +22,10 @@
   --color-theme-secondary: var(--theme-secondary);
   --color-muted: var(--muted);
   --color-border-light: var(--border-light);
+  --color-border-card: var(--border-card);
   --color-surface: var(--surface);
   --font-sans: var(--font-outfit);
+  --font-heading: var(--font-nata-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
