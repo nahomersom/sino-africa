@@ -11,7 +11,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative w-full min-h-screen overflow-hidden bg-black/40 flex items-between justify-center">
+    <section className="relative flex min-h-[971px] w-full flex-col justify-center overflow-hidden bg-black/40 md:min-h-screen">
       <Image
         src="/images/hero-background.jpg"
         alt="Sino Africa hero background"
@@ -26,13 +26,13 @@ export function HeroSection() {
       />
 
       <motion.div
-        className="z-10 flex flex-col items-center justify-center gap-4 px-6 md:px-10 lg:px-0 max-w-[574px]"
+        className="z-10 mx-auto flex w-full max-w-[574px] flex-col items-center justify-center gap-4 px-8 py-12 md:px-10 lg:px-0"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <motion.span
-          className="text-[13px] text-primary"
+          className="text-[13px] font-normal leading-[1.26] tracking-[0.125em] text-[#68D585] md:text-primary"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
@@ -40,7 +40,7 @@ export function HeroSection() {
           SINO AFRICA
         </motion.span>
         <motion.h1
-          className="text-[100px] leading-[100px] text-white tracking-[-2px]"
+          className="text-center text-[64px] font-normal leading-none tracking-[-0.03125em] text-white md:text-[100px] md:leading-[100px] md:tracking-[-2px]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.7, ease: "easeOut" }}
@@ -48,7 +48,7 @@ export function HeroSection() {
           Sino Africa
         </motion.h1>
         <motion.p
-          className="text-center text-2xl font-normal leading-[150%] tracking-[-1px] text-white"
+          className="text-center text-base font-normal leading-6 tracking-[-0.0625em] text-white md:text-2xl md:leading-[150%] md:tracking-[-1px]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.7, ease: "easeOut" }}
@@ -56,15 +56,23 @@ export function HeroSection() {
           Building scalable infrastructure systems across Africa through partnerships, technology, and institutional capital.
         </motion.p>
         <motion.div
-          className="space-x-4"
+          className="flex flex-row flex-wrap justify-center gap-2 md:inline-flex md:flex-nowrap md:justify-center md:gap-0 md:space-x-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6, ease: "easeOut" }}
         >
-          <Button asChild variant="primary" className="min-w-[187px]">
+          <Button
+            asChild
+            variant="primary"
+            className="min-w-0 px-6 py-4 text-sm font-normal md:min-w-[187px] md:p-6 md:font-medium"
+          >
             <Link href="/#contact">Explore Our Platforms</Link>
           </Button>
-          <Button asChild variant="secondary" className="min-w-[187px]">
+          <Button
+            asChild
+            variant="secondary"
+            className="min-w-0 px-6 py-4 text-sm font-normal md:min-w-[187px] md:p-6 md:font-medium"
+          >
             <Link href="/#contact">Contact us</Link>
           </Button>
         </motion.div>
@@ -73,7 +81,7 @@ export function HeroSection() {
         type="button"
         onClick={handleScrollDown}
         aria-label="Scroll down"
-        className="absolute bottom-[7px] left-1/2 z-10 -translate-x-1/2 cursor-pointer"
+        className="hidden md:block absolute bottom-[7px] left-1/2 z-10 size-10 -translate-x-1/2 cursor-pointer"
         initial={{ opacity: 0, y: 0 }}
         animate={{ opacity: 1, y: [0, 6, 0] }}
         transition={{
@@ -85,8 +93,8 @@ export function HeroSection() {
           src="/icons/down-arrow.svg"
           alt=""
           aria-hidden="true"
-          width={24}
-          height={24}
+          width={40}
+          height={40}
           className="size-10"
         />
       </motion.button>

@@ -3,16 +3,94 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+
+import { cn } from "@/src/lib/utils";
 import { Button } from "../ui/app-button";
 
-const navItems = [
+type NavSubLink = { label: string; href: string };
+
+type NavItem = {
+  label: string;
+  href: string;
+  children?: readonly NavSubLink[];
+};
+
+const verticalSubLinks: readonly NavSubLink[] = [
+  { label: "Act IT", href: "/#platforms" },
+  { label: "SINO Sec", href: "/#platforms" },
+  { label: "Mobilitex", href: "/#platforms" },
+];
+
+const navItems: readonly NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About us", href: "/about" },
-  { label: "Our Verticals", href: "/#platforms" },
+  { label: "Our Verticals", href: "/#platforms", children: verticalSubLinks },
   { label: "Projects", href: "/#contact" },
   { label: "Technology and Infrastructure", href: "/#contact" },
   { label: "Blogs", href: "/#contact" },
 ];
+
+/** Figma node 6:2281 "Backdrop" — effect_V9Q2NO */
+const SUBMENU_BACKDROP_SHADOW =
+  "0px 4px 8px 0px rgba(71, 71, 71, 0.1), 0px 15px 15px 0px rgba(71, 71, 71, 0.09), 0px 33px 20px 0px rgba(71, 71, 71, 0.05), 0px 58px 23px 0px rgba(71, 71, 71, 0.01), 0px 91px 26px 0px rgba(71, 71, 71, 0)";
+
+
+
+function VerticalsSubmenuArtPanel({ className }: { className?: string }) {
+  return (
+    <div
+      className={cn(
+        "relative hidden shrink-0 self-stretch overflow-hidden rounded-2xl bg-primary/20 lg:flex lg:items-center lg:justify-center",
+        className,
+      )}
+      aria-hidden
+    >
+      <Image src="/icons/verticalDropdownIcon.svg" alt="Vertical dropdown icon" width={120} height={120} />
+    </div>
+  );
+}
+
+/** Figma layout_AMXIOM + style_TSI0YM — used in 6:2281 Backdrop (mobile drawer + lg+ submenu) */
+function NavSubLinkRow({
+  href,
+  label,
+  onClick,
+}: {
+  href: string;
+  label: string;
+  onClick?: () => void;
+}) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      className="flex min-h-0 flex-1 items-center gap-2 rounded-lg bg-accent-60 px-3 py-3"
+    >
+      <Image src="/images/about/value-check.svg" alt="Vertical dropdown icon" width={23} height={23} />
+      <span className="min-w-0 flex-1 text-left text-sm font-normal leading-[1.5] text-text-100">
+        {label}
+      </span>
+      <svg
+                    width="14"
+                    height="12"
+                    viewBox="0 0 14 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1 6H13M13 6L8 1M13 6L8 11"
+                      className={`transition-all duration-300 ${
+                         "stroke-[#1A1919]"
+                      }`}
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+    </Link>
+  );
+}
 
 type NavVariant = "default" | "inner-page";
 
@@ -23,33 +101,129 @@ type NavProps = {
 
 export function Nav({ variant = "default", className = "" }: NavProps) {
   const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [menuOpen]);
 
   return (
     <header className={`fixed inset-x-0 top-0 z-30 w-full ${className}`}>
-      <div className="mx-auto w-full max-w-[1252px] px-4 pt-8">
+      <div className="mx-auto w-full max-w-[1252px] px-8 py-6 lg:px-4 lg:pt-8 lg:pb-0">
         <div
-          className={`flex items-center justify-between rounded-[32px] bg-white/80 p-4 backdrop-blur-[32px] ${
+          className={`flex items-center justify-between lg:rounded-[32px] lg:p-4 lg:backdrop-blur-[32px] ${
             variant === "default"
-              ? "shadow-[0_8px_30px_rgba(15,23,42,0.2)]"
-              : "shadow-[0_4px_20px_rgba(15,23,42,0.08)]"
+              ? "lg:bg-white/80 lg:shadow-[0_8px_30px_rgba(15,23,42,0.2)]"
+              : "lg:bg-white/80 lg:shadow-[0_4px_20px_rgba(15,23,42,0.08)]"
           }`}
         >
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/brand/logo.svg"
-              alt="Sino Africa"
-              width={142.5}
-              height={53.8}
-              priority
-            />
+          <Link href="/" className="flex shrink-0 items-center gap-2">
+            {variant === "default" ? (
+              <>
+                <Image
+                  src="/brand/whiteLogo.svg"
+                  alt="Sino Africa"
+                  width={113}
+                  height={43}
+                  priority
+                  className="h-[43px] w-[113px] lg:hidden"
+                />
+                <Image
+                  src="/brand/logo.svg"
+                  alt="Sino Africa"
+                  width={142}
+                  height={54}
+                  priority
+                  className="hidden h-[53.8px] w-[142.5px] lg:block"
+                />
+              </>
+            ) : (
+              <Image
+                src="/brand/logo.svg"
+                alt="Sino Africa"
+                width={142}
+                height={54}
+                priority
+                className="h-[43px] w-[113px] lg:h-[53.8px] lg:w-[142.5px]"
+              />
+            )}
           </Link>
 
-          <nav className="flex items-center gap-2">
+          <button
+            type="button"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav-menu"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setMenuOpen((o) => !o)}
+            className={cn(
+              "flex size-6 shrink-0 items-center justify-center lg:hidden",
+              variant === "default" ? "text-white" : "text-text-100",
+            )}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M4 6H20M4 12H20M4 18H20"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
+
+          <nav className="hidden items-center gap-2 lg:flex" aria-label="Main">
             {navItems.map((item) => {
               const isActive =
                 item.href === "/" || item.href === "/about"
                   ? pathname === item.href
                   : false;
+
+              if (item.children?.length) {
+                return (
+                  <div key={item.label} className="group relative">
+                    <button
+                      type="button"
+                      className={cn(
+                        "flex items-center gap-1 px-2 py-3 text-sm transition-colors cursor-pointer",
+                        isActive
+                          ? "font-medium text-primary"
+                          : "font-normal text-text-100",
+                      )}
+                      aria-expanded="false"
+                      aria-haspopup="menu"
+                    >
+                      {item.label}
+                     
+                    </button>
+                    <div
+                      role="menu"
+                      aria-label={`${item.label} submenu`}
+                      className={cn(
+                        "invisible absolute left-0 top-full z-50 pt-3 opacity-0 transition-opacity duration-200",
+                        "pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto",
+                        "group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100",
+                      )}
+                    >
+                      {/* Figma 6:2281 Backdrop: row, gap 8px, p 16px, r 24px, w 502, shadow effect_V9Q2NO */}
+                      <div
+                        className="flex w-[min(502px,calc(100vw-4rem))] flex-row items-stretch gap-2 rounded-[24px] bg-white p-4"
+                        style={{ boxShadow: SUBMENU_BACKDROP_SHADOW }}
+                      >
+                        <VerticalsSubmenuArtPanel className="w-[183px] min-h-[186px]" />
+                        <div className="flex min-h-[186px] min-w-0 flex-1 flex-col gap-1 self-stretch py-2">
+                          {item.children.map((child) => (
+                            <NavSubLinkRow key={child.label} href={child.href} label={child.label} />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
 
               return (
                 <Link
@@ -67,11 +241,107 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
             })}
           </nav>
 
-          <Button asChild variant="primary" className="min-w-[142px]">
+          <Button asChild variant="primary" className="hidden min-w-[142px] lg:inline-flex">
             <Link href="/#contact">Contact us</Link>
           </Button>
         </div>
       </div>
+
+      {menuOpen ? (
+        <div
+          id="mobile-nav-menu"
+          className="fixed inset-0 z-50 flex min-h-[100dvh] flex-col justify-between bg-white py-12 pl-8 pr-8 lg:hidden"
+        >
+          <div className="flex flex-col gap-20">
+            <div className="flex items-center justify-between gap-[77px]">
+              <Link href="/" onClick={() => setMenuOpen(false)} className="shrink-0">
+                <Image
+                  src="/brand/logo.svg"
+                  alt="Sino Africa"
+                  width={113}
+                  height={43}
+                  className="h-[43px] w-[113px]"
+                />
+              </Link>
+              <button
+                type="button"
+                aria-label="Close menu"
+                onClick={() => setMenuOpen(false)}
+                className="flex size-6 shrink-0 items-center justify-center text-text-100"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="M6 6L18 18M18 6L6 18"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <nav
+              className="flex w-full flex-col items-stretch gap-2"
+              aria-label="Main"
+            >
+              {navItems.map((item) => {
+                const isActive =
+                  item.href === "/" || item.href === "/about"
+                    ? pathname === item.href
+                    : false;
+
+                if (item.children?.length) {
+                  return (
+                    <div
+                      key={item.label}
+                      className="flex w-full max-w-full flex-col items-stretch gap-2 px-2 py-3"
+                    >
+                      <span className="w-full text-left text-sm font-normal leading-[1.5] text-text-100">
+                        {item.label}
+                      </span>
+                      {/* Figma 6:2281 Backdrop — art panel hidden on mobile/md; lg+ uses desktop submenu */}
+                      <div className="flex w-full max-w-full flex-col items-stretch rounded-[24px]">
+                        <div className="flex min-h-0 min-w-0 w-full flex-col gap-1 py-2">
+                          {item.children.map((v) => (
+                            <NavSubLinkRow
+                              key={v.label}
+                              href={v.href}
+                              label={v.label}
+                              onClick={() => setMenuOpen(false)}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setMenuOpen(false)}
+                    className={cn(
+                      "rounded-lg px-2 py-3 text-left text-sm leading-[1.5]",
+                      isActive ? "font-medium text-primary" : "font-normal text-text-100",
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
+
+          <Link
+            href="/#contact"
+            onClick={() => setMenuOpen(false)}
+            className="flex w-full shrink-0 items-center justify-center rounded-[23px] bg-primary px-6 py-6 text-sm font-normal leading-[1.5] text-white"
+          >
+            Contact us
+          </Link>
+        </div>
+      ) : null}
     </header>
   );
 }

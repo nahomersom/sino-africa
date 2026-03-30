@@ -1,19 +1,136 @@
 "use client";
 
+import { cn } from "@/src/lib/utils";
 import { motion } from "framer-motion";
 import Image from "next/image";
+
+export type AboutHeroImages = {
+  center: string;
+  left: string;
+  right: string;
+};
 
 type AboutHeroSectionProps = {
   label: string;
   heading: string;
+  images: AboutHeroImages;
 };
 
-export function AboutHeroSection({ label, heading }: AboutHeroSectionProps) {
+/** Figma export artboard — positions as % of width / height (desktop only) */
+const SLOT = {
+  left: "lg:left-0 lg:top-[31.424%] lg:h-[68.576%] lg:w-[40.089%]",
+  center: "lg:left-[48.647%] lg:top-[11.948%] lg:h-[51.064%] lg:w-[28.665%]",
+  right: "lg:left-[85.587%] lg:top-[28.806%] lg:h-[25.695%] lg:w-[14.414%]",
+} as const;
+
+/**
+ * Figma 7:2098 — mobile-only collage (tweak values to match Inspect).
+ * Full class strings so Tailwind can see them. `lg:` layout is unchanged.
+ */
+const MOBILE = {
+  grid: "max-lg:grid max-lg:grid-cols-2 max-lg:gap-x-3 max-lg:gap-y-3",
+  topTile: "max-lg:aspect-[163/216]",
+  bottomTile: "max-lg:aspect-[358/200]",
+} as const;
+
+/**
+ * Mobile collage — Figma node 7:2098 (Mobile / Copy).
+ * Desktop (`lg:`) unchanged; only `max-lg` layout lives here.
+ */
+function HeroCollage({ images }: { images: AboutHeroImages }) {
+  const frame =
+    "relative overflow-hidden rounded-[10px] shadow-[0_1px_3px_rgba(0,0,0,0.08)]";
+
   return (
-    <section className="relative flex w-full flex-col items-center justify-end overflow-hidden bg-white px-6 pb-10 pt-[120px] md:px-20 lg:h-[988px] lg:px-[237px] lg:pt-[152px]">
+    <div className="relative mt-10 w-full shrink-0 lg:mt-2 lg:w-full lg:max-w-[1236px]">
+      <div className="relative w-full lg:aspect-[1236/611]">
+        {/* Static dot grid — separated from photos for maintainability */}
+        <div className="pointer-events-none absolute inset-0 z-0">
+          <Image
+            src="/images/about/hero-dots.svg"
+            alt=""
+            fill
+            className="object-fill"
+            priority
+            aria-hidden
+          />
+        </div>
+
+        <div
+          className={cn(
+            "relative z-10",
+            MOBILE.grid,
+            "lg:absolute lg:inset-0 lg:block",
+          )}
+        >
+          {/* Mobile: row 1 col 1 — desktop: unchanged absolute slot */}
+          <div
+            className={cn(
+              frame,
+              "max-lg:col-start-1 max-lg:row-start-1 max-lg:w-full",
+              MOBILE.topTile,
+              "lg:absolute lg:aspect-auto",
+              SLOT.left,
+            )}
+          >
+            <Image
+              src={images.left}
+              alt=""
+              fill
+              className="object-cover"
+              sizes="(max-width: 1023px) 45vw, 40vw"
+            />
+          </div>
+
+          {/* Mobile: row 1 col 2 — desktop: unchanged absolute slot */}
+          <div
+            className={cn(
+              frame,
+              "max-lg:col-start-2 max-lg:row-start-1 max-lg:w-full",
+              MOBILE.topTile,
+              "lg:absolute lg:aspect-auto",
+              SLOT.right,
+            )}
+          >
+            <Image
+              src={images.right}
+              alt=""
+              fill
+              className="object-cover"
+              sizes="(max-width: 1023px) 45vw, 15vw"
+            />
+          </div>
+
+          {/* Mobile: row 2 full width — desktop: unchanged absolute slot */}
+          <div
+            className={cn(
+              frame,
+              "max-lg:col-span-2 max-lg:row-start-2 max-lg:w-full",
+              MOBILE.bottomTile,
+              "lg:absolute lg:aspect-auto",
+              SLOT.center,
+            )}
+          >
+            <Image
+              src={images.center}
+              alt=""
+              fill
+              className="object-cover"
+              sizes="(max-width: 1023px) 100vw, 29vw"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function AboutHeroSection({ label, heading, images }: AboutHeroSectionProps) {
+  return (
+    <section className="relative flex w-full flex-col items-stretch justify-end overflow-hidden bg-white px-8 pb-10 pt-[120px] md:items-center md:px-20 md:pt-[113px] lg:h-[988px] lg:px-[237px] lg:pt-[152px]">
       {/* Green glow — concentric ellipses behind the content */}
       <motion.div
-        className="pointer-events-none absolute -left-[435px] -top-[7px] hidden select-none md:block md:-left-[435px] md:-top-[7px] lg:-left-[471px] lg:-top-[150px]"
+        className="pointer-events-none absolute -left-[155px] top-[49px] block w-[404px] select-none md:-left-[435px] md:top-[113px] md:w-[860.84px] lg:-left-[471px] lg:-top-[150px] lg:w-[1074px]"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
@@ -24,40 +141,33 @@ export function AboutHeroSection({ label, heading }: AboutHeroSectionProps) {
           aria-hidden="true"
           width={1074}
           height={1048}
+          className="h-auto w-full md:h-[840px] md:w-[860.84px] lg:h-auto lg:w-full"
           priority
         />
       </motion.div>
 
       {/* Title block — label + heading */}
       <motion.div
-        className="relative z-10 flex w-full flex-col gap-2 md:px-0"
+        className="relative z-10 flex w-full flex-col items-start gap-2 md:items-center md:px-0"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
       >
-        <span className="text-[13px] font-normal uppercase leading-[1.26] tracking-[0.125em] text-primary">
+        <span className="text-left text-[13px] font-normal uppercase leading-[1.26] tracking-[0.125em] text-primary md:text-center">
           {label}
         </span>
-        <h1 className="max-w-[515px] font-(family-name:--font-nata-sans) text-3xl font-semibold leading-[1.33] tracking-[-0.033em] text-text-100 md:text-[36px] lg:text-[36px]">
+        <h1 className="max-w-none font-(family-name:--font-nata-sans) text-[32px] font-semibold leading-[1.25] tracking-[-0.0375em] text-text-100 text-left md:max-w-[677px] lg:max-w-[515px] md:text-[36px] md:leading-[1.33] md:tracking-[-0.033em] md:text-center lg:text-[36px]">
           {heading}
         </h1>
       </motion.div>
 
-      {/* Illustration — images + dot grid, below the title */}
       <motion.div
-        className="relative mt-2 hidden shrink-0 md:block md:w-full lg:w-[1236px]"
+        className="relative w-full shrink-0 md:w-full lg:w-[1236px]"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
       >
-        <Image
-          src="/images/about/hero-illustration.svg"
-          alt=""
-          aria-hidden="true"
-          width={1236}
-          height={611}
-          className="h-auto w-full"
-        />
+        <HeroCollage images={images} />
       </motion.div>
     </section>
   );

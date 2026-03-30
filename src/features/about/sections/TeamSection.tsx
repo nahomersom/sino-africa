@@ -25,9 +25,9 @@ export function TeamSection({
   const staffRow2 = staff.slice(5, 10);
 
   return (
-    <section className="relative flex w-full flex-col items-center gap-12 overflow-hidden bg-surface px-6 py-20 md:gap-12 md:px-20 md:py-10 lg:gap-12 lg:px-[296px] lg:py-[152px]">
+    <section className="relative flex w-full flex-col items-center gap-12 overflow-hidden bg-surface px-8 py-10 md:gap-12 md:px-20 md:py-10 lg:gap-12 lg:px-[296px] lg:py-[152px]">
       {/* Decorative dot pattern — top-left */}
-      <div className="pointer-events-none absolute -left-[60px] top-[56px] hidden select-none md:block">
+      <div className="pointer-events-none absolute -left-[60px] top-[56px] block select-none">
         <Image
           src="/images/about/team/team-pattern.svg"
           alt=""
@@ -54,7 +54,7 @@ export function TeamSection({
         <h2 className="max-w-[455px] text-center text-[36px] font-normal leading-[1.5] tracking-[-0.033em] text-text-100">
           {heading}
         </h2>
-        <p className="max-w-[410px] text-center text-lg leading-[1.778] tracking-[-0.011em] text-text-100/70">
+        <p className="max-w-[410px] text-center text-base font-light leading-normal tracking-[-0.0125em] text-text-100/70 md:text-lg md:font-normal md:leading-[1.778] md:tracking-[-0.011em]">
           {description}
         </p>
       </div>
@@ -62,8 +62,8 @@ export function TeamSection({
       {/* Team content */}
       <div className="relative z-10 flex w-full flex-col items-center gap-10">
         {/* CEO card */}
-        <div className="flex w-full max-w-[734px] gap-1.5 rounded-2xl bg-white p-4 md:max-w-none lg:max-w-[734px]">
-          <div className="relative min-w-[245px] shrink-0 overflow-hidden rounded-2xl bg-[#E2E3E7] min-h-[287px]">
+        <div className="flex w-full max-w-[734px] flex-col gap-4 rounded-2xl bg-white p-4 md:max-w-none md:flex-row md:gap-1.5 lg:max-w-[734px]">
+          <div className="relative min-h-[339px] w-full shrink-0 overflow-hidden rounded-2xl bg-[#E2E3E7] md:min-h-[287px] md:w-[245px]">
             <Image
               src={ceo.image}
               alt={ceo.name}
@@ -71,8 +71,8 @@ export function TeamSection({
               className="object-cover"
             />
           </div>
-          <div className="flex flex-1 flex-col justify-end gap-1.5 rounded-[32px] px-4 py-6">
-            <h3 className="text-[40px] font-normal leading-[1.5] text-text-100 md:text-[32px] lg:text-[40px]">
+          <div className="flex w-full flex-1 flex-col justify-end gap-2 rounded-[32px] p-4 md:gap-1.5 md:px-4 md:py-6">
+            <h3 className="text-[32px] font-normal leading-[1.5] text-text-100 md:text-[32px] lg:text-[40px]">
               {ceo.name}
             </h3>
             <p className="text-base leading-[1.5] text-muted">{ceo.role}</p>
@@ -95,7 +95,7 @@ export function TeamSection({
           {managers.map((member) => (
             <div
               key={member.name}
-              className="relative flex h-[333px] w-[266px] shrink-0 flex-col justify-end overflow-hidden rounded-lg p-4 md:w-auto md:flex-1 md:shrink"
+              className="relative flex min-h-[333px] w-full shrink-0 flex-col justify-end overflow-hidden rounded-lg p-4 md:w-[266px] "
             >
               <Image
                 src={member.image}
@@ -128,15 +128,15 @@ export function TeamSection({
         </h4>
 
         {/* Staff grid */}
-        <div className="flex w-full flex-col gap-4 md:grid md:grid-cols-3 md:gap-4 lg:flex lg:flex-col lg:h-[528px]">
+        <div className="flex w-full flex-col gap-4 md:grid md:grid-cols-3 md:gap-4 lg:flex lg:flex-col">
           {[staffRow1, staffRow2].map((row, rowIdx) => (
-            <div key={rowIdx} className="flex w-full flex-1 gap-4 md:contents lg:flex lg:w-full lg:flex-1 lg:gap-4">
+            <div key={rowIdx} className="flex w-full flex-1 flex-col gap-4 md:contents lg:flex lg:w-full lg:flex-1 lg:flex-row lg:gap-4">
               {row.map((member) => (
                 <div
                   key={member.name}
-                  className="flex flex-1 flex-col justify-end gap-[6px] overflow-hidden rounded-2xl"
+                  className="flex flex-1 flex-col justify-end gap-2 overflow-hidden rounded-2xl md:gap-[6px]"
                 >
-                  <div className="relative min-h-[140px] flex-1 overflow-hidden rounded-lg">
+                  <div className="relative min-h-[259px] flex-1 overflow-hidden rounded-lg md:min-h-[140px] lg:min-h-[203.15px]">
                     <Image
                       src={member.image}
                       alt={member.name}
