@@ -54,7 +54,7 @@ export function TeamSection({
         <h2 className="max-w-[455px] text-center text-[36px] font-normal leading-[1.5] tracking-[-0.033em] text-text-100">
           {heading}
         </h2>
-        <p className="max-w-[410px] text-center text-base font-light leading-normal tracking-[-0.0125em] text-text-100/70 md:text-lg md:font-normal md:leading-[1.778] md:tracking-[-0.011em]">
+        <p className="max-w-[410px] md:max-w-[455px] text-center text-base font-light leading-normal tracking-[-0.0125em] text-text-100/70 md:text-lg md:font-normal md:leading-[1.778] md:tracking-[-0.011em]">
           {description}
         </p>
       </div>
@@ -91,11 +91,11 @@ export function TeamSection({
         </h4>
 
         {/* Managers row */}
-        <div className="flex flex-col items-center justify-center gap-4 md:flex-row md:w-full">
+        <div className="flex flex-col md:items-center justify-center gap-4 md:flex-row w-full">
           {managers.map((member) => (
             <div
               key={member.name}
-              className="relative flex min-h-[333px] w-full shrink-0 flex-col justify-end overflow-hidden rounded-lg p-4 md:w-[266px] "
+              className="relative flex min-h-[333px] w-full shrink-0 flex-col justify-end overflow-hidden rounded-lg p-4 md:w-[215px] lg:w-[266px]  "
             >
               <Image
                 src={member.image}
@@ -136,7 +136,7 @@ export function TeamSection({
                   key={member.name}
                   className="flex flex-1 flex-col justify-end gap-2 overflow-hidden rounded-2xl md:gap-[6px]"
                 >
-                  <div className="relative min-h-[259px] flex-1 overflow-hidden rounded-lg md:min-h-[140px] lg:min-h-[203.15px]">
+                  <div className="relative min-h-[259px] flex-1 overflow-hidden rounded-lg md:min-h-[259px] lg:min-h-[203.15px]">
                     <Image
                       src={member.image}
                       alt={member.name}

@@ -22,10 +22,4 @@ export const contactContent = {
       ],
     },
   ],
-  form: {
-    heading: "Contact us",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Elit eget mauris sed diam urna. Integer massa tortor at rutrum quis lobortis a. Condimentum nunc.",
-    buttonLabel: "Send",
-  },
 } as const;

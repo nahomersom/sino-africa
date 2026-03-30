@@ -13,37 +13,33 @@ export type AboutHeroImages = {
 type AboutHeroSectionProps = {
   label: string;
   heading: string;
+  description: string;
   images: AboutHeroImages;
 };
 
-/** Figma export artboard — positions as % of width / height (desktop only) */
+/** Figma export artboard — positions as % of width / height */
 const SLOT = {
-  left: "lg:left-0 lg:top-[31.424%] lg:h-[68.576%] lg:w-[40.089%]",
-  center: "lg:left-[48.647%] lg:top-[11.948%] lg:h-[51.064%] lg:w-[28.665%]",
-  right: "lg:left-[85.587%] lg:top-[28.806%] lg:h-[25.695%] lg:w-[14.414%]",
+  left: "left-0 lg:top-[31.424%] h-[429px] w-[318.5px] lg:h-[429px] lg:w-[495.51px]",
+  center: "left-[48.647%] top-[11.948%] h-[51.064%] w-[28.665%]",
+  right: "left-[85.587%] top-[28.806%] h-[25.695%] w-[14.414%]",
 } as const;
 
 /**
- * Figma 7:2098 — mobile-only collage (tweak values to match Inspect).
- * Full class strings so Tailwind can see them. `lg:` layout is unchanged.
+ * Collage uses one shared layout across all breakpoints.
  */
-const MOBILE = {
-  grid: "max-lg:grid max-lg:grid-cols-2 max-lg:gap-x-3 max-lg:gap-y-3",
-  topTile: "max-lg:aspect-[163/216]",
-  bottomTile: "max-lg:aspect-[358/200]",
-} as const;
-
-/**
- * Mobile collage — Figma node 7:2098 (Mobile / Copy).
- * Desktop (`lg:`) unchanged; only `max-lg` layout lives here.
- */
-function HeroCollage({ images }: { images: AboutHeroImages }) {
+function HeroCollage({
+  images,
+  description,
+}: {
+  images: AboutHeroImages;
+  description: string;
+}) {
   const frame =
     "relative overflow-hidden rounded-[10px] shadow-[0_1px_3px_rgba(0,0,0,0.08)]";
 
   return (
     <div className="relative mt-10 w-full shrink-0 lg:mt-2 lg:w-full lg:max-w-[1236px]">
-      <div className="relative w-full lg:aspect-[1236/611]">
+      <div className="relative w-full aspect-[1236/611]">
         {/* Static dot grid — separated from photos for maintainability */}
         <div className="pointer-events-none absolute inset-0 z-0">
           <Image
@@ -58,18 +54,13 @@ function HeroCollage({ images }: { images: AboutHeroImages }) {
 
         <div
           className={cn(
-            "relative z-10",
-            MOBILE.grid,
-            "lg:absolute lg:inset-0 lg:block",
+            "absolute inset-0 z-10 block",
           )}
         >
-          {/* Mobile: row 1 col 1 — desktop: unchanged absolute slot */}
           <div
             className={cn(
               frame,
-              "max-lg:col-start-1 max-lg:row-start-1 max-lg:w-full",
-              MOBILE.topTile,
-              "lg:absolute lg:aspect-auto",
+              "absolute aspect-auto",
               SLOT.left,
             )}
           >
@@ -82,13 +73,10 @@ function HeroCollage({ images }: { images: AboutHeroImages }) {
             />
           </div>
 
-          {/* Mobile: row 1 col 2 — desktop: unchanged absolute slot */}
           <div
             className={cn(
               frame,
-              "max-lg:col-start-2 max-lg:row-start-1 max-lg:w-full",
-              MOBILE.topTile,
-              "lg:absolute lg:aspect-auto",
+              "absolute aspect-auto",
               SLOT.right,
             )}
           >
@@ -101,13 +89,10 @@ function HeroCollage({ images }: { images: AboutHeroImages }) {
             />
           </div>
 
-          {/* Mobile: row 2 full width — desktop: unchanged absolute slot */}
           <div
             className={cn(
               frame,
-              "max-lg:col-span-2 max-lg:row-start-2 max-lg:w-full",
-              MOBILE.bottomTile,
-              "lg:absolute lg:aspect-auto",
+              "absolute aspect-auto",
               SLOT.center,
             )}
           >
@@ -119,18 +104,22 @@ function HeroCollage({ images }: { images: AboutHeroImages }) {
               sizes="(max-width: 1023px) 100vw, 29vw"
             />
           </div>
+
+          <p className="absolute bottom-[43px] left-[49%] z-20 w-[36%] text-left text-base font-light leading-6 tracking-[-0.0125em] text-muted">
+            {description}
+          </p>
         </div>
       </div>
     </div>
   );
 }
 
-export function AboutHeroSection({ label, heading, images }: AboutHeroSectionProps) {
+export function AboutHeroSection({ label, heading, description, images }: AboutHeroSectionProps) {
   return (
-    <section className="relative flex w-full flex-col items-stretch justify-end overflow-hidden bg-white px-8 pb-10 pt-[120px] md:items-center md:px-20 md:pt-[113px] lg:h-[988px] lg:px-[237px] lg:pt-[152px]">
+    <section className="relative flex w-full flex-col items-stretch justify-end overflow-hidden bg-white px-8 lg:pb-10 pt-[120px] md:items-center md:px-20 md:pt-[113px] min-h-screen lg:px-[237px] lg:pt-[152px]">
       {/* Green glow — concentric ellipses behind the content */}
       <motion.div
-        className="pointer-events-none absolute -left-[155px] top-[49px] block w-[404px] select-none md:-left-[435px] md:top-[113px] md:w-[860.84px] lg:-left-[471px] lg:-top-[150px] lg:w-[1074px]"
+        className="pointer-events-none absolute -left-[155px] top-[49px] block w-[404px] select-none md:-left-[435px] md:top-[120px] md:w-[860.84px] lg:-left-[471px] lg:-top-[150px] lg:w-[1074px]"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
@@ -167,7 +156,7 @@ export function AboutHeroSection({ label, heading, images }: AboutHeroSectionPro
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
       >
-        <HeroCollage images={images} />
+        <HeroCollage images={images} description={description} />
       </motion.div>
     </section>
   );

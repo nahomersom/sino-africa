@@ -1,0 +1,1 @@
+export { OurVerticalsPage } from "./OurVerticalsPage";

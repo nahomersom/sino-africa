@@ -154,9 +154,10 @@ export function VerticalsSection({
                   </h3>
                   <div className="py-2">
                     <span
-                      className={`text-xs font-light leading-[1.5] transition-colors duration-300 ${
+                      className={`block truncate text-xs font-light leading-[1.5] transition-colors duration-300 ${
                         "text-text-100"
                       }`}
+                      title={item.subtitle}
                     >
                       {item.subtitle}
                     </span>

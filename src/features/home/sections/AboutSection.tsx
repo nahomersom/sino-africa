@@ -24,7 +24,7 @@ export function AboutSection({ heading, bodyOne, bodyTwo }: AboutSectionProps) {
       </p>
       <Link
         href="/about"
-        className="font-(family-name:--font-nata-sans) text-center text-lg font-normal leading-[1.5] text-text-100 md:underline"
+        className="font-(family-name:--font-nata-sans) text-center text-lg font-normal leading-[1.5] text-text-100 underline"
       >
         Read More
       </Link>

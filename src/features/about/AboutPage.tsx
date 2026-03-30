@@ -13,6 +13,7 @@ export function AboutPage() {
       <AboutHeroSection
         label={aboutContent.hero.label}
         heading={aboutContent.hero.heading}
+        description={aboutContent.hero.description}
         images={aboutContent.hero.images}
       />
       <ScrollReveal>
