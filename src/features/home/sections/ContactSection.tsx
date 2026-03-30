@@ -8,6 +8,8 @@ type ContactSectionProps = {
   description: string;
   buttonLabel: string;
   variant?: "home" | "inner-page";
+  /** Defaults to "First Name" (home). Use "Full Name" on inner pages when matching design. */
+  namePlaceholder?: string;
 };
 
 export function ContactSection({
@@ -15,6 +17,7 @@ export function ContactSection({
   description,
   buttonLabel,
   variant = "home",
+  namePlaceholder = "First Name",
 }: ContactSectionProps) {
   return (
     <section
@@ -52,7 +55,7 @@ export function ContactSection({
         <div className="flex w-full flex-col gap-4">
           <input
             type="text"
-            placeholder="First Name"
+            placeholder={namePlaceholder}
             className="w-full rounded-2xl border border-border-light bg-white px-4 py-4 text-xs font-light text-text-100 outline-none placeholder:text-muted focus:border-primary"
           />
           <div className="flex w-full  gap-4 ">
