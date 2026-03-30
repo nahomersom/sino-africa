@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Button } from "@/src/components/ui/app-button";
+import { ContactSectionSideBackgrounds } from "@/src/components/ui/contact-section-side-bg";
 
 type ContactSectionProps = {
   heading: string;
@@ -10,6 +11,8 @@ type ContactSectionProps = {
   variant?: "home" | "inner-page";
   /** Defaults to "First Name" (home). Use "Full Name" on inner pages when matching design. */
   namePlaceholder?: string;
+  /** Optional theme override for heading + primary button. */
+  accentColor?: string;
 };
 
 export function ContactSection({
@@ -18,6 +21,7 @@ export function ContactSection({
   buttonLabel,
   variant = "home",
   namePlaceholder = "First Name",
+  accentColor,
 }: ContactSectionProps) {
   return (
     <section
@@ -31,6 +35,8 @@ export function ContactSection({
         </>
       )}
 
+      {variant === "inner-page" && <ContactSectionSideBackgrounds />}
+
       <Image
         src="/images/contact-icon.svg"
         alt=""
@@ -40,7 +46,10 @@ export function ContactSection({
       />
 
       <div className="relative z-10 flex max-w-[502px] flex-col items-center gap-4">
-        <h2 className="text-center font-(family-name:--font-nata-sans) text-[36px] font-semibold leading-[1.4] tracking-[-0.04em] text-text-100">
+        <h2
+          className="text-center font-(family-name:--font-nata-sans) text-[36px] font-semibold leading-[1.4] tracking-[-0.04em] text-text-100"
+          style={accentColor ? { color: accentColor } : undefined}
+        >
           {heading}
         </h2>
         <p className="max-w-[502px] text-center text-base font-light leading-[1.5] tracking-[-0.0125em] text-muted md:text-lg md:tracking-[-0.011em]">
@@ -76,7 +85,12 @@ export function ContactSection({
             className="w-full resize-none rounded-2xl border border-border-light bg-white px-4 py-4 text-xs font-light text-text-100 outline-none placeholder:text-muted focus:border-primary"
           />
         </div>
-        <Button type="submit" variant="primary" className="w-[142px]">
+        <Button
+          type="submit"
+          variant="primary"
+          className="w-[142px]"
+          style={accentColor ? { backgroundColor: accentColor } : undefined}
+        >
           {buttonLabel}
         </Button>
       </form>
