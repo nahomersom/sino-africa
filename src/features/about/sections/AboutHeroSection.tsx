@@ -17,15 +17,16 @@ type AboutHeroSectionProps = {
   images: AboutHeroImages;
 };
 
-/** Figma export artboard — positions as % of width / height */
+/** Figma export artboard — positions as % of width / height (md+ collage) */
 const SLOT = {
-  left: "left-0 lg:top-[31.424%] h-[429px] w-[318.5px] lg:h-[429px] lg:w-[495.51px]",
-  center: "left-[48.647%] top-[11.948%] h-[51.064%] w-[28.665%]",
-  right: "left-[85.587%] top-[28.806%] h-[25.695%] w-[14.414%]",
+  left: "left-0 md:top-0 lg:top-0 h-[429px] w-[318.5px] lg:h-[429px] lg:w-[495.51px]",
+  center: "left-[53%] lg:left-[48.647%] -top-[11.45px] lg:top-[11.948%] md:h-[238px] md:w-[254px] h-[51.064%] w-[28.665%]",
+  right: "left-[85.587%] top-[16.806%] lg:top-[28.806%] md:h-[84px] md:w-[89px] h-[25.695%] w-[14.414%]",
 } as const;
 
 /**
- * Collage uses one shared layout across all breakpoints.
+ * Mobile / tablet (below lg): Figma Hero Frame 1 (3 images + dots). lg+: absolute collage.
+ * Split at lg so viewports from 768px up still use this stack until desktop width.
  */
 function HeroCollage({
   images,
@@ -39,18 +40,81 @@ function HeroCollage({
 
   return (
     <div className="relative mt-10 w-full shrink-0 lg:mt-2 lg:w-full lg:max-w-[1236px]">
-      <div className="relative w-full aspect-[1236/611]">
+      {/* Figma mobile stack: visible below lg (md alone is too narrow — tablets saw collage only) */}
+      {/* Below lg: mobile stack + Tablet (md) row — Figma Tablet Hero 6:6503 */}
+      <div className="flex flex-col gap-[89px] md:flex-row md:items-center md:gap-10 lg:hidden">
+        <div className={cn("relative h-[429px] w-full md:min-w-0 md:flex-1", frame)}>
+          <Image
+            src={images.left}
+            alt=""
+            fill
+            className="object-cover"
+            sizes="100vw"
+          />
+        </div>
+
+        <div className="relative flex min-w-0 flex-col items-start gap-[100px] md:min-w-0 md:flex-1 md:overflow-visible">
+          <div className="pointer-events-none absolute left-[calc(201.7/366*100%)] -top-[70px]  h-[109px] w-[calc(119.15/366*100%)] overflow-hidden md:left-[201.7px] md:top-[-70px] md:w-[119.15px]">
+            <Image
+              src="/images/about/hero-dots.svg"
+              alt=""
+              aria-hidden="true"
+              width={1236}
+              height={611}
+              className="absolute left-[-921px] top-0 h-auto w-[1236px] max-w-none"
+            />
+          </div>
+
+          <div
+            className={cn(
+              frame,
+              "relative z-0 h-[238px] w-[calc(254/366*100%)] shrink-0 md:w-[254px]",
+            )}
+          >
+            <Image
+              src={images.center}
+              alt=""
+              fill
+              className="object-cover"
+              sizes="70vw"
+            />
+          </div>
+
+          <p className="w-full text-left text-base font-light leading-[1.5] tracking-[-0.0125em] text-[rgba(92,96,108,0.7)]">
+            {description}
+          </p>
+
+          <div
+            className={cn(
+              frame,
+              "absolute left-[calc(277/366*100%)] top-[95px] z-10 h-[84px] w-[calc(89/366*100%)] md:left-[230px] md:h-[84px] md:w-[89px]",
+            )}
+          >
+            <Image
+              src={images.right}
+              alt=""
+              fill
+              className="object-cover"
+              sizes="25vw"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="relative hidden w-full aspect-[1236/611] lg:block lg:h-[429px] lg:aspect-auto">
         {/* Static dot grid — separated from photos for maintainability */}
-        <div className="pointer-events-none absolute inset-0 z-0">
+        <div className="pointer-events-none absolute z-20 hidden overflow-hidden md:-top-[50.45px] md:right-0 md:block md:h-[109px] md:w-[119.15px] lg:hidden">
           <Image
             src="/images/about/hero-dots.svg"
             alt=""
-            fill
-            className="object-fill"
-            priority
-            aria-hidden
+            aria-hidden="true"
+            width={1236}
+            height={611}
+            className="absolute right-0 top-0 h-auto w-[1236px] max-w-none"
           />
         </div>
+
+        <div className="pointer-events-none absolute z-20 hidden bg-[url('/images/about/hero-dots.svg')] bg-[length:100%_100%] bg-no-repeat lg:inset-0 lg:z-0 lg:block lg:h-auto lg:w-auto" />
 
         <div
           className={cn(
@@ -84,15 +148,15 @@ function HeroCollage({
               src={images.right}
               alt=""
               fill
-              className="object-cover"
-              sizes="(max-width: 1023px) 45vw, 15vw"
+              className="object-cover z-10"
+              sizes="(max-width: 1023px) 89px, 15vw"
             />
           </div>
 
           <div
             className={cn(
               frame,
-              "absolute aspect-auto",
+              "absolute aspect-auto overflow-visible",
               SLOT.center,
             )}
           >
@@ -105,7 +169,7 @@ function HeroCollage({
             />
           </div>
 
-          <p className="absolute bottom-[43px] left-[49%] z-20 w-[36%] text-left text-base font-light leading-6 tracking-[-0.0125em] text-muted">
+          <p className="absolute bottom-[43px] left-[53%] lg:left-[49%] z-20 max-w-[318.5px] lg:max-w-[36%] text-left text-base font-light leading-6 tracking-[-0.0125em] text-muted">
             {description}
           </p>
         </div>
@@ -116,10 +180,10 @@ function HeroCollage({
 
 export function AboutHeroSection({ label, heading, description, images }: AboutHeroSectionProps) {
   return (
-    <section className="relative flex w-full flex-col items-stretch justify-end overflow-hidden bg-white px-8 lg:pb-10 pt-[120px] md:items-center md:px-20 md:pt-[113px] min-h-screen lg:px-[237px] lg:pt-[152px]">
+    <section className="relative flex w-full flex-col items-stretch justify-end overflow-hidden bg-white px-8 lg:pb-10 pt-[120px] md:items-center md:px-20 md:pt-[211px] lg:h-screen lg:px-[237px] lg:pt-[152px]">
       {/* Green glow — concentric ellipses behind the content */}
       <motion.div
-        className="pointer-events-none absolute -left-[155px] top-[49px] block w-[404px] select-none md:-left-[435px] md:top-[120px] md:w-[860.84px] lg:-left-[471px] lg:-top-[150px] lg:w-[1074px]"
+        className="pointer-events-none absolute -left-[155px] top-[49px] block w-[404px] select-none md:-left-[435px] md:top-[-7px] md:w-[860.84px] lg:-left-[471px] lg:-top-[150px] lg:w-[1074px]"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
