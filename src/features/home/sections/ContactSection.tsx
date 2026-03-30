@@ -58,7 +58,7 @@ export function ContactSection({
             placeholder={namePlaceholder}
             className="w-full rounded-2xl border border-border-light bg-white px-4 py-4 text-xs font-light text-text-100 outline-none placeholder:text-muted focus:border-primary"
           />
-          <div className="flex w-full flex-col gap-4 md:flex-row">
+          <div className="flex w-full  gap-4 ">
             <input
               type="email"
               placeholder="Email Address"
