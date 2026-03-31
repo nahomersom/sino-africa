@@ -176,6 +176,46 @@ export type Vertical = {
   description?: string;
   summary?: string;
   icon?: StrapiMedia | null;
+  institutionalCapacityDescription?: string;
+  focusAreasDescription?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
+  logo?: StrapiMedia | null;
+  heroImage?: StrapiMedia | null;
+  focusAreas?: VerticalFocusArea[];
+  ecosystemPartners?: VerticalEcosystemPartner[];
+  gradient?: VerticalGradient | null;
+};
+
+export type VerticalFocusArea = {
+  id: number | string;
+  title: string;
+  description: string;
+};
+
+export type VerticalEcosystemPartner = {
+  id: number | string;
+  title: string;
+  description: string;
+};
+
+export type VerticalGradient = {
+  id: number | string;
+  accentColor: string;
+  baseColor: string;
+};
+
+export type Partner = {
+  id: number | string;
+  documentId?: string;
+  name: string;
+  link?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
+  order?: number | null;
+  logo?: StrapiMedia | null;
 };
 
 export const strapiApi = createApi({
@@ -273,6 +313,23 @@ export const strapiApi = createApi({
         return response?.data ?? null;
       },
     }),
+
+    // Partners endpoints
+    getPartners: builder.query<Partner[], Record<string, unknown> | void>({
+      query: (params) => {
+        const base = "partners";
+        const withDefaults: Record<string, unknown> = {
+          populate: "*",
+          sort: "order:asc",
+          "pagination[pageSize]": 100,
+          ...(params ?? {}),
+        };
+        return appendStrapiQuery(base, withDefaults);
+      },
+      transformResponse: (response: StrapiListResponse<Partner>) => {
+        return response?.data ?? [];
+      },
+    }),
   }),
 });
 
@@ -283,5 +340,6 @@ export const {
   useGetBlogByDocumentIdQuery,
   useGetVerticalsQuery,
   useGetVerticalByIdQuery,
+  useGetPartnersQuery,
   useCreateContactSubmissionMutation,
 } = strapiApi;

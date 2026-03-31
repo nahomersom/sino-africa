@@ -1,8 +1,7 @@
 import { ScrollReveal } from "@/src/components/ui/scroll-reveal";
-import { homeContent } from "@/src/features/home/constants";
-import { ContactSection } from "@/src/features/home/sections/ContactSection";
 
 import { contactContent } from "./constants";
+import { ContactFormMapSection } from "./sections/ContactFormMapSection";
 import { ContactInfoSection } from "./sections/ContactInfoSection";
 
 export function ContactPage() {
@@ -12,12 +11,14 @@ export function ContactPage() {
         <ContactInfoSection items={contactContent.info} />
       </ScrollReveal>
       <ScrollReveal>
-        <ContactSection
-          heading={homeContent.contact.heading}
-          description={homeContent.contact.description}
-          buttonLabel={homeContent.contact.buttonLabel}
-          variant="inner-page"
-        />
+        <div
+          className="relative lg:[background-image:url('/images/sino-symbol-tile.svg')] lg:[background-repeat:repeat] lg:[background-size:28px]"
+        >
+          <div className="pointer-events-none absolute inset-0 hidden bg-white/85 lg:block" />
+          <div className="relative z-10">
+            <ContactFormMapSection />
+          </div>
+        </div>
       </ScrollReveal>
     </div>
   );

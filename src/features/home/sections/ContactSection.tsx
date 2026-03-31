@@ -78,6 +78,33 @@ export function ContactSection({
               className="w-full rounded-2xl border border-border-light bg-white px-4 py-4 text-xs font-light text-text-100 outline-none placeholder:text-muted focus:border-primary"
             />
           </div>
+          <div className="relative w-full">
+            <select
+              defaultValue=""
+              className="w-full appearance-none rounded-2xl border border-border-light bg-white px-[13px] pr-10 py-4 text-xs font-light text-text-100 outline-none focus:border-primary"
+            >
+              <option value="" disabled className="text-muted">
+                i.e. I need a help
+              </option>
+              <option value="support">Support</option>
+              <option value="partnership">Partnership</option>
+              <option value="general">General inquiry</option>
+            </select>
+            <svg
+              className="pointer-events-none absolute right-[13px] top-1/2 size-4 -translate-y-1/2 text-muted"
+              viewBox="0 0 20 20"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M5 8L10 13L15 8"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
           <textarea
             placeholder="Message"
             rows={5}

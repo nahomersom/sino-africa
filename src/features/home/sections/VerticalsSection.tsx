@@ -14,7 +14,8 @@ import {
 
 
 type VerticalItem = {
-  name: string;
+  title: string;
+  description: string;
   subtitle: string;
 };
 
@@ -109,11 +110,11 @@ export function VerticalsSection({
             transition={titleTransition}
             className="text-center text-4xl font-black leading-[1.4] text-white md:text-[56px] lg:text-[56px]"
           >
-            {items[activeIndex]?.name}
+            {items[activeIndex]?.title}
           </motion.div>
 
           <p className="max-w-[444px] text-center text-base leading-[1.5] text-white">
-            {description}
+            {items[activeIndex]?.description ?? description}
           </p>
         </div>
       </div>
@@ -123,10 +124,10 @@ export function VerticalsSection({
         {items.map((item, i) => {
           const isActive = i === activeIndex;
           return (
-            <StaggerItem key={item.name} className="flex-1">
+            <StaggerItem key={item.title} className="min-w-0 flex-1">
               <div
                 onMouseEnter={() => setActiveIndex(i)}
-                className={`flex cursor-pointer items-center gap-4 p-4 backdrop-blur-[20px] transition-all duration-300 ${
+                className={`flex min-w-0 cursor-pointer items-center gap-4 p-4 backdrop-blur-[20px] transition-all duration-300 ${
                    "rounded-2xl bg-accent-60"
                 }`}
               >
@@ -144,17 +145,17 @@ export function VerticalsSection({
                 </div>
 
                 {/* Card content */}
-                <div className="flex flex-1 flex-col gap-1.5">
+                <div className="flex min-w-0 flex-1 flex-col gap-1.5">
                   <h3
                     className={`text-2xl font-medium leading-[1.2] transition-colors duration-300 ${
                       "text-text-100"
                     }`}
                   >
-                    {item.name}
+                    {item.title}
                   </h3>
-                  <div className="py-2">
+                  <div className="min-w-0 py-2">
                     <span
-                      className={`block truncate text-xs font-light leading-[1.5] transition-colors duration-300 ${
+                      className={`block max-w-full truncate text-xs font-light leading-[1.5] transition-colors duration-300 ${
                         "text-text-100"
                       }`}
                       title={item.subtitle}
