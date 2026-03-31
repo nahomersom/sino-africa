@@ -1,20 +1,26 @@
-import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 import type { VerticalDetailContent, VerticalDetailTheme } from "../types";
 import { HeroWave } from "./HeroWave";
 
-const VERTICAL_LOGO_MASK_SRC = "/icons/vertical-cards-icon.png";
 const HERO_DOTS_SRC = "/images/our-verticals/hero-dots.png";
 const DOWN_ARROW_SRC = "/icons/down-arrow.svg";
 
 type Props = Pick<VerticalDetailContent, "name" | "heroDescription" | "heroImageAlt"> & {
   theme: VerticalDetailTheme;
+  heroLogoSrc?: string;
 };
 
-export function DetailHero({ name, heroDescription, heroImageAlt, theme }: Props) {
+export function DetailHero({
+  name,
+  heroDescription,
+  heroImageAlt,
+  heroLogoSrc,
+  theme,
+}: Props) {
   const { heroBgSrc, heroImageSrc } = theme;
+  const showHeroImage = Boolean(heroImageSrc);
 
   return (
     <section className="relative isolate flex w-full flex-col overflow-x-clip">
@@ -43,27 +49,34 @@ export function DetailHero({ name, heroDescription, heroImageAlt, theme }: Props
               </Link>
 
               <div className="flex flex-col gap-4 text-white lg:gap-4">
-                <div
-                  className="size-[142px] shrink-0"
-                  style={
-                    {
-                      backgroundColor: "#ffffff",
-                      maskImage: `url(${VERTICAL_LOGO_MASK_SRC})`,
-                      maskSize: "contain",
-                      maskRepeat: "no-repeat",
-                      maskPosition: "center",
-                      WebkitMaskImage: `url(${VERTICAL_LOGO_MASK_SRC})`,
-                      WebkitMaskSize: "contain",
-                      WebkitMaskRepeat: "no-repeat",
-                      WebkitMaskPosition: "center",
-                    } satisfies CSSProperties
-                  }
-                />
+                {heroLogoSrc ? (
+                  <div className="relative size-[142px] shrink-0">
+                    <Image
+                      src={heroLogoSrc}
+                      alt=""
+                      fill
+                      className="object-contain object-left"
+                      sizes="142px"
+                    />
+                  </div>
+                ) : (
+                  <div
+                    className="size-[142px] shrink-0 animate-pulse rounded-lg bg-white/25 md:bg-white/20"
+                    aria-hidden
+                  />
+                )}
                 <h1 className="font-heading text-4xl font-bold leading-none tracking-[-0.033em] text-white md:text-[48px] lg:text-[60px]">
-                  {name}
+                  {name || (
+                    <span className="inline-block min-h-[1.1em] min-w-[200px] animate-pulse rounded-md bg-white/25" />
+                  )}
                 </h1>
                 <p className="max-w-xl text-lg font-normal leading-normal tracking-[-0.011em] text-white">
-                  {heroDescription}
+                  {heroDescription || (
+                    <span className="flex flex-col gap-2">
+                      <span className="block h-5 w-full max-w-md animate-pulse rounded-md bg-white/20" />
+                      <span className="block h-5 w-full max-w-sm animate-pulse rounded-md bg-white/15" />
+                    </span>
+                  )}
                 </p>
               </div>
             </div>
@@ -78,13 +91,20 @@ export function DetailHero({ name, heroDescription, heroImageAlt, theme }: Props
                 aria-hidden
               />
               <div className="relative z-[2] h-full w-full overflow-hidden rounded-[10px]">
-                <Image
-                  src={heroImageSrc}
-                  alt={heroImageAlt}
-                  fill
-                  className="object-cover"
-                  priority
-                />
+                {showHeroImage ? (
+                  <Image
+                    src={heroImageSrc}
+                    alt={heroImageAlt}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                ) : (
+                  <div
+                    className="absolute inset-0 animate-pulse bg-neutral-300/40"
+                    aria-hidden
+                  />
+                )}
               </div>
             </div>
           </div>
