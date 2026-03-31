@@ -120,7 +120,9 @@ export type ContactSubmissionRequest = {
   data: ContactSubmission;
 };
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+const STRAPI_URL =
+  process.env.NEXT_PUBLIC_STRAPI_URL?.trim() ||
+  "https://sino-cms.ablazelabs.com";
 
 // Normalize base URL (remove /api if present)
 const STRAPI_BASE_URL = STRAPI_URL?.replace(/\/api\/?$/, "");
