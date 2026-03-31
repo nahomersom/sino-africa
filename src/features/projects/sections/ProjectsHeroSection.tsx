@@ -32,9 +32,9 @@ export function ProjectsHeroSection({ label, heading, description }: ProjectsHer
       />
 
       <div className="relative z-10 mx-auto flex w-full max-w-[1200px] flex-col items-stretch gap-10 px-3 py-5 md:flex-row md:items-start md:justify-between md:gap-8 md:px-4 md:py-12 lg:max-w-[1320px] lg:items-center">
-        <div className="flex flex-col items-start gap-2 md:w-[48%] md:min-h-[264px] lg:w-[507px]">
+        <div className="flex flex-col items-center gap-2 text-center md:w-[48%] md:items-start md:text-left md:min-h-[264px] lg:w-[507px]">
           <motion.div
-            className="flex flex-col items-start gap-2"
+            className="flex flex-col items-center gap-2 md:items-start"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
@@ -42,13 +42,13 @@ export function ProjectsHeroSection({ label, heading, description }: ProjectsHer
             <span className="text-[13px] font-normal uppercase leading-[1.26] tracking-[0.125em] text-primary">
               {label}
             </span>
-            <h1 className="text-left font-(family-name:--font-nata-sans) text-[32px] font-semibold leading-[1.25] tracking-[-0.0375em] text-text-100 md:text-[36px] md:leading-[1.33] md:tracking-[-0.033em]">
+            <h1 className="text-center font-(family-name:--font-nata-sans) text-[32px] font-semibold leading-[1.25] tracking-[-0.0375em] text-text-100 md:text-left md:text-[36px] md:leading-[1.33] md:tracking-[-0.033em]">
               {heading}
             </h1>
           </motion.div>
 
           <motion.p
-            className="text-left text-base font-light leading-[1.65] tracking-[-0.0125em] text-muted md:text-lg md:leading-[1.65] md:tracking-[-0.011em]"
+            className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-muted md:text-left md:text-lg md:leading-[1.65] md:tracking-[-0.011em]"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.38, ease: "easeOut" }}
