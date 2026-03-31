@@ -47,15 +47,15 @@ export function VerticalsSection() {
       </div>
 
       <div className="relative z-[2] mx-auto flex w-full max-w-[1728px] flex-col items-center gap-[45px] px-6 pb-[88px] pt-24 lg:px-[237px] lg:pt-[152px]">
-        <div className="flex w-full max-w-[552px] flex-col items-center gap-4 text-center">
+        <div className="flex w-full max-w-[700px] flex-col items-center gap-4 text-center">
           <h2
-            className="w-full max-w-[454.85px] text-[36px] font-normal text-text-100"
+            className="w-full max-w-[560px] text-[36px] font-normal text-text-100"
             style={{ letterSpacing: "-0.03333333465788099em", lineHeight: "1.5em" }}
           >
             Our Verticals
           </h2>
           <p
-            className="max-w-[382px] text-[18px] font-normal leading-[1.5em] text-muted"
+            className="max-w-[540px] text-[18px] font-normal leading-[1.5em] text-muted"
             style={{ letterSpacing: "-0.011111111276679568em" }}
           >
             Three focused businesses—each delivering depth, compliance, and outcomes where it matters most.
@@ -63,14 +63,14 @@ export function VerticalsSection() {
         </div>
 
         <div className="relative mx-auto w-full max-w-[1254px]">
-          <div className="grid w-full grid-cols-1 gap-2 lg:auto-rows-[552px] lg:grid-cols-3">
+          <div className="grid w-full grid-cols-1 gap-2 md:grid-cols-3 md:auto-rows-[1fr] lg:auto-rows-[552px] lg:grid-cols-3">
             {verticalItems.map((item) => (
               <Link
                 key={item.title}
                 id={slugId[item.title] ?? undefined}
                 href={`/our-verticals/${slugId[item.title] ?? "#"}`}
                 aria-label={`${item.title}: read more`}
-                className={`${item.colorClass} flex w-full flex-col items-center justify-between rounded-[8px] px-16 py-10 transition hover:brightness-105 lg:h-full lg:min-h-0`}
+                className={`${item.colorClass} flex w-full flex-col items-center justify-between rounded-[8px] px-8 py-10 transition hover:brightness-105 md:px-6 lg:h-full lg:min-h-0 lg:px-16`}
               >
                 <div className="flex w-full shrink-0 flex-col items-center">
                   <div className="flex h-[142px] w-[142px] flex-col items-center justify-center">
