@@ -64,7 +64,7 @@ export function VerticalsSection() {
 
         <div className="relative mx-auto w-full max-w-[1254px]">
           <div className="grid w-full grid-cols-1 gap-2 md:grid-cols-3 md:auto-rows-[1fr] lg:auto-rows-[552px] lg:grid-cols-3">
-            {itemsToRender.map((item) => {
+            {verticalItems.map((item) => {
               const href =
                 "href" in item
                   ? item.href
@@ -120,7 +120,8 @@ export function VerticalsSection() {
                   </span>
                 </div>
               </Link>
-            ))}
+            );
+          })}
           </div>
         </div>
       </div>
