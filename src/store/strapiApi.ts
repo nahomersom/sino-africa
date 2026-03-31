@@ -214,6 +214,23 @@ export interface Project {
   localizations?: unknown[];
 }
 
+/** Raw `url` from a flat Strapi upload, nested `{ data: upload }`, or v4-style `{ data: { attributes } }`. */
+export function resolveStrapiUploadUrl(media: unknown): string | undefined {
+  if (!media || typeof media !== "object") return undefined;
+  const m = media as Record<string, unknown>;
+  if (typeof m.url === "string") return m.url;
+  const data = m.data;
+  if (data == null || typeof data !== "object") return undefined;
+  const d = data as Record<string, unknown>;
+  if (typeof d.url === "string") return d.url;
+  const attrs = d.attributes;
+  if (attrs && typeof attrs === "object") {
+    const url = (attrs as Record<string, unknown>).url;
+    if (typeof url === "string") return url;
+  }
+  return undefined;
+}
+
 export type Vertical = {
   id: number | string;
   documentId?: string;
@@ -237,14 +254,16 @@ export type Vertical = {
 
 export type VerticalFocusArea = {
   id: number | string;
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
+  images?: StrapiMedia[];
 };
 
 export type VerticalEcosystemPartner = {
   id: number | string;
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
+  icon?: StrapiMedia | null;
 };
 
 export type VerticalGradient = {
@@ -355,9 +374,8 @@ export const strapiApi = createApi({
     getVerticals: builder.query<Vertical[], Record<string, unknown> | void>({
       query: (params) => {
         const base = "verticals";
-        // Sensible defaults while still allowing override
         const withDefaults: Record<string, unknown> = {
-          populate: "*",
+          ...VERTICAL_DEEP_POPULATE,
           "pagination[pageSize]": 100,
           ...(params ?? {}),
         };
@@ -375,13 +393,26 @@ export const strapiApi = createApi({
       query: ({ id, params }) => {
         const base = `verticals/${id}`;
         const withDefaults: Record<string, unknown> = {
-          populate: "*",
+          ...VERTICAL_DEEP_POPULATE,
           ...(params ?? {}),
         };
         return appendStrapiQuery(base, withDefaults);
       },
       transformResponse: (response: StrapiSingleResponse<Vertical>) => {
         return response?.data ?? null;
+      },
+    }),
+
+    getVerticalBySlug: builder.query<Vertical | null, string>({
+      query: (slug) =>
+        appendStrapiQuery("verticals", {
+          "filters[slug][$eq]": slug,
+          ...VERTICAL_DEEP_POPULATE,
+          "pagination[pageSize]": 1,
+        }),
+      transformResponse: (response: StrapiListResponse<Vertical>) => {
+        const row = response?.data?.[0];
+        return row ?? null;
       },
     }),
 
@@ -498,6 +529,7 @@ export const {
   useGetBlogByDocumentIdQuery,
   useGetVerticalsQuery,
   useGetVerticalByIdQuery,
+  useGetVerticalBySlugQuery,
   useGetPartnersQuery,
   useGetTeamsQuery,
   useGetProjectsQuery,

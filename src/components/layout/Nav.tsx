@@ -101,7 +101,9 @@ type NavProps = {
 export function Nav({ variant = "default", className = "" }: NavProps) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-  const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+  const STRAPI_URL =
+    process.env.NEXT_PUBLIC_STRAPI_URL?.trim() ||
+    "https://sino-cms.ablazelabs.com";
   const { data: verticals = [] } = useGetVerticalsQuery(undefined, {
     skip: !STRAPI_URL,
   });

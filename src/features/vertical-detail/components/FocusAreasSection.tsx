@@ -14,8 +14,23 @@ const focusRowCopyBody =
 function FocusRowCopy({ title, body, className }: { title: string; body: string; className?: string }) {
   return (
     <div className={cn(focusRowCopyStack, className)}>
-      <h3 className={focusRowCopyTitle}>{title}</h3>
-      <p className={focusRowCopyBody}>{body}</p>
+      {title ? (
+        <h3 className={focusRowCopyTitle}>{title}</h3>
+      ) : (
+        <div className="space-y-3">
+          <div className="h-9 w-full max-w-[340px] animate-pulse rounded-md bg-border-light" />
+          <div className="h-9 w-full max-w-[280px] animate-pulse rounded-md bg-border-light/80" />
+        </div>
+      )}
+      {body ? (
+        <p className={focusRowCopyBody}>{body}</p>
+      ) : (
+        <div className="flex flex-col gap-3">
+          <div className="h-4 w-full animate-pulse rounded-md bg-border-light/70" />
+          <div className="h-4 w-full max-w-[95%] animate-pulse rounded-md bg-border-light/60" />
+          <div className="h-4 w-full max-w-[80%] animate-pulse rounded-md bg-border-light/50" />
+        </div>
+      )}
     </div>
   );
 }
@@ -28,27 +43,59 @@ type Props = {
 };
 
 /** First focus row image mosaic: 449×511, staggered 212px columns, 25px gaps (design spec). Below lg: fluid width, same 2-col rhythm, no horizontal scroll. */
-function FocusGridTextImages({ gridImages }: { gridImages: [string, string, string, string] }) {
+function FocusImageCell({
+  src,
+  sizes,
+  className,
+}: {
+  src: string | null;
+  sizes: string;
+  className: string;
+}) {
+  return (
+    <div className={cn("relative overflow-hidden rounded-lg", className)}>
+      {src ? (
+        <Image src={src} alt="" fill className="object-cover" sizes={sizes} />
+      ) : (
+        <div className="absolute inset-0 animate-pulse bg-border-light" aria-hidden />
+      )}
+    </div>
+  );
+}
+
+function FocusGridTextImages({
+  gridImages,
+}: {
+  gridImages: [string | null, string | null, string | null, string | null];
+}) {
   const [topLeft, rightTop, leftBottom, rightBottom] = gridImages;
   const cellSizes = "(max-width: 1023px) 42vw, 212px";
   return (
     <div className="relative mx-auto w-full max-w-[449px] min-w-0">
       <div className="relative flex w-full min-w-0 flex-row gap-3 overflow-hidden rounded-lg lg:h-[511px] lg:w-[449px] lg:gap-[25px]">
         <div className="flex min-w-0 flex-1 flex-col gap-3 lg:w-[212px] lg:flex-none lg:gap-[25px]">
-          <div className="relative aspect-[206/212] w-full overflow-hidden rounded-lg lg:aspect-auto lg:h-[206px] lg:w-[212px] lg:shrink-0">
-            <Image src={topLeft} alt="" fill className="object-cover" sizes={cellSizes} />
-          </div>
-          <div className="relative aspect-[255/212] w-full overflow-hidden rounded-lg lg:aspect-auto lg:h-[255px] lg:w-[212px] lg:shrink-0">
-            <Image src={leftBottom} alt="" fill className="object-cover" sizes={cellSizes} />
-          </div>
+          <FocusImageCell
+            src={topLeft}
+            sizes={cellSizes}
+            className="aspect-[206/212] w-full lg:aspect-auto lg:h-[206px] lg:w-[212px] lg:shrink-0"
+          />
+          <FocusImageCell
+            src={leftBottom}
+            sizes={cellSizes}
+            className="aspect-[255/212] w-full lg:aspect-auto lg:h-[255px] lg:w-[212px] lg:shrink-0"
+          />
         </div>
         <div className="flex min-w-0 flex-1 flex-col gap-3 pt-3 lg:w-[212px] lg:flex-none lg:gap-[25px] lg:pt-[25px]">
-          <div className="relative aspect-[255/212] w-full overflow-hidden rounded-lg lg:aspect-auto lg:h-[255px] lg:w-[212px] lg:shrink-0">
-            <Image src={rightTop} alt="" fill className="object-cover" sizes={cellSizes} />
-          </div>
-          <div className="relative aspect-[206/212] w-full overflow-hidden rounded-lg lg:aspect-auto lg:h-[206px] lg:w-[212px] lg:shrink-0">
-            <Image src={rightBottom} alt="" fill className="object-cover" sizes={cellSizes} />
-          </div>
+          <FocusImageCell
+            src={rightTop}
+            sizes={cellSizes}
+            className="aspect-[255/212] w-full lg:aspect-auto lg:h-[255px] lg:w-[212px] lg:shrink-0"
+          />
+          <FocusImageCell
+            src={rightBottom}
+            sizes={cellSizes}
+            className="aspect-[206/212] w-full lg:aspect-auto lg:h-[206px] lg:w-[212px] lg:shrink-0"
+          />
         </div>
       </div>
     </div>
@@ -56,28 +103,36 @@ function FocusGridTextImages({ gridImages }: { gridImages: [string, string, stri
 }
 
 /** Second focus row images: 447×468 group; left 327×468, right 264×382 overlapping left (design spec). Below lg: percentage layout so width tracks container. */
-function FocusDualOverlapImages({ images }: { images: [string, string] }) {
+function FocusDualOverlapImages({ images }: { images: [string | null, string | null] }) {
   const [leftSrc, rightSrc] = images;
   return (
     <div className="relative mx-auto w-full max-w-[447px] min-w-0 lg:mx-0">
       <div className="relative aspect-[447/468] w-full lg:aspect-auto lg:h-[468px] lg:w-[447px]">
         <div className="absolute left-0 top-0 z-[1] h-full w-[73.15%] overflow-hidden rounded-lg bg-border-light shadow-sm lg:h-[468px] lg:w-[327px]">
-          <Image
-            src={leftSrc}
-            alt=""
-            fill
-            className="object-cover"
-            sizes="(max-width: 1023px) 75vw, 327px"
-          />
+          {leftSrc ? (
+            <Image
+              src={leftSrc}
+              alt=""
+              fill
+              className="object-cover"
+              sizes="(max-width: 1023px) 75vw, 327px"
+            />
+          ) : (
+            <div className="absolute inset-0 animate-pulse bg-border-light" aria-hidden />
+          )}
         </div>
         <div className="absolute left-[40.94%] top-[9.19%] z-0 h-[81.62%] w-[59.06%] overflow-hidden rounded-lg bg-border-light shadow-sm lg:left-[183px] lg:top-[43px] lg:h-[382px] lg:w-[264px]">
-          <Image
-            src={rightSrc}
-            alt=""
-            fill
-            className="object-cover"
-            sizes="(max-width: 1023px) 60vw, 264px"
-          />
+          {rightSrc ? (
+            <Image
+              src={rightSrc}
+              alt=""
+              fill
+              className="object-cover"
+              sizes="(max-width: 1023px) 60vw, 264px"
+            />
+          ) : (
+            <div className="absolute inset-0 animate-pulse bg-border-light/90" aria-hidden />
+          )}
         </div>
       </div>
     </div>
@@ -108,7 +163,17 @@ function FocusRowBlock({ row }: { row: FocusRowType }) {
   return (
     <div className="mx-auto grid w-full max-w-[1011px] grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-x-[62px] lg:gap-y-0">
       <div className="relative aspect-[16/10] w-full min-w-0 overflow-hidden rounded-lg bg-border-light shadow-sm">
-        <Image src={row.image} alt="" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 560px" />
+        {row.image ? (
+          <Image
+            src={row.image}
+            alt=""
+            fill
+            className="object-cover"
+            sizes="(max-width: 1024px) 100vw, 560px"
+          />
+        ) : (
+          <div className="absolute inset-0 animate-pulse bg-border-light" aria-hidden />
+        )}
       </div>
       <FocusRowCopy title={row.title} body={row.body} />
     </div>
@@ -133,15 +198,23 @@ export function FocusAreasSection({ title, subtitle, rows, patternSrc }: Props) 
       <div className="relative z-10 px-6 lg:px-[min(15rem,12vw)]">
         <div className="relative mx-auto flex w-full max-w-full flex-col gap-14 md:max-w-[552px] lg:max-w-[1100px] lg:gap-14">
           <div className="mx-auto flex max-w-[552px] flex-col gap-4 text-center">
-            <h2 className="font-heading text-4xl font-semibold leading-[1.33] tracking-[-0.033em] text-text-100">
-              {title}
-            </h2>
-            <p className="text-lg font-normal leading-normal tracking-[-0.011em] text-muted/70">{subtitle}</p>
+            {title ? (
+              <h2 className="font-heading text-4xl font-semibold leading-[1.33] tracking-[-0.033em] text-text-100">
+                {title}
+              </h2>
+            ) : (
+              <div className="mx-auto h-10 w-[280px] max-w-full animate-pulse rounded-md bg-border-light" />
+            )}
+            {subtitle ? (
+              <p className="text-lg font-normal leading-normal tracking-[-0.011em] text-muted/70">{subtitle}</p>
+            ) : (
+              <div className="mx-auto h-5 w-[320px] max-w-full animate-pulse rounded-md bg-border-light/80" />
+            )}
           </div>
 
           <div className="flex flex-col gap-20 lg:gap-24">
             {rows.map((row, i) => (
-              <FocusRowBlock key={i} row={row} />
+              <FocusRowBlock key={`${row.variant}-${i}`} row={row} />
             ))}
           </div>
         </div>

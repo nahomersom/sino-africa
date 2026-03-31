@@ -8,14 +8,24 @@ const INSTITUTIONAL_TITLE_DOT_BY_SLUG: Record<VerticalDetailSlug, string> = {
   mobilitex: "/images/our-verticals/blue-dot.png",
 };
 
+export function resolveInstitutionalTitleDotSrc(
+  slug: string,
+  override?: string
+): string {
+  if (override) return override;
+  if (slug in INSTITUTIONAL_TITLE_DOT_BY_SLUG) {
+    return INSTITUTIONAL_TITLE_DOT_BY_SLUG[slug as VerticalDetailSlug];
+  }
+  return "/images/our-verticals/green-dot.png";
+}
+
 type Props = {
-  slug: VerticalDetailSlug;
+  titleDotSrc: string;
   title: string;
   paragraphs: string[];
 };
 
-export function CenteredProseSection({ slug, title, paragraphs }: Props) {
-  const titleDotSrc = INSTITUTIONAL_TITLE_DOT_BY_SLUG[slug];
+export function CenteredProseSection({ titleDotSrc, title, paragraphs }: Props) {
 
   return (
     <section className="relative w-full overflow-hidden bg-white px-6 py-20 lg:px-[min(15rem,12vw)] lg:py-[100px]">
@@ -42,14 +52,22 @@ export function CenteredProseSection({ slug, title, paragraphs }: Props) {
           {title}
         </h2>
         <div className="flex w-full max-w-full min-h-[128px] flex-col gap-5 opacity-70">
-          {paragraphs.map((p) => (
-            <p
-              key={p.slice(0, 48)}
-              className="text-lg font-normal leading-[1.78] tracking-[-0.011em] text-text-100"
-            >
-              {p}
-            </p>
-          ))}
+          {paragraphs.length > 0 ? (
+            paragraphs.map((p) => (
+              <p
+                key={p.slice(0, 48)}
+                className="text-lg font-normal leading-[1.78] tracking-[-0.011em] text-text-100"
+              >
+                {p}
+              </p>
+            ))
+          ) : (
+            <>
+              <div className="mx-auto h-5 w-full max-w-[520px] animate-pulse rounded-md bg-border-light/80" />
+              <div className="mx-auto h-5 w-full max-w-[480px] animate-pulse rounded-md bg-border-light/80" />
+              <div className="mx-auto h-5 w-full max-w-[400px] animate-pulse rounded-md bg-border-light/60" />
+            </>
+          )}
         </div>
       </div>
     </section>
