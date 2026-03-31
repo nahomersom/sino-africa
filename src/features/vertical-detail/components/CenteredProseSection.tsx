@@ -33,7 +33,7 @@ export function CenteredProseSection({ slug, title, paragraphs }: Props) {
         alt=""
         width={226}
         height={225}
-        className="pointer-events-none absolute z-[1] h-[225.3955841064453px] w-[226.28517150878906px] -translate-y-1/2 translate-x-[22%] opacity-100 top-[calc(5rem+1.35rem)] mt-0 md:mt-24 md:max-lg:top-[calc(5rem+1.35rem+6rem)] lg:mt-0 lg:top-[calc(100px+12.35rem+6rem)] lg:translate-x-[26%] -right-6 lg:-right-[min(3rem,12vw)]"
+        className="pointer-events-none absolute z-[1] h-[225.3955841064453px] w-[226.28517150878906px] -translate-y-1/2 translate-x-[22%] opacity-100 top-[calc(5rem+1.35rem)] mt-0 md:max-lg:mt-24 md:max-lg:top-[calc(5rem+1.35rem+6rem)] lg:top-[calc(100px+12.35rem)] lg:translate-x-[26%] -right-6 lg:-right-[min(3rem,12vw)]"
         aria-hidden
       />
 
