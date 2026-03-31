@@ -93,8 +93,8 @@ export function ContactSection() {
       className="relative overflow-hidden flex w-full flex-col items-center bg-white h-auto pt-[40px] pb-[40px] px-[20px] gap-[32px] md:px-[80px] md:py-[60px] lg:min-h-[851px] lg:pt-[100px] lg:pb-[100px] lg:px-[240px] lg:gap-[49px]"
     >
       {/* Glow Effects */}
-      <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[847px] h-[847px] bg-[#64C294] opacity-20 blur-[252px] rounded-full pointer-events-none z-0" />
-      <div className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 w-[847px] h-[847px] bg-[#64C294] opacity-20 blur-[252px] rounded-full pointer-events-none z-0" />
+      <div className="hidden lg:block absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[847px] h-[847px] bg-[#64C294] opacity-20 blur-[252px] rounded-full pointer-events-none z-0" />
+      <div className="hidden lg:block absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 w-[847px] h-[847px] bg-[#64C294] opacity-20 blur-[252px] rounded-full pointer-events-none z-0" />
 
       {/* Postal Icon */}
       <div

@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export function TechnologyHero() {
   return (
@@ -9,7 +12,12 @@ export function TechnologyHero() {
       <div className="mx-auto flex w-full max-w-7xl flex-col-reverse items-center justify-between gap-[8px] px-6 pb-[40px] pt-24 md:max-w-[837px] md:flex-row-reverse md:gap-[65px] md:px-[80px] md:py-[60px] lg:max-w-7xl lg:flex-row lg:gap-12 lg:px-20 lg:py-32">
 
         {/* Text Content */}
-        <div className="flex min-h-[177px] w-full max-w-[366px] flex-col items-center gap-[18px] text-center md:min-h-[218px] md:min-w-[324px] md:max-w-[324px] md:items-start md:text-left lg:min-h-[230px] lg:max-w-[511.6px]">
+        <motion.div
+          className="flex min-h-[177px] w-full max-w-[366px] flex-col items-center gap-[18px] text-center md:min-h-[218px] md:min-w-[324px] md:max-w-[324px] md:items-start md:text-left lg:min-h-[230px] lg:max-w-[511.6px]"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+        >
           <h1 className="text-[13px] text-center text-[#64C294] font-semibold leading-[56px] lg:text-[13px] lg:text-left">
             Technology and infrastructure
           </h1>
@@ -20,10 +28,15 @@ export function TechnologyHero() {
             Global technology reaches Africa. But disciplined, end-to-end execution does not follow.
             Sino Africa closes the gap owning delivery from integration to long-term continuity.
           </p>
-        </div>
+        </motion.div>
 
         {/* Image Content Wrapper */}
-        <div className="relative flex w-full flex-1 items-center gap-4 justify-center md:w-auto md:flex-none lg:flex-1 lg:w-full lg:justify-end">
+        <motion.div
+          className="relative flex w-full flex-1 items-center gap-4 justify-center md:w-auto md:flex-none lg:flex-1 lg:w-full lg:justify-end"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+        >
 
           {/* Rectangle Decoration (Top Left) */}
           <div className="absolute left-[calc(50%-210px)] top-[65px] z-0 transform md:left-[-23px] md:top-[100px] lg:left-[-40px] lg:top-[140px] lg:translate-x-[175px] lg:translate-y-16">
@@ -56,7 +69,7 @@ export function TechnologyHero() {
               priority
             />
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
