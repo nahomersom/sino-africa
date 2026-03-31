@@ -92,7 +92,7 @@ function ProjectDetailGallery({
 
   if (mosaic.length < 6) {
     return (
-      <div className="w-full px-3 sm:px-4 md:px-5 lg:px-0">
+      <div className="w-full px-3 sm:px-4 md:px-0">
         <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
           {items.map((item, i) => (
             <div
@@ -119,8 +119,8 @@ function ProjectDetailGallery({
     <div className="flex w-full flex-col gap-4">
       <div
         className={cn(
-          "hidden h-[850px] w-full gap-3 sm:gap-4 lg:flex",
-          "px-3 sm:px-4 md:px-5 lg:px-0",
+          "hidden w-full gap-3 sm:gap-4 md:flex md:h-[491px] lg:h-[850px]",
+          "px-3 sm:px-4 md:px-0",
         )}
       >
         <GalleryMosaicTile item={g0} className="flex-1" sizes="24vw" />
@@ -135,7 +135,7 @@ function ProjectDetailGallery({
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-3 px-3 sm:gap-4 sm:px-4 md:px-5 lg:hidden">
+      <div className="grid grid-cols-2 gap-3 px-3 sm:gap-4 sm:px-4 md:hidden">
         {[g0, g1, g2, g3, g4, g5].map((item, i) => (
           <div
             key={`${slug}-gallery-sm-${i}`}
@@ -153,7 +153,7 @@ function ProjectDetailGallery({
       </div>
 
       {rest.length > 0 ? (
-        <div className="grid grid-cols-2 gap-3 px-3 sm:grid-cols-3 sm:gap-4 sm:px-4 md:px-5 lg:grid-cols-4 lg:px-0">
+        <div className="grid grid-cols-2 gap-3 px-3 sm:grid-cols-3 sm:gap-4 sm:px-4 md:grid-cols-4 md:px-0">
           {rest.map((item, i) => (
             <div
               key={`${slug}-gallery-extra-${i}`}
@@ -180,10 +180,10 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
       <section
         className={cn(
           "relative flex w-full flex-col gap-8 overflow-x-clip bg-white",
-          "px-8 pb-10 pt-[120px] md:px-20 md:pb-12 md:pt-[113px] lg:px-[120px] lg:pb-14 lg:pt-[152px]",
+          "px-8 pb-10 pt-[120px] md:px-[120px] md:pb-10 md:pt-[152px]",
         )}
       >
-        <div className="pointer-events-none absolute left-0 top-[92px] z-20 md:top-[96px] lg:top-[120px]" aria-hidden>
+        <div className="pointer-events-none absolute left-0 top-[92px] z-20 md:top-[120px]" aria-hidden>
           <Image
             src={PROJECT_DETAIL_DOTS_IMAGE}
             alt=""
@@ -215,22 +215,19 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
           />
         </div>
 
-        <div className="relative z-10 mx-auto flex w-full max-w-[1200px] flex-col gap-8 lg:gap-10">
-          <div className="lg:hidden">
+        <div className="relative z-10 mx-auto flex w-full max-w-[837px] flex-col gap-8 md:gap-10 xl:max-w-[1120px]">
+          <div className="shrink-0">
             <BackToProjectsLink />
           </div>
 
-          <div className="flex flex-col gap-10 lg:flex-row lg:items-stretch lg:justify-between lg:gap-14">
+          <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between md:gap-14 xl:gap-16">
             <motion.div
-              className="order-2 flex max-w-[640px] flex-col gap-4 lg:order-1 lg:min-h-[735px] lg:justify-between lg:gap-0"
+              className="order-1 flex max-w-[640px] flex-col gap-4 md:w-[318.5px] md:max-w-none md:gap-2 xl:w-[46%]"
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, ease: "easeOut" }}
             >
-              <div className="hidden shrink-0 lg:block">
-                <BackToProjectsLink />
-              </div>
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4 md:h-[269px] md:gap-2">
                 <div className="flex flex-col gap-2">
                   <span className="text-[13px] font-normal uppercase leading-[1.26] tracking-[0.125em] text-primary">
                     {projectsContent.detail.heroBadge}
@@ -247,8 +244,8 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
 
             <motion.div
               className={cn(
-                "relative order-1 mx-auto w-full max-w-[651.24px] shrink-0 overflow-hidden rounded-[6px] lg:order-2 lg:mx-0",
-                "aspect-[651.24/735] lg:aspect-auto lg:h-[735px] lg:w-[651.24px]",
+                "relative order-2 mx-auto w-full max-w-[651.24px] shrink-0 overflow-hidden rounded-[6px]",
+                "aspect-[651.24/735] md:mx-0 md:mt-8 md:h-[383px] md:w-[318.5px] md:max-w-none xl:mt-0 xl:h-[500px] xl:w-[420px]",
               )}
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
@@ -259,7 +256,7 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
                 alt={project.heroImageAlt}
                 fill
                 className="object-cover"
-                sizes="(max-width: 1023px) 90vw, 651px"
+                sizes="(max-width: 767px) 90vw, (max-width: 1279px) 318px, 420px"
                 priority
               />
             </motion.div>
@@ -268,9 +265,13 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
       </section>
 
       <ScrollReveal>
-        <section className="relative w-full overflow-x-clip bg-white px-8 py-12 md:px-20 md:py-[72px] lg:px-[120px] lg:py-[88px]">
+        <section className="relative w-full overflow-x-clip bg-white px-8 py-12 md:px-[120px] md:py-[88px]">
           <div
-            className="pointer-events-none absolute -left-[420px] top-[70px] hidden h-[847px] w-[847px] lg:block"
+            className={cn(
+              "pointer-events-none absolute top-[70px] hidden",
+              "md:block md:-left-[300px] md:h-[600px] md:w-[600px]",
+              "lg:-left-[420px] lg:h-[847px] lg:w-[847px]",
+            )}
             aria-hidden
           >
             <Image
@@ -282,12 +283,12 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
             />
           </div>
 
-          <div className="relative z-[1] mx-auto flex w-full max-w-[1200px] flex-col gap-10 lg:gap-14">
+          <div className="relative z-[1] mx-auto flex w-full max-w-[1200px] flex-col gap-10 md:gap-14">
             <h2 className="text-center font-(family-name:--font-nata-sans) text-[28px] font-semibold leading-[1.3] tracking-[-0.035em] text-black md:text-[36px] md:tracking-[-0.04em]">
               Project Details
             </h2>
 
-            <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,280px)_1fr] lg:gap-16 xl:grid-cols-[minmax(0,320px)_1fr]">
+            <div className="grid grid-cols-1 gap-12 md:grid-cols-[minmax(0,280px)_1fr] md:gap-16 xl:grid-cols-[minmax(0,320px)_1fr]">
               <aside className="flex flex-col gap-10">
                 <div className="flex flex-col gap-3">
                   <SectionKicker>What we did</SectionKicker>
@@ -339,8 +340,8 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
       </ScrollReveal>
 
       <ScrollReveal>
-        <section className="w-full bg-white py-12 md:py-[72px] lg:py-[88px]">
-          <div className="mx-auto mb-10 max-w-[1200px] px-8 md:mb-12 md:px-20 lg:mb-14 lg:px-[120px]">
+        <section className="w-full bg-white py-12 md:py-[88px]">
+          <div className="mx-auto mb-10 max-w-[1200px] px-8 md:mb-14 md:px-[120px]">
             <h2 className="text-center font-(family-name:--font-nata-sans) text-[28px] font-semibold leading-[1.3] tracking-[-0.035em] text-black md:text-[36px] md:tracking-[-0.04em]">
               Gallery
             </h2>

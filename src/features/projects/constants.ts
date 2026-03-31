@@ -28,8 +28,7 @@ export const projectsContent = {
   hero: {
     label: "OUR PROJECTS",
     heading: "Delivering technology and infrastructure that moves businesses forward.",
-    description:
-      "From digital platforms to secure systems and mobility solutions, our work spans sectors and borders—built with partners who expect reliability, scale, and clarity.",
+    description: "",
   },
   grid: {
     heading: "Our Featured Projects",
