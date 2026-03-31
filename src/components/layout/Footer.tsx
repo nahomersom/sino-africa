@@ -31,7 +31,7 @@ const footerLinks = {
     links: [
       { label: "contact@sinoafricatrading.com", href: "mailto:contact@sinoafricatrading.com" },
       { label: "+251 9 00 00 0000", href: "tel:+251900000000" },
-      { label: "Contact us", href: "/#contact" },
+      { label: "Contact us", href: "/contact" },
     ],
   },
 };

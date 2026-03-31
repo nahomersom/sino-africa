@@ -258,7 +258,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
           </nav>
 
           <Button asChild variant="primary" className="hidden min-w-[142px] lg:inline-flex">
-            <Link href="/#contact">Contact us</Link>
+            <Link href="/contact">Contact us</Link>
           </Button>
         </div>
       </div>
@@ -353,7 +353,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
           </div>
 
           <Link
-            href="/#contact"
+            href="/contact"
             onClick={() => setMenuOpen(false)}
             className="flex w-full shrink-0 items-center justify-center rounded-[23px] bg-primary px-6 py-6 text-sm font-normal leading-[1.5] text-white"
           >
