@@ -29,12 +29,12 @@ export function DetailHero({ name, heroDescription, heroImageAlt, theme }: Props
           aria-hidden
         />
 
-        <div className="relative z-[1] mx-auto flex min-h-0 w-full max-w-[1552px] flex-1 flex-col px-6 pt-[112px] lg:pt-[128px] lg:px-[min(8rem,6vw)]">
-          <div className="flex min-h-0 w-full flex-1 flex-col justify-end gap-10 lg:flex-row lg:items-stretch lg:justify-start lg:gap-12">
-            <div className="flex min-w-0 w-full max-w-[596px] flex-1 flex-col justify-center gap-3 p-2 opacity-100 lg:min-h-[653px] ml-10">
+        <div className="relative z-[1] mx-auto flex min-h-0 w-full md:mt-15 lg:mt-20 max-w-[1452px] flex-1 flex-col px-6 pt-[112px] lg:pt-[128px] lg:px-[min(8rem,6vw)]">
+          <div className="flex min-h-0 w-full flex-1 flex-col justify-start gap-10 md:flex-row md:items-stretch md:justify-start md:gap-12 mt-20">
+            <div className="order-2 ml-0 flex min-w-0 w-full max-w-[596px] flex-1 flex-col justify-center gap-3 p-2 opacity-100 md:order-1 md:ml-6 lg:ml-10 lg:min-h-[653px]">
               <Link
                 href="/our-verticals"
-                className="inline-flex w-fit items-center gap-2 text-sm font-medium text-white transition hover:opacity-90"
+                className="hidden w-fit items-center gap-2 text-sm font-medium text-white transition hover:opacity-90 md:inline-flex"
               >
                 <span aria-hidden className="text-lg leading-none">
                   ←
@@ -59,7 +59,7 @@ export function DetailHero({ name, heroDescription, heroImageAlt, theme }: Props
                     } satisfies CSSProperties
                   }
                 />
-                <h1 className="font-heading text-4xl font-bold leading-none tracking-[-0.033em] text-white lg:text-[60px]">
+                <h1 className="font-heading text-4xl font-bold leading-none tracking-[-0.033em] text-white md:text-[48px] lg:text-[60px]">
                   {name}
                 </h1>
                 <p className="max-w-xl text-lg font-normal leading-normal tracking-[-0.011em] text-white">
@@ -68,7 +68,7 @@ export function DetailHero({ name, heroDescription, heroImageAlt, theme }: Props
               </div>
             </div>
 
-            <div className="relative z-[2] mt-15 aspect-square w-full lg:max-w-[685px] lg:translate-y-[clamp(2.25rem,1rem,1rem)]">
+            <div className="relative z-[2] order-1 aspect-square w-full max-md:mt-0 md:order-2 md:mt-0 md:max-w-[520px] md:translate-y-[clamp(2.25rem,1rem,1rem)] lg:max-w-[685px]">
               <Image
                 src={HERO_DOTS_SRC}
                 alt=""
@@ -91,18 +91,19 @@ export function DetailHero({ name, heroDescription, heroImageAlt, theme }: Props
         </div>
       </div>
 
-      <HeroWave className="order-1" />
-
-      <div className="order-2 flex justify-center pb-2 -mt-[30px] z-[100]">
-        <span aria-hidden>
-          <Image
-            src={DOWN_ARROW_SRC}
-            alt=""
-            width={42}
-            height={42}
-            className="size-10 brightness-0 invert"
-          />
-        </span>
+      <div className="relative z-20 md:-mt-[180px] lg:mt-0">
+        <HeroWave />
+        <div className="pointer-events-none absolute inset-x-0 bottom-10 z-[1000] flex justify-center md:bottom-0">
+          <span aria-hidden className="relative drop-shadow-md">
+            <Image
+              src={DOWN_ARROW_SRC}
+              alt=""
+              width={42}
+              height={42}
+              className="size-10"
+            />
+          </span>
+        </div>
       </div>
     </section>
   );
