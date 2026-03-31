@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { useGetBlogsQuery, Blog, getStrapiMediaUrl } from "@/src/store/strapiApi";
 import { ErrorState } from "@/src/components/ui/ErrorState";
 
@@ -111,20 +112,30 @@ export function BlogHero() {
       <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 md:px-0 lg:px-0">
 
         {/* Section Heading Container - Configured for tab-responsive */}
-        <div className="flex flex-col items-center text-center mx-auto w-full md:max-w-[837px] md:min-h-[160px] md:pb-[40px] md:gap-[40px] gap-[16px] mb-[32px] md:mb-0 ">
+        <motion.div
+          className="flex flex-col items-center text-center mx-auto w-full md:max-w-[837px] md:min-h-[160px] md:pb-[40px] md:gap-[40px] gap-[16px] mb-[32px] md:mb-0 "
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+        >
           <span className="text-[#64C294] text-[13px] font-normal uppercase tracking-[0.15em] ">
             Blogs
           </span>
           <h2 className="text-[#161C2D] text-[32px] md:text-[36px] font-semibold leading-[40px] md:leading-[48px] w-full mx-auto">
             Our Insights on Infrastructure, Technology, and Institutional Systems
           </h2>
-        </div>
+        </motion.div>
 
         {/* Horizontal Scroll Container */}
-        <div
-          ref={scrollContainerRef}
-          className="flex gap-[24px] md:gap-[25px] overflow-x-auto no-scrollbar scroll-smooth pb-[20px] px-[16px] md:px-0 lg:px-0"
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
         >
+          <div
+            ref={scrollContainerRef}
+            className="flex gap-[24px] md:gap-[25px] overflow-x-auto no-scrollbar scroll-smooth pb-[20px] px-[16px] md:px-0 lg:px-0"
+          >
           {isLoading ? (
             Array.from({ length: 3 }).map((_, index) => (
               <div key={index} className="shrink-0 w-[366px] md:w-[326px] lg:w-[615px] h-[446px] lg:h-[485px] rounded-[16px] bg-gray-200 animate-pulse" />
@@ -156,10 +167,16 @@ export function BlogHero() {
               />
             ))
           )}
-        </div>
+          </div>
+        </motion.div>
 
         {/* Pagination & Navigation */}
-        <div className="flex justify-between items-center mt-[32px] px-[16px] md:px-0 lg:px-0">
+        <motion.div
+          className="flex justify-between items-center mt-[32px] px-[16px] md:px-0 lg:px-0"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+        >
           <div className="text-[#161C2D] text-[16px] font-medium opacity-60">
             {featuredBlogs.length > 0 ? `1/${featuredBlogs.length}` : `1/${Math.min(blogs.length, 3)}`}
           </div>
@@ -181,7 +198,7 @@ export function BlogHero() {
               </svg>
             </button>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
