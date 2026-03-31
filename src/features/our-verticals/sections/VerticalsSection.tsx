@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+
+import { useGetVerticalsQuery, type Vertical } from "@/src/store/strapiApi";
 import { verticalItems } from "../constants";
 
 const slugId: Record<string, string> = {
@@ -8,7 +12,69 @@ const slugId: Record<string, string> = {
   MOBILITEX: "mobilitex",
 };
 
+const themeBySlug: Record<
+  string,
+  { colorClass: string; arrowSrc: string; fallbackIconSrc: string }
+> = {
+  "act-it": {
+    colorClass: "bg-[#3FAF7E]",
+    arrowSrc: "/images/our-verticals/vertical-card-arrow-1.svg",
+    fallbackIconSrc: "/icons/vertical-cards-icon.png",
+  },
+  "sino-sec": {
+    colorClass: "bg-[#4A5568]",
+    arrowSrc: "/images/our-verticals/vertical-card-arrow-3.svg",
+    fallbackIconSrc: "/icons/vertical-cards-icon.png",
+  },
+  mobilitex: {
+    colorClass: "bg-[#2F6FED]",
+    arrowSrc: "/images/our-verticals/vertical-card-arrow-2.svg",
+    fallbackIconSrc: "/icons/vertical-cards-icon.png",
+  },
+};
+
+function toDisplayTitle(v: Vertical): string {
+  return (v.title ?? v.name ?? "").toString();
+}
+
+function toSlug(v: Vertical): string {
+  const raw = (v.slug ?? "").toString().trim();
+  if (raw) return raw;
+  const t = toDisplayTitle(v).toLowerCase().trim();
+  if (t === "act it" || t === "act-it") return "act-it";
+  if (t === "sino sec" || t === "sino-sec" || t === "sino sec.") return "sino-sec";
+  if (t === "mobilitex" || t === "mobilutex") return "mobilitex";
+  return "";
+}
+
 export function VerticalsSection() {
+  const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+  const { data: verticals = [] } = useGetVerticalsQuery(undefined, {
+    skip: !STRAPI_URL,
+  });
+
+  const apiItems = verticals
+    .map((v) => {
+      const slug = toSlug(v);
+      const theme = themeBySlug[slug];
+      const title = toDisplayTitle(v);
+      if (!slug || !theme || !title) return null;
+
+      return {
+        key: String(v.id),
+        slug,
+        href: `/our-verticals/${slug}`,
+        title: title.toUpperCase(),
+        description: v.description ?? v.summary ?? "",
+        colorClass: theme.colorClass,
+        iconSrc: theme.fallbackIconSrc,
+        arrowSrc: theme.arrowSrc,
+      };
+    })
+    .filter((v): v is NonNullable<typeof v> => Boolean(v));
+
+  const itemsToRender = apiItems.length ? apiItems : verticalItems;
+
   return (
     <section
       className="relative w-full overflow-x-hidden bg-white"
@@ -64,11 +130,19 @@ export function VerticalsSection() {
 
         <div className="relative mx-auto w-full max-w-[1254px]">
           <div className="grid w-full grid-cols-1 gap-2 lg:auto-rows-[552px] lg:grid-cols-3">
-            {verticalItems.map((item) => (
+            {itemsToRender.map((item) => {
+              const href =
+                "href" in item
+                  ? item.href
+                  : `/our-verticals/${slugId[item.title] ?? "#"}`;
+              const idAttr = "slug" in item ? item.slug : slugId[item.title];
+              const key = "key" in item ? item.key : item.title;
+
+              return (
               <Link
-                key={item.title}
-                id={slugId[item.title] ?? undefined}
-                href={`/our-verticals/${slugId[item.title] ?? "#"}`}
+                key={key}
+                id={idAttr ?? undefined}
+                href={href}
                 aria-label={`${item.title}: read more`}
                 className={`${item.colorClass} flex w-full flex-col items-center justify-between rounded-[8px] px-16 py-10 transition hover:brightness-105 lg:h-full lg:min-h-0`}
               >
@@ -112,7 +186,8 @@ export function VerticalsSection() {
                   </span>
                 </div>
               </Link>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
