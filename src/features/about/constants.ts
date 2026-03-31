@@ -1,7 +1,7 @@
 export const aboutContent = {
   hero: {
     label: "ABOUT US",
-    heading: "We empower growth by connecting global markets and unlocking new opportunities.",
+    heading: "We empower growth by Powering the Systems That Keep Nations Moving.",
     /** Photo collage slots — artboard 1236×611 (Figma); dot grid is `hero-dots.svg` */
     images: {
       center: "/images/about/hero-photo-0.jpg",
@@ -9,36 +9,38 @@ export const aboutContent = {
       right: "/images/about/hero-photo-1.jpg",
     },
     description:
-      "Lorem ipsum dolor sit amet consectetur. Nunc euismod consectetur arcu nunc etiam lobortis montes enim. Ut risus neque lectus donec id pretium orci platea habitant. Sed placerat varius id curabitur ut arcu. Vitae congue.",
+      "We work at the core of critical infrastructure helping governments and institutions turn complex challenges into reliable, compliant systems that drive long-term growth and stability."
   },
   whatDefinesUs: {
     heading: "What Defines us",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Elit eget mauris sed diam urna. Integer massa tortor at rutrum quis lobortis a. Condimentum nunc.",
+      "What shapes our decisions, and inspire us to create meaningful impact for our partners and communities.",
     mission: {
       title: "Our Mission",
       description:
-        "Lorem ipsum dolor sit amet consectetur. Tellus et velit blandit mattis volutpat semper. Tristique tellus purus.",
+        "Sino Africa delivers mission critical regulated financial, identity, security, and mobility systems through disciplined execution, strict regulatory alignment, and full lifecycle accountability. We transform policy into operational reality, embed global technologies within local governance frameworks, and assume end-to-end responsibility to ensure continuity, stability, and long-term institutional trust.",
     },
     vision: {
       title: "Our Vision",
       description:
-        "Lorem ipsum dolor sit amet consectetur. Tellus et velit blandit mattis volutpat semper. Tristique tellus purus.",
+        "Strengthening Africa’s institutions by integrating and sustaining global technologies within local governance.",
     },
     values: {
       title: "Our Core Values",
       items: [
-        "Lorem ipsum dolor",
-        "Lorem ipsum dolor",
-        "Lorem ipsum dolor",
-        "Lorem ipsum dolor",
+        "Execution Ownership",
+        "Institutional Trust",
+        "Regulatory Alignment",
+        "Lifecycle Responsibility",
+        "Strategic Discipline",
+        "Operational Readiness",
       ],
     },
   },
   team: {
     heading: "Our Team",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Elit eget mauris sed diam urna. Integer massa tortor at rutrum quis lobortis a. Condimentum nunc.",
+      "A strong, disciplined team with vibrant energy, delivering end-to-end solutions with full lifecycle accountability. ",
     ceo: {
       name: "Simon Cowell",
       role: "CEO / Founder",
