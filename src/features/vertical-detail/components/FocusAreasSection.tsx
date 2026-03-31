@@ -32,17 +32,17 @@ function FocusGridTextImages({ gridImages }: { gridImages: [string, string, stri
   const [topLeft, rightTop, leftBottom, rightBottom] = gridImages;
   return (
     <>
-      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:hidden">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 md:hidden">
         {[topLeft, rightTop, leftBottom, rightBottom].map((src, j) => (
           <div
             key={`${src}-${j}`}
             className="relative aspect-square overflow-hidden rounded-lg"
           >
-            <Image src={src} alt="" fill className="object-cover" sizes="(max-width: 1024px) 50vw, 240px" />
+            <Image src={src} alt="" fill className="object-cover" sizes="(max-width: 767px) 50vw, 240px" />
           </div>
         ))}
       </div>
-      <div className="relative hidden h-[511px] w-[449px] max-w-full shrink-0 overflow-hidden rounded-lg lg:flex lg:flex-row lg:gap-[25px]">
+      <div className="relative hidden h-[511px] w-[449px] max-w-full shrink-0 overflow-hidden rounded-lg md:flex md:flex-row md:gap-[25px]">
         <div className="flex w-[212px] shrink-0 flex-col gap-[25px]">
           <div className="relative h-[206px] w-[212px] shrink-0 overflow-hidden rounded-lg">
             <Image src={topLeft} alt="" fill className="object-cover" sizes="212px" />
@@ -69,15 +69,15 @@ function FocusDualOverlapImages({ images }: { images: [string, string] }) {
   const [leftSrc, rightSrc] = images;
   return (
     <>
-      <div className="relative mx-auto flex max-w-[447px] justify-center gap-2 sm:gap-3 lg:hidden">
+      <div className="relative mx-auto flex max-w-[447px] justify-center gap-2 sm:gap-3 md:hidden">
         <div className="relative z-[1] h-[min(320px,55vw)] w-[55%] min-w-0 overflow-hidden rounded-lg bg-border-light shadow-sm">
-          <Image src={leftSrc} alt="" fill className="object-cover" sizes="(max-width: 1024px) 45vw, 327px" />
+          <Image src={leftSrc} alt="" fill className="object-cover" sizes="(max-width: 767px) 45vw, 327px" />
         </div>
         <div className="relative z-0 -ml-[12%] mt-[6%] h-[min(262px,48vw)] w-[45%] min-w-0 overflow-hidden rounded-lg bg-border-light shadow-sm">
-          <Image src={rightSrc} alt="" fill className="object-cover" sizes="(max-width: 1024px) 40vw, 264px" />
+          <Image src={rightSrc} alt="" fill className="object-cover" sizes="(max-width: 767px) 40vw, 264px" />
         </div>
       </div>
-      <div className="relative mx-auto hidden h-[468px] w-[447px] shrink-0 lg:mx-0 lg:block">
+      <div className="relative mx-auto hidden h-[468px] w-[447px] shrink-0 md:block lg:mx-0">
         <div className="absolute left-0 top-0 z-[1] h-[468px] w-[327px] overflow-hidden rounded-lg bg-border-light shadow-sm">
           <Image src={leftSrc} alt="" fill className="object-cover" sizes="327px" />
         </div>
@@ -136,7 +136,7 @@ export function FocusAreasSection({ title, subtitle, rows, patternSrc }: Props) 
       />
 
       <div className="relative z-10 px-6 lg:px-[min(15rem,12vw)]">
-        <div className="relative mx-auto flex w-full max-w-[1100px] flex-col gap-14 lg:gap-14">
+        <div className="relative mx-auto flex w-full max-w-full flex-col gap-14 md:max-w-[552px] lg:max-w-[1100px] lg:gap-14">
           <div className="mx-auto flex max-w-[552px] flex-col gap-4 text-center">
             <h2 className="font-heading text-4xl font-semibold leading-[1.33] tracking-[-0.033em] text-text-100">
               {title}

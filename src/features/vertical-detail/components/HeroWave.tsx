@@ -6,7 +6,7 @@ type Props = { className?: string };
 
 export function HeroWave({ className = "" }: Props) {
   return (
-    <div className={`relative z-[1] -mt-px w-full leading-none ${className}`.trim()}>
+    <div className={`relative z-0 -mt-px w-full leading-none ${className}`.trim()}>
       <Image
         src={WAVE_SRC}
         alt=""
