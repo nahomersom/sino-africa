@@ -272,6 +272,14 @@ export type VerticalGradient = {
   baseColor: string;
 };
 
+const VERTICAL_DEEP_POPULATE: Record<string, string> = {
+  "populate[logo]": "true",
+  "populate[heroImage]": "true",
+  "populate[gradient]": "true",
+  "populate[focusAreas][populate][images]": "true",
+  "populate[ecosystemPartners][populate][icon]": "true",
+};
+
 export type Partner = {
   id: number | string;
   documentId?: string;

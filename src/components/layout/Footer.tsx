@@ -73,8 +73,8 @@ export function Footer() {
             priority
           />
           <p className="text-base leading-6 text-white/65">
-            Lorem ipsum dolor sit amet consectetur. Lacinia est ac euismod sit
-            nunc placerat in odio bibendum.
+            Sino Africa delivers technology-driven solutions across industries,
+            connecting innovation, infrastructure, and impact throughout Africa.
           </p>
           <div className="flex items-center gap-6">
             <Link href="#" aria-label="Twitter" className="text-[#7D818D] hover:text-primary">
