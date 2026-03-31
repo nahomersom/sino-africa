@@ -170,10 +170,28 @@ const VERTICAL_DEEP_POPULATE: Record<string, unknown> = {
 // Helper to resolve Strapi media URLs (relative or absolute)
 export function getStrapiMediaUrl(url: string | null | undefined): string {
   if (!url) return "";
-  if (url.startsWith("http")) return url;
+  if (url.startsWith("https://") || url.startsWith("http://")) return url;
+  if (url.startsWith("//")) return `https:${url}`;
 
   const base = STRAPI_BASE_URL || "";
   return `${base}${url}`;
+}
+
+/** Raw `url` from a flat Strapi upload, nested `{ data: upload }`, or v4-style `{ data: { attributes } }`. */
+export function resolveStrapiUploadUrl(media: unknown): string | undefined {
+  if (!media || typeof media !== "object") return undefined;
+  const m = media as Record<string, unknown>;
+  if (typeof m.url === "string") return m.url;
+  const data = m.data;
+  if (data == null || typeof data !== "object") return undefined;
+  const d = data as Record<string, unknown>;
+  if (typeof d.url === "string") return d.url;
+  const attrs = d.attributes;
+  if (attrs && typeof attrs === "object") {
+    const url = (attrs as Record<string, unknown>).url;
+    if (typeof url === "string") return url;
+  }
+  return undefined;
 }
 
 export type Vertical = {

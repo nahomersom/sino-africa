@@ -1,17 +1,25 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { cache } from "react";
 
 import { Nav } from "@/src/components/layout/Nav";
 import {
   getVerticalDetail,
   mergeVerticalDetailFromApi,
   verticalDetailSlugs,
-  VerticalDetailPageClient,
+  VerticalDetailPage,
 } from "@/src/features/vertical-detail";
 import { fetchVerticalBySlugServer, fetchVerticalsList } from "@/src/lib/strapi/verticals-server";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
+
+const getVerticalPageData = cache(async (slug: string) => {
+  const api = await fetchVerticalBySlugServer(slug);
+  const fallback = getVerticalDetail(slug);
+  return { api, fallback };
+});
 
 export async function generateStaticParams() {
   const fromCms = await fetchVerticalsList();
@@ -25,8 +33,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const api = await fetchVerticalBySlugServer(slug);
-  const fallback = getVerticalDetail(slug);
+  const { api, fallback } = await getVerticalPageData(slug);
   if (!api && !fallback) {
     return { title: "Vertical" };
   }
@@ -39,11 +46,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function VerticalDetailRoute({ params }: Props) {
   const { slug } = await params;
+  const { api, fallback } = await getVerticalPageData(slug);
+
+  if (!api && !fallback) {
+    notFound();
+  }
+
+  const content = mergeVerticalDetailFromApi(slug, api, fallback);
 
   return (
     <div className="flex w-full flex-col">
       <Nav variant="inner-page" />
-      <VerticalDetailPageClient slug={slug} />
+      <VerticalDetailPage content={content} />
     </div>
   );
 }

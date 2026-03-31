@@ -65,7 +65,7 @@ export const verticalDetailBySlug: Record<VerticalDetailSlug, VerticalDetailCont
       "Tell us about your environment and goals—we will route your message to the right practice lead.",
     theme: {
       focusHeadingColor: "#3FAF7E",
-      heroBgSrc: "/images/our-verticals/bg-green.png",
+      heroGradient: { baseColor: "#3FAF7E", accentColor: "#328B64" },
       heroImageSrc: "/images/our-verticals/green-hero.png",
       focusPatternSrc: "/images/our-verticals/green-pattern.png",
     },
@@ -129,7 +129,7 @@ export const verticalDetailBySlug: Record<VerticalDetailSlug, VerticalDetailCont
       "Share your context in confidence—we will respond with a clear next step and the right subject-matter contact.",
     theme: {
       focusHeadingColor: "#4A5568",
-      heroBgSrc: "/images/our-verticals/bg-black.png",
+      heroGradient: { baseColor: "#4A5568", accentColor: "#2D3748" },
       heroImageSrc: "/images/our-verticals/black-hero.png",
       focusPatternSrc: "/images/our-verticals/black-pattern.png",
     },
@@ -193,7 +193,7 @@ export const verticalDetailBySlug: Record<VerticalDetailSlug, VerticalDetailCont
       "Reach out with your corridor, fleet, or programme context—we will connect you with a mobililty lead.",
     theme: {
       focusHeadingColor: "#2F6FED",
-      heroBgSrc: "/images/our-verticals/bg-blue.png",
+      heroGradient: { baseColor: "#2F6FED", accentColor: "#1A4FC4" },
       heroImageSrc: "/images/our-verticals/blue-hero.png",
       focusPatternSrc: "/images/our-verticals/blue-pattern.png",
     },

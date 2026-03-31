@@ -4,7 +4,8 @@ export type VerticalDetailSlug = "act-it" | "sino-sec" | "mobilitex";
 export type VerticalDetailTheme = {
   /** Partner cards, hero logo tint, contact CTA accent */
   focusHeadingColor: string;
-  heroBgSrc: string;
+  /** Programmatic hero backdrop (replaces flat bg-*.png assets). */
+  heroGradient: { baseColor: string; accentColor: string };
   heroImageSrc: string;
   focusPatternSrc: string;
 };

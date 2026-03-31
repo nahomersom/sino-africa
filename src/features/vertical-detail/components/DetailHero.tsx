@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import type { VerticalDetailContent, VerticalDetailTheme } from "../types";
+import { DetailHeroGradientBg } from "./DetailHeroGradientBg";
 import { HeroWave } from "./HeroWave";
 
 const HERO_DOTS_SRC = "/images/our-verticals/hero-dots.png";
@@ -19,20 +20,16 @@ export function DetailHero({
   heroLogoSrc,
   theme,
 }: Props) {
-  const { heroBgSrc, heroImageSrc } = theme;
+  const { heroGradient, heroImageSrc } = theme;
   const showHeroImage = Boolean(heroImageSrc);
 
   return (
     <section className="relative isolate flex w-full flex-col overflow-x-clip">
-      <div className="relative order-0 z-0 mx-auto flex w-full flex-none shrink-0 grow-0 flex-col pb-10 pt-0 lg:mb-[-230px] lg:min-h-[953px] lg:pb-16">
-        <Image
-          src={heroBgSrc}
-          alt=""
-          fill
-          priority
-          className="pointer-events-none object-cover object-left object-top"
-          sizes="100vw"
-          aria-hidden
+      <div className="relative order-0 z-0 mx-auto flex w-full min-h-[min(70vh,953px)] flex-none shrink-0 grow-0 flex-col pb-10 pt-0 lg:mb-[-230px] lg:min-h-[953px] lg:pb-16">
+        <DetailHeroGradientBg
+          baseColor={heroGradient.baseColor}
+          accentColor={heroGradient.accentColor}
+          className="pointer-events-none absolute inset-0"
         />
 
         <div className="relative z-[1] mx-auto flex min-h-0 w-full md:mt-15 lg:mt-20 max-w-[1452px] flex-1 flex-col px-6 pt-[112px] lg:pt-[128px] lg:px-[min(8rem,6vw)]">
@@ -90,21 +87,31 @@ export function DetailHero({
                 className="pointer-events-none absolute -right-5 -top-10 z-[1] h-auto w-[min(131px,30%)]"
                 aria-hidden
               />
-              <div className="relative z-[2] h-full w-full overflow-hidden rounded-[10px]">
-                {showHeroImage ? (
-                  <Image
-                    src={heroImageSrc}
-                    alt={heroImageAlt}
-                    fill
-                    className="object-cover"
-                    priority
-                  />
-                ) : (
-                  <div
-                    className="absolute inset-0 animate-pulse bg-neutral-300/40"
-                    aria-hidden
-                  />
-                )}
+              <div className="relative z-[2] h-full w-full">
+                {/* Shadow box sits UNDER the image and can protrude left */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute left-0 top-1/2 z-0 h-[min(451px,78%)] w-[min(332.6400451660156px,78%)] -translate-y-1/2 -translate-x-[4%] rounded-[15px] bg-white/[0.09] shadow-[-56px_0_110px_-22px_rgba(0,0,0,0.6)] md:-translate-x-[5%] lg:-translate-x-[7%]"
+                />
+
+                {/* Image stays clipped + rounded */}
+                <div className="relative z-[1] h-full w-full overflow-hidden rounded-[10px]">
+                  {showHeroImage ? (
+                    <Image
+                      src={heroImageSrc}
+                      alt={heroImageAlt}
+                      fill
+                      sizes="(max-width: 767px) 100vw, (max-width: 1023px) 520px, 685px"
+                      className="object-cover"
+                      priority
+                    />
+                  ) : (
+                    <div
+                      className="absolute inset-0 animate-pulse bg-neutral-300/40"
+                      aria-hidden
+                    />
+                  )}
+                </div>
               </div>
             </div>
           </div>
