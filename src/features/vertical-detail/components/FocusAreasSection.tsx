@@ -27,65 +27,60 @@ type Props = {
   patternSrc: string;
 };
 
-/** First focus row image mosaic: 449×511, staggered 212px columns, 25px gaps (design spec). */
+/** First focus row image mosaic: 449×511, staggered 212px columns, 25px gaps (design spec). Below lg: fluid width, same 2-col rhythm, no horizontal scroll. */
 function FocusGridTextImages({ gridImages }: { gridImages: [string, string, string, string] }) {
   const [topLeft, rightTop, leftBottom, rightBottom] = gridImages;
+  const cellSizes = "(max-width: 1023px) 42vw, 212px";
   return (
-    <>
-      <div className="grid grid-cols-2 gap-3 sm:gap-4 md:hidden">
-        {[topLeft, rightTop, leftBottom, rightBottom].map((src, j) => (
-          <div
-            key={`${src}-${j}`}
-            className="relative aspect-square overflow-hidden rounded-lg"
-          >
-            <Image src={src} alt="" fill className="object-cover" sizes="(max-width: 767px) 50vw, 240px" />
+    <div className="relative mx-auto w-full max-w-[449px] min-w-0">
+      <div className="relative flex w-full min-w-0 flex-row gap-3 overflow-hidden rounded-lg lg:h-[511px] lg:w-[449px] lg:gap-[25px]">
+        <div className="flex min-w-0 flex-1 flex-col gap-3 lg:w-[212px] lg:flex-none lg:gap-[25px]">
+          <div className="relative aspect-[206/212] w-full overflow-hidden rounded-lg lg:aspect-auto lg:h-[206px] lg:w-[212px] lg:shrink-0">
+            <Image src={topLeft} alt="" fill className="object-cover" sizes={cellSizes} />
           </div>
-        ))}
-      </div>
-      <div className="relative hidden h-[511px] w-[449px] max-w-full shrink-0 overflow-hidden rounded-lg md:flex md:flex-row md:gap-[25px]">
-        <div className="flex w-[212px] shrink-0 flex-col gap-[25px]">
-          <div className="relative h-[206px] w-[212px] shrink-0 overflow-hidden rounded-lg">
-            <Image src={topLeft} alt="" fill className="object-cover" sizes="212px" />
-          </div>
-          <div className="relative h-[255px] w-[212px] shrink-0 overflow-hidden rounded-lg">
-            <Image src={leftBottom} alt="" fill className="object-cover" sizes="212px" />
+          <div className="relative aspect-[255/212] w-full overflow-hidden rounded-lg lg:aspect-auto lg:h-[255px] lg:w-[212px] lg:shrink-0">
+            <Image src={leftBottom} alt="" fill className="object-cover" sizes={cellSizes} />
           </div>
         </div>
-        <div className="flex w-[212px] shrink-0 flex-col gap-[25px] pt-[25px]">
-          <div className="relative h-[255px] w-[212px] shrink-0 overflow-hidden rounded-lg">
-            <Image src={rightTop} alt="" fill className="object-cover" sizes="212px" />
+        <div className="flex min-w-0 flex-1 flex-col gap-3 pt-3 lg:w-[212px] lg:flex-none lg:gap-[25px] lg:pt-[25px]">
+          <div className="relative aspect-[255/212] w-full overflow-hidden rounded-lg lg:aspect-auto lg:h-[255px] lg:w-[212px] lg:shrink-0">
+            <Image src={rightTop} alt="" fill className="object-cover" sizes={cellSizes} />
           </div>
-          <div className="relative h-[206px] w-[212px] shrink-0 overflow-hidden rounded-lg">
-            <Image src={rightBottom} alt="" fill className="object-cover" sizes="212px" />
+          <div className="relative aspect-[206/212] w-full overflow-hidden rounded-lg lg:aspect-auto lg:h-[206px] lg:w-[212px] lg:shrink-0">
+            <Image src={rightBottom} alt="" fill className="object-cover" sizes={cellSizes} />
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
-/** Second focus row images: 447×468 group; left 327×468, right 264×382 overlapping left (design spec). */
+/** Second focus row images: 447×468 group; left 327×468, right 264×382 overlapping left (design spec). Below lg: percentage layout so width tracks container. */
 function FocusDualOverlapImages({ images }: { images: [string, string] }) {
   const [leftSrc, rightSrc] = images;
   return (
-    <>
-      <div className="relative mx-auto flex max-w-[447px] justify-center gap-2 sm:gap-3 md:hidden">
-        <div className="relative z-[1] h-[min(320px,55vw)] w-[55%] min-w-0 overflow-hidden rounded-lg bg-border-light shadow-sm">
-          <Image src={leftSrc} alt="" fill className="object-cover" sizes="(max-width: 767px) 45vw, 327px" />
+    <div className="relative mx-auto w-full max-w-[447px] min-w-0 lg:mx-0">
+      <div className="relative aspect-[447/468] w-full lg:aspect-auto lg:h-[468px] lg:w-[447px]">
+        <div className="absolute left-0 top-0 z-[1] h-full w-[73.15%] overflow-hidden rounded-lg bg-border-light shadow-sm lg:h-[468px] lg:w-[327px]">
+          <Image
+            src={leftSrc}
+            alt=""
+            fill
+            className="object-cover"
+            sizes="(max-width: 1023px) 75vw, 327px"
+          />
         </div>
-        <div className="relative z-0 -ml-[12%] mt-[6%] h-[min(262px,48vw)] w-[45%] min-w-0 overflow-hidden rounded-lg bg-border-light shadow-sm">
-          <Image src={rightSrc} alt="" fill className="object-cover" sizes="(max-width: 767px) 40vw, 264px" />
+        <div className="absolute left-[40.94%] top-[9.19%] z-0 h-[81.62%] w-[59.06%] overflow-hidden rounded-lg bg-border-light shadow-sm lg:left-[183px] lg:top-[43px] lg:h-[382px] lg:w-[264px]">
+          <Image
+            src={rightSrc}
+            alt=""
+            fill
+            className="object-cover"
+            sizes="(max-width: 1023px) 60vw, 264px"
+          />
         </div>
       </div>
-      <div className="relative mx-auto hidden h-[468px] w-[447px] shrink-0 md:block lg:mx-0">
-        <div className="absolute left-0 top-0 z-[1] h-[468px] w-[327px] overflow-hidden rounded-lg bg-border-light shadow-sm">
-          <Image src={leftSrc} alt="" fill className="object-cover" sizes="327px" />
-        </div>
-        <div className="absolute left-[183px] top-[43px] z-0 h-[382px] w-[264px] overflow-hidden rounded-lg bg-border-light shadow-sm">
-          <Image src={rightSrc} alt="" fill className="object-cover" sizes="264px" />
-        </div>
-      </div>
-    </>
+    </div>
   );
 }
 

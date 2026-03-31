@@ -25,10 +25,10 @@ export function PartnerCardsSection({ title, subtitle, partners }: Props) {
           {partners.map((card) => (
             <article
               key={card.title}
-              className="flex min-h-0 w-full min-w-0 flex-col gap-8 rounded-[16px] border border-border-card p-8 lg:h-[552px] lg:justify-between lg:gap-0"
+              className="flex min-h-0 w-full min-w-0 flex-col items-center gap-8 rounded-[16px] border border-border-card p-8 text-center lg:h-[552px] lg:items-stretch lg:justify-between lg:gap-0 lg:text-left"
             >
               <div
-                className="size-[88px] shrink-0 opacity-100"
+                className="size-[88px] shrink-0 self-center opacity-100 lg:self-start"
                 style={
                   {
                     backgroundColor: "#000000",
@@ -43,7 +43,7 @@ export function PartnerCardsSection({ title, subtitle, partners }: Props) {
                   } satisfies CSSProperties
                 }
               />
-              <div className="flex flex-col gap-[15px]">
+              <div className="flex w-full min-w-0 flex-col gap-[15px]">
                 <h3 className="text-2xl font-semibold leading-normal tracking-[-0.021em] text-text-100">{card.title}</h3>
                 <p className="text-base font-light leading-normal tracking-[-0.0125em] text-muted">{card.body}</p>
               </div>
