@@ -158,6 +158,15 @@ function appendStrapiQuery(
   return url.includes("?") ? `${url}&${qs}` : `${url}?${qs}`;
 }
 
+/** Populate keys tuned for Strapi v5 nested components / relations on `verticals`. */
+const VERTICAL_DEEP_POPULATE: Record<string, unknown> = {
+  "populate[logo]": "true",
+  "populate[heroImage]": "true",
+  "populate[gradient]": "true",
+  "populate[focusAreas][populate][images]": "true",
+  "populate[ecosystemPartners][populate][icon]": "true",
+};
+
 // Helper to resolve Strapi media URLs (relative or absolute)
 export function getStrapiMediaUrl(url: string | null | undefined): string {
   if (!url) return "";
@@ -190,14 +199,16 @@ export type Vertical = {
 
 export type VerticalFocusArea = {
   id: number | string;
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
+  images?: StrapiMedia[];
 };
 
 export type VerticalEcosystemPartner = {
   id: number | string;
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
+  icon?: StrapiMedia | null;
 };
 
 export type VerticalGradient = {
@@ -284,9 +295,8 @@ export const strapiApi = createApi({
     getVerticals: builder.query<Vertical[], Record<string, unknown> | void>({
       query: (params) => {
         const base = "verticals";
-        // Sensible defaults while still allowing override
         const withDefaults: Record<string, unknown> = {
-          populate: "*",
+          ...VERTICAL_DEEP_POPULATE,
           "pagination[pageSize]": 100,
           ...(params ?? {}),
         };
@@ -304,13 +314,26 @@ export const strapiApi = createApi({
       query: ({ id, params }) => {
         const base = `verticals/${id}`;
         const withDefaults: Record<string, unknown> = {
-          populate: "*",
+          ...VERTICAL_DEEP_POPULATE,
           ...(params ?? {}),
         };
         return appendStrapiQuery(base, withDefaults);
       },
       transformResponse: (response: StrapiSingleResponse<Vertical>) => {
         return response?.data ?? null;
+      },
+    }),
+
+    getVerticalBySlug: builder.query<Vertical | null, string>({
+      query: (slug) =>
+        appendStrapiQuery("verticals", {
+          "filters[slug][$eq]": slug,
+          ...VERTICAL_DEEP_POPULATE,
+          "pagination[pageSize]": 1,
+        }),
+      transformResponse: (response: StrapiListResponse<Vertical>) => {
+        const row = response?.data?.[0];
+        return row ?? null;
       },
     }),
 
@@ -340,6 +363,7 @@ export const {
   useGetBlogByDocumentIdQuery,
   useGetVerticalsQuery,
   useGetVerticalByIdQuery,
+  useGetVerticalBySlugQuery,
   useGetPartnersQuery,
   useCreateContactSubmissionMutation,
 } = strapiApi;
