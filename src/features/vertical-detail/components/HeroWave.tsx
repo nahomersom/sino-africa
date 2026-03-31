@@ -12,7 +12,7 @@ export function HeroWave({ className = "" }: Props) {
         alt=""
         width={1728}
         height={224}
-        className="block h-auto w-full"
+        className="block h-[140px] w-full object-cover object-top sm:h-[170px] md:h-[190px] lg:h-auto"
         sizes="100vw"
       />
     </div>

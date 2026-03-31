@@ -21,7 +21,7 @@ export function PartnerCardsSection({ title, subtitle, partners }: Props) {
           <p className="text-lg font-normal leading-normal tracking-[-0.011em] text-muted/70">{subtitle}</p>
         </div>
 
-        <div className="grid w-full grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-4">
+        <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-3 md:gap-4">
           {partners.map((card) => (
             <article
               key={card.title}
