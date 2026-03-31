@@ -48,7 +48,7 @@ export function WhyChooseUsSection({
         <h2 className="max-w-[454.85px] text-center font-(family-name:--font-nata-sans) text-[36px] font-semibold leading-[1.5] tracking-[-0.04em] text-text-100 md:text-4xl md:leading-snug md:tracking-tight">
           {heading}
         </h2>
-        <p className="max-w-[553px] text-center text-base font-light leading-6 tracking-[-0.0125em] text-muted md:text-lg md:leading-8 md:tracking-tight md:text-text-100/70">
+        <p className="max-w-[396px] text-center text-base font-light leading-6 tracking-[-0.0125em] text-muted md:text-lg md:leading-8 md:tracking-tight md:text-text-100/70">
           {description}
         </p>
       </div>
