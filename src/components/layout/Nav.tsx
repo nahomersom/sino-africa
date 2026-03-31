@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { cn } from "@/src/lib/utils";
+import { useGetVerticalsQuery } from "@/src/store/strapiApi";
 import { Button } from "../ui/app-button";
 
 type NavSubLink = { label: string; href: string };
@@ -100,6 +101,22 @@ type NavProps = {
 export function Nav({ variant = "default", className = "" }: NavProps) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+  const { data: verticals = [] } = useGetVerticalsQuery(undefined, {
+    skip: !STRAPI_URL,
+  });
+
+  const dynamicVerticalSubLinks: readonly NavSubLink[] =
+    verticals.length > 0
+      ? verticals
+          .map((v) => {
+            const title = (v.title ?? v.name ?? v.slug ?? "").toString().trim();
+            const slug = (v.slug ?? "").toString().trim();
+            if (!title || !slug) return null;
+            return { label: title, href: `/our-verticals/${slug}` };
+          })
+          .filter((x): x is NavSubLink => Boolean(x))
+      : verticalSubLinks;
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -179,7 +196,10 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
                   ? pathname === "/"
                   : item.href !== "#" && !item.href.startsWith("/#") && pathname.startsWith(item.href);
 
-              if (item.children?.length) {
+              const children =
+                item.label === "Our Verticals" ? dynamicVerticalSubLinks : item.children;
+
+              if (children?.length) {
                 return (
                   <div key={item.label} className="group relative">
                     <button
@@ -212,7 +232,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
                       >
                         <VerticalsSubmenuArtPanel className="w-[183px] min-h-[186px]" />
                         <div className="flex min-h-[186px] min-w-0 flex-1 flex-col gap-1 self-stretch py-2">
-                          {item.children.map((child) => (
+                          {children.map((child) => (
                             <NavSubLinkRow key={child.label} href={child.href} label={child.label} />
                           ))}
                         </div>
@@ -286,7 +306,10 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
                     ? pathname === item.href
                     : false;
 
-                if (item.children?.length) {
+                const children =
+                  item.label === "Our Verticals" ? dynamicVerticalSubLinks : item.children;
+
+                if (children?.length) {
                   return (
                     <div
                       key={item.label}
@@ -298,7 +321,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
                       {/* Figma 6:2281 Backdrop — art panel hidden on mobile/md; lg+ uses desktop submenu */}
                       <div className="flex w-full max-w-full flex-col items-stretch rounded-[24px]">
                         <div className="flex min-h-0 min-w-0 w-full flex-col gap-1 py-2">
-                          {item.children.map((v) => (
+                          {children.map((v) => (
                             <NavSubLinkRow
                               key={v.label}
                               href={v.href}

@@ -74,6 +74,16 @@ export type StrapiBlogResponse = {
   meta: Record<string, unknown>;
 };
 
+export type StrapiListResponse<T> = {
+  data: T[];
+  meta?: { pagination?: Partial<StrapiPagination> } & Record<string, unknown>;
+};
+
+export type StrapiSingleResponse<T> = {
+  data: T;
+  meta?: Record<string, unknown>;
+};
+
 // --- Legacy types (kept for existing endpoints) ---
 
 export type StrapiEntity<TAttributes> = {
@@ -115,6 +125,39 @@ const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
 // Normalize base URL (remove /api if present)
 const STRAPI_BASE_URL = STRAPI_URL?.replace(/\/api\/?$/, "");
 
+function appendStrapiQuery(
+  url: string,
+  params?: Record<string, unknown> | undefined
+): string {
+  if (!params || Object.keys(params).length === 0) return url;
+
+  const search = new URLSearchParams();
+
+  const add = (key: string, value: unknown) => {
+    if (value === undefined || value === null) return;
+    if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
+      search.append(key, String(value));
+      return;
+    }
+    if (Array.isArray(value)) {
+      // Strapi accepts repeated keys for arrays; keep it simple.
+      for (const v of value) add(key, v);
+      return;
+    }
+    if (typeof value === "object") {
+      for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+        add(`${key}[${k}]`, v);
+      }
+    }
+  };
+
+  for (const [k, v] of Object.entries(params)) add(k, v);
+
+  const qs = search.toString();
+  if (!qs) return url;
+  return url.includes("?") ? `${url}&${qs}` : `${url}?${qs}`;
+}
+
 // Helper to resolve Strapi media URLs (relative or absolute)
 export function getStrapiMediaUrl(url: string | null | undefined): string {
   if (!url) return "";
@@ -123,6 +166,17 @@ export function getStrapiMediaUrl(url: string | null | undefined): string {
   const base = STRAPI_BASE_URL || "";
   return `${base}${url}`;
 }
+
+export type Vertical = {
+  id: number | string;
+  documentId?: string;
+  title?: string;
+  name?: string;
+  slug?: string;
+  description?: string;
+  summary?: string;
+  icon?: StrapiMedia | null;
+};
 
 export const strapiApi = createApi({
   reducerPath: "strapiApi",
@@ -185,6 +239,40 @@ export const strapiApi = createApi({
         body,
       }),
     }),
+
+    // Verticals endpoints
+    getVerticals: builder.query<Vertical[], Record<string, unknown> | void>({
+      query: (params) => {
+        const base = "verticals";
+        // Sensible defaults while still allowing override
+        const withDefaults: Record<string, unknown> = {
+          populate: "*",
+          "pagination[pageSize]": 100,
+          ...(params ?? {}),
+        };
+        return appendStrapiQuery(base, withDefaults);
+      },
+      transformResponse: (response: StrapiListResponse<Vertical>) => {
+        return response?.data ?? [];
+      },
+    }),
+
+    getVerticalById: builder.query<
+      Vertical | null,
+      { id: number | string; params?: Record<string, unknown> }
+    >({
+      query: ({ id, params }) => {
+        const base = `verticals/${id}`;
+        const withDefaults: Record<string, unknown> = {
+          populate: "*",
+          ...(params ?? {}),
+        };
+        return appendStrapiQuery(base, withDefaults);
+      },
+      transformResponse: (response: StrapiSingleResponse<Vertical>) => {
+        return response?.data ?? null;
+      },
+    }),
   }),
 });
 
@@ -193,5 +281,7 @@ export const {
   useGetAboutPageQuery,
   useGetBlogsQuery,
   useGetBlogByDocumentIdQuery,
+  useGetVerticalsQuery,
+  useGetVerticalByIdQuery,
   useCreateContactSubmissionMutation,
 } = strapiApi;

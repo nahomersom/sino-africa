@@ -64,7 +64,15 @@ export function VerticalsSection() {
 
         <div className="relative mx-auto w-full max-w-[1254px]">
           <div className="grid w-full grid-cols-1 gap-2 md:grid-cols-3 md:auto-rows-[1fr] lg:auto-rows-[552px] lg:grid-cols-3">
-            {verticalItems.map((item) => (
+            {itemsToRender.map((item) => {
+              const href =
+                "href" in item
+                  ? item.href
+                  : `/our-verticals/${slugId[item.title] ?? "#"}`;
+              const idAttr = "slug" in item ? item.slug : slugId[item.title];
+              const key = "key" in item ? item.key : item.title;
+
+              return (
               <Link
                 key={item.title}
                 id={slugId[item.title] ?? undefined}
