@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useGetVerticalsQuery } from "@/src/store/strapiApi";
 
 const footerLinks = {
   quickLinks: {
@@ -7,8 +10,8 @@ const footerLinks = {
     links: [
       { label: "Home", href: "/" },
       { label: "About us", href: "/about" },
-      { label: "Our Verticals", href: "/#verticals" },
-      { label: "Technology and Infrastructure", href: "/#" },
+      { label: "Our Verticals", href: "/our-verticals" },
+      { label: "Technology and Infrastructure", href: "/technology" },
     ],
   },
   verticals: {
@@ -22,8 +25,8 @@ const footerLinks = {
   additional: {
     title: "Additional Links",
     links: [
-      { label: "Projects", href: "/#" },
-      { label: "Blogs", href: "/#" },
+      { label: "Projects", href: "/projects" },
+      { label: "Blogs", href: "/blogs" },
     ],
   },
   contact: {
@@ -31,12 +34,32 @@ const footerLinks = {
     links: [
       { label: "contact@sinoafricatrading.com", href: "mailto:contact@sinoafricatrading.com" },
       { label: "+251 9 00 00 0000", href: "tel:+251900000000" },
-      { label: "Contact us", href: "/#contact" },
+      { label: "Contact us", href: "/contact" },
     ],
   },
 };
 
 export function Footer() {
+  const { data: verticals = [] } = useGetVerticalsQuery();
+  const dynamicVerticalLinks =
+    verticals.length > 0
+      ? verticals
+          .map((item) => {
+            const label = (item.title ?? item.name ?? "").trim();
+            const slug = (item.slug ?? "").trim();
+            if (!label || !slug) return null;
+            return { label, href: `/our-verticals/${slug}` };
+          })
+          .filter((link): link is { label: string; href: string } => link !== null)
+      : footerLinks.verticals.links;
+
+  const sections = [
+    footerLinks.quickLinks,
+    { ...footerLinks.verticals, links: dynamicVerticalLinks },
+    footerLinks.additional,
+    footerLinks.contact,
+  ] as const;
+
   return (
     <footer className="w-full bg-theme-secondary">
       <div className="mx-auto flex w-full flex-col justify-between gap-12 px-8 py-10 md:px-16 lg:flex-row lg:px-36 lg:py-20">
@@ -78,7 +101,7 @@ export function Footer() {
         </div>
 
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-          {Object.values(footerLinks).map((section) => (
+          {sections.map((section) => (
             <div key={section.title} className="flex flex-col gap-5">
               <h3 className="text-[15px] font-light text-white/65">
                 {section.title}

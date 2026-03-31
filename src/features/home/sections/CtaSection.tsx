@@ -25,7 +25,7 @@ export function CtaSection({ heading, text, buttonLabel }: CtaSectionProps) {
             variant="primary"
             className="w-full shrink-0 rounded-[23px] p-6 text-sm font-normal md:w-auto md:text-base md:font-bold"
           >
-            <Link href="/#contact" className="font-(family-name:--font-nata-sans) font-normal md:font-bold">
+            <Link href="/contact" className="font-(family-name:--font-nata-sans) font-normal md:font-bold">
               {buttonLabel}
             </Link>
           </Button>

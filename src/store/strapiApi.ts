@@ -176,6 +176,73 @@ export type Vertical = {
   description?: string;
   summary?: string;
   icon?: StrapiMedia | null;
+  institutionalCapacityDescription?: string;
+  focusAreasDescription?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
+  logo?: StrapiMedia | null;
+  heroImage?: StrapiMedia | null;
+  focusAreas?: VerticalFocusArea[];
+  ecosystemPartners?: VerticalEcosystemPartner[];
+  gradient?: VerticalGradient | null;
+};
+
+export type VerticalFocusArea = {
+  id: number | string;
+  title: string;
+  description: string;
+};
+
+export type VerticalEcosystemPartner = {
+  id: number | string;
+  title: string;
+  description: string;
+};
+
+export type VerticalGradient = {
+  id: number | string;
+  accentColor: string;
+  baseColor: string;
+};
+
+export type Partner = {
+  id: number | string;
+  documentId?: string;
+  name: string;
+  link?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
+  order?: number | null;
+  logo?: StrapiMedia | null;
+};
+
+export type TeamRank = {
+  id: number | string;
+  documentId?: string;
+  name: string;
+  slug?: string | null;
+  order?: number | null;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
+};
+
+export type Team = {
+  id: number | string;
+  documentId?: string;
+  name: string;
+  position?: string | null;
+  bio?: string | null;
+  linkedin?: string | null;
+  twitter?: string | null;
+  isHighlighted?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
+  image?: StrapiMedia | null;
+  rank?: TeamRank | null;
 };
 
 export const strapiApi = createApi({
@@ -273,6 +340,40 @@ export const strapiApi = createApi({
         return response?.data ?? null;
       },
     }),
+
+    // Partners endpoints
+    getPartners: builder.query<Partner[], Record<string, unknown> | void>({
+      query: (params) => {
+        const base = "partners";
+        const withDefaults: Record<string, unknown> = {
+          populate: "*",
+          sort: "order:asc",
+          "pagination[pageSize]": 100,
+          ...(params ?? {}),
+        };
+        return appendStrapiQuery(base, withDefaults);
+      },
+      transformResponse: (response: StrapiListResponse<Partner>) => {
+        return response?.data ?? [];
+      },
+    }),
+
+    // Teams endpoints
+    getTeams: builder.query<Team[], Record<string, unknown> | void>({
+      query: (params) => {
+        const base = "teams";
+        const withDefaults: Record<string, unknown> = {
+          populate: "*",
+          sort: ["isHighlighted:desc", "rank.order:asc", "name:asc"],
+          "pagination[pageSize]": 100,
+          ...(params ?? {}),
+        };
+        return appendStrapiQuery(base, withDefaults);
+      },
+      transformResponse: (response: StrapiListResponse<Team>) => {
+        return response?.data ?? [];
+      },
+    }),
   }),
 });
 
@@ -283,5 +384,7 @@ export const {
   useGetBlogByDocumentIdQuery,
   useGetVerticalsQuery,
   useGetVerticalByIdQuery,
+  useGetPartnersQuery,
+  useGetTeamsQuery,
   useCreateContactSubmissionMutation,
 } = strapiApi;
