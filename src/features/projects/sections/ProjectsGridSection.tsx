@@ -42,11 +42,11 @@ export function ProjectsGridSection({ heading, intro, items }: ProjectsGridSecti
           </div>
 
           <div
-            className="box-border mx-auto flex h-[85px] w-full max-w-[633px] shrink-0 items-center justify-center gap-2 overflow-x-auto rounded-[24px] bg-[#F6F7FB] p-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="box-border mx-auto grid w-full max-w-[633px] grid-cols-6 gap-2 rounded-[24px] bg-[#F6F7FB] p-4 md:flex md:min-h-[85px] md:max-w-[633px] md:flex-nowrap md:items-center md:justify-center md:gap-2"
             role="group"
             aria-label="Filter projects by category"
           >
-            {projectFilterTabs.map((tab) => {
+            {projectFilterTabs.map((tab, index) => {
               const isActive = activeFilter === tab.id;
               return (
                 <button
@@ -55,7 +55,10 @@ export function ProjectsGridSection({ heading, intro, items }: ProjectsGridSecti
                   aria-pressed={isActive}
                   onClick={() => setActiveFilter(tab.id)}
                   className={cn(
-                    "box-border flex h-[53px] shrink-0 items-center justify-center whitespace-nowrap rounded-[16px] px-8 py-4 text-center text-sm font-normal leading-[1.5] transition-colors",
+                    "box-border flex h-[53px] items-center justify-center whitespace-nowrap rounded-[16px] px-4 py-4 text-center text-sm font-normal leading-[1.5] transition-colors md:shrink-0 md:px-8",
+                    index < 3 && "max-md:col-span-2",
+                    index === 3 && "max-md:col-span-3 max-md:col-start-1",
+                    index === 4 && "max-md:col-span-3 max-md:col-start-4",
                     isActive
                       ? "bg-primary text-white shadow-sm"
                       : "bg-white text-text-100 hover:bg-white/90",
