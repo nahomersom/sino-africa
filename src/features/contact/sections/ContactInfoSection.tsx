@@ -3,7 +3,7 @@ import {
   StaggerContainer,
   StaggerItem,
 } from "@/src/components/ui/scroll-reveal";
-import { EmailIcon } from "@/src/components/icons/EmailIcon";
+import { ContactBadgeIcon } from "@/src/components/icons/ContactBadgeIcon";
 
 type ContactInfoItem = {
   icon: string;
@@ -35,9 +35,8 @@ export function ContactInfoSection({
           <StaggerItem key={item.title}>
             <div className="flex items-start gap-5">
               {item.icon === EMAIL_ICON_SRC ? (
-                <EmailIcon
+                <ContactBadgeIcon
                   size={54}
-                  color={accentColor}
                   backgroundColor={emailIconBackgroundColor}
                   className="shrink-0"
                 />
