@@ -7,7 +7,7 @@
 export function getStrapiRootUrl(): string {
   const raw =
     typeof process !== "undefined"
-      ? (process.env.STRAPI_URL ?? process.env.NEXT_PUBLIC_STRAPI_URL)
+      ? (process.env.STRAPI_URL ?? process.env.NEXT_PUBLIC_STRAPI_URL ?? "https://sino-cms.ablazelabs.com")
       : undefined;
   return raw?.replace(/\/api\/?$/, "").trim() ?? "";
 }
