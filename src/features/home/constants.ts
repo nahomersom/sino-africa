@@ -90,7 +90,7 @@ export const homeContent = {
   partners: {
     heading: "Our Partners",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Ultrices mauris faucibus tellus aliquet amet sapien facilisi. Nisl ut quam diam dictum egestas id aliquam porttitor volutpat. Turpis arcu luctus nulla pretium non a diam neque pellentesque.",
+      "We collaborate with leading institutions and global technology partners to deliver reliable, large-scale infrastructure across Africa.",
     logos: [
       { src: "/images/partners/markless.svg", alt: "Markless", width: 146, height: 24 },
       { src: "/images/partners/coworks.svg", alt: "Coworks", width: 155, height: 31 },
