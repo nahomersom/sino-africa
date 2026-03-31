@@ -218,6 +218,33 @@ export type Partner = {
   logo?: StrapiMedia | null;
 };
 
+export type TeamRank = {
+  id: number | string;
+  documentId?: string;
+  name: string;
+  slug?: string | null;
+  order?: number | null;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
+};
+
+export type Team = {
+  id: number | string;
+  documentId?: string;
+  name: string;
+  position?: string | null;
+  bio?: string | null;
+  linkedin?: string | null;
+  twitter?: string | null;
+  isHighlighted?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
+  image?: StrapiMedia | null;
+  rank?: TeamRank | null;
+};
+
 export const strapiApi = createApi({
   reducerPath: "strapiApi",
   baseQuery: fetchBaseQuery({
@@ -330,6 +357,23 @@ export const strapiApi = createApi({
         return response?.data ?? [];
       },
     }),
+
+    // Teams endpoints
+    getTeams: builder.query<Team[], Record<string, unknown> | void>({
+      query: (params) => {
+        const base = "teams";
+        const withDefaults: Record<string, unknown> = {
+          populate: "*",
+          sort: ["isHighlighted:desc", "rank.order:asc", "name:asc"],
+          "pagination[pageSize]": 100,
+          ...(params ?? {}),
+        };
+        return appendStrapiQuery(base, withDefaults);
+      },
+      transformResponse: (response: StrapiListResponse<Team>) => {
+        return response?.data ?? [];
+      },
+    }),
   }),
 });
 
@@ -341,5 +385,6 @@ export const {
   useGetVerticalsQuery,
   useGetVerticalByIdQuery,
   useGetPartnersQuery,
+  useGetTeamsQuery,
   useCreateContactSubmissionMutation,
 } = strapiApi;

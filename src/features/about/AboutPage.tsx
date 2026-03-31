@@ -2,12 +2,63 @@
 
 import { ScrollReveal } from "@/src/components/ui/scroll-reveal";
 import { ContactSection } from "@/src/features/home/sections/ContactSection";
+import { getStrapiMediaUrl, useGetTeamsQuery } from "@/src/store/strapiApi";
 import { aboutContent } from "./constants";
 import { AboutHeroSection } from "./sections/AboutHeroSection";
 import { TeamSection } from "./sections/TeamSection";
 import { WhatDefinesUsSection } from "./sections/WhatDefinesUsSection";
 
 export function AboutPage() {
+  const { data: teams = [] } = useGetTeamsQuery();
+  const fallbackRows = [aboutContent.team.managers, aboutContent.team.staff.slice(0, 5), aboutContent.team.staff.slice(5, 10)];
+
+  const highlightedFromApi = teams.find((member) => member.isHighlighted) ?? null;
+  const highlightedMember = highlightedFromApi
+    ? {
+        name: highlightedFromApi.name,
+        role: highlightedFromApi.position ?? "",
+        image: getStrapiMediaUrl(highlightedFromApi.image?.url) || aboutContent.team.ceo.image,
+        linkedin: highlightedFromApi.linkedin ?? null,
+        twitter: highlightedFromApi.twitter ?? null,
+      }
+    : {
+        name: aboutContent.team.ceo.name,
+        role: aboutContent.team.ceo.role,
+        image: aboutContent.team.ceo.image,
+        linkedin: null,
+        twitter: null,
+      };
+
+  const nonHighlightedRowsMap = new Map<number, {
+    name: string;
+    role: string;
+    image: string;
+    linkedin: string | null;
+    twitter: string | null;
+  }[]>();
+
+  teams
+    .filter((member) => !member.isHighlighted)
+    .forEach((member) => {
+      const order = member.rank?.order ?? 999;
+      const row = nonHighlightedRowsMap.get(order) ?? [];
+      row.push({
+        name: member.name,
+        role: member.position ?? "",
+        image: getStrapiMediaUrl(member.image?.url) || aboutContent.team.managers[0].image,
+        linkedin: member.linkedin ?? null,
+        twitter: member.twitter ?? null,
+      });
+      nonHighlightedRowsMap.set(order, row);
+    });
+
+  const rankedRows =
+    nonHighlightedRowsMap.size > 0
+      ? Array.from(nonHighlightedRowsMap.entries())
+          .sort((a, b) => a[0] - b[0])
+          .map(([, row]) => row)
+      : fallbackRows;
+
   return (
     <div className="flex w-full flex-1 flex-col">
       <AboutHeroSection
@@ -29,9 +80,8 @@ export function AboutPage() {
         <TeamSection
           heading={aboutContent.team.heading}
           description={aboutContent.team.description}
-          ceo={aboutContent.team.ceo}
-          managers={aboutContent.team.managers}
-          staff={aboutContent.team.staff}
+          highlightedMember={highlightedMember}
+          rankedRows={rankedRows}
         />
       </ScrollReveal>
       <ScrollReveal>

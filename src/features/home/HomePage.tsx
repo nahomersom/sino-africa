@@ -45,11 +45,16 @@ export function HomePage() {
             item.summary ??
             item.description ??
             "",
+          gradient:
+            item.gradient?.accentColor && item.gradient?.baseColor
+              ? `linear-gradient(180deg, ${item.gradient.accentColor} 1%, ${item.gradient.baseColor} 100%)`
+              : undefined,
         }))
       : homeContent.verticals.items.map((item) => ({
           title: item.name,
           description: homeContent.verticals.description,
           subtitle: item.subtitle,
+          gradient: undefined,
         }));
 
   const verticalsDescription =

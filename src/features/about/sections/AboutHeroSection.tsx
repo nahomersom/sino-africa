@@ -19,9 +19,9 @@ type AboutHeroSectionProps = {
 
 /** Figma export artboard — positions as % of width / height (md+ collage) */
 const SLOT = {
-  left: "left-0 md:top-0 lg:top-0 h-[429px] w-[318.5px] lg:h-[429px] lg:w-[495.51px]",
+  left: "left-0 md:top-0  lg:top-[182px] h-[429px] w-[318.5px] lg:h-[429px] lg:w-[495.5px]",
   center: "left-[53%] lg:left-[48.647%] -top-[11.45px] lg:top-[11.948%] md:h-[238px] md:w-[254px] h-[51.064%] w-[28.665%]",
-  right: "left-[85.587%] top-[16.806%] lg:top-[28.806%] md:h-[84px] md:w-[89px] h-[25.695%] w-[14.414%]",
+  right: "left-[85.587%] lg:left-[80%] top-[16.806%] lg:top-[28.806%] md:h-[84px] md:w-[89px] h-[25.695%] w-[14.414%]",
 } as const;
 
 /**
@@ -39,7 +39,7 @@ function HeroCollage({
     "relative overflow-hidden rounded-[10px] shadow-[0_1px_3px_rgba(0,0,0,0.08)]";
 
   return (
-    <div className="relative mt-10 w-full shrink-0 lg:mt-2 lg:w-full lg:max-w-[1236px]">
+    <div className="relative mt-10 w-full shrink-0 lg:mt-2 lg:w-full lg:max-w-[1236px] lg:left-[103px]">
       {/* Figma mobile stack: visible below lg (md alone is too narrow — tablets saw collage only) */}
       {/* Below lg: mobile stack + Tablet (md) row — Figma Tablet Hero 6:6503 */}
       <div className="flex flex-col gap-[89px] md:flex-row md:items-center md:gap-10 lg:hidden">
@@ -169,7 +169,7 @@ function HeroCollage({
             />
           </div>
 
-          <p className="absolute bottom-[43px] left-[53%] lg:left-[49%] z-20 max-w-[318.5px] lg:max-w-[36%] text-left text-base font-light leading-6 tracking-[-0.0125em] text-muted">
+          <p className="absolute bottom-[43px] left-[53%] lg:bottom-auto  lg:top-[495px] z-20 max-w-[318.5px] lg:max-w-[545.62px] text-left text-base font-light leading-6 tracking-[-0.0125em] text-muted">
             {description}
           </p>
         </div>
@@ -180,10 +180,10 @@ function HeroCollage({
 
 export function AboutHeroSection({ label, heading, description, images }: AboutHeroSectionProps) {
   return (
-    <section className="relative flex w-full flex-col items-stretch justify-end overflow-hidden bg-white px-8 lg:pb-10 pt-[120px] md:items-center md:px-20 md:pt-[211px] lg:h-screen lg:px-[237px] lg:pt-[152px]">
+    <section className="relative flex w-full flex-col items-stretch  bg-white px-8 lg:pb-[220px] pt-[120px] md:items-center md:px-20 md:pt-[211px] lg:h-auto lg:px-[237px] lg:pt-[152px] overflow-visible">
       {/* Green glow — concentric ellipses behind the content */}
       <motion.div
-        className="pointer-events-none absolute -left-[155px] top-[49px] block w-[404px] select-none md:-left-[435px] md:top-[-7px] md:w-[860.84px] lg:-left-[471px] lg:-top-[150px] lg:w-[1074px]"
+        className="pointer-events-none absolute -left-[155px] top-[49px] block w-[404px] select-none md:-left-[435px] md:top-[120px] md:w-[860.84px] lg:-left-[471px] lg:-top-[150px] lg:w-[1074px]"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
@@ -201,15 +201,15 @@ export function AboutHeroSection({ label, heading, description, images }: AboutH
 
       {/* Title block — label + heading */}
       <motion.div
-        className="relative z-10 flex w-full flex-col items-start gap-2 md:items-center md:px-0"
+        className="relative z-10 flex w-full flex-col items-start gap-2 md:items-center md:px-0 lg:items-start"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
       >
-        <span className="text-left text-[13px] font-normal uppercase leading-[1.26] tracking-[0.125em] text-primary md:text-center">
+        <span className="text-left text-[13px] font-normal uppercase leading-[1.26] tracking-[0.125em] text-primary md:text-center lg:text-left">
           {label}
         </span>
-        <h1 className="max-w-none font-(family-name:--font-nata-sans) text-[32px] font-semibold leading-[1.25] tracking-[-0.0375em] text-text-100 text-left md:max-w-[677px] lg:max-w-[515px] md:text-[36px] md:leading-[1.33] md:tracking-[-0.033em] md:text-center lg:text-[36px]">
+        <h1 className="max-w-none font-(family-name:--font-nata-sans) text-[32px] font-semibold leading-[1.25] tracking-[-0.0375em] text-text-100 text-left md:max-w-[677px] lg:max-w-[515px] md:text-[36px] md:leading-[1.33] md:tracking-[-0.033em] md:text-center lg:text-left lg:text-[36px] lg:leading-[48px] lg:tracking-[-1.2px]">
           {heading}
         </h1>
       </motion.div>
