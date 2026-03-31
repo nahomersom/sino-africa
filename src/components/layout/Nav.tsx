@@ -27,7 +27,7 @@ const navItems: readonly NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About us", href: "/about" },
   { label: "Our Verticals", href: "/#platforms", children: verticalSubLinks },
-  { label: "Projects", href: "/#contact" },
+  { label: "Projects", href: "/projects" },
   { label: "Technology and Infrastructure", href: "/technology" },
   { label: "Blogs", href: "/blogs" },
 ];

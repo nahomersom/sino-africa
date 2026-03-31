@@ -1,4 +1,16 @@
+import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { fetchProjectById } from "@/src/features/projects/fetchProjects";
+import { PROJECTS_GRID_PAGE_SIZE } from "@/src/features/projects/constants";
+import { appendStrapiQuery, getStrapiApiBaseUrl, getStrapiMediaUrl } from "@/src/lib/strapiBase";
+
+export { getStrapiMediaUrl };
+
+const strapiBaseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
+  args,
+  api,
+  extraOptions,
+) => fetchBaseQuery({ baseUrl: getStrapiApiBaseUrl() })(args, api, extraOptions);
 
 // --- Strapi Media type ---
 
@@ -10,7 +22,7 @@ export type StrapiMedia = {
   caption: string | null;
   width: number;
   height: number;
-  formats: Record<string, unknown> | null;
+  formats?: Record<string, unknown> | string | null;
   url: string;
   previewUrl: string | null;
   mime: string;
@@ -120,51 +132,86 @@ export type ContactSubmissionRequest = {
   data: ContactSubmission;
 };
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+/** Repeating component `{ id, text }` on project. */
+export type ProjectTextEntry = {
+  id?: string | number;
+  text?: string | null;
+};
 
-// Normalize base URL (remove /api if present)
-const STRAPI_BASE_URL = STRAPI_URL?.replace(/\/api\/?$/, "");
+/** Single block field e.g. problem / solution / results. */
+export type ProjectTextBlock = {
+  id?: string | number;
+  text?: string | null;
+};
 
-function appendStrapiQuery(
-  url: string,
-  params?: Record<string, unknown> | undefined
-): string {
-  if (!params || Object.keys(params).length === 0) return url;
+/** Populated media on project (schema uses string ids). */
+export type ProjectMedia = {
+  id?: string | number;
+  documentId?: string;
+  name?: string | null;
+  alternativeText?: string | null;
+  caption?: string | null;
+  url?: string | null;
+  width?: number;
+  height?: number;
+  mime?: string | null;
+  ext?: string | null;
+  size?: number;
+  formats?: unknown;
+  previewUrl?: string | null;
+};
 
-  const search = new URLSearchParams();
-
-  const add = (key: string, value: unknown) => {
-    if (value === undefined || value === null) return;
-    if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
-      search.append(key, String(value));
-      return;
-    }
-    if (Array.isArray(value)) {
-      // Strapi accepts repeated keys for arrays; keep it simple.
-      for (const v of value) add(key, v);
-      return;
-    }
-    if (typeof value === "object") {
-      for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
-        add(`${key}[${k}]`, v);
-      }
-    }
-  };
-
-  for (const [k, v] of Object.entries(params)) add(k, v);
-
-  const qs = search.toString();
-  if (!qs) return url;
-  return url.includes("?") ? `${url}&${qs}` : `${url}?${qs}`;
+/**
+ * Category from `GET /project-categories` with optional nested `projects`
+ * when relations are populated (same project shape as `/projects`).
+ */
+export interface ProjectCategory {
+  id: string | number;
+  documentId: string;
+  /** From OpenAPI; optional at runtime if a response is partially populated. */
+  name?: string;
+  /** Some schemas expose a display title; prefer `name` when both exist. */
+  title?: string;
+  slug?: string;
+  projects?: Project[] | null;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
+  locale?: string;
+  localizations?: unknown[];
+  createdBy?: unknown;
+  updatedBy?: unknown;
 }
 
-// Helper to resolve Strapi media URLs (relative or absolute)
-export function getStrapiMediaUrl(url: string | null | undefined): string {
-  if (!url) return "";
-  if (url.startsWith("http")) return url;
-
-  const base = STRAPI_BASE_URL || "";
-  return `${base}${url}`;
+/** Strapi flat project — `/projects`, `/projects/:id`, and nested under categories. */
+export interface Project {
+  id: string | number;
+  documentId?: string;
+  title: string;
+  slug?: string;
+  summary?: string | null;
+  description?: string | RichTextBlock[] | null;
+  development?: ProjectTextEntry[] | null;
+  top_features?: ProjectTextEntry[] | null;
+  client?: ProjectTextEntry[] | string | null;
+  problem?: ProjectTextBlock | null;
+  solution?: ProjectTextBlock | null;
+  /** May be a Strapi block `{ id, text }` or legacy string / rich text. */
+  results?: string | RichTextBlock[] | ProjectTextBlock | null;
+  overview?: string | RichTextBlock[] | null;
+  challenges?: string | RichTextBlock[] | null;
+  what_we_did?: unknown;
+  technologies?: unknown;
+  cover_img?: ProjectMedia | StrapiMedia | null;
+  gallery?: Array<ProjectMedia | StrapiMedia> | null;
+  category?: string | { slug?: string } | null;
+  project_category?: ProjectCategory | string | null;
+  vertical?: { slug?: string } | null;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
+  locale?: string;
+  localizations?: unknown[];
 }
 
 export type Vertical = {
@@ -180,10 +227,7 @@ export type Vertical = {
 
 export const strapiApi = createApi({
   reducerPath: "strapiApi",
-  baseQuery: fetchBaseQuery({
-    // Ensures /api is appended exactly once
-    baseUrl: STRAPI_BASE_URL ? `${STRAPI_BASE_URL}/api` : "",
-  }),
+  baseQuery: strapiBaseQuery,
   endpoints: (builder) => ({
     // Legacy endpoints
     getLandingPage: builder.query<
@@ -273,6 +317,76 @@ export const strapiApi = createApi({
         return response?.data ?? null;
       },
     }),
+
+    getProjects: builder.query<
+      { projects: Project[]; pagination: StrapiPagination },
+      Record<string, unknown> | void
+    >({
+      query: (params) => {
+        const base = "projects";
+        const withDefaults: Record<string, unknown> = {
+          populate: "*",
+          "pagination[pageSize]": PROJECTS_GRID_PAGE_SIZE,
+          "pagination[page]": 0,
+          ...(params ?? {}),
+        };
+        return appendStrapiQuery(base, withDefaults);
+      },
+      transformResponse: (response: StrapiListResponse<Project>) => {
+        const p = response?.meta?.pagination;
+        const data = response?.data ?? [];
+        const pageSize = p?.pageSize ?? PROJECTS_GRID_PAGE_SIZE;
+        const total = p?.total ?? data.length;
+        const pageCount =
+          p?.pageCount ??
+          (total > 0 ? Math.ceil(total / pageSize) : data.length > 0 ? 1 : 0);
+        return {
+          projects: data,
+          pagination: {
+            page: p?.page ?? 0,
+            pageSize,
+            pageCount,
+            total,
+          },
+        };
+      },
+    }),
+
+    getProjectById: builder.query<
+      Project | null,
+      { id: number | string; params?: Record<string, unknown> }
+    >({
+      async queryFn({ id, params }) {
+        const project = await fetchProjectById(id, params);
+        if (project) {
+          return { data: project };
+        }
+        return {
+          error: {
+            status: 404,
+            data: "Project not found",
+          } as FetchBaseQueryError,
+        };
+      },
+    }),
+
+    getProjectCategories: builder.query<
+      ProjectCategory[],
+      Record<string, unknown> | void
+    >({
+      query: (params) => {
+        const base = "project-categories";
+        const withDefaults: Record<string, unknown> = {
+          populate: "*",
+          "pagination[pageSize]": 100,
+          ...(params ?? {}),
+        };
+        return appendStrapiQuery(base, withDefaults);
+      },
+      transformResponse: (response: StrapiListResponse<ProjectCategory>) => {
+        return response?.data ?? [];
+      },
+    }),
   }),
 });
 
@@ -283,5 +397,8 @@ export const {
   useGetBlogByDocumentIdQuery,
   useGetVerticalsQuery,
   useGetVerticalByIdQuery,
+  useGetProjectsQuery,
+  useGetProjectByIdQuery,
+  useGetProjectCategoriesQuery,
   useCreateContactSubmissionMutation,
 } = strapiApi;
