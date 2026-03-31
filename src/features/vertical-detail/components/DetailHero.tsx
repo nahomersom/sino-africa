@@ -30,7 +30,7 @@ export function DetailHero({ name, heroDescription, heroImageAlt, theme }: Props
         />
 
         <div className="relative z-[1] mx-auto flex min-h-0 w-full md:mt-15 lg:mt-20 max-w-[1452px] flex-1 flex-col px-6 pt-[112px] lg:pt-[128px] lg:px-[min(8rem,6vw)]">
-          <div className="flex min-h-0 w-full flex-1 flex-col justify-start gap-10 md:flex-row md:items-stretch md:justify-start md:gap-12">
+          <div className="flex min-h-0 w-full flex-1 flex-col justify-start gap-10 md:flex-row md:items-stretch md:justify-start md:gap-12 mt-20">
             <div className="order-2 ml-0 flex min-w-0 w-full max-w-[596px] flex-1 flex-col justify-center gap-3 p-2 opacity-100 md:order-1 md:ml-6 lg:ml-10 lg:min-h-[653px]">
               <Link
                 href="/our-verticals"
