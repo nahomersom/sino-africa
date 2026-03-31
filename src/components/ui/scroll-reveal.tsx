@@ -64,6 +64,7 @@ export function ScrollReveal({
 type StaggerContainerProps = {
   children: ReactNode;
   className?: string;
+  id?: string;
   stagger?: number;
   delay?: number;
   once?: boolean;
@@ -73,6 +74,7 @@ type StaggerContainerProps = {
 export function StaggerContainer({
   children,
   className,
+  id,
   stagger = 0.1,
   delay = 0,
   once = true,
@@ -80,6 +82,7 @@ export function StaggerContainer({
 }: StaggerContainerProps) {
   return (
     <motion.div
+      id={id}
       className={className}
       initial="hidden"
       whileInView="visible"
