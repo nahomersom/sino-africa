@@ -88,7 +88,11 @@ export function Footer() {
                   <Link
                     key={link.label}
                     href={link.href}
-                    className="py-2 text-base text-white hover:text-primary"
+                    className={
+                      link.href.startsWith("mailto:")
+                        ? "break-all py-2 text-sm text-white hover:text-primary sm:break-normal sm:text-base"
+                        : "py-2 text-base text-white hover:text-primary"
+                    }
                   >
                     {link.label}
                   </Link>

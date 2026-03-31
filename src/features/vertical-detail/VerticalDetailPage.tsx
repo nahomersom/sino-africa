@@ -1,5 +1,6 @@
 import { ContactSection } from "@/src/features/home/sections/ContactSection";
 import { homeContent } from "@/src/features/home/constants";
+import { ScrollReveal } from "@/src/components/ui/scroll-reveal";
 
 import type { VerticalDetailContent } from "./types";
 import { CenteredProseSection, resolveInstitutionalTitleDotSrc } from "./components/CenteredProseSection";
@@ -28,28 +29,39 @@ export function VerticalDetailPage({ content }: Props) {
           heroLogoSrc={content.heroLogoSrc}
           theme={theme}
         />
-        <CenteredProseSection
-          titleDotSrc={titleDotSrc}
-          title={content.institutionalTitle}
-          paragraphs={content.institutionalParagraphs}
-        />
-        <FocusAreasSection
-          title={content.focusIntroTitle}
-          subtitle={content.focusIntroSubtitle}
-          rows={content.focusRows}
-          patternSrc={theme.focusPatternSrc}
-        />
-        <PartnerCardsSection
-          title={content.partnersTitle}
-          subtitle={content.partnersSubtitle}
-          partners={content.partners}
-        />
-        <ContactSection
-          heading={homeContent.contact.heading}
-          description={content.contactSubtitle}
-          buttonLabel={homeContent.contact.buttonLabel}
-          variant="inner-page"
-        />
+        <ScrollReveal>
+          <CenteredProseSection
+            titleDotSrc={titleDotSrc}
+            title={content.institutionalTitle}
+            paragraphs={content.institutionalParagraphs}
+          />
+        </ScrollReveal>
+
+        <ScrollReveal>
+          <FocusAreasSection
+            title={content.focusIntroTitle}
+            subtitle={content.focusIntroSubtitle}
+            rows={content.focusRows}
+            patternSrc={theme.focusPatternSrc}
+          />
+        </ScrollReveal>
+
+        <ScrollReveal>
+          <PartnerCardsSection
+            title={content.partnersTitle}
+            subtitle={content.partnersSubtitle}
+            partners={content.partners}
+          />
+        </ScrollReveal>
+
+        <ScrollReveal>
+          <ContactSection
+            heading={homeContent.contact.heading}
+            description={content.contactSubtitle}
+            buttonLabel={homeContent.contact.buttonLabel}
+            variant="inner-page"
+          />
+        </ScrollReveal>
       </main>
     </div>
   );

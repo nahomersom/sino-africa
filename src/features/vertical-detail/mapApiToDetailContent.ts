@@ -1,5 +1,6 @@
 import {
   getStrapiMediaUrl,
+  resolveStrapiUploadUrl,
   type Vertical,
   type VerticalFocusArea,
 } from "@/src/store/strapiApi";
@@ -14,7 +15,7 @@ const EMPTY_PARTNERS: [PartnerCard, PartnerCard, PartnerCard] = [
 
 const DEFAULT_THEME: VerticalDetailContent["theme"] = {
   focusHeadingColor: "#3FAF7E",
-  heroBgSrc: "/images/our-verticals/bg-green.png",
+  heroGradient: { baseColor: "#3FAF7E", accentColor: "#328B64" },
   heroImageSrc: "/images/our-verticals/green-hero.png",
   focusPatternSrc: "/images/our-verticals/green-pattern.png",
 };
@@ -32,7 +33,7 @@ function splitInstitutionalText(raw: string | null | undefined): string[] {
 function focusImagesFromArea(area: VerticalFocusArea | undefined): string[] {
   if (!area?.images?.length) return [];
   return area.images
-    .map((m) => getStrapiMediaUrl(m?.url))
+    .map((m) => getStrapiMediaUrl(resolveStrapiUploadUrl(m)))
     .filter((u): u is string => Boolean(u));
 }
 
@@ -101,8 +102,8 @@ function buildPartners(
   const cards: PartnerCard[] = [0, 1, 2].map((i) => {
     const row = api?.[i];
     const baseCard = fb[i];
-    const iconSrc = row?.icon?.url
-      ? getStrapiMediaUrl(row.icon.url) || undefined
+    const iconSrc = row?.icon
+      ? getStrapiMediaUrl(resolveStrapiUploadUrl(row.icon)) || undefined
       : undefined;
     return {
       title: row?.title?.trim() || baseCard.title,
@@ -156,22 +157,35 @@ export function mergeVerticalDetailFromApi(
     fallback?.contactSubtitle ||
     "Tell us about your environment and goals—we will route your message to the right practice lead.";
 
-  const accent =
-    api?.gradient?.accentColor?.trim() ||
+  const focusHeadingColor =
+    api?.gradient?.baseColor?.trim() ||
     fallback?.theme?.focusHeadingColor ||
+    api?.gradient?.accentColor?.trim() ||
     baseTheme.focusHeadingColor;
 
   const heroImageSrc =
-    getStrapiMediaUrl(api?.heroImage?.url) ||
+    getStrapiMediaUrl(resolveStrapiUploadUrl(api?.heroImage)) ||
     fallback?.theme?.heroImageSrc ||
     baseTheme.heroImageSrc;
 
-  const heroBgSrc = fallback?.theme?.heroBgSrc ?? baseTheme.heroBgSrc;
+  const heroGradient = {
+    baseColor:
+      api?.gradient?.baseColor?.trim() ||
+      fallback?.theme?.heroGradient.baseColor ||
+      baseTheme.heroGradient.baseColor,
+    accentColor:
+      api?.gradient?.accentColor?.trim() ||
+      fallback?.theme?.heroGradient.accentColor ||
+      baseTheme.heroGradient.accentColor,
+  };
+
   const focusPatternSrc =
     fallback?.theme?.focusPatternSrc ?? baseTheme.focusPatternSrc;
 
   const heroLogoSrc =
-    getStrapiMediaUrl(api?.logo?.url) || fallback?.heroLogoSrc || undefined;
+    getStrapiMediaUrl(resolveStrapiUploadUrl(api?.logo)) ||
+    fallback?.heroLogoSrc ||
+    undefined;
 
   return {
     slug,
@@ -191,8 +205,8 @@ export function mergeVerticalDetailFromApi(
     partners,
     contactSubtitle,
     theme: {
-      focusHeadingColor: accent,
-      heroBgSrc,
+      focusHeadingColor, // CMS gradient.baseColor, else static / accentColor
+      heroGradient,
       heroImageSrc,
       focusPatternSrc,
     },
