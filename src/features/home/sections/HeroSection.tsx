@@ -40,12 +40,14 @@ export function HeroSection() {
           SINO AFRICA
         </motion.span>
         <motion.h1
-          className="text-center text-[64px] font-normal leading-none tracking-[-0.03125em] text-white md:text-[100px] md:leading-[100px] md:tracking-[-2px]"
+          className="text-center text-[64px] font-normal leading-none tracking-[-0.03125em] text-white md:text-[60px] md:leading-[100px] md:tracking-[-2px]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.7, ease: "easeOut" }}
         >
-          Sino Africa
+          A Bridge Between
+          <br />
+          Markets, Technology, and Institutional Infrastructure
         </motion.h1>
         <motion.p
           className="text-center text-base font-normal leading-6 tracking-[-0.0625em] text-white md:text-2xl md:leading-[150%] md:tracking-[-1px]"
@@ -55,6 +57,18 @@ export function HeroSection() {
         >
           Building scalable infrastructure systems across Africa through partnerships, technology, and institutional capital.
         </motion.p>
+        <motion.div
+          className="flex flex-col items-center gap-2 text-center text-[13px] font-normal uppercase tracking-[0.048em] text-[#68D585]"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7, duration: 0.6, ease: "easeOut" }}
+        >
+          <div className="flex flex-wrap justify-center gap-2 md:w-[460px] md:flex-nowrap md:gap-4">
+            <p className="min-w-0 flex-1">Platform Infrastructure</p>
+            <p className="min-w-0 flex-1">Institutional Partnerships</p>
+          </div>
+          <p>Technology Deployment</p>
+        </motion.div>
         <motion.div
           className="flex flex-row flex-wrap justify-center gap-2 md:inline-flex md:flex-nowrap md:justify-center md:gap-0 md:space-x-4"
           initial={{ opacity: 0, y: 20 }}
