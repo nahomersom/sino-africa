@@ -148,11 +148,14 @@ export function TeamSection({
         {/* Staff grid */}
         <div className="flex w-full flex-col gap-4 md:grid md:grid-cols-3 md:gap-4 lg:flex lg:flex-col">
           {remainingRankRows.map((row, rowIdx) => (
-            <div key={rowIdx} className="flex w-full flex-1 flex-col gap-4 md:contents lg:flex lg:w-full lg:flex-1 lg:flex-row lg:gap-4">
+            <div
+              key={rowIdx}
+              className="flex w-full flex-1 flex-col gap-4 md:contents lg:flex lg:w-full lg:flex-1 lg:flex-row lg:justify-center lg:gap-4"
+            >
               {row.map((member) => (
                 <div
                   key={member.name}
-                  className="flex flex-1 flex-col justify-end gap-2 overflow-hidden rounded-2xl md:gap-[6px]"
+                  className="flex flex-1 flex-col justify-end gap-2 overflow-hidden rounded-2xl md:gap-[6px] lg:w-[266px] lg:flex-none"
                 >
                   <div className="relative min-h-[259px] flex-1 overflow-hidden rounded-lg md:min-h-[259px] lg:min-h-[203.15px]">
                     <Image

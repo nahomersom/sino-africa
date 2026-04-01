@@ -17,6 +17,7 @@ type VerticalItem = {
   title: string;
   description: string;
   subtitle: string;
+  logoSrc?: string;
   gradient?: string;
 };
 
@@ -68,7 +69,7 @@ export function VerticalsSection({
   return (
     <section
       id="platforms"
-      className="relative flex h-screen max-w-screen w-full flex-col gap-4 overflow-hidden px-8 py-20 transition-all duration-500 md:px-20 md:py-20 lg:px-[286px] lg:pb-16 lg:pt-[160px]"
+      className="relative flex h-auto min-h-screen max-w-screen w-full flex-col gap-4 overflow-visible px-8 py-20 transition-all duration-500 md:h-screen md:overflow-hidden md:px-20 md:py-20 lg:px-[286px] lg:pb-16 lg:pt-[160px]"
       style={{ background: activeGradient }}
     >
 {VERTICALS_REFERENCE_ELLIPSES.map((ellipse, i) => {
@@ -139,8 +140,8 @@ export function VerticalsSection({
                   className={`flex size-[77px] shrink-0 items-center justify-center rounded-lg transition-colors duration-300`}
                 >
                   <Image
-                    src="/images/home/verticals-brand-icon.png"
-                    alt=""
+                    src={item.logoSrc ?? "/images/home/verticals-brand-icon.png"}
+                    alt={item.title}
                     width={77}
                     height={37}
                     className={`h-auto w-full object-contain transition-all duration-300 `}

@@ -100,7 +100,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
           {sections.map((section) => (
             <div key={section.title} className="flex flex-col gap-5">
               <h3 className="text-[15px] font-light text-white/65">
@@ -113,7 +113,7 @@ export function Footer() {
                     href={link.href}
                     className={
                       link.href.startsWith("mailto:")
-                        ? "break-all py-2 text-sm text-white hover:text-primary sm:break-normal sm:text-base"
+                        ? "block max-w-full wrap-break-word py-2 text-sm text-white hover:text-primary sm:text-base"
                         : "py-2 text-base text-white hover:text-primary"
                     }
                   >
