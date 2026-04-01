@@ -100,6 +100,7 @@ type NavProps = {
 
 export function Nav({ variant = "default", className = "" }: NavProps) {
   const pathname = usePathname();
+  const useLightMobileBranding = variant === "default" && pathname === "/";
   const [menuOpen, setMenuOpen] = useState(false);
   const STRAPI_URL =
     process.env.NEXT_PUBLIC_STRAPI_URL?.trim() ||
@@ -139,7 +140,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
             }`}
         >
           <Link href="/" className="flex shrink-0 items-center gap-2">
-            {variant === "default" ? (
+            {useLightMobileBranding ? (
               <>
                 <Image
                   src="/brand/whiteLogo.svg"
@@ -178,7 +179,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
             onClick={() => setMenuOpen((o) => !o)}
             className={cn(
               "flex size-6 shrink-0 items-center justify-center lg:hidden",
-              variant === "default" ? "text-white" : "text-text-100",
+              useLightMobileBranding ? "text-white" : "text-text-100",
             )}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">

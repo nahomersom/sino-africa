@@ -2,7 +2,7 @@ import type { StrapiListResponse } from "@/src/store/strapiApi";
 import type { Vertical } from "@/src/store/strapiApi";
 
 function getStrapiBaseUrl(): string | null {
-  const raw = process.env.NEXT_PUBLIC_STRAPI_URL;
+  const raw = process.env.NEXT_PUBLIC_STRAPI_URL || "https://sino-cms.ablazelabs.com";
   if (!raw) return null;
   return raw.replace(/\/api\/?$/, "");
 }
