@@ -6,6 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export function HeroSection() {
+  const heroTitle = "A Bridge Between Markets, Technology, and Institutional Infrastructure";
+
   const handleScrollDown = () => {
     window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
   };
@@ -26,7 +28,7 @@ export function HeroSection() {
       />
 
       <motion.div
-        className="z-10 mx-auto flex w-full max-w-[574px] flex-col items-center justify-center gap-4 px-8 py-12 md:px-10 lg:px-0"
+        className="z-10 mx-auto flex w-full max-w-[650px] flex-col items-center justify-center gap-4 px-5 py-16 md:px-10 md:py-20 lg:px-0"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -40,15 +42,15 @@ export function HeroSection() {
           SINO AFRICA
         </motion.span>
         <motion.h1
-          className="text-center text-[64px] font-normal leading-none tracking-[-0.03125em] text-white md:text-[100px] md:leading-[100px] md:tracking-[-2px]"
+          className="text-center text-[40px] font-normal leading-[1.05] tracking-[-1.2px] text-white md:text-[52px] md:leading-[1.03] md:tracking-[-1.8px] lg:text-[60px] lg:leading-[60px] lg:tracking-[-2px]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.7, ease: "easeOut" }}
         >
-          Sino Africa
+          {heroTitle}
         </motion.h1>
         <motion.p
-          className="text-center text-base font-normal leading-6 tracking-[-0.0625em] text-white md:text-2xl md:leading-[150%] md:tracking-[-1px]"
+          className="text-center text-base font-normal leading-6 tracking-[-0.5px] text-white md:text-xl md:leading-[1.45] lg:text-2xl lg:leading-[150%] lg:tracking-[-1px]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.7, ease: "easeOut" }}
@@ -56,7 +58,25 @@ export function HeroSection() {
           Building scalable infrastructure systems across Africa through partnerships, technology, and institutional capital.
         </motion.p>
         <motion.div
-          className="flex flex-row flex-wrap justify-center gap-2 md:inline-flex md:flex-nowrap md:justify-center md:gap-0 md:space-x-4"
+          className="flex flex-col items-center gap-3 md:gap-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7, duration: 0.7, ease: "easeOut" }}
+        >
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 lg:w-[460px] lg:flex-nowrap lg:gap-4">
+            <span className="text-center text-[13px] font-normal uppercase leading-[1.26] tracking-[0.0485em] text-[#68D585]">
+              Platform Infrastructure
+            </span>
+            <span className="text-center text-[13px] font-normal uppercase leading-[1.26] tracking-[0.0485em] text-[#68D585]">
+              Institutional Partnerships
+            </span>
+          </div>
+          <span className="text-center text-[13px] font-normal uppercase leading-[1.26] tracking-[0.0485em] text-[#68D585]">
+            Technology Deployment
+          </span>
+        </motion.div>
+        <motion.div
+          className="flex flex-row flex-wrap justify-center gap-3 md:gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6, ease: "easeOut" }}
@@ -64,16 +84,16 @@ export function HeroSection() {
           <Button
             asChild
             variant="primary"
-            className="min-w-0 px-6 py-4 text-sm font-normal md:min-w-[187px] md:p-6 md:font-medium"
+            className="min-w-0 px-6 py-4 text-sm font-normal md:min-w-[187px] md:p-6 md:text-sm md:font-normal"
           >
-            <Link href="/#contact">Explore Our Platforms</Link>
+            <Link href="/our-verticals">Explore Our Platforms</Link>
           </Button>
           <Button
             asChild
             variant="secondary"
-            className="min-w-0 px-6 py-4 text-sm font-normal md:min-w-[187px] md:p-6 md:font-medium"
+            className="min-w-0 px-6 py-4 text-sm font-normal md:min-w-[187px] md:p-6 md:text-sm md:font-normal"
           >
-            <Link href="/#contact">Contact us</Link>
+            <Link href="/contact">Contact us</Link>
           </Button>
         </motion.div>
       </motion.div>

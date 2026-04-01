@@ -18,7 +18,7 @@ export function ContactSection() {
     message: "",
   });
 
-  const [createContactSubmission, { isLoading, isSuccess, isError, error }] =
+  const [createContactSubmission, { isLoading, isSuccess, isError }] =
     useCreateContactSubmissionMutation();
 
   const validate = () => {
@@ -126,7 +126,7 @@ export function ContactSection() {
       <form
         onSubmit={handleSubmit}
         noValidate
-        className="relative z-10 flex flex-col items-center w-full max-w-[522px] gap-[24px]"
+        className="relative z-10 flex flex-col items-center w-full max-w-[522px]  gap-[24px]"
       >
         <div className="flex w-full flex-col gap-[16px] lg:gap-6">
           <div className="flex flex-col gap-[4px] w-full">

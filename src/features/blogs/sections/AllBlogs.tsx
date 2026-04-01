@@ -31,7 +31,7 @@ const AllBlogCard = ({ slug, title, description, image }: AllBlogCardProps) => {
         <h3 className="text-[#161c2d] text-[16px] font-medium leading-[100%] tracking-[0px]">
           {title}
         </h3>
-        <p className="text-[#5C606C] text-[12px] font-normal leading-[150%] tracking-[0px]">
+        <p className="text-[#5C606C] text-[12px] font-normal leading-[150%] tracking-[0px] line-clamp-3 overflow-hidden text-ellipsis">
           {description}
         </p>
       </div>
@@ -40,9 +40,9 @@ const AllBlogCard = ({ slug, title, description, image }: AllBlogCardProps) => {
 };
 
 function getDescriptionText(blog: Blog): string {
-  if (!blog.description || blog.description.length === 0) return "";
+  if (!blog.description || !Array.isArray(blog.description) || blog.description.length === 0) return "";
   return blog.description
-    .flatMap((block) => block.children.map((child) => child.text))
+    .flatMap((block) => (block.children || []).map((child: any) => child.text || ""))
     .join(" ");
 }
 
@@ -53,8 +53,15 @@ function getBlogImage(blog: Blog): string {
   return placeholderImage;
 }
 
-export function AllBlogs({ showTitle = true }: { showTitle?: boolean }) {
-  const { data: blogs = [], isLoading, isError, refetch } = useGetBlogsQuery();
+interface AllBlogsProps {
+  showTitle?: boolean;
+  excludeDocumentId?: string;
+}
+
+export function AllBlogs({ showTitle = true, excludeDocumentId }: AllBlogsProps) {
+  const { data, isLoading, isError, refetch } = useGetBlogsQuery();
+  const allBlogs = data?.blogs ?? [];
+  const blogs = excludeDocumentId ? allBlogs.filter((b) => b.documentId !== excludeDocumentId) : allBlogs;
 
   return (
     <section className="w-full bg-white py-[16px]">

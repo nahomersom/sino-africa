@@ -4,25 +4,25 @@ type TeamMember = {
   readonly name: string;
   readonly role: string;
   readonly image: string;
+  readonly linkedin?: string | null;
+  readonly twitter?: string | null;
 };
 
 type TeamSectionProps = {
   heading: string;
   description: string;
-  ceo: TeamMember;
-  managers: readonly TeamMember[];
-  staff: readonly TeamMember[];
+  highlightedMember: TeamMember | null;
+  rankedRows: readonly (readonly TeamMember[])[];
 };
 
 export function TeamSection({
   heading,
   description,
-  ceo,
-  managers,
-  staff,
+  highlightedMember,
+  rankedRows,
 }: TeamSectionProps) {
-  const staffRow1 = staff.slice(0, 5);
-  const staffRow2 = staff.slice(5, 10);
+  const firstRankRow = rankedRows[0] ?? [];
+  const remainingRankRows = rankedRows.slice(1);
 
   return (
     <section className="relative flex w-full flex-col items-center gap-12 overflow-hidden bg-surface px-8 py-10 md:gap-12 md:px-20 md:py-10 lg:gap-12 lg:px-[296px] lg:py-[152px]">
@@ -54,7 +54,7 @@ export function TeamSection({
         <h2 className="max-w-[455px] text-center text-[36px] font-normal leading-[1.5] tracking-[-0.033em] text-text-100">
           {heading}
         </h2>
-        <p className="max-w-[410px] text-center text-base font-light leading-normal tracking-[-0.0125em] text-text-100/70 md:text-lg md:font-normal md:leading-[1.778] md:tracking-[-0.011em]">
+        <p className="max-w-[410px] md:max-w-[455px] text-center text-base font-light leading-normal tracking-[-0.0125em] text-text-100/70 md:text-lg md:font-normal md:leading-[1.778] md:tracking-[-0.011em]">
           {description}
         </p>
       </div>
@@ -62,40 +62,61 @@ export function TeamSection({
       {/* Team content */}
       <div className="relative z-10 flex w-full flex-col items-center gap-10">
         {/* CEO card */}
-        <div className="flex w-full max-w-[734px] flex-col gap-4 rounded-2xl bg-white p-4 md:max-w-none md:flex-row md:gap-1.5 lg:max-w-[734px]">
-          <div className="relative min-h-[339px] w-full shrink-0 overflow-hidden rounded-2xl bg-[#E2E3E7] md:min-h-[287px] md:w-[245px]">
-            <Image
-              src={ceo.image}
-              alt={ceo.name}
-              fill
-              className="object-cover"
-            />
+        {highlightedMember ? (
+          <div className="flex w-full max-w-[734px] flex-col gap-4 rounded-2xl bg-white p-4 md:max-w-none md:flex-row md:gap-1.5 lg:max-w-[734px]">
+            <div className="relative min-h-[339px] w-full shrink-0 overflow-hidden rounded-2xl bg-[#E2E3E7] md:min-h-[287px] md:w-[245px]">
+              <Image
+                src={highlightedMember.image}
+                alt={highlightedMember.name}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="flex w-full flex-1 flex-col justify-end gap-2 rounded-[32px] p-4 md:gap-1.5 md:px-4 md:py-6">
+              <h3 className="text-[32px] font-normal leading-[1.5] text-text-100 md:text-[32px] lg:text-[40px]">
+                {highlightedMember.name}
+              </h3>
+              <p className="text-base leading-[1.5] text-muted">{highlightedMember.role}</p>
+              {highlightedMember.linkedin || highlightedMember.twitter ? (
+                <div className="relative mt-1 h-10 w-[86px]">
+                  <Image
+                    src="/images/about/team/social-icons.svg"
+                    alt="Social links"
+                    width={86}
+                    height={40}
+                  />
+                  {highlightedMember.twitter ? (
+                    <a
+                      href={highlightedMember.twitter}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label="Twitter profile"
+                      className="absolute left-0 top-0 block size-10"
+                    />
+                  ) : null}
+                  {highlightedMember.linkedin ? (
+                    <a
+                      href={highlightedMember.linkedin}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label="LinkedIn profile"
+                      className="absolute right-0 top-0 block size-10"
+                    />
+                  ) : null}
+                </div>
+              ) : null}
+            </div>
           </div>
-          <div className="flex w-full flex-1 flex-col justify-end gap-2 rounded-[32px] p-4 md:gap-1.5 md:px-4 md:py-6">
-            <h3 className="text-[32px] font-normal leading-[1.5] text-text-100 md:text-[32px] lg:text-[40px]">
-              {ceo.name}
-            </h3>
-            <p className="text-base leading-[1.5] text-muted">{ceo.role}</p>
-            <Image
-              src="/images/about/team/social-icons.svg"
-              alt="Social links"
-              width={86}
-              height={40}
-            />
-          </div>
-        </div>
+        ) : null}
 
-        {/* Managers heading */}
-        <h4 className="w-full max-w-[700px] text-center text-[28px] font-normal leading-[1.5] tracking-[-0.043em] text-text-100">
-          Managers
-        </h4>
+      
 
         {/* Managers row */}
-        <div className="flex flex-col items-center justify-center gap-4 md:flex-row md:w-full">
-          {managers.map((member) => (
+        <div className="flex flex-col md:items-center justify-center gap-4 md:flex-row w-full">
+          {firstRankRow.map((member) => (
             <div
               key={member.name}
-              className="relative flex min-h-[333px] w-full shrink-0 flex-col justify-end overflow-hidden rounded-lg p-4 md:w-[266px] "
+              className="relative flex min-h-[333px] w-full shrink-0 flex-col justify-end overflow-hidden rounded-lg p-4 md:w-[215px] lg:w-[266px]  "
             >
               <Image
                 src={member.image}
@@ -122,21 +143,18 @@ export function TeamSection({
           ))}
         </div>
 
-        {/* Staff heading */}
-        <h4 className="w-full max-w-[700px] text-center text-[28px] font-normal leading-[1.5] tracking-[-0.043em] text-text-100">
-          Staff
-        </h4>
+       
 
         {/* Staff grid */}
         <div className="flex w-full flex-col gap-4 md:grid md:grid-cols-3 md:gap-4 lg:flex lg:flex-col">
-          {[staffRow1, staffRow2].map((row, rowIdx) => (
+          {remainingRankRows.map((row, rowIdx) => (
             <div key={rowIdx} className="flex w-full flex-1 flex-col gap-4 md:contents lg:flex lg:w-full lg:flex-1 lg:flex-row lg:gap-4">
               {row.map((member) => (
                 <div
                   key={member.name}
                   className="flex flex-1 flex-col justify-end gap-2 overflow-hidden rounded-2xl md:gap-[6px]"
                 >
-                  <div className="relative min-h-[259px] flex-1 overflow-hidden rounded-lg md:min-h-[140px] lg:min-h-[203.15px]">
+                  <div className="relative min-h-[259px] flex-1 overflow-hidden rounded-lg md:min-h-[259px] lg:min-h-[203.15px]">
                     <Image
                       src={member.image}
                       alt={member.name}

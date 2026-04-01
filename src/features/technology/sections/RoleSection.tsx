@@ -19,7 +19,7 @@ export function RoleSection() {
             alt="Sino Africa Trading"
             width={545}
             height={205}
-            className="h-full w-full object-contain"
+            className="h-full w-full object-contain max-sm:max-w-[254px] max-sm:max-h-[95px]"
           />
         </div>
 
@@ -29,18 +29,18 @@ export function RoleSection() {
             How Sino Africa Provides Solutions
           </h2>
 
-          <h2 className="font-bold text-[#161C2D] text-[36px] md:text-[32px] lg:text-[36px] leading-[120%] tracking-[-1.2px]">
+          <h2 className="font-bold text-[#161C2D] text-[24px] md:text-[32px] lg:text-[36px] leading-[120%] tracking-[-1.2px]">
             How Sino Africa Provides Solutions
           </h2>
 
-          <p className="font-light text-[#5C606C] text-[24px] md:text-[16px] leading-[150%] tracking-[-0.2px]">
+          <p className="font-light text-[#5C606C] text-[16px] md:text-[16px] leading-[150%] tracking-[-0.2px]">
             Sino Africa closes the gap in infrastructure by ensuring disciplined, end-to-end execution, operating fully within regulatory frameworks, and taking full lifecycle responsibility. We operate on the principle that infrastructure that truly matters cannot be treated as a mere transaction.
           </p>
 
           <div className="grid grid-cols-2 gap-x-8 lg:gap-x-12 gap-y-4 text-left lg:mt-4">
             {checklistItems.map((item, index) => (
               <div key={index} className="flex items-center gap-3">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
+                <svg width="17" height="12" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
                   <path d="M16.6666 5L7.49992 14.1667L3.33325 10" stroke="#3FAF7E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 <span className="font-normal text-[#161C2D] text-[16px] md:text-[14px] lg:text-[16px]">

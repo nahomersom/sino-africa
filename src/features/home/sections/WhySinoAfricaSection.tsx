@@ -45,14 +45,14 @@ export function WhySinoAfricaSection({
 
       <div className="flex w-full max-w-[846px] flex-col items-center gap-16 lg:h-[529px] lg:flex-row lg:items-center lg:gap-[62px]">
         <ScrollReveal direction="left" distance={50} className="relative w-full max-w-[419.72px] shrink-0 lg:h-full">
-          <div className="absolute bottom-0 right-0 h-[471.28px] w-[357.57px] rounded-[10px] bg-primary/10" />
-          <div className="relative h-[238.54px] w-[420.5px] lg:h-[491.95px] lg:w-[382.79px] overflow-hidden rounded-[10px] shadow-[0_31px_34px_rgba(0,0,0,0.09)]">
+          <div className="absolute top-[25.48px] left-[54.19px] md:top-[28px] md:left-[69px] lg:top-[57.72px] lg:bottom-0 lg:right-0  h-[208.02px] w-[311.81px]  md:h-[228.51px] md:w-[392.7940673828125px] lg:h-[471.28px] lg:w-[357.57px] rounded-[10px] bg-primary/10" />
+          <div className="relative h-[208.02px] w-[311.81px] overflow-hidden rounded-[10px] shadow-[0_31px_34px_rgba(0,0,0,0.09)] md:h-[228.51px] md:w-[392.7940673828125px] lg:h-[491.95px] lg:w-[382.79px]">
             <Image
               src={image}
               alt="Why Sino Africa"
               width={420}
               height={530}
-              className="absolute -top-[8.62px] left-0 h-[603.96px] w-[420.62px] max-w-none object-cover"
+              className="absolute left-0 top-0 h-[217.15px] md:h-[238.54px] lg:h-[603.96px] w-[338.8px]  md:w-[420.62px] max-w-none object-cover  lg:-top-[8.62px]  "
             />
           </div>
         </ScrollReveal>

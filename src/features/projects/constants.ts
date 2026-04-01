@@ -13,13 +13,18 @@ export const projectFilterTabs: readonly ProjectFilterTab[] = [
   { id: "pilot", label: "Pilot Projects" },
 ] as const;
 
+/** Grid columns × rows (3×3) for Strapi pagination and static fallback. */
+export const PROJECTS_GRID_PAGE_SIZE = 9;
+
 export type ProjectCard = {
   id: string;
-  /** Which primary filter tab this card belongs to (not "all"). */
-  filter: Exclude<ProjectFilterId, "all">;
+  /** When set, card links here (CMS). Omitted for static grid demos. */
+  detailHref?: string;
+  /** Category tab id (slug from CMS or static filter id); omitted = "All" only. */
+  filter?: string;
   title: string;
   description: string;
-  /** Replace with real imagery when available (Figma exports). */
+  /** CMS image URL, or empty when none. */
   imageSrc: string;
   imageAlt: string;
 };
@@ -28,8 +33,7 @@ export const projectsContent = {
   hero: {
     label: "OUR PROJECTS",
     heading: "Delivering technology and infrastructure that moves businesses forward.",
-    description:
-      "From digital platforms to secure systems and mobility solutions, our work spans sectors and borders—built with partners who expect reliability, scale, and clarity.",
+    description: "",
   },
   grid: {
     heading: "Our Featured Projects",
@@ -42,8 +46,8 @@ export const projectsContent = {
         title: "Act IT enterprise rollout",
         description:
           "Unified tooling and workflows for distributed teams, with a focus on adoption and measurable operational gains.",
-        imageSrc: "/images/about/hero-photo-2.png",
-        imageAlt: "Act IT project preview",
+        imageSrc: "",
+        imageAlt: "",
       },
       {
         id: "sino-sec",
@@ -51,8 +55,8 @@ export const projectsContent = {
         title: "SINO Sec compliance program",
         description:
           "Hardening, monitoring, and policy alignment for organisations scaling across regulated environments.",
-        imageSrc: "/images/about/hero-photo-0.jpg",
-        imageAlt: "SINO Sec project preview",
+        imageSrc: "",
+        imageAlt: "",
       },
       {
         id: "mobilitex",
@@ -60,8 +64,8 @@ export const projectsContent = {
         title: "Mobilitex field operations",
         description:
           "Logistics and workforce mobility solutions improving turnaround times and visibility in the field.",
-        imageSrc: "/images/about/hero-photo-1.jpg",
-        imageAlt: "Mobilitex project preview",
+        imageSrc: "",
+        imageAlt: "",
       },
       {
         id: "pilot-connectivity",
@@ -69,8 +73,8 @@ export const projectsContent = {
         title: "National connectivity backbone",
         description:
           "Planning and delivery support for resilient network capacity serving enterprise and public-sector use cases.",
-        imageSrc: "/images/about/hero-photo-2.png",
-        imageAlt: "Infrastructure project preview",
+        imageSrc: "",
+        imageAlt: "",
       },
       {
         id: "act-it-integration",
@@ -78,8 +82,8 @@ export const projectsContent = {
         title: "Cross-border trade integration",
         description:
           "APIs and data exchange layers connecting partners, customs workflows, and core business systems.",
-        imageSrc: "/images/about/hero-photo-0.jpg",
-        imageAlt: "Integration project preview",
+        imageSrc: "",
+        imageAlt: "",
       },
       {
         id: "pilot-analytics",
@@ -87,8 +91,8 @@ export const projectsContent = {
         title: "Operational analytics cockpit",
         description:
           "Dashboards and pipelines turning operational signals into decisions leadership can act on weekly.",
-        imageSrc: "/images/about/hero-photo-1.jpg",
-        imageAlt: "Analytics project preview",
+        imageSrc: "",
+        imageAlt: "",
       },
     ] satisfies ProjectCard[],
   },
@@ -117,14 +121,7 @@ export const projectsContent = {
       "Lorem ipsum dolor sit amet consectetur. Scelerisque mauris dui sit orci nam. Enim et nunc lacus purus adipiscing venenatis cras. Vel odio aliquet est integer molestie in feugiat consectetur pellentesque. Dolor consectetur nisl ut pellentesque sem orci mauris viverra in. Sollicitudin id ullamcorper enim purus eu massa erat nunc pellentesque.",
     heroTail:
       " We aligned stakeholders on scope, de-risked delivery milestones, and focused on adoption so outcomes stick after go-live.",
-    gallery: [
-      { src: "/images/about/hero-photo-0.jpg", alt: "Project environment" },
-      { src: "/images/about/hero-photo-1.jpg", alt: "Field perspective" },
-      { src: "/images/about/hero-photo-2.png", alt: "Program delivery" },
-      { src: "/images/hero-background.jpg", alt: "Regional landscape" },
-      { src: "/images/about/hero-photo-1.jpg", alt: "Operations overview" },
-      { src: "/images/about/hero-photo-0.jpg", alt: "Stakeholder alignment" },
-    ] as const,
+    gallery: [] as const,
   },
   contact: {
     heading: "Get In Touch with us",
@@ -135,7 +132,7 @@ export const projectsContent = {
 } as const;
 
 export type ProjectDetail = {
-  slug: string;
+  id: string;
   title: string;
   heroDescription: string;
   heroImageSrc: string;
@@ -175,7 +172,7 @@ export function getProjectDetail(slug: string): ProjectDetail | undefined {
   const extra = projectDetailExtras[slug] ?? {};
 
   return {
-    slug,
+    id: slug,
     title: card.title,
     heroDescription:
       extra.heroDescription ?? `${card.description}${d.heroTail}`,
@@ -187,7 +184,7 @@ export function getProjectDetail(slug: string): ProjectDetail | undefined {
     overview: extra.overview ?? d.sharedOverview,
     challenges: extra.challenges ?? d.sharedChallenges,
     results: extra.results ?? d.sharedResults,
-    gallery: extra.gallery ?? d.gallery,
+    gallery: extra.gallery ?? [],
   };
 }
 
