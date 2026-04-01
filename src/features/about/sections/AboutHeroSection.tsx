@@ -169,7 +169,7 @@ function HeroCollage({
             />
           </div>
 
-          <p className="absolute bottom-[43px] left-[53%] lg:bottom-auto  lg:top-[495px] z-20 max-w-[318.5px] lg:max-w-[545.62px] text-left text-base font-light leading-6 tracking-[-0.0125em] text-muted">
+          <p className="absolute bottom-[43px] left-[53%] lg:left-[49%] lg:bottom-auto  lg:top-[450px] z-20 max-w-[318.5px] lg:max-w-[545.62px] text-left text-base font-light leading-6 tracking-[-0.0125em] text-muted">
             {description}
           </p>
         </div>

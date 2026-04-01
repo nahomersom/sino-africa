@@ -31,13 +31,9 @@ export function WhatDefinesUsSection({
   return (
     <section
       className="relative flex w-full flex-col items-center gap-8 overflow-hidden bg-white px-8 py-10 md:gap-10 md:px-8 md:py-10  lg:pt-[200px] lg:pb-[100px] lg:justify-center"
-      style={{
-        backgroundImage: "url('/images/sino-symbol-tile.svg')",
-        backgroundSize: "28px",
-        backgroundRepeat: "repeat",
-      }}
     >
-      <div className="pointer-events-none absolute inset-0 bg-white/90" />
+      <div className="pointer-events-none absolute right-[-532px] top-[2px] hidden size-[847px] rounded-full bg-primary/20 blur-[252px] lg:block" />
+      <div className="pointer-events-none absolute -left-[532px] top-[70px] hidden size-[847px] rounded-full bg-primary/20 blur-[252px] lg:block" />
 
       {/* Title block */}
       <div className="relative z-10 flex max-w-[552px] flex-col items-center gap-4">
@@ -62,7 +58,7 @@ export function WhatDefinesUsSection({
                 height={65}
               />
               <div className="flex flex-col gap-1 md:items-center md:text-center lg:items-start lg:text-left">
-                <h3 className="text-base font-light uppercase leading-[1.5] tracking-[0.0625em] text-muted">
+                <h3 className="text-base font-light  leading-[1.5] tracking-[0.0625em] text-muted">
                   {mission.title}
                 </h3>
                 <p className="text-lg leading-[1.5] text-text-100">
@@ -79,7 +75,7 @@ export function WhatDefinesUsSection({
                 height={65}
               />
               <div className="flex flex-col gap-1 md:items-center md:text-center lg:items-start lg:text-left">
-                <h3 className="text-base font-light uppercase leading-[1.5] tracking-[0.0625em] text-muted">
+                <h3 className="text-base font-light  leading-[1.5] tracking-[0.0625em] text-muted">
                   {vision.title}
                 </h3>
                 <p className="text-lg leading-[1.5] text-text-100">
