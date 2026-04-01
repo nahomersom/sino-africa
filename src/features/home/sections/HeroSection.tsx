@@ -13,13 +13,13 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative flex min-h-[971px] w-full flex-col justify-center overflow-hidden bg-black/40 md:min-h-screen">
+    <section className="relative flex min-h-screen w-full flex-col justify-center overflow-hidden bg-black/40 md:min-h-screen">
       <Image
         src="/images/hero-background.jpg"
         alt="Sino Africa hero background"
         fill
         priority
-        className="object-cover"
+        className="object-fill lg:object-cover"
       />
       <div className="absolute inset-0 bg-black/40" />
       <div

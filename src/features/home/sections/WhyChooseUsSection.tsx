@@ -31,7 +31,7 @@ export function WhyChooseUsSection({
         aria-hidden="true"
         width={123}
         height={121}
-        className="pointer-events-none absolute -left-12 top-[58px] hidden select-none md:block"
+        className="pointer-events-none absolute -left-12 top-[58px] h-[82.53px] w-[84px] select-none md:h-[121px] md:w-[123px]"
       />
       <div className="flex flex-col items-center gap-6">
         <div className="flex size-[78px] items-center justify-center rounded-[56px] bg-primary">

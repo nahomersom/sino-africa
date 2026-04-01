@@ -32,13 +32,7 @@ export function ContactInfoSection({
         {items.map((item) => (
           <StaggerItem key={item.title} className="w-[calc(50%-8px)] min-w-0 md:w-auto md:flex-1">
             <div className="flex items-start gap-2 md:gap-[21px]">
-              {item.icon === EMAIL_ICON_SRC ? (
-                <ContactBadgeIcon
-                  size={32}
-                  backgroundColor={emailIconBackgroundColor}
-                  className="mt-0.5 shrink-0 md:mt-0"
-                />
-              ) : (
+            
                 <Image
                   src={item.icon}
                   alt=""
@@ -46,7 +40,7 @@ export function ContactInfoSection({
                   height={32}
                   className="mt-0.5 shrink-0 md:mt-0 md:size-[54px]"
                 />
-              )}
+             
               <div className="flex min-w-0 flex-col gap-0.5 md:gap-0.5">
                 <h3 className="text-base leading-[1.5] font-normal tracking-[-0.0313em] text-text-100 md:text-base md:tracking-[-0.0313em] lg:text-2xl lg:tracking-[-0.0208em]">
                   {item.title}
