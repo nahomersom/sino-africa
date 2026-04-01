@@ -74,7 +74,7 @@ export function HowWeWorkSection() {
             letterSpacing: "-0.2px",
           }}
         >
-          Lorem ipsum dolor sit amet consectetur. Elit eget mauris sed diam urna.
+          A clear, structured approach to delivering impactful solutions.
         </p>
       </div>
 
@@ -84,7 +84,12 @@ export function HowWeWorkSection() {
       >
         {/* Horizontal Dashed Line (Tablet & Desktop) */}
         <div
-          className="hidden md:block absolute left-[12%] right-[12%] top-[20px] lg:top-[36.5px] border-t-2 border-dashed border-[#E2E4E8] z-0"
+          className="hidden md:block absolute left-[12%] right-[12%] top-[20px] lg:top-[36.5px] h-[3px] z-0"
+          style={{
+            backgroundImage: "linear-gradient(to right, #D5D7DD 8px, transparent 8px)",
+            backgroundSize: "13px 3px",
+            backgroundRepeat: "repeat-x",
+          }}
         />
 
         {steps.map((step, index) => [
@@ -123,7 +128,12 @@ export function HowWeWorkSection() {
           index < steps.length - 1 && (
             <div
               key={`line-${index}`}
-              className="md:hidden h-[80px] border-l-2 border-dashed border-[#E2E4E8]"
+              className="md:hidden h-[80px] w-[3px]"
+              style={{
+                backgroundImage: "linear-gradient(to bottom, #D5D7DD 4px, transparent 4px)",
+                backgroundSize: "3px 13px",
+                backgroundRepeat: "repeat-y",
+              }}
             />
           ),
         ])}

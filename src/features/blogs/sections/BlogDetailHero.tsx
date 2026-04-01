@@ -24,7 +24,7 @@ export function BlogDetailHero({ title, image }: BlogDetailHeroProps) {
         {/* Back Link */}
         <Link
           href="/blogs"
-          className="flex items-center gap-[8px] text-[#161C2D] text-[14px] font-medium mb-[32px] md:mb-[48px] hover:opacity-70 transition-opacity w-fit mx-auto md:mx-0"
+          className="flex items-center gap-[8px] text-[#161C2D] text-[14px] font-medium mb-[32px] md:mb-[48px] hover:opacity-70 transition-opacity w-fit ml-0"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="m15 18-6-6 6-6" />

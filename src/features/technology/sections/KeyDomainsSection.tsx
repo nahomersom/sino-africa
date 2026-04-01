@@ -1,24 +1,32 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useGetVerticalsQuery, getStrapiMediaUrl } from "@/src/store/strapiApi";
 
 export function KeyDomainsSection() {
-  const cards = [
-    {
-      title: "ACT IT",
-      description: "Provides financial transaction rails and payment infrastructure for mobility platforms and identity-linked disbursements.",
-      color: "#3FAF7E",
-    },
-    {
-      title: "SINO SEC",
-      description: "Delivers foundational identity services, including verification, biometric authentication, and secure data infrastructure for financial and mobility systems.",
-      color: "#4A5568",
-    },
-    {
-      title: "MOBILITEX",
-      description: "Offers physical transport and mobility platforms, including logistics infrastructure, network management, and operational support for mobility services.",
-      color: "#2F6FED",
-    },
-  ];
+  const { data: verticals, isLoading, isError } = useGetVerticalsQuery();
+
+  if (isLoading) {
+    return (
+      <section className="relative flex flex-col items-center overflow-hidden bg-white w-full py-20 px-8 gap-8 lg:px-[237px] lg:min-h-[600px]">
+        <div className="animate-pulse text-[#5C606C]">Loading Infrastructure Domains...</div>
+      </section>
+    );
+  }
+
+  if (isError || !verticals || verticals.length === 0) {
+    return null;
+  }
+
+  const cards = verticals.map((v) => ({
+    title: v.title ?? "",
+    description: v.description ?? "",
+    baseColor: v.gradient?.baseColor ?? "#4A5568",
+    accentColor: v.gradient?.accentColor ?? v.gradient?.baseColor ?? "#303845",
+    logoUrl: getStrapiMediaUrl(v.logo?.url),
+    slug: v.slug ?? "",
+  }));
 
   return (
     <section className="relative flex flex-col items-center overflow-hidden bg-white w-full pt-10 px-8 pb-10 gap-[45px] md:py-10 md:px-20 md:gap-10 lg:pt-[152px] lg:pb-[140px] lg:px-[237px] lg:min-h-[961px] lg:gap-[45px]">
@@ -53,17 +61,21 @@ export function KeyDomainsSection() {
         {cards.map((card, index) => (
           <div
             key={index}
-            className="flex flex-col items-center justify-center text-center rounded-[8px] pt-10 pb-10 px-16 gap-[45px] h-[491.35px] md:w-[220px] md:h-[459px] md:py-6 md:px-4 md:gap-10 lg:flex-1 lg:h-[552px] lg:py-10 lg:px-16 lg:gap-[45px] z-1"
-            style={{ backgroundColor: card.color }}
+            className="flex flex-col items-center justify-between text-center rounded-[8px] pt-10 pb-10 px-16 md:w-[220px] md:h-[459px] md:py-6 md:px-4 lg:flex-1 lg:h-[552px] lg:py-12 lg:px-16 z-1"
+            style={{
+              background: `linear-gradient(180deg, ${card.accentColor} 1%, ${card.baseColor} 100%)`
+            }}
           >
             {/* Icon */}
             <div className="relative h-[110px] w-[140px]">
-              <Image
-                src="/assets/images/cardicon.png"
-                alt={card.title}
-                fill
-                className="object-contain grayscale brightness-200"
-              />
+              {card.logoUrl && (
+                <Image
+                  src={card.logoUrl}
+                  alt={card.title}
+                  fill
+                  className="object-contain"
+                />
+              )}
             </div>
 
             {/* Content */}
@@ -71,14 +83,14 @@ export function KeyDomainsSection() {
               <h3 className="font-semibold text-white text-[24px] leading-[150%] tracking-[-0.5px]">
                 {card.title}
               </h3>
-              <p className="text-white text-[16px] md:text-[14px] font-light leading-[150%] w-full lg:w-[284.67px] lg:h-[72px]">
+              <p className="text-white text-[16px] md:text-[14px] font-light leading-[150%] w-full lg:w-[284.67px]">
                 {card.description}
               </p>
             </div>
 
             {/* Read More */}
             <Link
-              href="#"
+              href={`/our-verticals/${card.slug}`}
               className="flex items-center gap-2 font-medium text-white transition-opacity hover:opacity-80 text-[17px] leading-[32px]"
             >
               READ MORE
