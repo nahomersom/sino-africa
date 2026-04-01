@@ -45,10 +45,10 @@ export function DetailHero({
           </Link>
 
           {/* Switched tablet to flex justify-between to keep the left and right elements strictly responsive */}
-          <div className="flex min-h-0 w-full flex-1 flex-col justify-start gap-10 md:relative md:h-[483px] md:flex-row md:items-start md:justify-between md:gap-4 lg:items-stretch lg:justify-start lg:gap-0">
+          <div className="flex min-h-0 w-full flex-1 flex-col justify-start gap-10 md:relative md:h-[483px] md:flex-row md:items-start md:justify-between md:gap-4 lg:items-stretch lg:justify-start lg:gap-[56.04px]">
 
             {/* Left Content Area (Width: 337px, Height: 483px, padding: 8px, gap: 8px) */}
-            <div className="order-2 ml-0 flex min-w-0 w-full md:w-[337px] md:h-[483px] md:shrink-0 md:p-2 md:gap-2 flex-1 flex-col items-center md:items-start justify-center gap-3 p-2 opacity-100 md:order-1 md:ml-0 lg:w-full lg:h-auto lg:ml-10 lg:min-h-[653px]">
+            <div className="order-2 ml-0 flex min-w-0 w-full md:w-[337px] md:h-[483px] md:shrink-0 md:p-2 md:gap-2 flex-1 flex-col items-center md:items-start justify-center gap-3 p-2 opacity-100 md:order-1 md:ml-0 lg:w-full lg:h-auto lg:min-h-[653px]">
 
               <div className="flex flex-col items-center md:items-start gap-4 text-white lg:gap-4">
                 {heroLogoSrc ? (
@@ -84,7 +84,7 @@ export function DetailHero({
             </div>
 
             {/* Right Image Area (Width: 332px, Height: 375px, Top offset maintained as relative margin-top 108px) */}
-            <div className="relative z-[2] order-1 aspect-square w-full max-md:mt-0 md:relative md:order-2 md:mt-[108px] md:aspect-auto md:h-[375px] md:w-[332px] md:shrink-0 md:translate-y-0 lg:mt-0 lg:left-0 lg:top-0 lg:aspect-square lg:h-auto lg:max-w-[685px] lg:translate-y-[clamp(2.25rem,1rem,1rem)]">
+            <div className="relative z-[2] order-1 aspect-square w-full max-md:mt-0 md:relative md:order-2 md:mt-[108px] md:aspect-auto md:h-[375px] md:w-[332px] md:shrink-0 md:translate-y-0 lg:mt-0 lg:left-0 lg:top-0 lg:aspect-square lg:h-auto lg:w-[651.240234375px] lg:translate-y-[clamp(2.25rem,1rem,1rem)]">
               <Image
                 src={HERO_DOTS_SRC}
                 alt=""
@@ -107,7 +107,7 @@ export function DetailHero({
                       src={heroImageSrc}
                       alt={heroImageAlt}
                       fill
-                      sizes="(max-width: 767px) 100vw, (max-width: 1023px) 520px, 685px"
+                      sizes="(max-width: 767px) 100vw, (max-width: 1023px) 520px, 651px"
                       className="object-cover"
                       priority
                     />
