@@ -67,7 +67,7 @@ export function VerticalsSection({
       className="relative flex h-screen max-w-screen w-full flex-col gap-4 overflow-hidden px-8 py-20 transition-all duration-500 md:px-20 md:py-20 lg:px-[286px] lg:pb-16 lg:pt-[160px]"
       style={{ background: GRADIENTS[activeIndex] }}
     >
-{VERTICALS_REFERENCE_ELLIPSES.map((ellipse, i) => {
+      {VERTICALS_REFERENCE_ELLIPSES.map((ellipse, i) => {
         const topPx = VERTICALS_ELLIPSE_TOP_PX_BY_GRADIENT[activeIndex][i];
         const fill = `rgba(255, 255, 255, ${ellipse.opacity / 100})`;
         return (
@@ -83,7 +83,7 @@ export function VerticalsSection({
       })}
 
       {/* Pattern overlay — subtle so 6:2077 circles read clearly */}
-      
+
 
       {/* Leading */}
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center gap-6">
@@ -126,9 +126,8 @@ export function VerticalsSection({
             <StaggerItem key={item.name} className="flex-1">
               <div
                 onMouseEnter={() => setActiveIndex(i)}
-                className={`flex cursor-pointer items-center gap-4 p-4 backdrop-blur-[20px] transition-all duration-300 ${
-                   "rounded-2xl bg-accent-60"
-                }`}
+                className={`flex cursor-pointer items-center gap-4 p-4 backdrop-blur-[20px] transition-all duration-300 ${"rounded-2xl bg-accent-60"
+                  }`}
               >
                 {/* Card icon */}
                 <div
@@ -146,17 +145,15 @@ export function VerticalsSection({
                 {/* Card content */}
                 <div className="flex flex-1 flex-col gap-1.5">
                   <h3
-                    className={`text-2xl font-medium leading-[1.2] transition-colors duration-300 ${
-                      "text-text-100"
-                    }`}
+                    className={`text-2xl font-medium leading-[1.2] transition-colors duration-300 ${"text-text-100"
+                      }`}
                   >
                     {item.name}
                   </h3>
                   <div className="py-2">
                     <span
-                      className={`text-xs font-light leading-[1.5] transition-colors duration-300 ${
-                        "text-text-100"
-                      }`}
+                      className={`text-xs font-light leading-[1.5] transition-colors duration-300 ${"text-text-100"
+                        }`}
                     >
                       {item.subtitle}
                     </span>
@@ -165,9 +162,8 @@ export function VerticalsSection({
 
                 {/* Arrow button */}
                 <div
-                  className={`flex shrink-0 items-center justify-center rounded-full p-4 transition-colors duration-300 ${
-                    "bg-[#F2F2F2]"
-                  }`}
+                  className={`flex shrink-0 items-center justify-center rounded-full p-4 transition-colors duration-300 ${"bg-[#F2F2F2]"
+                    }`}
                 >
                   <svg
                     width="14"
@@ -178,9 +174,8 @@ export function VerticalsSection({
                   >
                     <path
                       d="M1 6H13M13 6L8 1M13 6L8 11"
-                      className={`transition-all duration-300 ${
-                         "stroke-[#1A1919]"
-                      }`}
+                      className={`transition-all duration-300 ${"stroke-[#1A1919]"
+                        }`}
                       strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
