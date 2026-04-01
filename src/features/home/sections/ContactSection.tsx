@@ -184,16 +184,16 @@ export function ContactSection({
         >
           {heading}
         </h2>
-        <p className="max-w-[502px] text-center text-base font-light leading-[1.5] tracking-[-0.0125em] text-muted md:text-lg md:tracking-[-0.011em]">
+        <p className="max-w-[502px] text-center text-base font-light leading-normal tracking-[-0.0125em] text-muted md:text-lg md:tracking-[-0.011em]">
           {description}
         </p>
       </div>
 
       <form
-        className="relative z-10 flex w-full max-w-[522px] flex-col items-center gap-6"
+        className="relative z-10 flex w-full max-w-[522px] flex-col items-center gap-6 lg:h-[409px]"
         onSubmit={handleSubmit}
       >
-        <div className="flex w-full flex-col gap-4">
+        <div className="flex w-full flex-col gap-6">
           <input
             type="text"
             placeholder={namePlaceholder}
@@ -207,7 +207,7 @@ export function ContactSection({
           {fieldErrors.name ? (
             <p className="-mt-2 text-xs text-red-500">{fieldErrors.name}</p>
           ) : null}
-          <div className="flex w-full  gap-4 ">
+          <div className="flex w-full gap-6">
             <input
               type="email"
               placeholder="Email Address"
@@ -295,7 +295,7 @@ export function ContactSection({
         <Button
           type="submit"
           variant="primary"
-          className="w-[142px]"
+          className="w-[142px] min-h-[56px] lg:min-h-[69px]"
           disabled={isLoading}
           style={accentColor ? { backgroundColor: accentColor } : undefined}
         >

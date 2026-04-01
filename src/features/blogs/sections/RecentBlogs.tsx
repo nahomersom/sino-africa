@@ -55,7 +55,8 @@ function getBlogImage(blog: Blog): string {
 }
 
 export function RecentBlogs() {
-  const { data: allBlogs = [], isLoading, isError, refetch } = useGetBlogsQuery();
+  const { data, isLoading, isError, refetch } = useGetBlogsQuery();
+  const allBlogs = data?.blogs ?? [];
 
   // Sort by publishedDate descending (most recent first) and take top 6
   const blogs = [...allBlogs]

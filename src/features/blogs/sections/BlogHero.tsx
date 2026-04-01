@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -21,7 +21,7 @@ const BlogCard = ({ slug, date, title, description, image }: BlogCardProps) => {
   return (
     <Link
       href={`/blogs/${slug}`}
-      className="relative shrink-0 w-[366px] md:w-[326px] lg:w-[615px] h-[446px] lg:h-[485px] rounded-[16px] overflow-hidden group cursor-pointer"
+      className="relative shrink-0 w-[366px] md:w-[326px] lg:w-[615px] h-[446px] lg:h-[485px] rounded-[16px] overflow-hidden group cursor-pointer snap-start"
     >
       {/* Background Image */}
       <Image
@@ -53,7 +53,7 @@ const BlogCard = ({ slug, date, title, description, image }: BlogCardProps) => {
             {title}
           </h3>
           <div className="flex justify-between items-end gap-[20px] w-full max-w-[551px]">
-            <p className="text-white/60 text-[12px] lg:text-[16px] leading-[18px] lg:leading-normal font-normal flex-1">
+            <p className="text-white/60 text-[12px] lg:text-[16px] leading-[18px] lg:leading-normal font-normal flex-1 line-clamp-3 overflow-hidden text-ellipsis">
               {description}
             </p>
             {/* Hidden on mobile & tablet to fit the smaller 326px width */}
@@ -78,7 +78,7 @@ function formatDate(dateStr: string): string {
 function getDescriptionText(blog: Blog): string {
   if (!blog.description || blog.description.length === 0) return "";
   return blog.description
-    .flatMap((block) => block.children.map((child) => child.text))
+    .flatMap((block) => (block.children || []).map((child: any) => child.text || ""))
     .join(" ");
 }
 
@@ -91,19 +91,46 @@ function getBlogImage(blog: Blog): string {
 
 export function BlogHero() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const { data: blogs = [], isLoading, isError, refetch } = useGetBlogsQuery();
+  const { data, isLoading, isError, refetch } = useGetBlogsQuery({ "filters[isFeatured][$eq]": true });
+  const blogs = data?.blogs ?? [];
+  const pagination = data?.pagination;
 
-  const featuredBlogs = blogs.filter((blog) => blog.isFeatured);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft } = scrollContainerRef.current;
+      const card = scrollContainerRef.current.firstElementChild as HTMLElement;
+      if (card) {
+        const cardWidth = card.offsetWidth;
+        const gap = window.innerWidth >= 768 ? 25 : 24;
+        const index = Math.round(scrollLeft / (cardWidth + gap));
+        setCurrentIndex(index);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.addEventListener("scroll", handleScroll, { passive: true });
+      return () => container.removeEventListener("scroll", handleScroll);
+    }
+  }, []);
 
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
-      const isTablet = window.innerWidth < 1024;
-      const scrollAmount = isTablet ? 350 : 640;
+      const card = scrollContainerRef.current.firstElementChild as HTMLElement;
+      if (card) {
+        const cardWidth = card.offsetWidth;
+        const gap = window.innerWidth >= 768 ? 25 : 24;
+        const scrollAmount = cardWidth + gap;
 
-      scrollContainerRef.current.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
-        behavior: "smooth",
-      });
+        scrollContainerRef.current.scrollBy({
+          left: direction === "left" ? -scrollAmount : scrollAmount,
+          behavior: "smooth",
+        });
+      }
     }
   };
 
@@ -113,12 +140,12 @@ export function BlogHero() {
 
         {/* Section Heading Container - Configured for tab-responsive */}
         <motion.div
-          className="flex flex-col items-center text-center mx-auto w-full md:max-w-[837px] md:min-h-[160px] md:pb-[40px] md:gap-[40px] gap-[16px] mb-[32px] md:mb-0 "
-          initial={{ opacity: 0, y: 30 }}
+          className="flex flex-col items-center text-center mx-auto w-full md:max-w-[837px] md:min-h-[160px] md:pb-[40px] md:gap-[40px] gap-[16px] mb-[32px] md:mb-0 
+             lg:items-start lg:text-left lg:mx-0"
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
         >
-          <span className="text-[#64C294] text-[13px] font-normal uppercase tracking-[0.15em] ">
+          <span className="text-[#64C294] text-[13px] font-normal uppercase tracking-[0.15em]">
             Blogs
           </span>
           <h2 className="text-[#161C2D] text-[32px] md:text-[36px] font-semibold leading-[40px] md:leading-[48px] w-full mx-auto">
@@ -134,51 +161,44 @@ export function BlogHero() {
         >
           <div
             ref={scrollContainerRef}
-            className="flex gap-[24px] md:gap-[25px] overflow-x-auto no-scrollbar scroll-smooth pb-[20px] px-[16px] md:px-0 lg:px-0"
+            className="flex gap-[24px] md:gap-[25px] overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory pb-[20px] md:px-0 lg:px-0"
           >
-          {isLoading ? (
-            Array.from({ length: 3 }).map((_, index) => (
-              <div key={index} className="shrink-0 w-[366px] md:w-[326px] lg:w-[615px] h-[446px] lg:h-[485px] rounded-[16px] bg-gray-200 animate-pulse" />
-            ))
-          ) : isError ? (
-            <div className="w-full">
-              <ErrorState onRetry={refetch} />
-            </div>
-          ) : featuredBlogs.length > 0 ? (
-            featuredBlogs.map((blog) => (
-              <BlogCard
-                key={blog.id}
-                slug={blog.documentId}
-                date={formatDate(blog.publishedDate)}
-                title={blog.title}
-                description={blog.summary || getDescriptionText(blog)}
-                image={getBlogImage(blog)}
-              />
-            ))
-          ) : (
-            blogs.slice(0, 3).map((blog) => (
-              <BlogCard
-                key={blog.id}
-                slug={blog.documentId}
-                date={formatDate(blog.publishedDate)}
-                title={blog.title}
-                description={blog.summary || getDescriptionText(blog)}
-                image={getBlogImage(blog)}
-              />
-            ))
-          )}
+            {isLoading ? (
+              Array.from({ length: 3 }).map((_, index) => (
+                <div key={index} className="shrink-0 w-[366px] md:w-[326px] lg:w-[615px] h-[446px] lg:h-[485px] rounded-[16px] bg-gray-200 animate-pulse" />
+              ))
+            ) : isError ? (
+              <div className="w-full">
+                <ErrorState onRetry={refetch} />
+              </div>
+            ) : blogs.length > 0 ? (
+              blogs.map((blog) => (
+                <BlogCard
+                  key={blog.id}
+                  slug={blog.documentId}
+                  date={formatDate(blog.publishedDate)}
+                  title={blog.title}
+                  description={blog.summary || getDescriptionText(blog)}
+                  image={getBlogImage(blog)}
+                />
+              ))
+            ) : (
+              <div className="w-full py-10 text-center text-gray-500 italic">
+                No featured blogs found.
+              </div>
+            )}
           </div>
         </motion.div>
 
         {/* Pagination & Navigation */}
         <motion.div
-          className="flex justify-between items-center mt-[32px] px-[16px] md:px-0 lg:px-0"
+          className="flex justify-between items-center mt-[32px] md:px-0 lg:px-0"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
         >
           <div className="text-[#161C2D] text-[16px] font-medium opacity-60">
-            {featuredBlogs.length > 0 ? `1/${featuredBlogs.length}` : `1/${Math.min(blogs.length, 3)}`}
+            {blogs.length > 0 ? `${currentIndex + 1}/${blogs.length}` : "0/0"}
           </div>
           <div className="flex gap-[12px]">
             <button

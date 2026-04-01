@@ -82,7 +82,7 @@ export function BlogDetailPage({ id }: BlogDetailPageProps) {
           <h2 className="text-[#161C2D] text-[24px] font-semibold mb-[48px] uppercase tracking-normal text-center md:text-center lg:text-left">
             Related Blogs
           </h2>
-          <AllBlogs showTitle={false} />
+          <AllBlogs showTitle={false} excludeDocumentId={blog.documentId} />
         </div>
       </div>
     </main>
