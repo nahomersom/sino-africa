@@ -1,7 +1,6 @@
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { fetchProjectById } from "@/src/features/projects/fetchProjects";
-import { PROJECTS_GRID_PAGE_SIZE } from "@/src/features/projects/constants";
+import { fetchProjectById, PROJECTS_GRID_PAGE_SIZE } from "@/src/features/projects/fetchProjects";
 import { appendStrapiQuery, getStrapiApiBaseUrl, getStrapiMediaUrl } from "@/src/lib/strapiBase";
 
 export { getStrapiMediaUrl };

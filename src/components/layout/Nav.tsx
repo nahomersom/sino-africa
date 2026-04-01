@@ -26,7 +26,7 @@ const verticalSubLinks: readonly NavSubLink[] = [
 const navItems: readonly NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About us", href: "/about" },
-  { label: "Our Verticals", href: "/#platforms", children: verticalSubLinks },
+  { label: "Our Verticals", href: "/our-verticals", children: verticalSubLinks },
   { label: "Projects", href: "/projects" },
   { label: "Technology and Infrastructure", href: "/technology" },
   { label: "Blogs", href: "/blogs" },
@@ -205,20 +205,18 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
               if (children?.length) {
                 return (
                   <div key={item.label} className="group relative">
-                    <button
-                      type="button"
+                    <Link
+                      href={item.href}
                       className={cn(
                         "flex items-center gap-1 px-2 py-3 text-sm transition-colors cursor-pointer",
                         isActive
                           ? "font-medium text-primary"
                           : "font-normal text-text-100",
                       )}
-                      aria-expanded="false"
                       aria-haspopup="menu"
                     >
                       {item.label}
-
-                    </button>
+                    </Link>
                     <div
                       role="menu"
                       aria-label={`${item.label} submenu`}
@@ -318,9 +316,13 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
                       key={item.label}
                       className="flex w-full max-w-full flex-col items-stretch gap-2 px-2 py-3"
                     >
-                      <span className="w-full text-left text-sm font-normal leading-[1.5] text-text-100">
+                      <Link
+                        href={item.href}
+                        onClick={() => setMenuOpen(false)}
+                        className="w-full text-left text-sm font-normal leading-[1.5] text-text-100"
+                      >
                         {item.label}
-                      </span>
+                      </Link>
                       {/* Figma 6:2281 Backdrop — art panel hidden on mobile/md; lg+ uses desktop submenu */}
                       <div className="flex w-full max-w-full flex-col items-stretch rounded-[24px]">
                         <div className="flex min-h-0 min-w-0 w-full flex-col gap-1 py-2">

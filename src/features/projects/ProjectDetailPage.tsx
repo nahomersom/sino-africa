@@ -3,8 +3,7 @@
 import type { ReactNode } from "react";
 import { ScrollReveal } from "@/src/components/ui/scroll-reveal";
 import { ContactSection } from "@/src/features/home/sections/ContactSection";
-import { ImageFillWithSkeleton } from "@/src/components/ui/image-with-skeleton";
-import { Skeleton } from "@/src/components/ui/skeleton";
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { projectsContent } from "./constants";
@@ -14,6 +13,9 @@ import { cn } from "@/src/lib/utils";
 type ProjectDetailPageProps = {
   project: ProjectDetail;
 };
+
+const PROJECT_DETAIL_TOP_VECTOR_IMAGE = "/images/projects/top-vector.png";
+const PROJECT_DETAIL_DOTS_IMAGE = "/images/projects/project-detail-dots.png";
 
 function BackToProjectsLink({ className }: { className?: string }) {
   return (
@@ -56,45 +58,23 @@ function SectionKicker({ children }: { children: ReactNode }) {
 
 type GalleryImageItem = { src: string; alt: string };
 
-/** `layoutPadding`: empty cell used only to keep the 6-tile mosaic shape (not a missing asset). */
-type GalleryCell = GalleryImageItem & { layoutPadding?: boolean };
-
-function GallerySlotImage({ item, sizes }: { item: GalleryCell; sizes: string }) {
-  if (!item.src) {
-    if (item.layoutPadding) {
-      return <div className="absolute inset-0 bg-[#E7E9ED]/40" aria-hidden />;
-    }
-    return <Skeleton className="absolute inset-0 rounded-[6px]" aria-hidden />;
-  }
-  return (
-    <ImageFillWithSkeleton
-      src={item.src}
-      alt={item.alt}
-      fill
-      className="object-cover"
-      sizes={sizes}
-      skeletonClassName="rounded-[6px]"
-    />
-  );
-}
-
 function GalleryMosaicTile({
   item,
   className,
   sizes,
 }: {
-  item: GalleryCell;
+  item: GalleryImageItem;
   className?: string;
   sizes: string;
 }) {
   return (
     <div
       className={cn(
-        "relative min-h-0 min-w-0 overflow-hidden rounded-[6px] bg-[#E7E9ED]/50",
+        "relative min-h-0 min-w-0 overflow-hidden rounded-[6px] bg-[#E7E9ED]",
         className,
       )}
     >
-      <GallerySlotImage item={item} sizes={sizes} />
+      <Image src={item.src} alt={item.alt} fill className="object-cover" sizes={sizes} />
     </div>
   );
 }
@@ -108,12 +88,12 @@ function GalleryMosaicMobileScroll({
   g4,
   g5,
 }: {
-  g0: GalleryCell;
-  g1: GalleryCell;
-  g2: GalleryCell;
-  g3: GalleryCell;
-  g4: GalleryCell;
-  g5: GalleryCell;
+  g0: GalleryImageItem;
+  g1: GalleryImageItem;
+  g2: GalleryImageItem;
+  g3: GalleryImageItem;
+  g4: GalleryImageItem;
+  g5: GalleryImageItem;
 }) {
   const stripClass = "h-full w-[132px] shrink-0 sm:w-[158px]";
   const mosaicHeight = "h-[288px] sm:h-[340px]";
@@ -145,27 +125,62 @@ function GalleryMosaicMobileScroll({
 /** Four-column masonry: full-height | equal two-row stack | full-height | equal two-row stack (lg+). */
 function ProjectDetailGallery({
   items,
-  projectId,
+  slug,
 }: {
   items: readonly GalleryImageItem[];
-  projectId: string;
+  slug: string;
 }) {
-  const rest = items.length > 6 ? items.slice(6) : [];
+  const mosaic = items.slice(0, 6);
+  const rest = items.slice(6);
 
-  /** Always 6 cells so desktop + mobile use the same mosaic strip as the original design. */
-  const mosaicCells: GalleryCell[] =
-    items.length >= 6
-      ? items.slice(0, 6).map((item) => ({ ...item, layoutPadding: false }))
-      : [
-          ...items.map((item) => ({ ...item, layoutPadding: false })),
-          ...Array.from({ length: 6 - items.length }, () => ({
-            src: "",
-            alt: "",
-            layoutPadding: true,
-          })),
-        ];
+  if (mosaic.length < 6) {
+    return (
+      <div className="w-full md:px-0">
+        <div
+          className={cn(
+            "no-scrollbar overflow-x-auto md:hidden",
+            "pl-3 pr-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+            "sm:pl-4",
+          )}
+        >
+          <div className="flex w-max gap-3 sm:gap-4">
+            {items.map((item, i) => (
+              <div
+                key={`${slug}-gallery-scroll-${i}`}
+                className="relative aspect-[4/3] w-[220px] shrink-0 overflow-hidden rounded-[6px] bg-[#E7E9ED] sm:w-[240px]"
+              >
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  className="object-cover"
+                  sizes="240px"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="hidden gap-3 sm:gap-4 md:grid md:grid-cols-3 md:px-0">
+          {items.map((item, i) => (
+            <div
+              key={`${slug}-gallery-${i}`}
+              className="relative aspect-[4/3] overflow-hidden rounded-[6px] bg-[#E7E9ED]"
+            >
+              <Image
+                src={item.src}
+                alt={item.alt}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 50vw, 33vw"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
-  const [g0, g1, g2, g3, g4, g5] = mosaicCells;
+  const [g0, g1, g2, g3, g4, g5] = mosaic;
 
   return (
     <div className="flex w-full flex-col gap-4">
@@ -201,10 +216,16 @@ function ProjectDetailGallery({
             <div className="flex w-max gap-3 sm:gap-4">
               {rest.map((item, i) => (
                 <div
-                  key={`${projectId}-gallery-extra-scroll-${i}`}
-                  className="relative aspect-[4/3] w-[220px] shrink-0 overflow-hidden rounded-[6px] bg-[#E7E9ED]/50 sm:w-[240px]"
+                  key={`${slug}-gallery-extra-scroll-${i}`}
+                  className="relative aspect-[4/3] w-[220px] shrink-0 overflow-hidden rounded-[6px] bg-[#E7E9ED] sm:w-[240px]"
                 >
-                  <GallerySlotImage item={item} sizes="240px" />
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    fill
+                    className="object-cover"
+                    sizes="240px"
+                  />
                 </div>
               ))}
             </div>
@@ -212,10 +233,16 @@ function ProjectDetailGallery({
           <div className="hidden gap-3 sm:gap-4 md:grid md:grid-cols-4 md:px-0">
             {rest.map((item, i) => (
               <div
-                key={`${projectId}-gallery-extra-md-${i}`}
-                className="relative aspect-[4/3] overflow-hidden rounded-[6px] bg-[#E7E9ED]/50"
+                key={`${slug}-gallery-extra-md-${i}`}
+                className="relative aspect-[4/3] overflow-hidden rounded-[6px] bg-[#E7E9ED]"
               >
-                <GallerySlotImage item={item} sizes="(max-width: 1024px) 50vw, 25vw" />
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                />
               </div>
             ))}
           </div>
@@ -234,6 +261,38 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
           "px-8 pb-10 pt-[120px] md:px-[120px] md:pb-10 md:pt-[152px]",
         )}
       >
+        <div className="pointer-events-none absolute left-0 top-[92px] z-20 md:top-[120px]" aria-hidden>
+          <Image
+            src={PROJECT_DETAIL_DOTS_IMAGE}
+            alt=""
+            width={119}
+            height={109}
+            className="max-w-none select-none"
+            style={{
+              width: 84,
+              height: 100,
+              opacity: 1,
+              transform: "rotate(0deg)",
+            }}
+            priority={false}
+          />
+        </div>
+
+        <div className="pointer-events-none absolute -right-[20px] top-10 z-0" aria-hidden>
+          <Image
+            src={PROJECT_DETAIL_TOP_VECTOR_IMAGE}
+            alt=""
+            width={520}
+            height={500}
+            className="max-w-none select-none"
+            style={{
+              opacity: 1,
+              transform: "rotate(0deg)",
+              transformOrigin: "top right",
+            }}
+          />
+        </div>
+
         <div className="relative z-10 mx-auto flex w-full max-w-[837px] flex-col gap-8 text-center md:gap-10 md:text-left xl:max-w-[1120px]">
           <div className="flex shrink-0 justify-center md:justify-start">
             <BackToProjectsLink className="justify-center md:justify-start" />
@@ -263,26 +322,21 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
 
             <motion.div
               className={cn(
-                "relative order-2 mx-auto w-full max-w-[651.24px] shrink-0 overflow-hidden rounded-[6px] bg-[#E7E9ED]/50",
+                "relative order-2 mx-auto w-full max-w-[651.24px] shrink-0 overflow-hidden rounded-[6px]",
                 "aspect-[651.24/735] md:mx-0 md:mt-8 md:h-[383px] md:w-[318.5px] md:max-w-none xl:mt-0 xl:h-[500px] xl:w-[420px]",
               )}
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.12, ease: "easeOut" }}
             >
-              {project.heroImageSrc ? (
-                <ImageFillWithSkeleton
-                  src={project.heroImageSrc}
-                  alt={project.heroImageAlt}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 767px) 90vw, (max-width: 1279px) 318px, 420px"
-                  priority
-                  skeletonClassName="rounded-[6px]"
-                />
-              ) : (
-                <Skeleton className="absolute inset-0 rounded-[6px]" aria-hidden />
-              )}
+              <Image
+                src={project.heroImageSrc}
+                alt={project.heroImageAlt}
+                fill
+                className="object-cover"
+                sizes="(max-width: 767px) 90vw, (max-width: 1279px) 318px, 420px"
+                priority
+              />
             </motion.div>
           </div>
         </div>
@@ -290,6 +344,23 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
 
       <ScrollReveal>
         <section className="relative w-full overflow-x-clip bg-white px-8 py-12 md:px-[120px] md:py-[88px]">
+          <div
+            className={cn(
+              "pointer-events-none absolute top-[70px] hidden",
+              "md:block md:-left-[300px] md:h-[600px] md:w-[600px]",
+              "lg:-left-[420px] lg:h-[847px] lg:w-[847px]",
+            )}
+            aria-hidden
+          >
+            <Image
+              src="/images/projects/project-detail-oval.png"
+              alt=""
+              fill
+              className="object-contain object-right opacity-90"
+              sizes="847px"
+            />
+          </div>
+
           <div className="relative z-[1] mx-auto flex w-full max-w-[1200px] flex-col gap-10 text-center md:gap-14 md:text-left">
             <h2 className="font-(family-name:--font-nata-sans) text-[28px] font-semibold leading-[1.3] tracking-[-0.035em] text-black md:text-[36px] md:tracking-[-0.04em]">
               Project Details
@@ -346,19 +417,17 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
         </section>
       </ScrollReveal>
 
-      {project.gallery.length > 0 ? (
-        <ScrollReveal>
-          <section className="w-full bg-white py-12 md:py-[88px]">
-            <div className="mx-auto mb-10 max-w-[1200px] px-8 md:mb-14 md:px-[120px]">
-              <h2 className="text-center font-(family-name:--font-nata-sans) text-[28px] font-semibold leading-[1.3] tracking-[-0.035em] text-black md:text-[36px] md:tracking-[-0.04em]">
-                Gallery
-              </h2>
-            </div>
+      <ScrollReveal>
+        <section className="w-full bg-white py-12 md:py-[88px]">
+          <div className="mx-auto mb-10 max-w-[1200px] px-8 md:mb-14 md:px-[120px]">
+            <h2 className="text-center font-(family-name:--font-nata-sans) text-[28px] font-semibold leading-[1.3] tracking-[-0.035em] text-black md:text-[36px] md:tracking-[-0.04em]">
+              Gallery
+            </h2>
+          </div>
 
-            <ProjectDetailGallery items={project.gallery} projectId={project.id} />
-          </section>
-        </ScrollReveal>
-      ) : null}
+          <ProjectDetailGallery items={project.gallery} slug={project.slug} />
+        </section>
+      </ScrollReveal>
 
       <ScrollReveal>
         <ContactSection
