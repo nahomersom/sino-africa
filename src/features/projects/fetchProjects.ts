@@ -6,6 +6,9 @@ import type {
   StrapiSingleResponse,
 } from "@/src/store/strapiApi";
 
+/** Kept in sync with Strapi grid pagination in `strapiApi.getProjects`. */
+export const PROJECTS_GRID_PAGE_SIZE = 9;
+
 const serverFetchCache =
   typeof window === "undefined"
     ? ({ next: { revalidate: 120 } } satisfies RequestInit & { next?: { revalidate: number } })
@@ -74,10 +77,31 @@ export async function fetchProjectById(
   );
 }
 
-/** Numeric ids for `/projects/:id` and static generation. */
-export async function fetchAllProjectIds(): Promise<string[]> {
+/** Resolve by Strapi `slug` first, then same fallbacks as `fetchProjectById`. */
+export async function fetchProjectBySlug(
+  slug: string,
+  params?: Record<string, unknown>,
+): Promise<Project | null> {
+  const s = slug.trim();
+  if (!s) return null;
+  const merged = { populate: "*", ...(params ?? {}) };
+  const bySlug = await strapiGetJson<StrapiListResponse<Project>>(
+    appendStrapiQuery("projects", {
+      ...merged,
+      "pagination[pageSize]": 1,
+      "filters[slug][$eq]": s,
+    }),
+  );
+  if (bySlug?.data?.[0]) return bySlug.data[0];
+  return fetchProjectById(s, params);
+}
+
+/** Route segments for `/projects/[slug]` when using Strapi-backed pages. */
+export async function fetchAllProjectSlugs(): Promise<string[]> {
   const projects = await fetchProjectsList();
-  return projects.map((p) => String(p.id)).filter((s) => s.length > 0);
+  return projects.map((p) =>
+    typeof p.slug === "string" && p.slug.trim().length > 0 ? p.slug.trim() : String(p.id),
+  );
 }
 
 export async function fetchProjectCategoriesList(
