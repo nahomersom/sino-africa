@@ -62,8 +62,8 @@ export function KeyDomainsSection() {
           <div
             key={index}
             className="flex flex-col items-center justify-between text-center rounded-[8px] pt-10 pb-10 px-16 md:w-[220px] md:h-[459px] md:py-6 md:px-4 lg:flex-1 lg:h-[552px] lg:py-12 lg:px-16 z-1"
-            style={{ 
-              background: `linear-gradient(180deg, ${card.accentColor} 1%, ${card.baseColor} 100%)` 
+            style={{
+              background: `linear-gradient(180deg, ${card.accentColor} 1%, ${card.baseColor} 100%)`
             }}
           >
             {/* Icon */}
@@ -73,7 +73,7 @@ export function KeyDomainsSection() {
                   src={card.logoUrl}
                   alt={card.title}
                   fill
-                  className="object-contain grayscale brightness-200"
+                  className="object-contain"
                 />
               )}
             </div>
