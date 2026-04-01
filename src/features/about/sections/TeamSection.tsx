@@ -27,7 +27,7 @@ export function TeamSection({
   return (
     <section className="relative flex w-full flex-col items-center gap-12 overflow-hidden bg-surface px-8 py-10 md:gap-12 md:px-20 md:py-10 lg:gap-12 lg:px-[296px] lg:py-[152px]">
       {/* Decorative dot pattern — top-left */}
-      <div className="pointer-events-none absolute -left-[60px] top-[56px] block select-none">
+      <div className="pointer-events-none absolute -left-[60px] top-[56px] hidden md:block select-none">
         <Image
           src="/images/about/team/team-pattern.svg"
           alt=""
@@ -38,7 +38,7 @@ export function TeamSection({
       </div>
 
       {/* Decorative corner icon — bottom-right */}
-      <div className="pointer-events-none absolute bottom-[115px] -right-20 hidden select-none lg:block">
+      <div className="pointer-events-none absolute bottom-0 -right-20 hidden select-none lg:block">
         <Image
           src="/images/about/team/team-corner-icon.svg"
           alt=""
@@ -54,7 +54,7 @@ export function TeamSection({
         <h2 className="max-w-[455px] text-center text-[36px] font-normal leading-[1.5] tracking-[-0.033em] text-text-100">
           {heading}
         </h2>
-        <p className="max-w-[410px] md:max-w-[455px] text-center text-base font-light leading-normal tracking-[-0.0125em] text-text-100/70 md:text-lg md:font-normal md:leading-[1.778] md:tracking-[-0.011em]">
+        <p className="max-w-[410px] md:max-w-[455px] lg:max-w-[410px] text-center text-base font-light leading-normal tracking-[-0.0125em] text-text-100/70 md:text-lg md:font-normal md:leading-[1.778] md:tracking-[-0.011em]">
           {description}
         </p>
       </div>
