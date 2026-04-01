@@ -56,7 +56,7 @@ export function CenteredProseSection({ titleDotSrc, title, paragraphs }: Props) 
             paragraphs.map((p) => (
               <p
                 key={p.slice(0, 48)}
-                className="text-[14px] font-normal leading-[1.78] tracking-[-0.011em] text-text-100"
+                className="text-[14px] lg:text-[18px] font-normal leading-[1.78] tracking-[-0.011em] text-text-100"
               >
                 {p}
               </p>
