@@ -10,6 +10,7 @@ import type { ProjectCard, ProjectFilterId } from "../constants";
 import { projectFilterTabs } from "../constants";
 import Image from "next/image";
 import Link from "next/link";
+import { LayoutGrid } from "lucide-react";
 import { useMemo, useState } from "react";
 
 type ProjectsGridSectionProps = {
@@ -18,6 +19,54 @@ type ProjectsGridSectionProps = {
   items: readonly ProjectCard[];
 };
 
+function ProjectsGridEmptyState({
+  activeFilter,
+  filterLabel,
+  onShowAll,
+}: {
+  activeFilter: ProjectFilterId;
+  filterLabel: string;
+  onShowAll: () => void;
+}) {
+  const isCategoryFilter = activeFilter !== "all";
+
+  return (
+    <div
+      className="flex w-full flex-col items-center justify-center gap-6 rounded-[24px] border-2 border-[#E7E9ED] bg-white/80 px-6 py-14 text-center shadow-sm md:px-12 md:py-[72px]"
+      role="status"
+      aria-live="polite"
+    >
+      <div
+        className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary"
+        aria-hidden
+      >
+        <LayoutGrid className="h-8 w-8" strokeWidth={1.5} />
+      </div>
+      <div className="flex max-w-[440px] flex-col gap-3">
+        <h3 className="font-(family-name:--font-nata-sans) text-xl font-semibold tracking-[-0.03em] text-text-100 md:text-[22px]">
+          {isCategoryFilter
+            ? `No projects in ${filterLabel}`
+            : "No projects to show yet"}
+        </h3>
+        <p className="text-sm font-light leading-[1.6] tracking-[-0.01em] text-muted md:text-base md:leading-[1.65]">
+          {isCategoryFilter
+            ? `We don't have any featured projects under ${filterLabel} right now. Browse all projects or try another category to explore more work.`
+            : "There are no projects listed here at the moment. Check back soon or contact us if you're looking for something specific."}
+        </p>
+      </div>
+      {isCategoryFilter && (
+        <button
+          type="button"
+          onClick={onShowAll}
+          className="mt-1 rounded-[16px] bg-primary px-8 py-4 text-sm font-normal leading-[1.5] text-white shadow-sm transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+        >
+          View all projects
+        </button>
+      )}
+    </div>
+  );
+}
+
 export function ProjectsGridSection({ heading, intro, items }: ProjectsGridSectionProps) {
   const [activeFilter, setActiveFilter] = useState<ProjectFilterId>("all");
 
@@ -25,6 +74,13 @@ export function ProjectsGridSection({ heading, intro, items }: ProjectsGridSecti
     if (activeFilter === "all") return items;
     return items.filter((p) => p.filter === activeFilter);
   }, [items, activeFilter]);
+
+  const activeTabLabel = useMemo(
+    () => projectFilterTabs.find((t) => t.id === activeFilter)?.label ?? "this category",
+    [activeFilter],
+  );
+
+  const showEmpty = filteredItems.length === 0;
 
   return (
     <section className="relative mt-8 w-full overflow-hidden px-8 pb-14 pt-8 md:mt-10 md:px-20 md:pb-[100px] md:pt-10 lg:mt-12 lg:px-[120px] lg:pb-[100px] lg:pt-12">
@@ -71,42 +127,50 @@ export function ProjectsGridSection({ heading, intro, items }: ProjectsGridSecti
           </div>
         </div>
 
-        <StaggerContainer
-          key={activeFilter}
-          className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3"
-          stagger={0.08}
-          amount={0.12}
-        >
-          {filteredItems.map((project) => (
-            <StaggerItem key={project.id}>
-              <Link
-                href={`/projects/${project.id}`}
-                className="flex h-full flex-col rounded-[24px] border border-[#E7E9ED] border-[2px] bg-transparent p-3 transition-colors hover:border-primary/40 hover:bg-white/60 md:gap-5 md:p-4"
-              >
-                <article className="flex h-full flex-col gap-4 md:gap-5">
-                  <div className="relative aspect-[319.33331298828125/313] w-full shrink-0 overflow-hidden rounded-[10px] bg-transparent">
-                    <Image
-                      src={project.imageSrc}
-                      alt={project.imageAlt}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                  </div>
+        {showEmpty ? (
+          <ProjectsGridEmptyState
+            activeFilter={activeFilter}
+            filterLabel={activeTabLabel}
+            onShowAll={() => setActiveFilter("all")}
+          />
+        ) : (
+          <StaggerContainer
+            key={activeFilter}
+            className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3"
+            stagger={0.08}
+            amount={0.12}
+          >
+            {filteredItems.map((project) => (
+              <StaggerItem key={project.id}>
+                <Link
+                  href={`/projects/${project.id}`}
+                  className="flex h-full flex-col rounded-[24px] border border-[#E7E9ED] border-[2px] bg-transparent p-3 transition-colors hover:border-primary/40 hover:bg-white/60 md:gap-5 md:p-4"
+                >
+                  <article className="flex h-full flex-col gap-4 md:gap-5">
+                    <div className="relative aspect-[319.33331298828125/313] w-full shrink-0 overflow-hidden rounded-[10px] bg-transparent">
+                      <Image
+                        src={project.imageSrc}
+                        alt={project.imageAlt}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    </div>
 
-                  <div className="flex min-h-0 flex-1 flex-col gap-2">
-                    <h3 className="font-(family-name:--font-nata-sans) text-xl font-semibold leading-snug tracking-[-0.03em] text-text-100 md:text-[22px]">
-                      {project.title}
-                    </h3>
-                    <p className="text-sm font-light leading-[1.55] tracking-[-0.01em] text-muted md:text-[15px]">
-                      {project.description}
-                    </p>
-                  </div>
-                </article>
-              </Link>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
+                    <div className="flex min-h-0 flex-1 flex-col gap-2">
+                      <h3 className="font-(family-name:--font-nata-sans) text-xl font-semibold leading-snug tracking-[-0.03em] text-text-100 md:text-[22px]">
+                        {project.title}
+                      </h3>
+                      <p className="text-sm font-light leading-[1.55] tracking-[-0.01em] text-muted md:text-[15px]">
+                        {project.description}
+                      </p>
+                    </div>
+                  </article>
+                </Link>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        )}
       </div>
     </section>
   );
