@@ -42,7 +42,7 @@ function VerticalCardSkeleton() {
 }
 
 export function VerticalsSection() {
-  const hasStrapi = Boolean(process.env.NEXT_PUBLIC_STRAPI_URL);
+  const hasStrapi = Boolean(process.env.NEXT_PUBLIC_STRAPI_URL) || "https://sino-cms.ablazelabs.com" ;
   const { data: verticals = [], isLoading, isFetching } = useGetVerticalsQuery(
     undefined,
     { skip: !hasStrapi }
