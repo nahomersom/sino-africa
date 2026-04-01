@@ -35,6 +35,8 @@ export function HomePage() {
     }),
   );
 
+  const fallbackVerticalSlugs = ["act-it", "sino-sec", "mobilitex"] as const;
+
   const verticalItems =
     verticals.length > 0
       ? verticals.map((item) => ({
@@ -45,16 +47,18 @@ export function HomePage() {
             item.summary ??
             item.description ??
             "",
+          slug: (item.slug ?? "").toString().trim() || undefined,
           logoSrc: getStrapiMediaUrl(item.logo?.url) || undefined,
           gradient:
             item.gradient?.accentColor && item.gradient?.baseColor
               ? `linear-gradient(180deg, ${item.gradient.accentColor} 1%, ${item.gradient.baseColor} 100%)`
               : undefined,
         }))
-      : homeContent.verticals.items.map((item) => ({
+      : homeContent.verticals.items.map((item, i) => ({
           title: item.name,
           description: homeContent.verticals.description,
           subtitle: item.subtitle,
+          slug: fallbackVerticalSlugs[i],
           logoSrc: undefined,
           gradient: undefined,
         }));
