@@ -7,7 +7,7 @@ import { strapiProjectToProjectDetail } from "./mapStrapiProject";
 import { ProjectDetailPage } from "./ProjectDetailPage";
 import { ProjectDetailSkeleton } from "./ProjectDetailSkeleton";
 
-const HAS_STRAPI = Boolean(process.env.NEXT_PUBLIC_STRAPI_URL);
+const HAS_STRAPI = Boolean(process.env.NEXT_PUBLIC_STRAPI_URL) || "https://sino-cms.ablazelabs.com" ;
 
 type Props = { projectId: string };
 

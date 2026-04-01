@@ -16,7 +16,7 @@ import { strapiProjectToProjectCard } from "./mapStrapiProject";
 import { ProjectsGridSection } from "./sections/ProjectsGridSection";
 import { ProjectsHeroSection } from "./sections/ProjectsHeroSection";
 
-const HAS_STRAPI = Boolean(process.env.NEXT_PUBLIC_STRAPI_URL);
+const HAS_STRAPI = Boolean(process.env.NEXT_PUBLIC_STRAPI_URL) || "https://sino-cms.ablazelabs.com" ;
 
 export function ProjectsPage() {
   const [page, setPage] = useState(0);

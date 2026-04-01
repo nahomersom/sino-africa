@@ -8,7 +8,7 @@ import { strapiProjectToProjectDetail } from "@/src/features/projects/mapStrapiP
 import { getStrapiApiBaseUrl } from "@/src/lib/strapiBase";
 
 /** Mirrors ProjectsPage: browser RTK calls need a public Strapi origin. */
-const CLIENT_FETCHES_STRAPI = Boolean(process.env.NEXT_PUBLIC_STRAPI_URL);
+const CLIENT_FETCHES_STRAPI = Boolean(process.env.NEXT_PUBLIC_STRAPI_URL) || "https://sino-cms.ablazelabs.com" ;
 
 type PageProps = {
   params: Promise<{ id: string }>;
