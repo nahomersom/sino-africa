@@ -1,8 +1,9 @@
 "use client";
 
 import { motion, type Transition } from "framer-motion";
-import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 import {
   StaggerContainer,
   StaggerItem,
@@ -17,6 +18,8 @@ type VerticalItem = {
   title: string;
   description: string;
   subtitle: string;
+  /** Route: `/our-verticals/${slug}` */
+  slug?: string;
   logoSrc?: string;
   gradient?: string;
 };
@@ -52,6 +55,48 @@ const VERTICALS_TITLE_TRANSITIONS: readonly Transition[] = [
   { duration: 0.5, ease: "easeOut" },
   { duration: 0.5, ease: "easeOut" },
 ];
+
+function VerticalCardInner({ item }: { item: VerticalItem }) {
+  return (
+    <>
+      <div className="flex size-[77px] shrink-0 items-center justify-center rounded-lg transition-colors duration-300">
+        <Image
+          src={item.logoSrc ?? "/images/home/verticals-brand-icon.png"}
+          alt={item.title}
+          width={77}
+          height={37}
+          className="h-auto w-full object-contain transition-all duration-300"
+        />
+      </div>
+
+      <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+        <h3 className="text-2xl font-medium leading-[1.2] text-text-100 transition-colors duration-300">
+          {item.title}
+        </h3>
+        <div className="min-w-0 py-2">
+          <span
+            className="block max-w-full truncate text-xs font-light leading-[1.5] text-text-100 transition-colors duration-300"
+            title={item.subtitle}
+          >
+            {item.subtitle}
+          </span>
+        </div>
+      </div>
+
+      <div className="flex shrink-0 items-center justify-center rounded-full bg-[#F2F2F2] p-4 transition-colors duration-300">
+        <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M1 6H13M13 6L8 1M13 6L8 11"
+            className="stroke-[#1A1919] transition-all duration-300"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
+    </>
+  );
+}
 
 export function VerticalsSection({
   label,
@@ -126,69 +171,25 @@ export function VerticalsSection({
       {/* Cards row */}
       <StaggerContainer className="relative z-10 flex w-full flex-col gap-2 lg:flex-row" stagger={0.15}>
         {items.map((item, i) => {
-          const isActive = i === activeIndex;
+          const href = item.slug ? `/our-verticals/${item.slug}` : undefined;
+          const cardClassName =
+            "flex min-w-0 cursor-pointer items-center gap-4 rounded-2xl bg-accent-60 p-4 backdrop-blur-[20px] transition-all duration-300";
+
           return (
             <StaggerItem key={item.title} className="min-w-0 flex-1">
-              <div
-                onMouseEnter={() => setActiveIndex(i)}
-                className={`flex min-w-0 cursor-pointer items-center gap-4 p-4 backdrop-blur-[20px] transition-all duration-300 ${"rounded-2xl bg-accent-60"
-                  }`}
-              >
-                {/* Card icon */}
-                <div
-                  className={`flex size-[77px] shrink-0 items-center justify-center rounded-lg transition-colors duration-300`}
+              {href ? (
+                <Link
+                  href={href}
+                  onMouseEnter={() => setActiveIndex(i)}
+                  className={cardClassName}
                 >
-                  <Image
-                    src={item.logoSrc ?? "/images/home/verticals-brand-icon.png"}
-                    alt={item.title}
-                    width={77}
-                    height={37}
-                    className={`h-auto w-full object-contain transition-all duration-300 `}
-                  />
+                  <VerticalCardInner item={item} />
+                </Link>
+              ) : (
+                <div onMouseEnter={() => setActiveIndex(i)} className={cardClassName}>
+                  <VerticalCardInner item={item} />
                 </div>
-
-                {/* Card content */}
-                <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-                  <h3
-                    className={`text-2xl font-medium leading-[1.2] transition-colors duration-300 ${"text-text-100"
-                      }`}
-                  >
-                    {item.title}
-                  </h3>
-                  <div className="min-w-0 py-2">
-                    <span
-                      className={`block max-w-full truncate text-xs font-light leading-[1.5] transition-colors duration-300 ${"text-text-100"
-                        }`}
-                      title={item.subtitle}
-                    >
-                      {item.subtitle}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Arrow button */}
-                <div
-                  className={`flex shrink-0 items-center justify-center rounded-full p-4 transition-colors duration-300 ${"bg-[#F2F2F2]"
-                    }`}
-                >
-                  <svg
-                    width="14"
-                    height="12"
-                    viewBox="0 0 14 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M1 6H13M13 6L8 1M13 6L8 11"
-                      className={`transition-all duration-300 ${"stroke-[#1A1919]"
-                        }`}
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
-              </div>
+              )}
             </StaggerItem>
           );
         })}

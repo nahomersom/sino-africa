@@ -40,7 +40,7 @@ export function WhatDefinesUsSection({
         <h2 className="max-w-[455px] text-center font-(family-name:--font-nata-sans) text-[32px] font-semibold leading-[1.25] tracking-[-0.0375em] text-text-100 md:text-[36px] md:font-normal md:leading-[1.5] md:tracking-[-0.033em]">
           {heading}
         </h2>
-        <p className="max-w-[382px] text-center text-base font-light leading-6 tracking-[-0.0125em] text-text-100/70 md:text-lg md:font-normal md:leading-[1.5] md:tracking-[-0.011em]">
+        <p className="max-w-[366px] md:max-w-[369px] lg:max-w-[498px] text-center text-base font-light leading-6 tracking-[-0.0125em] text-text-100/70 md:text-lg md:font-normal md:leading-[1.5] md:tracking-[-0.011em]">
           {description}
         </p>
       </div>
