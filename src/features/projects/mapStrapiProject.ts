@@ -5,6 +5,15 @@ import { projectsContent } from "./constants";
 
 const d = projectsContent.detail;
 
+const PLACEHOLDER_CARD_IMAGE = "/images/about/hero-photo-2.png";
+
+const VALID_FILTERS = new Set<ProjectCard["filter"]>([
+  "act-it",
+  "sino-sec",
+  "mobilitex",
+  "pilot",
+]);
+
 function mediaUrl(m: { url?: string | null } | null | undefined): string | undefined {
   const u = m?.url;
   return typeof u === "string" && u.length > 0 ? u : undefined;
@@ -66,8 +75,10 @@ function projectCategorySlug(p: Project): string | undefined {
 
 function toFilterTabId(slug: string | undefined): ProjectCard["filter"] {
   const s = slug?.trim();
-  if (!s || s === "all") return undefined;
-  return s;
+  if (s && VALID_FILTERS.has(s as ProjectCard["filter"])) {
+    return s as ProjectCard["filter"];
+  }
+  return "act-it";
 }
 
 function asStringList(value: unknown): string[] | undefined {
@@ -123,13 +134,13 @@ function cardDescription(p: Project): string {
 export function strapiProjectToProjectCard(p: Project): ProjectCard {
   const cover = p.cover_img as ProjectMedia | null | undefined;
   const coverU = mediaUrl(cover);
-  const imageSrc = coverU ? getStrapiMediaUrl(coverU) : "";
+  const imageSrc = coverU ? getStrapiMediaUrl(coverU) : PLACEHOLDER_CARD_IMAGE;
   const imageAlt = cover?.alternativeText ?? cover?.name ?? p.title;
-  const routeId = String(p.id);
+  const routeId =
+    typeof p.slug === "string" && p.slug.trim().length > 0 ? p.slug.trim() : String(p.id);
 
   return {
     id: routeId,
-    detailHref: `/projects/${encodeURIComponent(routeId)}`,
     filter: toFilterTabId(projectCategorySlug(p)),
     title: p.title,
     description: cardDescription(p),
@@ -139,11 +150,20 @@ export function strapiProjectToProjectCard(p: Project): ProjectCard {
 }
 
 export function strapiProjectToProjectDetail(p: Project): ProjectDetail {
-  const id = String(p.id);
+  const slug =
+    typeof p.slug === "string" && p.slug.trim().length > 0
+      ? p.slug.trim()
+      : String(p.id);
+
   const whatWeDid =
-    textsFromEntries(p.development) ?? textsFromEntries(p.what_we_did) ?? asStringList(p.what_we_did) ?? [...d.sharedWhatWeDid];
+    textsFromEntries(p.development) ??
+    textsFromEntries(p.what_we_did) ??
+    asStringList(p.what_we_did) ??
+    [...d.sharedWhatWeDid];
   const technologies =
-    textsFromEntries(p.top_features) ?? asStringList(p.technologies) ?? [...d.sharedTechnologies];
+    textsFromEntries(p.top_features) ??
+    asStringList(p.technologies) ??
+    [...d.sharedTechnologies];
 
   const overview =
     blockPlain(p.solution) ||
@@ -154,17 +174,21 @@ export function strapiProjectToProjectDetail(p: Project): ProjectDetail {
   const challenges =
     blockPlain(p.problem) || strapiFieldToPlain(p.challenges ?? undefined) || d.sharedChallenges;
 
-  const results =
-    resultsBodyFromProject(p) || d.sharedResults;
+  const results = resultsBodyFromProject(p) || d.sharedResults;
 
   const cover = p.cover_img as ProjectMedia | null | undefined;
   const coverU = mediaUrl(cover);
+  const heroImageSrc = coverU != null ? getStrapiMediaUrl(coverU) : PLACEHOLDER_CARD_IMAGE;
+
+  const gallery = galleryFromProject(p);
+  const resolvedGallery =
+    gallery.length > 0 ? gallery : [...d.gallery];
 
   return {
-    id,
+    slug,
     title: p.title,
     heroDescription: heroDescriptionFromProject(p),
-    heroImageSrc: coverU != null ? getStrapiMediaUrl(coverU) : "",
+    heroImageSrc,
     heroImageAlt: cover?.alternativeText ?? cover?.name ?? p.title,
     whatWeDid,
     technologies,
@@ -172,6 +196,6 @@ export function strapiProjectToProjectDetail(p: Project): ProjectDetail {
     overview,
     challenges,
     results,
-    gallery: galleryFromProject(p),
+    gallery: resolvedGallery,
   };
 }
