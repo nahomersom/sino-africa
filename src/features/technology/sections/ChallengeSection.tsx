@@ -91,7 +91,7 @@ export function ChallengeSection() {
               {item.title}
             </h3>
             <p
-              className="font-light text-[#5C606C] text-[18px] leading-[150%] tracking-[-0.2px] text-center lg:text-left"
+              className="font-light text-[#5C606C] text-[18px] leading-[150%] tracking-[-0.2px] text-left"
             >
               {item.description}
             </p>

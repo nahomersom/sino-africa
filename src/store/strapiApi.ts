@@ -32,18 +32,23 @@ export type StrapiMedia = {
 
 // --- Blog types (Strapi v5 flat response) ---
 
-export type RichTextChild = {
-  text: string;
+export type RichTextNode = {
   type: string;
+  text?: string;
   bold?: boolean;
   italic?: boolean;
   underline?: boolean;
+  strikethrough?: boolean;
+  code?: boolean;
+  children?: RichTextNode[];
+  level?: number;
+  format?: "ordered" | "unordered";
+  url?: string;
+  target?: string;
+  rel?: string;
 };
 
-export type RichTextBlock = {
-  type: string;
-  children: RichTextChild[];
-};
+export type RichTextBlock = RichTextNode;
 
 export type BlogTag = {
   id: number | string;
@@ -351,11 +356,27 @@ export const strapiApi = createApi({
     }),
 
     // Blog endpoints
-    getBlogs: builder.query<Blog[], void>({
-      query: () =>
-        "blogs?populate=*&pagination[pageSize]=100",
+    getBlogs: builder.query<{blogs: Blog[], pagination: StrapiPagination}, Record<string, unknown> | void>({
+      query: (params) => {
+        const base = "blogs";
+        const withDefaults: Record<string, unknown> = {
+          populate: "*",
+          "pagination[pageSize]": 25,
+          "pagination[page]": 1,
+          ...(params ?? {}),
+        };
+        return appendStrapiQuery(base, withDefaults);
+      },
       transformResponse: (response: StrapiBlogsResponse) => {
-        return response?.data ?? [];
+        return {
+          blogs: response?.data ?? [],
+          pagination: response?.meta?.pagination ?? {
+            page: 1,
+            pageSize: 25,
+            pageCount: 1,
+            total: response?.data?.length ?? 0
+          }
+        };
       },
     }),
 
