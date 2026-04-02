@@ -17,6 +17,15 @@ type ProjectDetailPageProps = {
 const PROJECT_DETAIL_TOP_VECTOR_IMAGE = "/images/projects/top-vector.png";
 const PROJECT_DETAIL_DOTS_IMAGE = "/images/projects/project-detail-dots.png";
 
+function sanitizeToText(value: string): string {
+  return value
+    .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?>[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function BackToProjectsLink({ className }: { className?: string }) {
   return (
     <Link
@@ -95,8 +104,8 @@ function GalleryMosaicMobileScroll({
   g4: GalleryImageItem;
   g5: GalleryImageItem;
 }) {
-  const stripClass = "h-full w-[132px] shrink-0 sm:w-[158px]";
-  const mosaicHeight = "h-[288px] sm:h-[340px]";
+  const stripClass = "h-[491px] lg:h-[850px] w-[190px] lg:w-[478px] shrink-0";
+  const stackedClass = "h-[491px] lg:h-[850px] w-[219px] lg:w-[552px] shrink-0";
 
   return (
     <div
@@ -106,16 +115,16 @@ function GalleryMosaicMobileScroll({
         "sm:pl-4",
       )}
     >
-      <div className={cn("flex w-max gap-3 sm:gap-4", mosaicHeight)}>
-        <GalleryMosaicTile item={g0} className={stripClass} sizes="158px" />
-        <div className={cn("flex min-h-0 min-w-0 shrink-0 flex-col gap-3 sm:gap-4", stripClass)}>
-          <GalleryMosaicTile item={g1} className="min-h-0 min-w-0 w-full flex-1" sizes="158px" />
-          <GalleryMosaicTile item={g2} className="min-h-0 min-w-0 w-full flex-1" sizes="158px" />
+      <div className="flex h-[491px] lg:h-[850px] w-max items-center gap-[8px]">
+        <GalleryMosaicTile item={g0} className={stripClass} sizes="478px" />
+        <div className={cn("flex min-h-0 min-w-0 flex-col gap-2 lg:gap-[23px]", stackedClass)}>
+          <GalleryMosaicTile item={g1} className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0" sizes="552px" />
+          <GalleryMosaicTile item={g2} className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0" sizes="552px" />
         </div>
-        <GalleryMosaicTile item={g3} className={stripClass} sizes="158px" />
-        <div className={cn("flex min-h-0 min-w-0 shrink-0 flex-col gap-3 sm:gap-4", stripClass)}>
-          <GalleryMosaicTile item={g4} className="min-h-0 min-w-0 flex-1" sizes="158px" />
-          <GalleryMosaicTile item={g5} className="min-h-0 min-w-0 flex-1" sizes="158px" />
+        <GalleryMosaicTile item={g3} className={stripClass} sizes="478px" />
+        <div className={cn("flex min-h-0 min-w-0 flex-col gap-2 lg:gap-[23px]", stackedClass)}>
+          <GalleryMosaicTile item={g4} className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0" sizes="552px" />
+          <GalleryMosaicTile item={g5} className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0" sizes="552px" />
         </div>
       </div>
     </div>
@@ -143,38 +152,107 @@ function ProjectDetailGallery({
             "sm:pl-4",
           )}
         >
-          <div className="flex w-max gap-3 sm:gap-4">
-            {items.map((item, i) => (
-              <div
-                key={`${slug}-gallery-scroll-${i}`}
-                className="relative aspect-[4/3] w-[220px] shrink-0 overflow-hidden rounded-[6px] bg-[#E7E9ED] sm:w-[240px]"
-              >
-                <Image
-                  src={item.src}
-                  alt={item.alt}
-                  fill
-                  className="object-cover"
-                  sizes="240px"
-                />
+          <div className="flex h-[491px] lg:h-[491px] md:h-[850px] w-max items-center gap-[8px]">
+            {items[0] ? (
+              <GalleryMosaicTile item={items[0]} className="h-[491px] lg:h-[491px] md:h-[850px] w-[190px] md w-[190px]:md:w-[478px] shrink-0" sizes="478px" />
+            ) : null}
+
+            {items[1] || items[2] ? (
+              <div className="flex h-full w-[219px] lg:w-[552px] flex-col gap-2 lg:gap-[23px]">
+                {items[1] ? (
+                  <GalleryMosaicTile
+                    item={items[1]}
+                    className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0"
+                    sizes="552px"
+                  />
+                ) : null}
+                {items[2] ? (
+                  <GalleryMosaicTile
+                    item={items[2]}
+                    className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0"
+                    sizes="552px"
+                  />
+                ) : null}
               </div>
-            ))}
+            ) : null}
+
+            {items[3] ? (
+              <GalleryMosaicTile item={items[3]} className="h-[491px] lg:h-[850px] w-[190px] lg:w-[478px] shrink-0" sizes="478px" />
+            ) : null}
+
+            {items[4] || items[5] ? (
+              <div className="flex h-full w-[219px] lg:w-[552px] flex-col gap-2 lg:gap-[23px]">
+                {items[4] ? (
+                  <GalleryMosaicTile
+                    item={items[4]}
+                    className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0"
+                    sizes="552px"
+                  />
+                ) : null}
+                {items[5] ? (
+                  <GalleryMosaicTile
+                    item={items[5]}
+                    className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0"
+                    sizes="552px"
+                  />
+                ) : null}
+              </div>
+            ) : null}
           </div>
         </div>
-        <div className="hidden gap-3 sm:gap-4 md:grid md:grid-cols-3 md:px-0">
-          {items.map((item, i) => (
-            <div
-              key={`${slug}-gallery-${i}`}
-              className="relative aspect-[4/3] overflow-hidden rounded-[6px] bg-[#E7E9ED]"
-            >
-              <Image
-                src={item.src}
-                alt={item.alt}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 50vw, 33vw"
-              />
-            </div>
-          ))}
+        <div
+          className={cn(
+            "hidden w-full no-scrollbar overflow-x-auto md:block",
+            "h-[491px] lg:h-[850px] px-3 sm:px-4 md:px-0",
+          )}
+        >
+          <div className="flex h-full w-max items-center gap-[8px]">
+            {items[0] ? (
+              <GalleryMosaicTile item={items[0]} className="h-[491px] lg:h-[850px] w-[190px] lg:w-[478px] shrink-0" sizes="478px" />
+            ) : null}
+
+            {items[1] || items[2] ? (
+              <div className="flex h-full w-[219px] lg:w-[552px] flex-col gap-2 lg:gap-[23px]">
+                {items[1] ? (
+                  <GalleryMosaicTile
+                    item={items[1]}
+                    className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0"
+                    sizes="552px"
+                  />
+                ) : null}
+                {items[2] ? (
+                  <GalleryMosaicTile
+                    item={items[2]}
+                    className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0"
+                    sizes="552px"
+                  />
+                ) : null}
+              </div>
+            ) : null}
+
+            {items[3] ? (
+              <GalleryMosaicTile item={items[3]} className="h-[491px] lg:h-[850px] w-[190px] lg:w-[478px] shrink-0" sizes="478px" />
+            ) : null}
+
+            {items[4] || items[5] ? (
+              <div className="flex h-full w-[219px] lg:w-[552px] flex-col gap-2 lg:gap-[23px]">
+                {items[4] ? (
+                  <GalleryMosaicTile
+                    item={items[4]}
+                    className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0"
+                    sizes="552px"
+                  />
+                ) : null}
+                {items[5] ? (
+                  <GalleryMosaicTile
+                    item={items[5]}
+                    className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0"
+                    sizes="552px"
+                  />
+                ) : null}
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
     );
@@ -186,7 +264,7 @@ function ProjectDetailGallery({
     <div className="flex w-full flex-col gap-4">
       <div
         className={cn(
-          "hidden w-full gap-3 sm:gap-4 md:flex md:h-[491px] lg:h-[850px]",
+          "hidden w-full gap-3 sm:gap-4 md:flex md:h-[491px] lg:h-[491px] lg:h-[850px]",
           "px-3 sm:px-4 md:px-0",
         )}
       >
@@ -213,18 +291,18 @@ function ProjectDetailGallery({
               "sm:pl-4",
             )}
           >
-            <div className="flex w-max gap-3 sm:gap-4">
+            <div className="flex h-[491px] lg:h-[850px] w-max items-center gap-[8px]">
               {rest.map((item, i) => (
                 <div
                   key={`${slug}-gallery-extra-scroll-${i}`}
-                  className="relative aspect-[4/3] w-[220px] shrink-0 overflow-hidden rounded-[6px] bg-[#E7E9ED] sm:w-[240px]"
+                  className="relative h-[491px] lg:h-[850px] w-[190px] lg:w-[478px] shrink-0 overflow-hidden rounded-[6px] bg-[#E7E9ED]"
                 >
                   <Image
                     src={item.src}
                     alt={item.alt}
                     fill
                     className="object-cover"
-                    sizes="240px"
+                    sizes="478px"
                   />
                 </div>
               ))}
@@ -258,10 +336,10 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
       <section
         className={cn(
           "relative flex w-full flex-col gap-8 overflow-x-clip bg-white",
-          "px-8 pb-10 pt-[120px] md:px-[120px] md:pb-10 md:pt-[152px]",
+          "px-8 pb-10 pt-[100px] md:px-[80px] lg:px-[120px] md:pb-10 md:pt-[80px] lg:pt-[152px]",
         )}
       >
-        <div className="pointer-events-none absolute left-0 top-[92px] z-20 md:top-[120px]" aria-hidden>
+        <div className="pointer-events-none absolute left-[-39px] md:left-0 top-[22px] z-20 md:top-[80px] lg:top-[120px]" aria-hidden>
           <Image
             src={PROJECT_DETAIL_DOTS_IMAGE}
             alt=""
@@ -284,21 +362,19 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
             alt=""
             width={520}
             height={500}
-            className="max-w-none select-none"
+            className="max-w-none select-none h-[319.54px] w-[332.02px] -rotate-[14.27deg]  md:h-[500px] md:w-[520px] md:rotate-0 "
             style={{
-              opacity: 1,
-              transform: "rotate(0deg)",
               transformOrigin: "top right",
             }}
           />
         </div>
 
-        <div className="relative z-10 mx-auto flex w-full max-w-[837px] flex-col gap-8 text-center md:gap-10 md:text-left xl:max-w-[1120px]">
-          <div className="flex shrink-0 justify-center md:justify-start">
-            <BackToProjectsLink className="justify-center md:justify-start" />
+        <div className="relative z-10 md:mx-auto flex w-full max-w-[837px] flex-col gap-8  md:gap-10 md:text-left xl:max-w-[1120px]">
+          <div className="flex shrink-0 justify-start px-3 py-[4.5px] md:px-0 md:py-0">
+            <BackToProjectsLink className="justify-start" />
           </div>
 
-          <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between md:gap-14 md:text-left xl:gap-16">
+          <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between md:gap-10 lg:gap-14 md:text-left xl:gap-16">
             <motion.div
               className="order-1 flex w-full max-w-[640px] flex-col items-center gap-4 md:w-[318.5px] md:max-w-none md:items-start md:gap-2 xl:w-[46%]"
               initial={{ opacity: 0, y: 24 }}
@@ -314,7 +390,7 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
                     {project.title}
                   </h1>
                 </div>
-                <p className="w-full text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-lg md:leading-[1.65]">
+                <p className="w-full text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:line-clamp-6 md:text-left md:text-sm lg:line-clamp-none lg:text-lg md:leading-[1.65] md:max-h-[189px] lg:max-h-none ">
                   {project.heroDescription}
                 </p>
               </div>
@@ -343,10 +419,10 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
       </section>
 
       <ScrollReveal>
-        <section className="relative w-full overflow-x-clip bg-white px-8 py-12 md:px-[120px] md:py-[88px]">
+        <section className="relative w-full overflow-x-clip bg-white px-8 py-10 md:px-[80px] lg:px-[120px] md:py-[88px]">
           <div
             className={cn(
-              "pointer-events-none absolute top-[70px] hidden",
+              "pointer-events-none absolute -left-[300px] top-[70px] h-[600px] w-[600px]",
               "md:block md:-left-[300px] md:h-[600px] md:w-[600px]",
               "lg:-left-[420px] lg:h-[847px] lg:w-[847px]",
             )}
@@ -361,16 +437,16 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
             />
           </div>
 
-          <div className="relative z-[1] mx-auto flex w-full max-w-[1200px] flex-col gap-10 text-center md:gap-14 md:text-left">
-            <h2 className="font-(family-name:--font-nata-sans) text-[28px] font-semibold leading-[1.3] tracking-[-0.035em] text-black md:text-[36px] md:tracking-[-0.04em]">
+          <div className="relative z-[1] mx-auto flex w-full max-w-[1200px] flex-col gap-10  md:gap-14 md:text-left">
+            <h2 className="font-(family-name:--font-nata-sans) text-[28px] font-semibold leading-[1.3] tracking-[-0.035em] text-black md:text-[36px] md:tracking-[-0.04em] self-center">
               Project Details
             </h2>
 
-            <div className="grid grid-cols-1 gap-12 md:grid-cols-[minmax(0,280px)_1fr] md:gap-16 xl:grid-cols-[minmax(0,320px)_1fr]">
+            <div className="grid grid-cols-1 gap-12 md:grid-cols-[minmax(0,280px)_1fr] md:gap-10 lg:gap-16 xl:grid-cols-[minmax(0,320px)_1fr]">
               <aside className="flex flex-col items-center gap-10 md:items-start">
                 <div className="flex w-full max-w-xl flex-col gap-3">
                   <SectionKicker>What we did</SectionKicker>
-                  <ul className="flex list-inside list-disc flex-col gap-2 text-center text-sm font-light leading-[1.55] tracking-[-0.01em] text-black md:list-outside md:pl-5 md:text-left md:text-[15px]">
+                  <ul className="flex flex-row flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center text-sm font-light leading-[1.55] tracking-[-0.01em] text-black md:list-outside md:list-disc md:flex-col md:items-start md:justify-start md:gap-2 md:pl-5 md:text-left md:text-[15px]">
                     {project.whatWeDid.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
@@ -378,7 +454,7 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
                 </div>
                 <div className="flex w-full max-w-xl flex-col gap-3">
                   <SectionKicker>Technologies</SectionKicker>
-                  <ul className="flex list-inside list-disc flex-col gap-2 text-center text-sm font-light leading-[1.55] tracking-[-0.01em] text-black md:list-outside md:pl-5 md:text-left md:text-[15px]">
+                  <ul className="flex flex-row flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center text-sm font-light leading-[1.55] tracking-[-0.01em] text-black md:list-outside md:list-disc md:flex-col md:items-start md:justify-start md:gap-2 md:pl-5 md:text-left md:text-[15px]">
                     {project.technologies.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
@@ -395,20 +471,20 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
               <div className="flex min-w-0 flex-col items-center gap-10 md:items-start">
                 <article className="flex w-full max-w-3xl flex-col gap-3">
                   <SectionKicker>Overview</SectionKicker>
-                  <p className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-lg">
-                    {project.overview}
+                  <p className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm lg:text-lg">
+                    {sanitizeToText(project.overview)}
                   </p>
                 </article>
                 <article className="flex w-full max-w-3xl flex-col gap-3">
                   <SectionKicker>Challenges</SectionKicker>
-                  <p className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-lg">
-                    {project.challenges}
+                  <p className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm lg:text-lg">
+                    {sanitizeToText(project.challenges)}
                   </p>
                 </article>
                 <article className="flex w-full max-w-3xl flex-col gap-3">
                   <SectionKicker>Results</SectionKicker>
-                  <p className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-lg">
-                    {project.results}
+                  <p className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm lg:text-lg">
+                    {sanitizeToText(project.results)}
                   </p>
                 </article>
               </div>
@@ -418,8 +494,8 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
       </ScrollReveal>
 
       <ScrollReveal>
-        <section className="w-full bg-white py-12 md:py-[88px]">
-          <div className="mx-auto mb-10 max-w-[1200px] px-8 md:mb-14 md:px-[120px]">
+        <section className="w-full bg-white py-10 md:py-[88px]">
+          <div className="mx-auto mb-10 max-w-[1200px] px-8 md:mb-8 md:px-[120px]">
             <h2 className="text-center font-(family-name:--font-nata-sans) text-[28px] font-semibold leading-[1.3] tracking-[-0.035em] text-black md:text-[36px] md:tracking-[-0.04em]">
               Gallery
             </h2>

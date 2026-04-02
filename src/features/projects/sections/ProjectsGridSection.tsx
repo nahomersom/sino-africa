@@ -5,7 +5,6 @@ import {
   StaggerContainer,
   StaggerItem,
 } from "@/src/components/ui/scroll-reveal";
-import { ProjectsPatternBackdrop } from "@/src/features/projects/components/ProjectsPatternBackdrop";
 import type { ProjectCard, ProjectFilterId } from "../constants";
 import { projectFilterTabs } from "../constants";
 import Image from "next/image";
@@ -84,7 +83,10 @@ export function ProjectsGridSection({ heading, intro, items }: ProjectsGridSecti
 
   return (
     <section className="relative mt-8 w-full overflow-hidden px-8 pb-14 pt-8 md:mt-10 md:px-20 md:pb-[100px] md:pt-10 lg:mt-12 lg:px-[120px] lg:pb-[100px] lg:pt-12">
-      <ProjectsPatternBackdrop />
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.04]"
+        style={{ backgroundImage: "url('/images/sino-symbol-tile.svg')", backgroundSize: "28px", backgroundRepeat: "repeat" }}
+      />
 
       <div className="relative z-[1] mx-auto mt-8 flex w-full max-w-[1200px] flex-col gap-10 md:mt-10 lg:mt-14 lg:gap-14">
         <div className="flex flex-col items-center gap-6 text-center">
@@ -92,7 +94,7 @@ export function ProjectsGridSection({ heading, intro, items }: ProjectsGridSecti
             <h2 className="font-(family-name:--font-nata-sans) text-[28px] font-semibold leading-[1.3] tracking-[-0.035em] text-text-100 md:text-[36px] md:leading-[1.4] md:tracking-[-0.04em]">
               {heading}
             </h2>
-            <p className="text-base font-light leading-[1.65] tracking-[-0.0125em] text-muted md:text-lg md:leading-[1.65] md:tracking-[-0.011em]">
+            <p className="text-base font-light leading-[1.65] tracking-[-0.0125em] text-muted md:text-lg md:leading-[1.65] md:tracking-[-0.011em] md:max-w-[330px]">
               {intro}
             </p>
           </div>

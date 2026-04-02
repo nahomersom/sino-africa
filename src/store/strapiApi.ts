@@ -145,7 +145,9 @@ export type ProjectTextEntry = {
 /** Single block field e.g. problem / solution / results. */
 export type ProjectTextBlock = {
   id?: string | number;
-  text?: string | null;
+  // Strapi commonly stores rich-text blocks as `{ text: RichTextBlock[] }`,
+  // but some schemas may return plain strings as well.
+  text?: string | RichTextBlock[] | null;
 };
 
 /** Populated media on project (schema uses string ids). */
@@ -203,7 +205,7 @@ export interface Project {
   /** May be a Strapi block `{ id, text }` or legacy string / rich text. */
   results?: string | RichTextBlock[] | ProjectTextBlock | null;
   overview?: string | RichTextBlock[] | null;
-  challenges?: string | RichTextBlock[] | null;
+  challenges?: string | RichTextBlock[] | ProjectTextBlock | null;
   what_we_did?: unknown;
   technologies?: unknown;
   cover_img?: ProjectMedia | StrapiMedia | null;
