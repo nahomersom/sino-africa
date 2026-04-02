@@ -18,7 +18,7 @@ export function TechnologyHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
         >
-          <h1 className="text-[13px] text-center text-[#64C294] font-semibold leading-[56px] lg:text-[13px] lg:text-left">
+          <h1 className="text-[13px] text-center text-[#64C294]  leading-[56px] lg:text-[13px] lg:text-left uppercase">
             Technology and infrastructure
           </h1>
           <h1 className="text-[46px] text-center font-semibold leading-[56px] tracking-[-1px] text-[#161C2D] lg:text-[48px] lg:leading-[58px] lg:tracking-[-1.8px] lg:text-left">

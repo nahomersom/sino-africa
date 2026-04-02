@@ -1,6 +1,6 @@
 export const homeContent = {
   about: {
-    heading: "About us",
+    heading: "Who we are",
     bodyOne:
    "Sino Africa is an institutional infrastructure platform. We design, deploy, and operate mission-critical systems that governments and institutions cannot afford to get wrong. We are not a trading company. We do not distribute consumer technology. We own execution risk end-to-end from system integration and regulatory compliance to long-term lifecycle accountability." , 
       bodyTwo:"We operate across three specialized verticals: financial access infrastructure (ACT IT), identity and security systems (SINOSEC), and regulated mobility platforms (MOBILITEX). Every mandate is multi year, institution-grade, and delivered with disciplined execution. If we do not own the risk, we do not participate.",

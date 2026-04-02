@@ -29,13 +29,11 @@ export function VerticalDetailPage({ content }: Props) {
           heroLogoSrc={content.heroLogoSrc}
           theme={theme}
         />
-        <ScrollReveal>
           <CenteredProseSection
             titleDotSrc={titleDotSrc}
             title={content.institutionalTitle}
             paragraphs={content.institutionalParagraphs}
           />
-        </ScrollReveal>
 
         <ScrollReveal>
           <FocusAreasSection
@@ -59,7 +57,6 @@ export function VerticalDetailPage({ content }: Props) {
             heading={homeContent.contact.heading}
             description={content.contactSubtitle}
             buttonLabel={homeContent.contact.buttonLabel}
-            variant="inner-page"
           />
         </ScrollReveal>
       </main>
