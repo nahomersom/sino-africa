@@ -26,7 +26,7 @@ export function RoleSection() {
         {/* Text and Checklist Container */}
         <div className="flex flex-col w-full text-center md:text-left md:w-[407px] lg:w-[457px] gap-[32px] lg:gap-[16px]">
           <h2 className="text-[#64C294] text-[13px] leading-[120%]">
-            How Sino Africa Provides Solutions
+          Sino africa’s role
           </h2>
 
           <h2 className="font-bold text-[#161C2D] text-[24px] md:text-[32px] lg:text-[36px] leading-[120%] tracking-[-1.2px]">

@@ -39,7 +39,7 @@ const BlogCard = ({ slug, date, title, description, image }: BlogCardProps) => {
       <div className="absolute inset-0 p-[24px] lg:p-[32px] flex flex-col justify-end gap-[16px] lg:gap-[24px] z-10">
         <div className="flex justify-between items-center w-full">
           <div className="bg-[#64C294] rounded-[32px] px-[16px] py-[8px] lg:py-[12px] h-[32px] lg:h-[39px] flex items-center justify-center">
-            <span className="text-white text-[12px] lg:text-[14px] font-medium leading-none uppercase tracking-wide">
+            <span className="text-white text-[12px] lg:text-[14px] font-medium leading-none  tracking-wide">
               Featured Blog
             </span>
           </div>
@@ -140,7 +140,7 @@ export function BlogHero() {
 
         {/* Section Heading Container - Configured for tab-responsive */}
         <motion.div
-          className="flex flex-col items-center text-center mx-auto w-full md:max-w-[837px] md:min-h-[160px] md:pb-[40px] md:gap-[40px] gap-[16px] mb-[32px] md:mb-0 
+          className="flex flex-col items-center text-center mx-auto w-full md:max-w-[837px] md:min-h-[160px] md:pb-[40px] md:gap-2 mb-[32px] md:mb-0 
              lg:items-start lg:text-left lg:mx-0"
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
@@ -148,7 +148,7 @@ export function BlogHero() {
           <span className="text-[#64C294] text-[13px] font-normal uppercase tracking-[0.15em]">
             Blogs
           </span>
-          <h2 className="text-[#161C2D] text-[32px] md:text-[36px] font-semibold leading-[40px] md:leading-[48px] w-full mx-auto">
+          <h2 className="text-[#161C2D] text-[32px] md:text-[36px] font-semibold leading-[40px] md:leading-[48px] w-full mx-auto md:mx-0 max-w-[515px]">
             Our Insights on Infrastructure, Technology, and Institutional Systems
           </h2>
         </motion.div>
