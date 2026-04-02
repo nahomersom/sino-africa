@@ -550,7 +550,6 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
           heading={projectsContent.contact.heading}
           description={projectsContent.contact.description}
           buttonLabel="Submit"
-          variant="inner-page"
           namePlaceholder="Full Name"
         />
       </ScrollReveal>
