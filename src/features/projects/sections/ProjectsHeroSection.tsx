@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 const PROJECTS_HERO_BG_IMAGE = "/images/projects/projects-hero.png";
-const PROJECTS_HERO_IMAGE = "/images/hero-background.jpg";
+const PROJECTS_HERO_IMAGE = "/images/projects/project-hero.svg";
 const PROJECTS_HERO_BG_OPACITY = 1;
 
 type ProjectsHeroSectionProps = {

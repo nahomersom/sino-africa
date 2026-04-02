@@ -10,7 +10,6 @@ type ContactSectionProps = {
   heading: string;
   description: string;
   buttonLabel: string;
-  variant?: "home" | "inner-page";
   /** Defaults to "First Name" (home). Use "Full Name" on inner pages when matching design. */
   namePlaceholder?: string;
   /** Optional theme override for heading + primary button. */
@@ -31,7 +30,6 @@ export function ContactSection({
   heading,
   description,
   buttonLabel,
-  variant = "home",
   namePlaceholder = "First Name",
   accentColor,
 }: ContactSectionProps) {
@@ -162,14 +160,12 @@ export function ContactSection({
         </div>
       ) : null}
 
-      {variant === "home" && (
+    
         <>
-          <div className="pointer-events-none absolute right-[-532px] top-[2px] size-[847px] rounded-full bg-primary/20 blur-[252px] hidden lg:block" />
-          <div className="pointer-events-none absolute -left-[532px] top-[70px] size-[847px] rounded-full bg-primary/20 blur-[252px] hidden lg:block" />
+          <div className="pointer-events-none absolute right-[-532px] top-[2px] size-[847px] rounded-full bg-primary/30 blur-[252px] hidden lg:block" />
+          <div className="pointer-events-none absolute -left-[532px] top-[70px] size-[847px] rounded-full bg-primary/30 blur-[252px] hidden lg:block" />
         </>
-      )}
 
-      {variant === "inner-page" && <ContactSectionSideBackgrounds />}
 
       <ContactBadgeIcon
         size={78}
