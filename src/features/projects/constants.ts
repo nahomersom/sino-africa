@@ -1,3 +1,5 @@
+import type { RichTextBlock } from "@/src/store/strapiApi";
+
 export type ProjectFilterId = "all" | "act-it" | "sino-sec" | "mobilitex" | "pilot";
 
 export type ProjectFilterTab = {
@@ -142,9 +144,11 @@ export type ProjectDetail = {
   whatWeDid: readonly string[];
   technologies: readonly string[];
   client: string;
-  overview: string;
-  challenges: string;
-  results: string;
+  overview: string | RichTextBlock[];
+  solution: string | RichTextBlock[];
+  description: string | RichTextBlock[];
+  challenges: string | RichTextBlock[];
+  results: string | RichTextBlock[];
   gallery: readonly { src: string; alt: string }[];
 };
 
@@ -156,12 +160,14 @@ const projectDetailExtras: Partial<
     string,
     {
       heroDescription?: string;
+      descripition?: string | RichTextBlock[]
       whatWeDid?: readonly string[];
       technologies?: readonly string[];
       client?: string;
-      overview?: string;
-      challenges?: string;
-      results?: string;
+      overview?: string | RichTextBlock[];
+      solution?: string | RichTextBlock[];
+      challenges?: string | RichTextBlock[];
+      results?: string | RichTextBlock[];
       gallery?: readonly { src: string; alt: string }[];
     }
   >
@@ -184,9 +190,11 @@ export function getProjectDetail(slug: string): ProjectDetail | undefined {
     technologies: extra.technologies ?? d.sharedTechnologies,
     client: extra.client ?? d.sharedClient,
     overview: extra.overview ?? d.sharedOverview,
+    solution: extra.solution ?? d.sharedOverview,
     challenges: extra.challenges ?? d.sharedChallenges,
     results: extra.results ?? d.sharedResults,
     gallery: extra.gallery ?? d.gallery,
+    description: extra.descripition ?? card.description,
   };
 }
 

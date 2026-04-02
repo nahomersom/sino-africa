@@ -37,21 +37,31 @@ function descriptionPlain(p: Project): string {
   return strapiFieldToPlain(desc);
 }
 
-function blockPlain(block: { text?: string | RichTextBlock[] | null } | null | undefined): string {
+function blockRich(
+  block: { text?: string | RichTextBlock[] | null } | null | undefined,
+): string | RichTextBlock[] | undefined {
   const t = block?.text;
-  if (typeof t === "string") return t.trim();
-  if (Array.isArray(t)) return strapiFieldToPlain(t);
-  return "";
+  if (typeof t === "string") {
+    const trimmed = t.trim();
+    return trimmed.length > 0 ? trimmed : undefined;
+  }
+  if (Array.isArray(t) && t.length > 0) return t;
+  return undefined;
 }
 
-function plainFromMaybeRich(value: unknown): string {
-  if (value == null) return "";
-  if (typeof value === "string") return value.trim();
-  if (Array.isArray(value)) return strapiFieldToPlain(value);
-  if (typeof value === "object" && "text" in value) {
-    return blockPlain(value as { text?: string | RichTextBlock[] | null });
+function richFromMaybe(value: unknown): string | RichTextBlock[] | undefined {
+  if (value == null) return undefined;
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    return trimmed.length > 0 ? trimmed : undefined;
   }
-  return "";
+  if (Array.isArray(value) && value.length > 0) {
+    return value as RichTextBlock[];
+  }
+  if (typeof value === "object" && "text" in value) {
+    return blockRich(value as { text?: string | RichTextBlock[] | null });
+  }
+  return undefined;
 }
 
 function textsFromEntries(entries: unknown): string[] | undefined {
@@ -107,12 +117,12 @@ function heroDescriptionFromProject(p: Project): string {
   return "Learn more about this project below.";
 }
 
-function resultsBodyFromProject(p: Project): string {
+function resultsBodyFromProject(p: Project): string | RichTextBlock[] {
   const r = p.results;
   if (r && typeof r === "object" && !Array.isArray(r) && "text" in r) {
-    return blockPlain(r as { text?: string | RichTextBlock[] | null });
+    return blockRich(r as { text?: string | RichTextBlock[] | null }) ?? "";
   }
-  return strapiFieldToPlain(r as string | RichTextBlock[] | undefined);
+  return richFromMaybe(r) ?? "";
 }
 
 function clientPlain(p: Project): string {
@@ -167,6 +177,7 @@ export function strapiProjectToProjectDetail(p: Project): ProjectDetail {
     chanllenge?: unknown;
     result?: unknown;
     problem?: unknown;
+    solution?: unknown;
   };
 
   const slug =
@@ -185,19 +196,24 @@ export function strapiProjectToProjectDetail(p: Project): ProjectDetail {
     [...d.sharedTechnologies];
 
   const overview =
-    blockPlain(p.solution) ||
-    strapiFieldToPlain(p.overview ?? undefined) ||
-    descriptionPlain(p) ||
+    richFromMaybe(p.overview ?? undefined) ??
+    richFromMaybe(p.description ?? undefined) ??
     d.sharedOverview;
+  const solution =
+    richFromMaybe(p.solution) ??
+    richFromMaybe(raw.solution) ??
+    richFromMaybe(p.overview ?? undefined) ??
+    d.sharedOverview;
+  const description = richFromMaybe(p.description ?? undefined) ?? heroDescriptionFromProject(p);
 
   const challenges =
-    plainFromMaybeRich(p.problem) ||
-    plainFromMaybeRich(p.challenges ?? undefined) ||
-    plainFromMaybeRich(raw.challenge) ||
-    plainFromMaybeRich(raw.chanllenge) ||
+    richFromMaybe(p.problem) ??
+    richFromMaybe(p.challenges ?? undefined) ??
+    richFromMaybe(raw.challenge) ??
+    richFromMaybe(raw.chanllenge) ??
     d.sharedChallenges;
 
-  const results = resultsBodyFromProject(p) || plainFromMaybeRich(raw.result) || d.sharedResults;
+  const results = resultsBodyFromProject(p) || richFromMaybe(raw.result) || d.sharedResults;
 
   const cover = p.cover_img as ProjectMedia | null | undefined;
   const coverU = mediaUrl(cover);
@@ -217,6 +233,8 @@ export function strapiProjectToProjectDetail(p: Project): ProjectDetail {
     technologies,
     client: clientPlain(p),
     overview,
+    solution,
+    description,
     challenges,
     results,
     gallery: resolvedGallery,

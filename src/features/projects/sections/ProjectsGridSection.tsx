@@ -97,7 +97,7 @@ export function ProjectsGridSection({ heading, intro, items }: ProjectsGridSecti
             <p className="text-base font-light leading-[1.65] tracking-[-0.0125em] text-muted md:text-lg md:leading-[1.65] md:tracking-[-0.011em] md:max-w-[330px]">
               {intro}
             </p>
-          </div>
+        </div>
 
           <div
             className="box-border mx-auto grid w-full max-w-[633px] grid-cols-6 gap-2 rounded-[24px] bg-[#F6F7FB] p-4 md:flex md:min-h-[85px] md:max-w-[633px] md:flex-nowrap md:items-center md:justify-center md:gap-2"

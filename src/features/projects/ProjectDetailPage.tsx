@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { BlocksRenderer, type BlocksContent } from "@strapi/blocks-react-renderer";
 import { ScrollReveal } from "@/src/components/ui/scroll-reveal";
 import { ContactSection } from "@/src/features/home/sections/ContactSection";
 import Image from "next/image";
@@ -17,13 +18,44 @@ type ProjectDetailPageProps = {
 const PROJECT_DETAIL_TOP_VECTOR_IMAGE = "/images/projects/top-vector.png";
 const PROJECT_DETAIL_DOTS_IMAGE = "/images/projects/project-detail-dots.png";
 
-function sanitizeToText(value: string): string {
-  return value
-    .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, " ")
-    .replace(/<style[\s\S]*?>[\s\S]*?<\/style>/gi, " ")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+function ProjectDetailRichText({
+  value,
+  className,
+}: {
+  value: ProjectDetail["overview"];
+  className: string;
+}) {
+  if (typeof value === "string") {
+    return <p className={className}>{value}</p>;
+  }
+
+  return (
+    <div className={className}>
+      <BlocksRenderer
+        content={value as BlocksContent}
+        blocks={{
+          paragraph: ({ children }) => <p className="mb-3 last:mb-0">{children}</p>,
+          heading: ({ children, level }) => {
+            if (level === 1) return <h3 className="mb-3 text-xl font-semibold">{children}</h3>;
+            if (level === 2) return <h4 className="mb-3 text-lg font-semibold">{children}</h4>;
+            if (level === 3) return <h5 className="mb-2 text-base font-semibold">{children}</h5>;
+            return <h6 className="mb-2 text-base font-semibold">{children}</h6>;
+          },
+          list: ({ children, format }) =>
+            format === "ordered" ? (
+              <ol className="mb-3 ml-5 list-decimal space-y-1 last:mb-0">{children}</ol>
+            ) : (
+              <ul className="mb-3 ml-5 list-disc space-y-1 last:mb-0">{children}</ul>
+            ),
+          quote: ({ children }) => (
+            <blockquote className="mb-3 border-l-2 border-black/20 pl-3 italic last:mb-0">
+              {children}
+            </blockquote>
+          ),
+        }}
+      />
+    </div>
+  );
 }
 
 function BackToProjectsLink({ className }: { className?: string }) {
@@ -390,9 +422,13 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
                     {project.title}
                   </h1>
                 </div>
-                <p className="w-full text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:line-clamp-6 md:text-left md:text-sm lg:line-clamp-none lg:text-lg md:leading-[1.65] md:max-h-[189px] lg:max-h-none ">
-                  {project.heroDescription}
-                </p>
+                <div className="relative w-full max-h-[144px] overflow-auto">
+                  <ProjectDetailRichText
+                    value={project.description}
+                    className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm md:leading-[1.65] lg:text-lg"
+                  />
+                
+                </div>
               </div>
             </motion.div>
 
@@ -469,23 +505,27 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
               </aside>
 
               <div className="flex min-w-0 flex-col items-center gap-10 md:items-start">
-                <article className="flex w-full max-w-3xl flex-col gap-3">
-                  <SectionKicker>Overview</SectionKicker>
-                  <p className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm lg:text-lg">
-                    {sanitizeToText(project.overview)}
-                  </p>
-                </article>
+             
                 <article className="flex w-full max-w-3xl flex-col gap-3">
                   <SectionKicker>Challenges</SectionKicker>
-                  <p className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm lg:text-lg">
-                    {sanitizeToText(project.challenges)}
-                  </p>
+                  <ProjectDetailRichText
+                    value={project.challenges}
+                    className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm lg:text-lg"
+                  />
                 </article>
                 <article className="flex w-full max-w-3xl flex-col gap-3">
                   <SectionKicker>Results</SectionKicker>
-                  <p className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm lg:text-lg">
-                    {sanitizeToText(project.results)}
-                  </p>
+                  <ProjectDetailRichText
+                    value={project.results}
+                    className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm lg:text-lg"
+                  />
+                </article>
+                <article className="flex w-full max-w-3xl flex-col gap-3">
+                  <SectionKicker>Solutions</SectionKicker>
+                  <ProjectDetailRichText
+                    value={project.solution}
+                    className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm lg:text-lg"
+                  />
                 </article>
               </div>
             </div>

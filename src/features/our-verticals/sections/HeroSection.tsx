@@ -30,15 +30,14 @@ export function HeroSection() {
               className="mx-auto max-w-[620px] text-[36px] font-semibold text-text-100 lg:mx-0"
               style={{ letterSpacing: "-0.03333333465788099em", lineHeight: "1.3333333333333333em" }}
             >
-              Technology, security, and mobility—built for African markets and global standards.
+            Three instruments, one platform, united for institutional impact.
             </h1>
           </div>
           <p
             className="mx-auto max-w-[620px] text-base font-normal leading-[1.5em] text-muted lg:mx-0"
             style={{ letterSpacing: "-0.00625em" }}
           >
-            Sino Africa brings together specialised verticals that help organisations modernise IT, strengthen security,
-            and move people and goods with confidence. Explore each vertical to see how we can support your goals.
+          Our verticals operate with specialized focus but shared architecture. They maintain distinct execution mandates while enabling seamless integration. They deliver discrete systems that function as unified infrastructure.Sino Africa's three verticals are not silos. They are specialized execution platforms designed to work in concert creating integrated infrastructure solutions that no single vertical could deliver alone.
           </p>
         </div>
 

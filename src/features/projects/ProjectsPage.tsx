@@ -34,7 +34,6 @@ export function ProjectsPage({ gridItems }: ProjectsPageProps = {}) {
           heading={projectsContent.contact.heading}
           description={projectsContent.contact.description}
           buttonLabel={projectsContent.contact.buttonLabel}
-          variant="inner-page"
         />
       </ScrollReveal>
     </div>

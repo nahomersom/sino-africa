@@ -166,7 +166,7 @@ export function VerticalsSection() {
                           )}
                           {description ? (
                             <p
-                              className="text-base font-light leading-[1.5em] text-white"
+                              className="max-h-[96px] overflow-hidden text-base font-light leading-[1.5em] text-white line-clamp-4"
                               style={{ letterSpacing: "-0.012500000186264515em" }}
                             >
                               {description}
