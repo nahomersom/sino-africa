@@ -85,7 +85,6 @@ export function VerticalDetailSkeleton() {
           heading={homeContent.contact.heading}
           description={homeContent.contact.description}
           buttonLabel={homeContent.contact.buttonLabel}
-          variant="inner-page"
         />
       </main>
     </div>
