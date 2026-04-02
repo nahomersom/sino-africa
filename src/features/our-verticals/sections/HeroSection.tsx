@@ -20,7 +20,7 @@ export function HeroSection() {
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-[1728px] flex-col items-center gap-6 overflow-x-hidden px-6 pb-10 pt-[120px] md:px-20 lg:flex-row lg:items-end lg:justify-center lg:gap-2 lg:px-[237px] lg:pb-10 lg:pt-[300px]">
+      <div className="relative z-10  flex w-full  flex-col items-center gap-6 overflow-x-hidden px-6 pb-10 pt-[120px] md:px-20 lg:flex-row lg:items-end lg:justify-center lg:gap-2 lg:px-[185px] lg:pb-10 lg:pt-[203px]">
         <div className="order-2 flex w-full min-w-0 max-w-[760px] flex-col gap-2 text-center lg:order-1 lg:flex-1 lg:text-left mt-20">
           <div className="flex flex-col gap-2">
             <p className="text-[13px] font-normal uppercase leading-[1.26em] tracking-[0.125em] text-primary">
@@ -34,16 +34,25 @@ export function HeroSection() {
             </h1>
           </div>
           <p
+            className="mx-auto max-w-[620px] text-base font-normal leading-[1.5em] text-muted lg:mx-0 pb-2"
+            style={{ letterSpacing: "-0.00625em" }}
+          >
+          Our verticals operate with specialized focus but shared architecture. They maintain distinct execution mandates while enabling seamless integration. They deliver discrete systems that function as unified infrastructure.
+          
+          </p>
+          <p
             className="mx-auto max-w-[620px] text-base font-normal leading-[1.5em] text-muted lg:mx-0"
             style={{ letterSpacing: "-0.00625em" }}
           >
-          Our verticals operate with specialized focus but shared architecture. They maintain distinct execution mandates while enabling seamless integration. They deliver discrete systems that function as unified infrastructure.Sino Africa's three verticals are not silos. They are specialized execution platforms designed to work in concert creating integrated infrastructure solutions that no single vertical could deliver alone.
+          Sino Africa's three verticals are not silos. They are specialized execution platforms designed to work in concert creating integrated infrastructure solutions that no single vertical could deliver alone.
+
           </p>
         </div>
 
         <div className="relative order-1 w-full min-w-0 max-w-[608px] shrink-0 overflow-hidden lg:order-2">
           <div className="relative aspect-[608/612] w-full overflow-hidden lg:aspect-auto lg:h-[612px] lg:w-[608px]">
-            <div className="absolute inset-0 lg:left-0 lg:right-auto lg:top-[-109px] lg:bottom-auto lg:h-[721.41px] lg:w-[627.27px]">
+           
+            <div className="relative inset-0 lg:left-0  lg:right-auto  lg:top-0 lg:h-[721.41px] lg:w-[627.27px] z-20">
               <Image
                 src="/images/our-verticals/our-verticals-hero.png"
                 alt="Our verticals"

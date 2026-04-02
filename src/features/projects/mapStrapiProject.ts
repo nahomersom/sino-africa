@@ -7,13 +7,6 @@ const d = projectsContent.detail;
 
 const PLACEHOLDER_CARD_IMAGE = "/images/about/hero-photo-2.png";
 
-const VALID_FILTERS = new Set<ProjectCard["filter"]>([
-  "act-it",
-  "sino-sec",
-  "mobilitex",
-  "pilot",
-]);
-
 function mediaUrl(m: { url?: string | null } | null | undefined): string | undefined {
   const u = m?.url;
   return typeof u === "string" && u.length > 0 ? u : undefined;
@@ -95,12 +88,25 @@ function projectCategorySlug(p: Project): string | undefined {
   );
 }
 
-function toFilterTabId(slug: string | undefined): ProjectCard["filter"] {
-  const s = slug?.trim();
-  if (s && VALID_FILTERS.has(s as ProjectCard["filter"])) {
-    return s as ProjectCard["filter"];
+function projectCategoryLabel(p: Project): string {
+  const category = p.project_category;
+  if (category && typeof category === "object") {
+    const name = (category as { name?: unknown }).name;
+    if (typeof name === "string" && name.trim()) return name.trim();
+    const title = (category as { title?: unknown }).title;
+    if (typeof title === "string" && title.trim()) return title.trim();
   }
-  return "act-it";
+
+  const slug = projectCategorySlug(p)?.trim();
+  if (slug) {
+    return slug
+      .split(/[-_]/g)
+      .filter(Boolean)
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(" ");
+  }
+
+  return "Other";
 }
 
 function asStringList(value: unknown): string[] | undefined {
@@ -163,7 +169,8 @@ export function strapiProjectToProjectCard(p: Project): ProjectCard {
 
   return {
     id: routeId,
-    filter: toFilterTabId(projectCategorySlug(p)),
+    filterId: projectCategorySlug(p)?.trim() || "other",
+    filterLabel: projectCategoryLabel(p),
     title: p.title,
     description: cardDescription(p),
     imageSrc,

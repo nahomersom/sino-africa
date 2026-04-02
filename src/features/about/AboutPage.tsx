@@ -89,7 +89,6 @@ export function AboutPage() {
           heading={aboutContent.contact.heading}
           description={aboutContent.contact.description}
           buttonLabel={aboutContent.contact.buttonLabel}
-          variant="inner-page"
         />
       </ScrollReveal>
     </div>
