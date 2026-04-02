@@ -37,9 +37,21 @@ function descriptionPlain(p: Project): string {
   return strapiFieldToPlain(desc);
 }
 
-function blockPlain(block: { text?: string | null } | null | undefined): string {
+function blockPlain(block: { text?: string | RichTextBlock[] | null } | null | undefined): string {
   const t = block?.text;
-  return typeof t === "string" ? t.trim() : "";
+  if (typeof t === "string") return t.trim();
+  if (Array.isArray(t)) return strapiFieldToPlain(t);
+  return "";
+}
+
+function plainFromMaybeRich(value: unknown): string {
+  if (value == null) return "";
+  if (typeof value === "string") return value.trim();
+  if (Array.isArray(value)) return strapiFieldToPlain(value);
+  if (typeof value === "object" && "text" in value) {
+    return blockPlain(value as { text?: string | RichTextBlock[] | null });
+  }
+  return "";
 }
 
 function textsFromEntries(entries: unknown): string[] | undefined {
@@ -98,7 +110,7 @@ function heroDescriptionFromProject(p: Project): string {
 function resultsBodyFromProject(p: Project): string {
   const r = p.results;
   if (r && typeof r === "object" && !Array.isArray(r) && "text" in r) {
-    return blockPlain(r as { text?: string | null });
+    return blockPlain(r as { text?: string | RichTextBlock[] | null });
   }
   return strapiFieldToPlain(r as string | RichTextBlock[] | undefined);
 }
@@ -150,6 +162,13 @@ export function strapiProjectToProjectCard(p: Project): ProjectCard {
 }
 
 export function strapiProjectToProjectDetail(p: Project): ProjectDetail {
+  const raw = p as Project & {
+    challenge?: unknown;
+    chanllenge?: unknown;
+    result?: unknown;
+    problem?: unknown;
+  };
+
   const slug =
     typeof p.slug === "string" && p.slug.trim().length > 0
       ? p.slug.trim()
@@ -172,9 +191,13 @@ export function strapiProjectToProjectDetail(p: Project): ProjectDetail {
     d.sharedOverview;
 
   const challenges =
-    blockPlain(p.problem) || strapiFieldToPlain(p.challenges ?? undefined) || d.sharedChallenges;
+    plainFromMaybeRich(p.problem) ||
+    plainFromMaybeRich(p.challenges ?? undefined) ||
+    plainFromMaybeRich(raw.challenge) ||
+    plainFromMaybeRich(raw.chanllenge) ||
+    d.sharedChallenges;
 
-  const results = resultsBodyFromProject(p) || d.sharedResults;
+  const results = resultsBodyFromProject(p) || plainFromMaybeRich(raw.result) || d.sharedResults;
 
   const cover = p.cover_img as ProjectMedia | null | undefined;
   const coverU = mediaUrl(cover);
