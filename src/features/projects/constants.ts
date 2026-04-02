@@ -33,8 +33,8 @@ export const projectsContent = {
   grid: {
     heading: "Our Featured Projects",
     intro:
-      "Lorem ipsum dolor sit amet consectetur. Nunc euismod consectetur arcu nunc etiam lobortis montes enim. Ut risus neque lectus donec id pretium orci platea habitant.",
-    items: [
+    "Showcasing our most impactful and innovative projects.",
+      items: [
       {
         id: "act-it",
         filter: "act-it",
