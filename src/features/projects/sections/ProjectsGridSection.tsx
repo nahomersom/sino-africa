@@ -5,8 +5,7 @@ import {
   StaggerContainer,
   StaggerItem,
 } from "@/src/components/ui/scroll-reveal";
-import type { ProjectCard, ProjectFilterId } from "../constants";
-import { projectFilterTabs } from "../constants";
+import type { ProjectCard } from "../constants";
 import Image from "next/image";
 import Link from "next/link";
 import { LayoutGrid } from "lucide-react";
@@ -23,7 +22,7 @@ function ProjectsGridEmptyState({
   filterLabel,
   onShowAll,
 }: {
-  activeFilter: ProjectFilterId;
+  activeFilter: string;
   filterLabel: string;
   onShowAll: () => void;
 }) {
@@ -67,16 +66,28 @@ function ProjectsGridEmptyState({
 }
 
 export function ProjectsGridSection({ heading, intro, items }: ProjectsGridSectionProps) {
-  const [activeFilter, setActiveFilter] = useState<ProjectFilterId>("all");
+  const tabs = useMemo(() => {
+    const seen = new Set<string>();
+    const dynamic = items
+      .map((item) => ({ id: item.filterId, label: item.filterLabel }))
+      .filter((tab) => {
+        if (!tab.id || seen.has(tab.id)) return false;
+        seen.add(tab.id);
+        return true;
+      });
+    return [{ id: "all", label: "All" }, ...dynamic];
+  }, [items]);
+
+  const [activeFilter, setActiveFilter] = useState<string>("all");
 
   const filteredItems = useMemo(() => {
     if (activeFilter === "all") return items;
-    return items.filter((p) => p.filter === activeFilter);
+    return items.filter((p) => p.filterId === activeFilter);
   }, [items, activeFilter]);
 
   const activeTabLabel = useMemo(
-    () => projectFilterTabs.find((t) => t.id === activeFilter)?.label ?? "this category",
-    [activeFilter],
+    () => tabs.find((t) => t.id === activeFilter)?.label ?? "this category",
+    [activeFilter, tabs],
   );
 
   const showEmpty = filteredItems.length === 0;
@@ -104,7 +115,7 @@ export function ProjectsGridSection({ heading, intro, items }: ProjectsGridSecti
             role="group"
             aria-label="Filter projects by category"
           >
-            {projectFilterTabs.map((tab, index) => {
+            {tabs.map((tab, index) => {
               const isActive = activeFilter === tab.id;
               return (
                 <button

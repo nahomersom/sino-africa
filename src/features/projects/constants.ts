@@ -17,8 +17,10 @@ export const projectFilterTabs: readonly ProjectFilterTab[] = [
 
 export type ProjectCard = {
   id: string;
-  /** Which primary filter tab this card belongs to (not "all"). */
-  filter: Exclude<ProjectFilterId, "all">;
+  /** Dynamic category id (API slug) used for filtering. */
+  filterId: string;
+  /** Dynamic category label shown in filter tabs. */
+  filterLabel: string;
   title: string;
   description: string;
   /** Replace with real imagery when available (Figma exports). */
@@ -39,7 +41,8 @@ export const projectsContent = {
       items: [
       {
         id: "act-it",
-        filter: "act-it",
+        filterId: "act-it",
+        filterLabel: "ACT IT",
         title: "Act IT enterprise rollout",
         description:
           "Unified tooling and workflows for distributed teams, with a focus on adoption and measurable operational gains.",
@@ -48,7 +51,8 @@ export const projectsContent = {
       },
       {
         id: "sino-sec",
-        filter: "sino-sec",
+        filterId: "sino-sec",
+        filterLabel: "Sino Sec",
         title: "SINO Sec compliance program",
         description:
           "Hardening, monitoring, and policy alignment for organisations scaling across regulated environments.",
@@ -57,7 +61,8 @@ export const projectsContent = {
       },
       {
         id: "mobilitex",
-        filter: "mobilitex",
+        filterId: "mobilitex",
+        filterLabel: "Mobilitex",
         title: "Mobilitex field operations",
         description:
           "Logistics and workforce mobility solutions improving turnaround times and visibility in the field.",
@@ -66,7 +71,8 @@ export const projectsContent = {
       },
       {
         id: "pilot-connectivity",
-        filter: "pilot",
+        filterId: "pilot",
+        filterLabel: "Pilot Projects",
         title: "National connectivity backbone",
         description:
           "Planning and delivery support for resilient network capacity serving enterprise and public-sector use cases.",
@@ -75,7 +81,8 @@ export const projectsContent = {
       },
       {
         id: "act-it-integration",
-        filter: "act-it",
+        filterId: "act-it",
+        filterLabel: "ACT IT",
         title: "Cross-border trade integration",
         description:
           "APIs and data exchange layers connecting partners, customs workflows, and core business systems.",
@@ -84,7 +91,8 @@ export const projectsContent = {
       },
       {
         id: "pilot-analytics",
-        filter: "pilot",
+        filterId: "pilot",
+        filterLabel: "Pilot Projects",
         title: "Operational analytics cockpit",
         description:
           "Dashboards and pipelines turning operational signals into decisions leadership can act on weekly.",
