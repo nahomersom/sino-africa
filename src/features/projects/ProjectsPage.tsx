@@ -10,9 +10,11 @@ import { ProjectsHeroSection } from "./sections/ProjectsHeroSection";
 type ProjectsPageProps = {
   /** Strapi-backed grid; when omitted, uses static `projectsContent.grid.items`. */
   gridItems?: readonly ProjectCard[];
+  /** All CMS categories for filters (optional; merges with categories inferred from `gridItems`). */
+  categoryTabs?: readonly { id: string; label: string }[];
 };
 
-export function ProjectsPage({ gridItems }: ProjectsPageProps = {}) {
+export function ProjectsPage({ gridItems, categoryTabs }: ProjectsPageProps = {}) {
   const items = gridItems ?? projectsContent.grid.items;
 
   return (
@@ -27,6 +29,7 @@ export function ProjectsPage({ gridItems }: ProjectsPageProps = {}) {
           heading={projectsContent.grid.heading}
           intro={projectsContent.grid.intro}
           items={items}
+          categoryTabs={categoryTabs}
         />
       </ScrollReveal>
       <ScrollReveal>
