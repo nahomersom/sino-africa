@@ -20,7 +20,7 @@ type AboutHeroSectionProps = {
 /** Figma export artboard — positions as % of width / height (md+ collage) */
 const SLOT = {
   left: "left-0 md:top-0  lg:top-[182px] h-[429px] w-[318.5px] lg:h-[429px] lg:w-[495.5px]",
-  center: "left-[53%] lg:left-[48.647%] -top-[11.45px] lg:top-[11.948%] md:h-[238px] md:w-[254px] h-[51.064%] w-[28.665%]",
+  center: "left-[53%] lg:left-[48.647%] -top-[11.45px] lg:top-[11.948%] md:h-[238px] lg:h-[332px] md:w-[254px] lg:w-[354px] h-[51.064%] w-[28.665%]",
   right: "left-[85.587%] lg:left-[80%] top-[16.806%] lg:top-[28.806%] md:h-[84px] md:w-[89px] h-[25.695%] w-[14.414%]",
 } as const;
 
@@ -114,7 +114,7 @@ function HeroCollage({
           />
         </div>
 
-        <div className="pointer-events-none absolute z-20 hidden bg-[url('/images/about/hero-dots.svg')] bg-[length:100%_100%] bg-no-repeat lg:inset-0 lg:z-0 lg:block lg:h-auto lg:w-auto" />
+        <div className="pointer-events-none absolute z-20 hidden bg-[url('/images/about/hero-dots.svg')] bg-[length:100%_100%] bg-no-repeat lg:inset-0 lg:z-0 lg:block lg:h-auto lg:w-auto lg:left-[211px]" />
 
         <div
           className={cn(

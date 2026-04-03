@@ -119,6 +119,7 @@ type NavProps = {
 export function Nav({ variant = "default", className = "" }: NavProps) {
   const pathname = usePathname();
   const useLightMobileBranding = variant === "default" && pathname === "/";
+  const [isMobileMdScrolled, setIsMobileMdScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const STRAPI_URL =
     process.env.NEXT_PUBLIC_STRAPI_URL?.trim() ||
@@ -150,17 +151,37 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    const onViewportChange = () => {
+      const isLgUp = window.matchMedia("(min-width: 1024px)").matches;
+      setIsMobileMdScrolled(!isLgUp && window.scrollY > 6);
+    };
+
+    onViewportChange();
+    window.addEventListener("scroll", onViewportChange, { passive: true });
+    window.addEventListener("resize", onViewportChange);
+    return () => {
+      window.removeEventListener("scroll", onViewportChange);
+      window.removeEventListener("resize", onViewportChange);
+    };
+  }, []);
+
+  const useDarkMobileBranding = !useLightMobileBranding || isMobileMdScrolled;
+
   return (
     <header className={`fixed inset-x-0 top-0 z-30 w-full ${className}`}>
-      <div className="mx-auto w-full max-w-[1252px] px-8 py-6 lg:px-4 lg:pt-8 lg:pb-0">
+      <div className="md:mx-auto w-full max-w-[1252px] px-8 py-6 lg:px-4 lg:pt-8 lg:pb-0">
         <div
-          className={`flex items-center justify-between lg:rounded-[32px] lg:p-4 lg:backdrop-blur-[32px] ${variant === "default"
+          className={`flex items-center justify-between transition-colors duration-200 ${isMobileMdScrolled
+            ? "rounded-[20px] bg-white/95 p-3 shadow-[0_6px_20px_rgba(15,23,42,0.08)] backdrop-blur-md"
+            : ""
+            } lg:rounded-[32px] lg:p-4 lg:backdrop-blur-[32px] ${variant === "default"
             ? "lg:bg-white/80 lg:shadow-[0_8px_30px_rgba(15,23,42,0.2)]"
             : "lg:bg-white/80 lg:shadow-[0_4px_20px_rgba(15,23,42,0.08)]"
             }`}
         >
           <Link href="/" className="flex shrink-0 items-center gap-2">
-            {useLightMobileBranding ? (
+            {useLightMobileBranding && !useDarkMobileBranding ? (
               <>
                 <Image
                   src="/brand/whiteLogo.svg"
@@ -199,7 +220,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
             onClick={() => setMenuOpen((o) => !o)}
             className={cn(
               "flex size-6 shrink-0 items-center justify-center lg:hidden",
-              useLightMobileBranding ? "text-white" : "text-text-100",
+              useLightMobileBranding && !useDarkMobileBranding ? "text-white" : "text-text-100",
             )}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">

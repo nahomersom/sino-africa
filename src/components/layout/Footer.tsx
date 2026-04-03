@@ -100,7 +100,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-[1fr_1fr_1fr_1.4fr]">
           {sections.map((section) => (
             <div key={section.title} className="flex flex-col gap-5">
               <h3 className="text-[15px] font-light text-white/65">
