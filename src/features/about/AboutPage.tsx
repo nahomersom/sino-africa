@@ -76,14 +76,14 @@ export function AboutPage() {
           values={aboutContent.whatDefinesUs.values}
         />
       </ScrollReveal>
-      <ScrollReveal>
+      {/* <ScrollReveal>
         <TeamSection
           heading={aboutContent.team.heading}
           description={aboutContent.team.description}
           highlightedMember={highlightedMember}
           rankedRows={rankedRows}
         />
-      </ScrollReveal>
+      </ScrollReveal> */}
       <ScrollReveal>
         <ContactSection
           heading={aboutContent.contact.heading}
