@@ -1,4 +1,60 @@
-export function SharingSidebar() {
+"use client";
+
+import { useEffect, useState } from "react";
+
+interface SharingSidebarProps {
+  title?: string;
+}
+
+export function SharingSidebar({ title }: SharingSidebarProps) {
+  const [currentUrl, setCurrentUrl] = useState("");
+
+  useEffect(() => {
+    setCurrentUrl(window.location.href);
+  }, []);
+
+  const handleShare = (platform: string) => {
+    if (!currentUrl) return;
+
+    const encodedUrl = encodeURIComponent(currentUrl);
+    const encodedTitle = encodeURIComponent(title || "Read this amazing blog!");
+
+    let shareUrl = "";
+
+    switch (platform) {
+      case "LinkedIn":
+        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
+        break;
+      case "X":
+        shareUrl = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`;
+        break;
+      case "Facebook":
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+        break;
+      case "Threads":
+        shareUrl = `https://www.threads.net/intent/post?text=${encodedTitle}%20${encodedUrl}`;
+        break;
+      case "Instagram":
+        navigator.clipboard.writeText(currentUrl).then(() => {
+          alert("Link copied to clipboard!");
+        });
+        return;
+    }
+
+    if (shareUrl) {
+      window.open(shareUrl, "_blank", "width=600,height=400");
+    }
+  };
+
+  const handleShareIconClick = () => {
+    if (!currentUrl) return;
+    if (navigator.share) {
+      navigator.share({ title, url: currentUrl }).catch(console.error);
+    } else {
+      navigator.clipboard.writeText(currentUrl).then(() => alert("Link copied to clipboard!"));
+    }
+  };
+
   const socialIcons = [
     {
       label: "LinkedIn",
@@ -45,7 +101,7 @@ export function SharingSidebar() {
   ];
 
   return (
-    <aside className="w-full md:max-w-[677px] lg:max-w-none lg:w-[500px] shrink-0 lg:sticky lg:top-[100px]">
+    <aside className="w-full md:max-w-[677px] lg:max-w-none lg:w-[343px] shrink-0 lg:h-fit lg:self-start z-0">
       <div className="bg-linear-to-br from-[#64C294] to-[#4A9070] rounded-[24px] p-8 flex flex-col md:justify-between gap-6 text-white overflow-hidden relative group shadow-xl md:h-[282px] lg:h-auto">
         {/* Top Header Icons */}
         <div className="flex justify-between items-start w-full relative z-10">
@@ -58,7 +114,10 @@ export function SharingSidebar() {
           </div>
 
           {/* Share Icon */}
-          <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center backdrop-blur-sm group-hover:bg-white/10 transition-colors">
+          <div 
+            onClick={handleShareIconClick}
+            className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center backdrop-blur-sm group-hover:bg-white/10 transition-colors cursor-pointer"
+          >
             <svg width="24" height="24" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M39.5833 27.0832C39.5833 36.288 32.1215 43.7498 22.9167 43.7498C13.7119 43.7498 6.25 36.288 6.25 27.0832C6.25 17.8784 13.7119 10.4165 22.9167 10.4165" stroke="white" strokeWidth="3.125" strokeLinecap="round" strokeLinejoin="round" />
               <path d="M29.167 6.25H37.5003C40.4466 6.25 41.9197 6.25 42.8351 7.16529C43.7503 8.08058 43.7503 9.55373 43.7503 12.5V20.8333M41.667 8.33333L22.917 27.0833" stroke="white" strokeWidth="3.125" strokeLinecap="round" strokeLinejoin="round" />
@@ -81,6 +140,7 @@ export function SharingSidebar() {
             {socialIcons.map((social, index) => (
               <button
                 key={index}
+                onClick={() => handleShare(social.label)}
                 className="w-11 h-11 md:w-auto md:h-10 md:flex-1 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all hover:-translate-y-1 backdrop-blur-sm"
                 aria-label={social.label}
               >
