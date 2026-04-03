@@ -18,6 +18,22 @@ type ProjectDetailPageProps = {
 const PROJECT_DETAIL_TOP_VECTOR_IMAGE = "/images/projects/top-vector.png";
 const PROJECT_DETAIL_DOTS_IMAGE = "/images/projects/project-detail-dots.png";
 
+function markdownToSafeHtml(input: string): string {
+  const escaped = input
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
+  return escaped
+    .replace(/\*\*__(.+?)__\*\*/g, "<strong><em>$1</em></strong>")
+    .replace(/__\*\*(.+?)\*\*__/g, "<strong><em>$1</em></strong>")
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/__(.+?)__/g, "<em>$1</em>")
+    .replace(/\*(.+?)\*/g, "<em>$1</em>")
+    .replace(/_(.+?)_/g, "<em>$1</em>")
+    .replace(/\r?\n/g, "<br />");
+}
+
 function ProjectDetailRichText({
   value,
   className,
@@ -28,7 +44,12 @@ function ProjectDetailRichText({
   hideListMarkers?: boolean;
 }) {
   if (typeof value === "string") {
-    return <p className={className}>{value}</p>;
+    return (
+      <p
+        className={className}
+        dangerouslySetInnerHTML={{ __html: markdownToSafeHtml(value) }}
+      />
+    );
   }
 
   return (
