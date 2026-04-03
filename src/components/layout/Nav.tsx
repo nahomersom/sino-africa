@@ -6,10 +6,10 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { cn } from "@/src/lib/utils";
-import { useGetVerticalsQuery } from "@/src/store/strapiApi";
+import { getStrapiMediaUrl, useGetVerticalsQuery } from "@/src/store/strapiApi";
 import { Button } from "../ui/app-button";
 
-type NavSubLink = { label: string; href: string };
+type NavSubLink = { label: string; href: string; iconSrc?: string };
 
 type NavItem = {
   label: string;
@@ -69,23 +69,34 @@ function VerticalsSubmenuArtPanel({ className }: { className?: string }) {
   );
 }
 
+const VERTICAL_SUBLINK_ICON_FALLBACK = "/images/about/value-check.svg";
+
 /** Figma layout_AMXIOM + style_TSI0YM — used in 6:2281 Backdrop (mobile drawer + lg+ submenu) */
 function NavSubLinkRow({
   href,
   label,
+  iconSrc,
   onClick,
 }: {
   href: string;
   label: string;
+  iconSrc?: string;
   onClick?: () => void;
 }) {
+  const src = iconSrc || VERTICAL_SUBLINK_ICON_FALLBACK;
   return (
     <Link
       href={href}
       onClick={onClick}
       className="flex min-h-0 flex-1 items-center gap-2 rounded-lg bg-accent-60 px-3 py-3"
     >
-      <Image src="/images/about/value-check.svg" alt="Vertical dropdown icon" width={23} height={23} />
+      <Image
+        src={src}
+        alt=""
+        width={23}
+        height={23}
+        className="size-[23px] shrink-0 object-contain"
+      />
       <span className="min-w-0 flex-1 text-left text-sm font-normal leading-[1.5] text-text-100">
         {label}
       </span>
@@ -136,9 +147,15 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
             const title = (v.title ?? v.name ?? v.slug ?? "").toString().trim();
             const slug = (v.slug ?? "").toString().trim();
             if (!title || !slug) return null;
-            return { label: title, href: `/our-verticals/${slug}` };
+            const iconSrc = getStrapiMediaUrl(v.logo?.url);
+            const link: NavSubLink = {
+              label: title,
+              href: `/our-verticals/${slug}`,
+            };
+            if (iconSrc) link.iconSrc = iconSrc;
+            return link;
           })
-          .filter((x): x is NavSubLink => Boolean(x)),
+          .filter((x): x is NavSubLink => x !== null),
       )
       : verticalSubLinks;
 
@@ -275,7 +292,12 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
                         <VerticalsSubmenuArtPanel className="w-[183px] min-h-[186px]" />
                         <div className="flex min-h-[186px] min-w-0 flex-1 flex-col gap-1 self-stretch py-2">
                           {children.map((child) => (
-                            <NavSubLinkRow key={child.label} href={child.href} label={child.label} />
+                            <NavSubLinkRow
+                              key={child.label}
+                              href={child.href}
+                              label={child.label}
+                              iconSrc={child.iconSrc}
+                            />
                           ))}
                         </div>
                       </div>
@@ -372,6 +394,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
                               key={v.label}
                               href={v.href}
                               label={v.label}
+                              iconSrc={v.iconSrc}
                               onClick={() => setMenuOpen(false)}
                             />
                           ))}
