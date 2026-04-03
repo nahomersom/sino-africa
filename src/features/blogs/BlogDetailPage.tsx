@@ -62,22 +62,16 @@ export function BlogDetailPage({ id }: BlogDetailPageProps) {
 
   return (
     <main className="flex min-h-screen flex-col">
-      {/* Hero Section */}
       <BlogDetailHero title={blog.title} image={coverImage} />
 
-      {/* Main Content Area */}
       <div className="w-full bg-white">
         <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 lg:px-0 py-[80px] flex flex-col items-center md:gap-[43px] lg:flex-row lg:justify-between lg:gap-[60px] lg:items-start">
-          {/* Article Content */}
           <BlogContent description={blog.description} publishedDate={blog.publishedDate} />
-
-          {/* Sidebar */}
           <SharingSidebar />
         </div>
       </div>
 
-      {/* Related Blogs Section */}
-      <div className="bg-white py-[100px] w-full border-t border-[#e7e9ed]">
+      <div className="bg-white py-[100px] w-full">
         <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 lg:px-0">
           <h2 className="text-[#161C2D] text-[24px] font-semibold mb-[48px] uppercase tracking-normal text-center md:text-center lg:text-left">
             Related Blogs
