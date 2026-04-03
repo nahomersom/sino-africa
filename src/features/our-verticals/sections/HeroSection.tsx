@@ -54,7 +54,7 @@ export function HeroSection() {
 
           <div className="relative order-1 w-full min-w-0 max-w-[608px] shrink-0 overflow-hidden lg:order-2">
             <div className="relative aspect-[608/612] w-full overflow-hidden lg:aspect-auto lg:h-[612px] lg:w-[608px]">
-              <div className="relative inset-0 z-20 lg:left-0 lg:right-auto lg:top-0 lg:h-[721.41px] lg:w-[627.27px]">
+              <div className="absolute inset-0 z-20 lg:relative lg:left-0 lg:right-auto lg:top-0 lg:h-[721.41px] lg:w-[627.27px]">
                 <Image
                   src="/images/our-verticals/our-verticals-hero.png"
                   alt="Our verticals"
