@@ -17,9 +17,27 @@ type NavItem = {
   children?: readonly NavSubLink[];
 };
 
+/** Submenu order: Act IT → Sino Tec → Mobilitex (slug may be `sino-sec` or `sino-tec` from CMS). */
+const VERTICAL_NAV_SLUG_ORDER: Readonly<Record<string, number>> = {
+  "act-it": 0,
+  "sino-sec": 1,
+  "sino-tec": 1,
+  mobilitex: 2,
+};
+
+function sortVerticalNavLinks(links: readonly NavSubLink[]): NavSubLink[] {
+  return [...links].sort((a, b) => {
+    const slugA = a.href.replace(/^\/our-verticals\//, "");
+    const slugB = b.href.replace(/^\/our-verticals\//, "");
+    const ia = VERTICAL_NAV_SLUG_ORDER[slugA] ?? 100;
+    const ib = VERTICAL_NAV_SLUG_ORDER[slugB] ?? 100;
+    return ia - ib || slugA.localeCompare(slugB);
+  });
+}
+
 const verticalSubLinks: readonly NavSubLink[] = [
   { label: "Act IT", href: "/our-verticals/act-it" },
-  { label: "SINO Sec", href: "/our-verticals/sino-sec" },
+  { label: "Sino Tec", href: "/our-verticals/sino-sec" },
   { label: "Mobilitex", href: "/our-verticals/mobilitex" },
 ];
 
@@ -111,14 +129,16 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
 
   const dynamicVerticalSubLinks: readonly NavSubLink[] =
     verticals.length > 0
-      ? verticals
-          .map((v) => {
-            const title = (v.title ?? v.name ?? v.slug ?? "").toString().trim();
-            const slug = (v.slug ?? "").toString().trim();
-            if (!title || !slug) return null;
-            return { label: title, href: `/our-verticals/${slug}` };
-          })
-          .filter((x): x is NavSubLink => Boolean(x))
+      ? sortVerticalNavLinks(
+          verticals
+            .map((v) => {
+              const title = (v.title ?? v.name ?? v.slug ?? "").toString().trim();
+              const slug = (v.slug ?? "").toString().trim();
+              if (!title || !slug) return null;
+              return { label: title, href: `/our-verticals/${slug}` };
+            })
+            .filter((x): x is NavSubLink => Boolean(x)),
+        )
       : verticalSubLinks;
 
   useEffect(() => {
