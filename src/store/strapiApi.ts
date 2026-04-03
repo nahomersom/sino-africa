@@ -446,6 +446,40 @@ export const strapiApi = createApi({
       },
     }),
 
+    getVerticalsPaginated: builder.query<
+      { data: Vertical[]; pagination: StrapiPagination },
+      Record<string, unknown> | void
+    >({
+      query: (params) => {
+        const base = "verticals";
+        const withDefaults: Record<string, unknown> = {
+          ...VERTICAL_DEEP_POPULATE,
+          "pagination[pageSize]": 3,
+          "pagination[page]": 1,
+          ...(params ?? {}),
+        };
+        return appendStrapiQuery(base, withDefaults);
+      },
+      transformResponse: (response: StrapiListResponse<Vertical>) => {
+        const p = response?.meta?.pagination;
+        const data = response?.data ?? [];
+        const pageSize = p?.pageSize ?? 3;
+        const total = p?.total ?? data.length;
+        const pageCount =
+          p?.pageCount ??
+          (total > 0 ? Math.ceil(total / pageSize) : data.length > 0 ? 1 : 0);
+        return {
+          data,
+          pagination: {
+            page: p?.page ?? 1,
+            pageSize,
+            pageCount,
+            total,
+          },
+        };
+      },
+    }),
+
     // Partners endpoints
     getPartners: builder.query<Partner[], Record<string, unknown> | void>({
       query: (params) => {
@@ -560,6 +594,7 @@ export const {
   useGetVerticalsQuery,
   useGetVerticalByIdQuery,
   useGetVerticalBySlugQuery,
+  useGetVerticalsPaginatedQuery,
   useGetPartnersQuery,
   useGetTeamsQuery,
   useGetProjectsQuery,
