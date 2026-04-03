@@ -46,7 +46,20 @@ function richFromMaybe(value: unknown): string | RichTextBlock[] | undefined {
   if (value == null) return undefined;
   if (typeof value === "string") {
     const trimmed = value.trim();
-    return trimmed.length > 0 ? trimmed : undefined;
+    if (!trimmed) return undefined;
+    // Some Strapi fields arrive as JSON-stringified blocks:
+    // "[{\"type\":\"paragraph\",\"children\":[...]}]"
+    if ((trimmed.startsWith("[") && trimmed.endsWith("]")) || (trimmed.startsWith("{") && trimmed.endsWith("}"))) {
+      try {
+        const parsed = JSON.parse(trimmed) as unknown;
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed as RichTextBlock[];
+        }
+      } catch {
+        // Fall back to plain string when parsing fails.
+      }
+    }
+    return trimmed;
   }
   if (Array.isArray(value) && value.length > 0) {
     return value as RichTextBlock[];
