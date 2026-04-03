@@ -8,7 +8,7 @@ type ContactBadgeIconProps = {
 
 export function ContactBadgeIcon({
   size = 78,
-  backgroundColor = "#64C294",
+  backgroundColor = "var(--primary)",
   className,
 }: ContactBadgeIconProps) {
   return (

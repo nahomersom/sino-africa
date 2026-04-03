@@ -1,7 +1,8 @@
 "use client";
 
-import { type FormEvent, useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties, type FormEvent } from "react";
 import { Button } from "@/src/components/ui/app-button";
+import { cn } from "@/src/lib/utils";
 import { useCreateContactSubmissionMutation } from "@/src/store/strapiApi";
 
 const OPEN_STREET_MAP_EMBED_URL =
@@ -131,21 +132,24 @@ export function ContactFormMapSection() {
         </div>
       ) : null}
 
-      <section className="flex w-full justify-center bg-accent-60/35 px-8 pt-5 pb-0 md:px-20 md:py-5 lg:px-[237px] lg:pb-[116px]">
-        <div className="flex w-full max-w-[1252px] flex-col gap-8 md:gap-5 lg:flex-row">
-          <div className="w-full rounded-2xl bg-white lg:max-w-[607px]">
-            <div className="flex w-full flex-col gap-6 md:gap-6">
-              <div className="flex flex-col items-center gap-4 text-center md:items-center md:text-center">
-                <h1 className="font-(family-name:--font-nata-sans) text-[36px] font-semibold leading-normal tracking-[-0.04em] text-text-100">
+      <section
+        className="flex w-full justify-center bg-accent-60/35 px-4 pt-5 pb-6 min-[400px]:px-5 sm:px-6 sm:pb-8 md:px-8 md:pt-5 md:pb-8 lg:px-10 lg:pb-10 xl:px-12 xl:pb-[116px] 2xl:px-16"
+        style={{ "--contact-cta": "var(--primary)" } as CSSProperties}
+      >
+        <div className="flex w-full min-w-0 max-w-[1252px] flex-col items-stretch gap-7 max-md:items-center md:gap-6 xl:flex-row xl:items-stretch">
+          <div className="w-full min-w-0 max-w-[366px] rounded-[16px] bg-white opacity-100 max-md:mx-auto max-md:min-h-[834px] md:max-w-none md:min-h-0 md:rounded-2xl xl:max-w-[607px] xl:shrink-0">
+            <div className="flex h-full min-h-0 w-full min-w-0 flex-col gap-8 md:gap-6">
+              <div className="flex flex-col items-center gap-3 text-center sm:gap-4 md:items-center md:text-center">
+                <h1 className="font-(family-name:--font-nata-sans) text-[28px] font-semibold leading-tight tracking-[-0.04em] text-text-100 min-[400px]:text-[32px] sm:text-[34px] md:text-[36px] md:leading-normal">
                   Contact us
                 </h1>
-                <p className="max-w-[286px] text-sm font-light leading-normal tracking-[-0.0143em] text-text-100/70 md:max-w-[506px] md:text-sm md:tracking-[-0.0143em]">
+                <p className="w-full max-w-[32rem] text-sm font-light leading-relaxed tracking-[-0.0143em] text-text-100/70 min-[400px]:text-[15px] md:max-w-none md:text-base md:leading-normal">
                   Feel free to reach out! Whether you&apos;re looking for more details, have feedback, or just want to say hello, we&apos;re here to help.
                 </p>
               </div>
 
               <form
-                className="flex w-full flex-col gap-[26px] rounded-2xl bg-white px-4 pb-4 pt-6 shadow-[0px_34px_33px_-23px_rgba(22,28,45,0.13)] md:px-4 md:pb-4 md:pt-6 lg:p-10"
+                className="flex w-full min-w-0 flex-col gap-8 rounded-[16px] bg-white px-3 pb-4 pt-5 opacity-100 shadow-[0px_34px_33px_-23px_rgba(22,28,45,0.13)] min-[400px]:px-4 min-[400px]:pt-6 md:gap-[26px] md:rounded-2xl md:px-5 md:pb-5 md:pt-6 xl:p-10"
                 onSubmit={handleSubmit}
               >
                 <label className="flex flex-col gap-3">
@@ -256,7 +260,10 @@ export function ContactFormMapSection() {
                 <Button
                   type="submit"
                   variant="primary"
-                  className="h-[59px] w-full rounded-[10px] text-[17px] font-medium"
+                  className={cn(
+                    "h-[59px] w-full rounded-[10px] text-[17px] font-medium",
+                    "!bg-[var(--contact-cta)] hover:opacity-90",
+                  )}
                   disabled={isLoading}
                 >
                   {isLoading ? "Sending..." : "Send"}
@@ -269,7 +276,7 @@ export function ContactFormMapSection() {
               </form>
             </div>
           </div>
-          <div className="relative h-[792px] w-full overflow-hidden rounded-2xl md:block lg:h-auto lg:min-h-[792px] lg:flex-1">
+          <div className="relative w-full min-w-0 shrink-0 overflow-hidden rounded-2xl opacity-100 max-md:mx-auto max-md:h-[792px] max-md:max-w-[366px] max-md:rounded-[16px] md:block md:h-[min(50vw,560px)] md:min-h-[380px] md:max-w-none md:rounded-2xl lg:min-h-[440px] xl:h-auto xl:min-h-[792px] xl:flex-1">
             <iframe
               src={OPEN_STREET_MAP_EMBED_URL}
               title="Sino Africa location map"

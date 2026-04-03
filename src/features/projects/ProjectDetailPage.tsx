@@ -120,50 +120,155 @@ function GalleryMosaicTile({
   );
 }
 
-/** Same 4-strip mosaic as desktop: full-height | stack of 2 | full-height | stack of 2, in a horizontal scroller. */
-function GalleryMosaicMobileScroll({
-  g0,
-  g1,
-  g2,
-  g3,
-  g4,
-  g5,
-}: {
-  g0: GalleryImageItem;
-  g1: GalleryImageItem;
-  g2: GalleryImageItem;
-  g3: GalleryImageItem;
-  g4: GalleryImageItem;
-  g5: GalleryImageItem;
-}) {
-  const stripClass = "h-[491px] lg:h-[850px] w-[190px] lg:w-[478px] shrink-0";
-  const stackedClass = "h-[491px] lg:h-[850px] w-[219px] lg:w-[552px] shrink-0";
+const GALLERY_ROW_H = "h-[491px] lg:h-[850px]";
+
+const GALLERY_MOBILE_SCROLL = cn(
+  "no-scrollbar overflow-x-auto md:hidden",
+  "pl-3 pr-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+  "sm:pl-4",
+);
+
+const GALLERY_STRIP_TILE = cn(GALLERY_ROW_H, "w-[190px] lg:w-[478px] shrink-0");
+
+const GALLERY_STACK_OUTER =
+  "flex h-full w-[219px] shrink-0 flex-col gap-2 lg:w-[552px] lg:gap-[23px]";
+
+const GALLERY_STACK_HALF = "h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0";
+
+const GALLERY_DESKTOP_ROW =
+  "hidden w-full gap-3 sm:gap-4 md:flex md:h-[491px] lg:h-[850px] px-3 sm:px-4 md:px-0";
+
+/** First six images: mosaic columns scale from 1–6; same pattern as the full grid when all slots are filled. */
+function GalleryDesktopMosaic({ items }: { items: readonly GalleryImageItem[] }) {
+  const n = items.length;
+  if (n === 0) return null;
+
+  const colGap = "gap-3 sm:gap-4";
+  const tileFlex = "min-h-0 min-w-0 flex-1";
+  const stackCol = cn("flex min-h-0 min-w-0 flex-1 flex-col", colGap);
+
+  if (n === 1) {
+    return (
+      <div className={GALLERY_DESKTOP_ROW}>
+        <GalleryMosaicTile item={items[0]} className={cn(tileFlex, "w-full")} sizes="90vw" />
+      </div>
+    );
+  }
+
+  if (n === 2) {
+    return (
+      <div className={GALLERY_DESKTOP_ROW}>
+        <GalleryMosaicTile item={items[0]} className={tileFlex} sizes="42vw" />
+        <GalleryMosaicTile item={items[1]} className={tileFlex} sizes="42vw" />
+      </div>
+    );
+  }
+
+  if (n === 3) {
+    return (
+      <div className={GALLERY_DESKTOP_ROW}>
+        <GalleryMosaicTile item={items[0]} className={tileFlex} sizes="30vw" />
+        <div className={stackCol}>
+          <GalleryMosaicTile item={items[1]} className={cn(tileFlex, "w-full")} sizes="30vw" />
+          <GalleryMosaicTile item={items[2]} className={cn(tileFlex, "w-full")} sizes="30vw" />
+        </div>
+      </div>
+    );
+  }
+
+  if (n === 4) {
+    return (
+      <div className={GALLERY_DESKTOP_ROW}>
+        <GalleryMosaicTile item={items[0]} className={tileFlex} sizes="24vw" />
+        <div className={stackCol}>
+          <GalleryMosaicTile item={items[1]} className={cn(tileFlex, "w-full")} sizes="24vw" />
+          <GalleryMosaicTile item={items[2]} className={cn(tileFlex, "w-full")} sizes="24vw" />
+        </div>
+        <GalleryMosaicTile item={items[3]} className={tileFlex} sizes="24vw" />
+      </div>
+    );
+  }
+
+  if (n === 5) {
+    return (
+      <div className={GALLERY_DESKTOP_ROW}>
+        <GalleryMosaicTile item={items[0]} className={tileFlex} sizes="20vw" />
+        <div className={stackCol}>
+          <GalleryMosaicTile item={items[1]} className={cn(tileFlex, "w-full")} sizes="20vw" />
+          <GalleryMosaicTile item={items[2]} className={cn(tileFlex, "w-full")} sizes="20vw" />
+        </div>
+        <GalleryMosaicTile item={items[3]} className={tileFlex} sizes="20vw" />
+        <GalleryMosaicTile item={items[4]} className={tileFlex} sizes="20vw" />
+      </div>
+    );
+  }
 
   return (
-    <div
-      className={cn(
-        "no-scrollbar overflow-x-auto md:hidden",
-        "pl-3 pr-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
-        "sm:pl-4",
-      )}
-    >
-      <div className="flex h-[491px] lg:h-[850px] w-max items-center gap-[8px]">
-        <GalleryMosaicTile item={g0} className={stripClass} sizes="478px" />
-        <div className={cn("flex min-h-0 min-w-0 flex-col gap-2 lg:gap-[23px]", stackedClass)}>
-          <GalleryMosaicTile item={g1} className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0" sizes="552px" />
-          <GalleryMosaicTile item={g2} className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0" sizes="552px" />
-        </div>
-        <GalleryMosaicTile item={g3} className={stripClass} sizes="478px" />
-        <div className={cn("flex min-h-0 min-w-0 flex-col gap-2 lg:gap-[23px]", stackedClass)}>
-          <GalleryMosaicTile item={g4} className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0" sizes="552px" />
-          <GalleryMosaicTile item={g5} className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0" sizes="552px" />
-        </div>
+    <div className={GALLERY_DESKTOP_ROW}>
+      <GalleryMosaicTile item={items[0]} className={tileFlex} sizes="24vw" />
+      <div className={stackCol}>
+        <GalleryMosaicTile item={items[1]} className={cn(tileFlex, "w-full")} sizes="24vw" />
+        <GalleryMosaicTile item={items[2]} className={cn(tileFlex, "w-full")} sizes="24vw" />
+      </div>
+      <GalleryMosaicTile item={items[3]} className={tileFlex} sizes="24vw" />
+      <div className={stackCol}>
+        <GalleryMosaicTile item={items[4]} className={cn(tileFlex, "w-full")} sizes="24vw" />
+        <GalleryMosaicTile item={items[5]} className={cn(tileFlex, "w-full")} sizes="24vw" />
       </div>
     </div>
   );
 }
 
-/** Four-column masonry: full-height | equal two-row stack | full-height | equal two-row stack (lg+). */
+function GalleryMobileMosaic({ items }: { items: readonly GalleryImageItem[] }) {
+  const n = items.length;
+  if (n === 0) return null;
+
+  const row = cn("flex w-max items-center gap-[8px]", GALLERY_ROW_H);
+
+  if (n === 1) {
+    return (
+      <div className="flex w-full justify-center px-3 sm:px-4 md:hidden">
+        <GalleryMosaicTile
+          item={items[0]}
+          className={cn(
+            GALLERY_ROW_H,
+            "w-[min(100%,478px)] max-w-[min(100vw-1.5rem,478px)] shrink-0",
+          )}
+          sizes="478px"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className={GALLERY_MOBILE_SCROLL}>
+      <div className={row}>
+        {n >= 1 ? <GalleryMosaicTile item={items[0]} className={GALLERY_STRIP_TILE} sizes="478px" /> : null}
+
+        {n >= 3 ? (
+          <div className={GALLERY_STACK_OUTER}>
+            <GalleryMosaicTile item={items[1]} className={GALLERY_STACK_HALF} sizes="552px" />
+            <GalleryMosaicTile item={items[2]} className={GALLERY_STACK_HALF} sizes="552px" />
+          </div>
+        ) : n === 2 ? (
+          <GalleryMosaicTile item={items[1]} className={GALLERY_STRIP_TILE} sizes="478px" />
+        ) : null}
+
+        {n >= 4 ? <GalleryMosaicTile item={items[3]} className={GALLERY_STRIP_TILE} sizes="478px" /> : null}
+
+        {n === 6 ? (
+          <div className={GALLERY_STACK_OUTER}>
+            <GalleryMosaicTile item={items[4]} className={GALLERY_STACK_HALF} sizes="552px" />
+            <GalleryMosaicTile item={items[5]} className={GALLERY_STACK_HALF} sizes="552px" />
+          </div>
+        ) : n === 5 ? (
+          <GalleryMosaicTile item={items[4]} className={GALLERY_STRIP_TILE} sizes="478px" />
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
 function ProjectDetailGallery({
   items,
   slug,
@@ -171,159 +276,20 @@ function ProjectDetailGallery({
   items: readonly GalleryImageItem[];
   slug: string;
 }) {
+  if (items.length === 0) return null;
+
   const mosaic = items.slice(0, 6);
   const rest = items.slice(6);
 
-  if (mosaic.length < 6) {
-    return (
-      <div className="w-full md:px-0">
-        <div
-          className={cn(
-            "no-scrollbar overflow-x-auto md:hidden",
-            "pl-3 pr-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
-            "sm:pl-4",
-          )}
-        >
-          <div className="flex h-[491px] lg:h-[491px] md:h-[850px] w-max items-center gap-[8px]">
-            {items[0] ? (
-              <GalleryMosaicTile item={items[0]} className="h-[491px] lg:h-[491px] md:h-[850px] w-[190px] md w-[190px]:md:w-[478px] shrink-0" sizes="478px" />
-            ) : null}
-
-            {items[1] || items[2] ? (
-              <div className="flex h-full w-[219px] lg:w-[552px] flex-col gap-2 lg:gap-[23px]">
-                {items[1] ? (
-                  <GalleryMosaicTile
-                    item={items[1]}
-                    className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0"
-                    sizes="552px"
-                  />
-                ) : null}
-                {items[2] ? (
-                  <GalleryMosaicTile
-                    item={items[2]}
-                    className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0"
-                    sizes="552px"
-                  />
-                ) : null}
-              </div>
-            ) : null}
-
-            {items[3] ? (
-              <GalleryMosaicTile item={items[3]} className="h-[491px] lg:h-[850px] w-[190px] lg:w-[478px] shrink-0" sizes="478px" />
-            ) : null}
-
-            {items[4] || items[5] ? (
-              <div className="flex h-full w-[219px] lg:w-[552px] flex-col gap-2 lg:gap-[23px]">
-                {items[4] ? (
-                  <GalleryMosaicTile
-                    item={items[4]}
-                    className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0"
-                    sizes="552px"
-                  />
-                ) : null}
-                {items[5] ? (
-                  <GalleryMosaicTile
-                    item={items[5]}
-                    className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0"
-                    sizes="552px"
-                  />
-                ) : null}
-              </div>
-            ) : null}
-          </div>
-        </div>
-        <div
-          className={cn(
-            "hidden w-full no-scrollbar overflow-x-auto md:block",
-            "h-[491px] lg:h-[850px] px-3 sm:px-4 md:px-0",
-          )}
-        >
-          <div className="flex h-full w-max items-center gap-[8px]">
-            {items[0] ? (
-              <GalleryMosaicTile item={items[0]} className="h-[491px] lg:h-[850px] w-[190px] lg:w-[478px] shrink-0" sizes="478px" />
-            ) : null}
-
-            {items[1] || items[2] ? (
-              <div className="flex h-full w-[219px] lg:w-[552px] flex-col gap-2 lg:gap-[23px]">
-                {items[1] ? (
-                  <GalleryMosaicTile
-                    item={items[1]}
-                    className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0"
-                    sizes="552px"
-                  />
-                ) : null}
-                {items[2] ? (
-                  <GalleryMosaicTile
-                    item={items[2]}
-                    className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0"
-                    sizes="552px"
-                  />
-                ) : null}
-              </div>
-            ) : null}
-
-            {items[3] ? (
-              <GalleryMosaicTile item={items[3]} className="h-[491px] lg:h-[850px] w-[190px] lg:w-[478px] shrink-0" sizes="478px" />
-            ) : null}
-
-            {items[4] || items[5] ? (
-              <div className="flex h-full w-[219px] lg:w-[552px] flex-col gap-2 lg:gap-[23px]">
-                {items[4] ? (
-                  <GalleryMosaicTile
-                    item={items[4]}
-                    className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0"
-                    sizes="552px"
-                  />
-                ) : null}
-                {items[5] ? (
-                  <GalleryMosaicTile
-                    item={items[5]}
-                    className="h-[241.5px] lg:h-[413px] w-[219px] lg:w-[552px] shrink-0"
-                    sizes="552px"
-                  />
-                ) : null}
-              </div>
-            ) : null}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  const [g0, g1, g2, g3, g4, g5] = mosaic;
-
   return (
     <div className="flex w-full flex-col gap-4">
-      <div
-        className={cn(
-          "hidden w-full gap-3 sm:gap-4 md:flex md:h-[491px] lg:h-[491px] lg:h-[850px]",
-          "px-3 sm:px-4 md:px-0",
-        )}
-      >
-        <GalleryMosaicTile item={g0} className="flex-1" sizes="24vw" />
-        <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-3 sm:gap-4">
-          <GalleryMosaicTile item={g1} className="min-h-0 min-w-0 w-full flex-1" sizes="24vw" />
-          <GalleryMosaicTile item={g2} className="min-h-0 min-w-0 w-full flex-1" sizes="24vw" />
-        </div>
-        <GalleryMosaicTile item={g3} className="flex-1" sizes="24vw" />
-        <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-3 sm:gap-4">
-          <GalleryMosaicTile item={g4} className="min-h-0 min-w-0 flex-1" sizes="24vw" />
-          <GalleryMosaicTile item={g5} className="min-h-0 min-w-0 flex-1" sizes="24vw" />
-        </div>
-      </div>
-
-      <GalleryMosaicMobileScroll g0={g0} g1={g1} g2={g2} g3={g3} g4={g4} g5={g5} />
+      <GalleryDesktopMosaic items={mosaic} />
+      <GalleryMobileMosaic items={mosaic} />
 
       {rest.length > 0 ? (
         <>
-          <div
-            className={cn(
-              "no-scrollbar overflow-x-auto md:hidden",
-              "pl-3 pr-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
-              "sm:pl-4",
-            )}
-          >
-            <div className="flex h-[491px] lg:h-[850px] w-max items-center gap-[8px]">
+          <div className={GALLERY_MOBILE_SCROLL}>
+            <div className={cn("flex w-max items-center gap-[8px]", GALLERY_ROW_H)}>
               {rest.map((item, i) => (
                 <div
                   key={`${slug}-gallery-extra-scroll-${i}`}
@@ -340,7 +306,12 @@ function ProjectDetailGallery({
               ))}
             </div>
           </div>
-          <div className="hidden gap-3 sm:gap-4 md:grid md:grid-cols-4 md:px-0">
+          <div
+            className={cn(
+              "hidden gap-3 sm:gap-4 md:grid md:px-0",
+              rest.length >= 4 ? "md:grid-cols-4" : "md:grid-cols-2 lg:grid-cols-3",
+            )}
+          >
             {rest.map((item, i) => (
               <div
                 key={`${slug}-gallery-extra-md-${i}`}
@@ -413,7 +384,7 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, ease: "easeOut" }}
             >
-              <div className="flex w-full flex-col gap-4 md:h-[269px] md:gap-2">
+              <div className="flex w-full flex-col gap-4 md:gap-2">
                 <div className="flex w-full flex-col items-center gap-2 md:items-start">
                   <span className="block w-full text-center text-[13px] font-normal uppercase leading-[1.26] tracking-[0.125em] text-primary md:text-left">
                     {projectsContent.detail.heroBadge}
@@ -422,12 +393,15 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
                     {project.title}
                   </h1>
                 </div>
-                <div className="relative w-full max-h-[144px] overflow-auto">
+                <div
+                  className={cn(
+                    "relative w-full min-h-0 max-w-[65ch] overflow-x-hidden break-words [overflow-wrap:anywhere]",
+                  )}
+                >
                   <ProjectDetailRichText
                     value={project.description}
-                    className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm md:leading-[1.65] lg:text-lg"
+                    className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black break-words [overflow-wrap:anywhere] md:text-left md:text-sm md:leading-[1.65] lg:text-lg"
                   />
-                
                 </div>
               </div>
             </motion.div>
@@ -481,7 +455,7 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
             <div className="grid grid-cols-1 gap-12 md:grid-cols-[minmax(0,280px)_1fr] md:gap-10 lg:gap-16 xl:grid-cols-[minmax(0,320px)_1fr]">
               <aside className="flex flex-col items-center gap-10 md:items-start">
                 <div className="flex w-full max-w-xl flex-col gap-3">
-                  <SectionKicker>What we did</SectionKicker>
+                  <SectionKicker>Development</SectionKicker>
                   <ul className="flex flex-row flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center text-sm font-light leading-[1.55] tracking-[-0.01em] text-black md:list-outside md:list-disc md:flex-col md:items-start md:justify-start md:gap-2 md:pl-5 md:text-left md:text-[15px]">
                     {project.whatWeDid.map((item) => (
                       <li key={item}>{item}</li>
@@ -489,7 +463,7 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
                   </ul>
                 </div>
                 <div className="flex w-full max-w-xl flex-col gap-3">
-                  <SectionKicker>Technologies</SectionKicker>
+                  <SectionKicker>Top features</SectionKicker>
                   <ul className="flex flex-row flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center text-sm font-light leading-[1.55] tracking-[-0.01em] text-black md:list-outside md:list-disc md:flex-col md:items-start md:justify-start md:gap-2 md:pl-5 md:text-left md:text-[15px]">
                     {project.technologies.map((item) => (
                       <li key={item}>{item}</li>
@@ -533,17 +507,19 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
         </section>
       </ScrollReveal>
 
-      <ScrollReveal>
-        <section className="w-full bg-white py-10 md:py-[88px]">
-          <div className="mx-auto mb-10 max-w-[1200px] px-8 md:mb-8 md:px-[120px]">
-            <h2 className="text-center font-(family-name:--font-nata-sans) text-[28px] font-semibold leading-[1.3] tracking-[-0.035em] text-black md:text-[36px] md:tracking-[-0.04em]">
-              Gallery
-            </h2>
-          </div>
+      {project.gallery.length > 0 ? (
+        <ScrollReveal>
+          <section className="w-full bg-white py-10 md:py-[88px]">
+            <div className="mx-auto mb-10 max-w-[1200px] px-8 md:mb-8 md:px-[120px]">
+              <h2 className="text-center font-(family-name:--font-nata-sans) text-[28px] font-semibold leading-[1.3] tracking-[-0.035em] text-black md:text-[36px] md:tracking-[-0.04em]">
+                Gallery
+              </h2>
+            </div>
 
-          <ProjectDetailGallery items={project.gallery} slug={project.slug} />
-        </section>
-      </ScrollReveal>
+            <ProjectDetailGallery items={project.gallery} slug={project.slug} />
+          </section>
+        </ScrollReveal>
+      ) : null}
 
       <ScrollReveal>
         <ContactSection
