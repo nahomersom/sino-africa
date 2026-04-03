@@ -56,10 +56,19 @@ function getBlogImage(blog: Blog): string {
 interface AllBlogsProps {
   showTitle?: boolean;
   excludeDocumentId?: string;
+  tags?: string[];
 }
 
-export function AllBlogs({ showTitle = true, excludeDocumentId }: AllBlogsProps) {
-  const { data, isLoading, isError, refetch } = useGetBlogsQuery();
+export function AllBlogs({ showTitle = true, excludeDocumentId, tags }: AllBlogsProps) {
+  const queryParams: Record<string, any> = {};
+  
+  if (tags && tags.length > 0) {
+    tags.forEach((tag, index) => {
+      queryParams[`filters[tags][name][$in][${index}]`] = tag;
+    });
+  }
+
+  const { data, isLoading, isError, refetch } = useGetBlogsQuery(queryParams);
   const allBlogs = data?.blogs ?? [];
   const blogs = excludeDocumentId ? allBlogs.filter((b) => b.documentId !== excludeDocumentId) : allBlogs;
 

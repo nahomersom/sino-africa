@@ -77,12 +77,16 @@ export function BlogDetailPage({ id }: BlogDetailPageProps) {
       </div>
 
       {/* Related Blogs Section */}
-      <div className="bg-white py-[100px] w-full border-t border-[#e7e9ed]">
+      <div className="bg-white py-[100px] w-full">
         <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 lg:px-0">
           <h2 className="text-[#161C2D] text-[24px] font-semibold mb-[48px] uppercase tracking-normal text-center md:text-center lg:text-left">
             Related Blogs
           </h2>
-          <AllBlogs showTitle={false} excludeDocumentId={blog.documentId} />
+          <AllBlogs 
+            showTitle={false} 
+            excludeDocumentId={blog.documentId} 
+            tags={blog.tags?.map((t) => t.name)} 
+          />
         </div>
       </div>
     </main>
