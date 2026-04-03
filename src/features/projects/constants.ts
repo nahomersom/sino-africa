@@ -1,3 +1,5 @@
+import type { RichTextBlock } from "@/src/store/strapiApi";
+
 export type ProjectFilterId = "all" | "act-it" | "sino-sec" | "mobilitex" | "pilot";
 
 export type ProjectFilterTab = {
@@ -13,18 +15,15 @@ export const projectFilterTabs: readonly ProjectFilterTab[] = [
   { id: "pilot", label: "Pilot Projects" },
 ] as const;
 
-/** Grid columns × rows (3×3) for Strapi pagination and static fallback. */
-export const PROJECTS_GRID_PAGE_SIZE = 9;
-
 export type ProjectCard = {
   id: string;
-  /** When set, card links here (CMS). Omitted for static grid demos. */
-  detailHref?: string;
-  /** Category tab id (slug from CMS or static filter id); omitted = "All" only. */
-  filter?: string;
+  /** Dynamic category id (API slug) used for filtering. */
+  filterId: string;
+  /** Dynamic category label shown in filter tabs. */
+  filterLabel: string;
   title: string;
   description: string;
-  /** CMS image URL, or empty when none. */
+  /** Replace with real imagery when available (Figma exports). */
   imageSrc: string;
   imageAlt: string;
 };
@@ -38,61 +37,67 @@ export const projectsContent = {
   grid: {
     heading: "Our Featured Projects",
     intro:
-      "Lorem ipsum dolor sit amet consectetur. Nunc euismod consectetur arcu nunc etiam lobortis montes enim. Ut risus neque lectus donec id pretium orci platea habitant.",
-    items: [
+    "Showcasing our most impactful and innovative projects.",
+      items: [
       {
         id: "act-it",
-        filter: "act-it",
+        filterId: "act-it",
+        filterLabel: "ACT IT",
         title: "Act IT enterprise rollout",
         description:
           "Unified tooling and workflows for distributed teams, with a focus on adoption and measurable operational gains.",
-        imageSrc: "",
-        imageAlt: "",
+        imageSrc: "/images/about/hero-photo-2.png",
+        imageAlt: "Act IT project preview",
       },
       {
         id: "sino-sec",
-        filter: "sino-sec",
+        filterId: "sino-sec",
+        filterLabel: "Sino Sec",
         title: "SINO Sec compliance program",
         description:
           "Hardening, monitoring, and policy alignment for organisations scaling across regulated environments.",
-        imageSrc: "",
-        imageAlt: "",
+        imageSrc: "/images/about/hero-photo-0.jpg",
+        imageAlt: "SINO Sec project preview",
       },
       {
         id: "mobilitex",
-        filter: "mobilitex",
+        filterId: "mobilitex",
+        filterLabel: "Mobilitex",
         title: "Mobilitex field operations",
         description:
           "Logistics and workforce mobility solutions improving turnaround times and visibility in the field.",
-        imageSrc: "",
-        imageAlt: "",
+        imageSrc: "/images/about/hero-photo-1.jpg",
+        imageAlt: "Mobilitex project preview",
       },
       {
         id: "pilot-connectivity",
-        filter: "pilot",
+        filterId: "pilot",
+        filterLabel: "Pilot Projects",
         title: "National connectivity backbone",
         description:
           "Planning and delivery support for resilient network capacity serving enterprise and public-sector use cases.",
-        imageSrc: "",
-        imageAlt: "",
+        imageSrc: "/images/about/hero-photo-2.png",
+        imageAlt: "Infrastructure project preview",
       },
       {
         id: "act-it-integration",
-        filter: "act-it",
+        filterId: "act-it",
+        filterLabel: "ACT IT",
         title: "Cross-border trade integration",
         description:
           "APIs and data exchange layers connecting partners, customs workflows, and core business systems.",
-        imageSrc: "",
-        imageAlt: "",
+        imageSrc: "/images/about/hero-photo-0.jpg",
+        imageAlt: "Integration project preview",
       },
       {
         id: "pilot-analytics",
-        filter: "pilot",
+        filterId: "pilot",
+        filterLabel: "Pilot Projects",
         title: "Operational analytics cockpit",
         description:
           "Dashboards and pipelines turning operational signals into decisions leadership can act on weekly.",
-        imageSrc: "",
-        imageAlt: "",
+        imageSrc: "/images/about/hero-photo-1.jpg",
+        imageAlt: "Analytics project preview",
       },
     ] satisfies ProjectCard[],
   },
@@ -121,7 +126,14 @@ export const projectsContent = {
       "Lorem ipsum dolor sit amet consectetur. Scelerisque mauris dui sit orci nam. Enim et nunc lacus purus adipiscing venenatis cras. Vel odio aliquet est integer molestie in feugiat consectetur pellentesque. Dolor consectetur nisl ut pellentesque sem orci mauris viverra in. Sollicitudin id ullamcorper enim purus eu massa erat nunc pellentesque.",
     heroTail:
       " We aligned stakeholders on scope, de-risked delivery milestones, and focused on adoption so outcomes stick after go-live.",
-    gallery: [] as const,
+    gallery: [
+      { src: "/images/about/hero-photo-0.jpg", alt: "Project environment" },
+      { src: "/images/about/hero-photo-1.jpg", alt: "Field perspective" },
+      { src: "/images/about/hero-photo-2.png", alt: "Program delivery" },
+      { src: "/images/hero-background.jpg", alt: "Regional landscape" },
+      { src: "/images/about/hero-photo-1.jpg", alt: "Operations overview" },
+      { src: "/images/about/hero-photo-0.jpg", alt: "Stakeholder alignment" },
+    ] as const,
   },
   contact: {
     heading: "Get In Touch with us",
@@ -132,7 +144,7 @@ export const projectsContent = {
 } as const;
 
 export type ProjectDetail = {
-  id: string;
+  slug: string;
   title: string;
   heroDescription: string;
   heroImageSrc: string;
@@ -140,9 +152,11 @@ export type ProjectDetail = {
   whatWeDid: readonly string[];
   technologies: readonly string[];
   client: string;
-  overview: string;
-  challenges: string;
-  results: string;
+  overview: string | RichTextBlock[];
+  solution: string | RichTextBlock[];
+  description: string | RichTextBlock[];
+  challenges: string | RichTextBlock[];
+  results: string | RichTextBlock[];
   gallery: readonly { src: string; alt: string }[];
 };
 
@@ -154,12 +168,14 @@ const projectDetailExtras: Partial<
     string,
     {
       heroDescription?: string;
+      descripition?: string | RichTextBlock[]
       whatWeDid?: readonly string[];
       technologies?: readonly string[];
       client?: string;
-      overview?: string;
-      challenges?: string;
-      results?: string;
+      overview?: string | RichTextBlock[];
+      solution?: string | RichTextBlock[];
+      challenges?: string | RichTextBlock[];
+      results?: string | RichTextBlock[];
       gallery?: readonly { src: string; alt: string }[];
     }
   >
@@ -172,7 +188,7 @@ export function getProjectDetail(slug: string): ProjectDetail | undefined {
   const extra = projectDetailExtras[slug] ?? {};
 
   return {
-    id: slug,
+    slug,
     title: card.title,
     heroDescription:
       extra.heroDescription ?? `${card.description}${d.heroTail}`,
@@ -182,9 +198,11 @@ export function getProjectDetail(slug: string): ProjectDetail | undefined {
     technologies: extra.technologies ?? d.sharedTechnologies,
     client: extra.client ?? d.sharedClient,
     overview: extra.overview ?? d.sharedOverview,
+    solution: extra.solution ?? d.sharedOverview,
     challenges: extra.challenges ?? d.sharedChallenges,
     results: extra.results ?? d.sharedResults,
-    gallery: extra.gallery ?? [],
+    gallery: extra.gallery ?? d.gallery,
+    description: extra.descripition ?? card.description,
   };
 }
 

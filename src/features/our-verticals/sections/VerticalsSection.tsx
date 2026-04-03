@@ -88,7 +88,7 @@ export function VerticalsSection() {
         </div>
       </div>
 
-      <div className="relative z-[2] mx-auto flex w-full max-w-[1728px] flex-col items-center gap-[45px] px-6 pb-[88px] pt-24 lg:px-[237px] lg:pt-[152px]">
+      <div className="relative z-[2] mx-auto flex w-full max-w-[1252px] flex-col items-center gap-[45px] px-8 pb-[88px] pt-24 lg:px-4 lg:pt-[152px]">
         <div className="flex w-full max-w-[700px] flex-col items-center gap-4 text-center">
           <h2
             className="w-full max-w-[560px] text-[36px] font-normal text-text-100"
@@ -104,7 +104,7 @@ export function VerticalsSection() {
           </p>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[1254px]">
+        <div className="relative mx-auto w-full">
           <div className="grid w-full grid-cols-1 gap-2 md:grid-cols-3 md:auto-rows-[1fr] lg:auto-rows-[552px] lg:grid-cols-3">
             {showSkeleton
               ? [0, 1, 2].map((i) => <VerticalCardSkeleton key={i} />)
@@ -166,7 +166,7 @@ export function VerticalsSection() {
                           )}
                           {description ? (
                             <p
-                              className="text-base font-light leading-[1.5em] text-white"
+                              className="max-h-[96px] overflow-hidden text-base font-light leading-[1.5em] text-white line-clamp-4"
                               style={{ letterSpacing: "-0.012500000186264515em" }}
                             >
                               {description}

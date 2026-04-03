@@ -11,11 +11,16 @@ export function ContactPage() {
         <ContactInfoSection items={contactContent.info} />
       </ScrollReveal>
       <ScrollReveal>
-        <div
-          className="relative lg:[background-image:url('/images/sino-symbol-tile.svg')] lg:[background-repeat:repeat] lg:[background-size:28px]"
-        >
-          <div className="pointer-events-none absolute inset-0 hidden bg-white/85 lg:block" />
-          <div className="relative z-10">
+        <div className="relative w-full overflow-hidden">
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.04]"
+            style={{
+              backgroundImage: "url('/images/sino-symbol-tile.svg')",
+              backgroundSize: "28px",
+              backgroundRepeat: "repeat",
+            }}
+          />
+          <div className="relative z-[1]">
             <ContactFormMapSection />
           </div>
         </div>

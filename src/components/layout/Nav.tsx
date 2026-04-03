@@ -17,16 +17,34 @@ type NavItem = {
   children?: readonly NavSubLink[];
 };
 
+/** Submenu order: Act IT → Sino Tec → Mobilitex (slug may be `sino-sec` or `sino-tec` from CMS). */
+const VERTICAL_NAV_SLUG_ORDER: Readonly<Record<string, number>> = {
+  "act-it": 0,
+  "sino-sec": 1,
+  "sino-tec": 1,
+  mobilitex: 2,
+};
+
+function sortVerticalNavLinks(links: readonly NavSubLink[]): NavSubLink[] {
+  return [...links].sort((a, b) => {
+    const slugA = a.href.replace(/^\/our-verticals\//, "");
+    const slugB = b.href.replace(/^\/our-verticals\//, "");
+    const ia = VERTICAL_NAV_SLUG_ORDER[slugA] ?? 100;
+    const ib = VERTICAL_NAV_SLUG_ORDER[slugB] ?? 100;
+    return ia - ib || slugA.localeCompare(slugB);
+  });
+}
+
 const verticalSubLinks: readonly NavSubLink[] = [
   { label: "Act IT", href: "/our-verticals/act-it" },
-  { label: "SINO Sec", href: "/our-verticals/sino-sec" },
+  { label: "Sino Tec", href: "/our-verticals/sino-sec" },
   { label: "Mobilitex", href: "/our-verticals/mobilitex" },
 ];
 
 const navItems: readonly NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About us", href: "/about" },
-  { label: "Our Verticals", href: "/#platforms", children: verticalSubLinks },
+  { label: "Our Verticals", href: "/our-verticals", children: verticalSubLinks },
   { label: "Projects", href: "/projects" },
   { label: "Technology and Infrastructure", href: "/technology" },
   { label: "Blogs", href: "/blogs" },
@@ -111,14 +129,16 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
 
   const dynamicVerticalSubLinks: readonly NavSubLink[] =
     verticals.length > 0
-      ? verticals
-        .map((v) => {
-          const title = (v.title ?? v.name ?? v.slug ?? "").toString().trim();
-          const slug = (v.slug ?? "").toString().trim();
-          if (!title || !slug) return null;
-          return { label: title, href: `/our-verticals/${slug}` };
-        })
-        .filter((x): x is NavSubLink => Boolean(x))
+      ? sortVerticalNavLinks(
+        verticals
+          .map((v) => {
+            const title = (v.title ?? v.name ?? v.slug ?? "").toString().trim();
+            const slug = (v.slug ?? "").toString().trim();
+            if (!title || !slug) return null;
+            return { label: title, href: `/our-verticals/${slug}` };
+          })
+          .filter((x): x is NavSubLink => Boolean(x)),
+      )
       : verticalSubLinks;
 
   useEffect(() => {
@@ -205,20 +225,18 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
               if (children?.length) {
                 return (
                   <div key={item.label} className="group relative">
-                    <button
-                      type="button"
+                    <Link
+                      href={item.href}
                       className={cn(
                         "flex items-center gap-1 px-2 py-3 text-sm transition-colors cursor-pointer",
                         isActive
                           ? "font-medium text-primary"
                           : "font-normal text-text-100",
                       )}
-                      aria-expanded="false"
                       aria-haspopup="menu"
                     >
                       {item.label}
-
-                    </button>
+                    </Link>
                     <div
                       role="menu"
                       aria-label={`${item.label} submenu`}
@@ -318,9 +336,13 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
                       key={item.label}
                       className="flex w-full max-w-full flex-col items-stretch gap-2 px-2 py-3"
                     >
-                      <span className="w-full text-left text-sm font-normal leading-[1.5] text-text-100">
+                      <Link
+                        href={item.href}
+                        onClick={() => setMenuOpen(false)}
+                        className="w-full text-left text-sm font-normal leading-[1.5] text-text-100"
+                      >
                         {item.label}
-                      </span>
+                      </Link>
                       {/* Figma 6:2281 Backdrop — art panel hidden on mobile/md; lg+ uses desktop submenu */}
                       <div className="flex w-full max-w-full flex-col items-stretch rounded-[24px]">
                         <div className="flex min-h-0 min-w-0 w-full flex-col gap-1 py-2">

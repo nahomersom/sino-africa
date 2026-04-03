@@ -1,8 +1,8 @@
 "use client";
 
-import { type FormEvent, useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties, type FormEvent } from "react";
 import { Button } from "@/src/components/ui/app-button";
-import { ContactSectionSideBackgrounds } from "@/src/components/ui/contact-section-side-bg";
+import { cn } from "@/src/lib/utils";
 import { ContactBadgeIcon } from "@/src/components/icons/ContactBadgeIcon";
 import { useCreateContactSubmissionMutation } from "@/src/store/strapiApi";
 
@@ -10,7 +10,6 @@ type ContactSectionProps = {
   heading: string;
   description: string;
   buttonLabel: string;
-  variant?: "home" | "inner-page";
   /** Defaults to "First Name" (home). Use "Full Name" on inner pages when matching design. */
   namePlaceholder?: string;
   /** Optional theme override for heading + primary button. */
@@ -31,7 +30,6 @@ export function ContactSection({
   heading,
   description,
   buttonLabel,
-  variant = "home",
   namePlaceholder = "First Name",
   accentColor,
 }: ContactSectionProps) {
@@ -130,6 +128,11 @@ export function ContactSection({
     <section
       id="contact"
       className="relative flex w-full flex-col items-center gap-[49px] overflow-hidden bg-white px-8 py-10 md:px-20 md:py-[100px] lg:px-[240px] lg:py-[100px]"
+      style={
+        {
+          "--contact-cta": accentColor ?? "var(--primary)",
+        } as CSSProperties
+      }
     >
       {showSuccessToast ? (
         <div className="fixed right-4 top-4 z-50 rounded-2xl border border-primary/20 bg-white p-4 shadow-[0_20px_40px_rgba(22,28,45,0.14)]">
@@ -162,18 +165,16 @@ export function ContactSection({
         </div>
       ) : null}
 
-      {variant === "home" && (
+    
         <>
-          <div className="pointer-events-none absolute right-[-532px] top-[2px] size-[847px] rounded-full bg-primary/20 blur-[252px] hidden lg:block" />
-          <div className="pointer-events-none absolute -left-[532px] top-[70px] size-[847px] rounded-full bg-primary/20 blur-[252px] hidden lg:block" />
+          <div className="pointer-events-none absolute right-[-532px] top-[2px] size-[847px] rounded-full bg-primary/30 blur-[252px] hidden lg:block" />
+          <div className="pointer-events-none absolute -left-[532px] top-[70px] size-[847px] rounded-full bg-primary/30 blur-[252px] hidden lg:block" />
         </>
-      )}
 
-      {variant === "inner-page" && <ContactSectionSideBackgrounds />}
 
       <ContactBadgeIcon
         size={78}
-        backgroundColor={accentColor}
+        backgroundColor="var(--contact-cta)"
         className="relative z-10"
       />
 
@@ -295,9 +296,11 @@ export function ContactSection({
         <Button
           type="submit"
           variant="primary"
-          className="w-[142px] min-h-[56px] lg:min-h-[69px]"
+          className={cn(
+            "w-[142px] min-h-[56px] lg:min-h-[69px]",
+            "!bg-[var(--contact-cta)] hover:opacity-90",
+          )}
           disabled={isLoading}
-          style={accentColor ? { backgroundColor: accentColor } : undefined}
         >
           {isLoading ? "Sending..." : buttonLabel}
         </Button>

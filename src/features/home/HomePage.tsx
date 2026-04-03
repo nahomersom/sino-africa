@@ -35,6 +35,8 @@ export function HomePage() {
     }),
   );
 
+  const fallbackVerticalSlugs = ["act-it", "sino-sec", "mobilitex"] as const;
+
   const verticalItems =
     verticals.length > 0
       ? verticals.map((item) => ({
@@ -45,15 +47,19 @@ export function HomePage() {
             item.summary ??
             item.description ??
             "",
+          slug: (item.slug ?? "").toString().trim() || undefined,
+          logoSrc: getStrapiMediaUrl(item.logo?.url) || undefined,
           gradient:
             item.gradient?.accentColor && item.gradient?.baseColor
               ? `linear-gradient(180deg, ${item.gradient.accentColor} 1%, ${item.gradient.baseColor} 100%)`
               : undefined,
         }))
-      : homeContent.verticals.items.map((item) => ({
+      : homeContent.verticals.items.map((item, i) => ({
           title: item.name,
           description: homeContent.verticals.description,
           subtitle: item.subtitle,
+          slug: fallbackVerticalSlugs[i],
+          logoSrc: undefined,
           gradient: undefined,
         }));
 
@@ -62,8 +68,7 @@ export function HomePage() {
     homeContent.verticals.description;
 
   const partnerLogos: readonly PartnerLogo[] =
-    partners.length > 0
-      ? partners
+ partners
           .map((partner, index) => {
             const src = getStrapiMediaUrl(partner.logo?.url);
             if (!src) return null;
@@ -77,7 +82,7 @@ export function HomePage() {
             };
           })
           .filter((logo): logo is PartnerLogo => logo !== null)
-      : defaultPartnerLogos;
+      ;
 
   return (
     <div className="flex w-full flex-1 flex-col">
