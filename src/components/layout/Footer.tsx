@@ -73,8 +73,7 @@ export function Footer() {
             priority
           />
           <p className="text-base leading-6 text-white/65">
-            Sino Africa delivers technology-driven solutions across industries,
-            connecting innovation, infrastructure, and impact throughout Africa.
+          A Bridge Between Markets, Technology, and Institutional Infrastructure, Building scalable infrastructure systems across Africa through partnerships, technology, and institutional capital.
           </p>
           <div className="flex items-center gap-6">
             <Link href="#" aria-label="Twitter" className="text-[#7D818D] hover:text-primary">
