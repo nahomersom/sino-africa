@@ -7,7 +7,7 @@ import { getStrapiApiBaseUrl, getStrapiMediaUrl } from "@/src/lib/strapiBase";
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
   try {
-    const res = await fetch(`${getStrapiApiBaseUrl()}/blogs/${id}?populate=*`, { next: { revalidate: 60 } });
+    const res = await fetch(`${getStrapiApiBaseUrl()}/blogs/${id}?populate=*`, { next: { revalidate: 0 } });
     if (!res.ok) throw new Error("Failed to fetch blog");
     
     const json = await res.json();
