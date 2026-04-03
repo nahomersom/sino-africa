@@ -112,13 +112,13 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
   const dynamicVerticalSubLinks: readonly NavSubLink[] =
     verticals.length > 0
       ? verticals
-          .map((v) => {
-            const title = (v.title ?? v.name ?? v.slug ?? "").toString().trim();
-            const slug = (v.slug ?? "").toString().trim();
-            if (!title || !slug) return null;
-            return { label: title, href: `/our-verticals/${slug}` };
-          })
-          .filter((x): x is NavSubLink => Boolean(x))
+        .map((v) => {
+          const title = (v.title ?? v.name ?? v.slug ?? "").toString().trim();
+          const slug = (v.slug ?? "").toString().trim();
+          if (!title || !slug) return null;
+          return { label: title, href: `/our-verticals/${slug}` };
+        })
+        .filter((x): x is NavSubLink => Boolean(x))
       : verticalSubLinks;
 
   useEffect(() => {

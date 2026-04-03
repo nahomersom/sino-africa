@@ -67,12 +67,12 @@ export function BlogDetailPage({ id }: BlogDetailPageProps) {
 
       {/* Main Content Area */}
       <div className="w-full bg-white">
-        <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 lg:px-0 py-[80px] flex flex-col items-center md:gap-[43px] lg:flex-row lg:justify-between lg:gap-[60px] lg:items-start">
+        <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 lg:px-0 py-[80px] flex flex-col items-center md:gap-[43px] lg:flex-row lg:justify-between lg:gap-[24px] lg:items-start">
           {/* Article Content */}
           <BlogContent description={blog.description} publishedDate={blog.publishedDate} />
 
           {/* Sidebar */}
-          <SharingSidebar />
+          <SharingSidebar title={blog.title} />
         </div>
       </div>
 
