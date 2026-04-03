@@ -61,7 +61,7 @@ export type Blog = {
   title: string;
   slug: string;
   summary: string;
-  description: RichTextBlock[];
+  description: string | RichTextBlock[];
   cover_img: StrapiMedia | null;
   gallery: StrapiMedia[];
   isFeatured: boolean;

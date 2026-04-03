@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useGetBlogsQuery, Blog, getStrapiMediaUrl } from "@/src/store/strapiApi";
+import { blogDescriptionPlainText } from "@/src/features/blogs/blogDescriptionPlainText";
 import { ErrorState } from "@/src/components/ui/ErrorState";
 
 interface AllBlogCardProps {
@@ -40,10 +41,7 @@ const AllBlogCard = ({ slug, title, description, image }: AllBlogCardProps) => {
 };
 
 function getDescriptionText(blog: Blog): string {
-  if (!blog.description || !Array.isArray(blog.description) || blog.description.length === 0) return "";
-  return blog.description
-    .flatMap((block) => (block.children || []).map((child: any) => child.text || ""))
-    .join(" ");
+  return blogDescriptionPlainText(blog.description);
 }
 
 function getBlogImage(blog: Blog): string {

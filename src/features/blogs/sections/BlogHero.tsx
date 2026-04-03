@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useGetBlogsQuery, Blog, getStrapiMediaUrl } from "@/src/store/strapiApi";
+import { blogDescriptionPlainText } from "@/src/features/blogs/blogDescriptionPlainText";
 import { ErrorState } from "@/src/components/ui/ErrorState";
 
 interface BlogCardProps {
@@ -76,10 +77,7 @@ function formatDate(dateStr: string): string {
 }
 
 function getDescriptionText(blog: Blog): string {
-  if (!blog.description || blog.description.length === 0) return "";
-  return blog.description
-    .flatMap((block) => (block.children || []).map((child: any) => child.text || ""))
-    .join(" ");
+  return blogDescriptionPlainText(blog.description);
 }
 
 function getBlogImage(blog: Blog): string {
