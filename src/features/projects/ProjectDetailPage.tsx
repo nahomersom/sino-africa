@@ -1,7 +1,6 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { BlocksRenderer, type BlocksContent } from "@strapi/blocks-react-renderer";
 import { ScrollReveal } from "@/src/components/ui/scroll-reveal";
 import { ContactSection } from "@/src/features/home/sections/ContactSection";
 import Image from "next/image";
@@ -10,6 +9,7 @@ import { motion } from "framer-motion";
 import { projectsContent } from "./constants";
 import type { ProjectDetail } from "./constants";
 import { cn } from "@/src/lib/utils";
+import { StrapiBlocksRichText } from "@/src/lib/strapiBlocksRichText";
 
 type ProjectDetailPageProps = {
   project: ProjectDetail;
@@ -17,83 +17,6 @@ type ProjectDetailPageProps = {
 
 const PROJECT_DETAIL_TOP_VECTOR_IMAGE = "/images/projects/top-vector.png";
 const PROJECT_DETAIL_DOTS_IMAGE = "/images/projects/project-detail-dots.png";
-
-function markdownToSafeHtml(input: string): string {
-  const escaped = input
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-
-  return escaped
-    .replace(/\*\*__(.+?)__\*\*/g, "<strong><em>$1</em></strong>")
-    .replace(/__\*\*(.+?)\*\*__/g, "<strong><em>$1</em></strong>")
-    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-    .replace(/__(.+?)__/g, "<em>$1</em>")
-    .replace(/\*(.+?)\*/g, "<em>$1</em>")
-    .replace(/_(.+?)_/g, "<em>$1</em>")
-    .replace(/\r?\n/g, "<br />");
-}
-
-function ProjectDetailRichText({
-  value,
-  className,
-  hideListMarkers = false,
-}: {
-  value: ProjectDetail["overview"];
-  className: string;
-  hideListMarkers?: boolean;
-}) {
-  if (typeof value === "string") {
-    return (
-      <p
-        className={className}
-        dangerouslySetInnerHTML={{ __html: markdownToSafeHtml(value) }}
-      />
-    );
-  }
-
-  return (
-    <div className={className}>
-      <BlocksRenderer
-        content={value as BlocksContent}
-        blocks={{
-          paragraph: ({ children }) => <p className="mb-3 last:mb-0">{children}</p>,
-          heading: ({ children, level }) => {
-            if (level === 1) return <h3 className="mb-3 text-xl font-semibold">{children}</h3>;
-            if (level === 2) return <h4 className="mb-3 text-lg font-semibold">{children}</h4>;
-            if (level === 3) return <h5 className="mb-2 text-base font-semibold">{children}</h5>;
-            return <h6 className="mb-2 text-base font-semibold">{children}</h6>;
-          },
-          list: ({ children, format }) =>
-            format === "ordered" ? (
-              <ol
-                className={cn(
-                  "mb-3 space-y-1 last:mb-0",
-                  hideListMarkers ? "list-none ml-0 pl-0" : "ml-5 list-decimal",
-                )}
-              >
-                {children}
-              </ol>
-            ) : (
-              <ul
-                className={cn(
-                  "mb-3 space-y-1 last:mb-0",
-                  hideListMarkers ? "list-none ml-0 pl-0" : "ml-5 list-disc",
-                )}
-              >
-                {children}
-              </ul>
-            ),
-          quote: ({ children }) => (
-            <blockquote className="mb-3 border-l-2 border-black/20 pl-3 italic last:mb-0">
-              {children}
-            </blockquote>
-          ),
-        }}
-      />
-    </div>
-  );
-}
 
 function BackToProjectsLink({ className }: { className?: string }) {
   return (
@@ -435,7 +358,7 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
                     "relative w-full min-h-0 max-w-[65ch] overflow-x-hidden break-words [overflow-wrap:anywhere]",
                   )}
                 >
-                  <ProjectDetailRichText
+                  <StrapiBlocksRichText
                     value={project.description}
                     className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black break-words [overflow-wrap:anywhere] md:text-left md:text-sm md:leading-[1.65] lg:text-lg"
                   />
@@ -519,7 +442,7 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
              
                 <article className="flex w-full max-w-3xl flex-col gap-3">
                   <SectionKicker>Challenges</SectionKicker>
-                  <ProjectDetailRichText
+                  <StrapiBlocksRichText
                     value={project.challenges}
                     className="font-(family-name:--font-nata-sans) text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm lg:text-lg"
                     hideListMarkers
@@ -527,7 +450,7 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
                 </article>
                 <article className="flex w-full max-w-3xl flex-col gap-3">
                   <SectionKicker>Results</SectionKicker>
-                  <ProjectDetailRichText
+                  <StrapiBlocksRichText
                     value={project.results}
                     className="font-(family-name:--font-nata-sans) text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm lg:text-lg"
                     hideListMarkers
@@ -535,7 +458,7 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
                 </article>
                 <article className="flex w-full max-w-3xl flex-col gap-3">
                   <SectionKicker>Solutions</SectionKicker>
-                  <ProjectDetailRichText
+                  <StrapiBlocksRichText
                     value={project.solution}
                     className="font-(family-name:--font-nata-sans) text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm lg:text-lg"
                     hideListMarkers
