@@ -10,10 +10,10 @@ interface BlogContentProps {
 export function BlogContent({ description, publishedDate }: BlogContentProps) {
   const formattedDate = publishedDate
     ? new Date(publishedDate).toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "long",
-        year: "numeric",
-      })
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    })
     : null;
 
   const renderRichText = (nodes: RichTextNode[]): React.ReactNode => {
@@ -51,9 +51,9 @@ export function BlogContent({ description, publishedDate }: BlogContentProps) {
           const Tag = `h${level}` as any;
           const headingClass =
             level === 1 ? "text-[#161C2D] text-[36px] font-bold mt-10 mb-6 leading-tight" :
-            level === 2 ? "text-[#161C2D] text-[28px] font-semibold mt-10 mb-6 leading-tight" :
-            level === 3 ? "text-[#161C2D] text-[22px] font-semibold mt-8 mb-4 leading-tight" :
-            "text-[#161C2D] text-[18px] font-medium mt-8 mb-4 leading-normal";
+              level === 2 ? "text-[#161C2D] text-[28px] font-semibold mt-10 mb-6 leading-tight" :
+                level === 3 ? "text-[#161C2D] text-[22px] font-semibold mt-8 mb-4 leading-tight" :
+                  "text-[#161C2D] text-[18px] font-medium mt-8 mb-4 leading-normal";
           return (
             <Tag key={index} className={headingClass}>
               {children}
@@ -110,7 +110,7 @@ export function BlogContent({ description, publishedDate }: BlogContentProps) {
   };
 
   return (
-    <div className="flex flex-col gap-[24px] text-[#161C2D]/80 text-[14px] md:text-[16px] leading-[1.8] font-normal w-full md:max-w-[677px] lg:max-w-[700px]">
+    <div className="flex flex-col gap-[24px] lg:gap-[43px] text-[#161C2D]/80 text-[14px] md:text-[16px] leading-[1.8] font-normal w-full lg:w-[887px]">
       {formattedDate && (
         <p className="text-[#5C606C] text-[14px] font-medium mb-[16px]">
           Published on {formattedDate}
