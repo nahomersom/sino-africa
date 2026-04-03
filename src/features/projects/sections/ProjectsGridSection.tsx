@@ -11,10 +11,14 @@ import Link from "next/link";
 import { LayoutGrid } from "lucide-react";
 import { useMemo, useState } from "react";
 
+type FilterTab = { id: string; label: string };
+
 type ProjectsGridSectionProps = {
   heading: string;
   intro: string;
   items: readonly ProjectCard[];
+  /** Full set of categories (e.g. from Strapi). Tabs also include any `filterId` on items not listed here. */
+  categoryTabs?: readonly FilterTab[];
 };
 
 function ProjectsGridEmptyState({
@@ -65,18 +69,25 @@ function ProjectsGridEmptyState({
   );
 }
 
-export function ProjectsGridSection({ heading, intro, items }: ProjectsGridSectionProps) {
+export function ProjectsGridSection({ heading, intro, items, categoryTabs }: ProjectsGridSectionProps) {
   const tabs = useMemo(() => {
     const seen = new Set<string>();
-    const dynamic = items
-      .map((item) => ({ id: item.filterId, label: item.filterLabel }))
-      .filter((tab) => {
-        if (!tab.id || seen.has(tab.id)) return false;
-        seen.add(tab.id);
-        return true;
-      });
-    return [{ id: "all", label: "All" }, ...dynamic];
-  }, [items]);
+    const ordered: FilterTab[] = [];
+    const push = (tab: FilterTab) => {
+      if (!tab.id || seen.has(tab.id)) return;
+      seen.add(tab.id);
+      ordered.push(tab);
+    };
+
+    push({ id: "all", label: "All" });
+    if (categoryTabs?.length) {
+      for (const t of categoryTabs) push(t);
+    }
+    for (const item of items) {
+      push({ id: item.filterId, label: item.filterLabel });
+    }
+    return ordered;
+  }, [items, categoryTabs]);
 
   const [activeFilter, setActiveFilter] = useState<string>("all");
 
@@ -93,7 +104,7 @@ export function ProjectsGridSection({ heading, intro, items }: ProjectsGridSecti
   const showEmpty = filteredItems.length === 0;
 
   return (
-    <section className="relative mt-8 w-full overflow-hidden px-8 pb-14 pt-8 md:mt-10 md:px-20 md:pb-[100px] md:pt-10 lg:mt-12 lg:px-[120px] lg:pb-[100px] lg:pt-12">
+    <section className="relative mt-8 w-full overflow-x-hidden px-8 pb-14 pt-8 md:mt-10 md:px-20 md:pb-[100px] md:pt-10 lg:mt-12 lg:px-[120px] lg:pb-[100px] lg:pt-12">
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.04]"
         style={{ backgroundImage: "url('/images/sino-symbol-tile.svg')", backgroundSize: "28px", backgroundRepeat: "repeat" }}
@@ -111,7 +122,7 @@ export function ProjectsGridSection({ heading, intro, items }: ProjectsGridSecti
         </div>
 
           <div
-            className="box-border mx-auto inline-grid max-w-full [grid-template-columns:repeat(4,max-content)] gap-2 rounded-[24px] bg-[#F6F7FB] p-4"
+            className="box-border mx-auto flex w-full max-w-[720px] flex-wrap justify-center gap-2 rounded-[24px] bg-[#F6F7FB] p-4"
             role="group"
             aria-label="Filter projects by category"
           >
@@ -124,7 +135,7 @@ export function ProjectsGridSection({ heading, intro, items }: ProjectsGridSecti
                   aria-pressed={isActive}
                   onClick={() => setActiveFilter(tab.id)}
                   className={cn(
-                    "box-border flex h-[53px] cursor-pointer items-center justify-center whitespace-nowrap rounded-[16px] px-4 py-4 text-center text-sm font-normal leading-[1.5] transition-colors md:px-8",
+                    "box-border flex h-[53px] w-[calc((100%-0.5rem)/2)] shrink-0 cursor-pointer items-center justify-center whitespace-nowrap rounded-[16px] px-4 py-4 text-center text-sm font-normal leading-[1.5] transition-colors sm:w-[calc((100%-1rem)/3)] md:w-[calc((100%-1.5rem)/4)] md:px-8",
                     isActive
                       ? "bg-primary text-white shadow-sm"
                       : "bg-white text-text-100 hover:bg-white/90",
@@ -151,12 +162,12 @@ export function ProjectsGridSection({ heading, intro, items }: ProjectsGridSecti
             amount={0.12}
           >
             {filteredItems.map((project) => (
-              <StaggerItem key={project.id}>
+              <StaggerItem key={project.id} className="min-w-0">
                 <Link
                   href={`/projects/${project.id}`}
-                  className="flex h-full flex-col rounded-[24px] border border-[#E7E9ED] border-[2px] bg-transparent p-3 transition-colors hover:border-primary/40 hover:bg-white/60 md:gap-5 md:p-4"
+                  className="flex h-full min-w-0 flex-col rounded-[24px] border border-[#E7E9ED] border-[2px] bg-transparent p-3 transition-colors hover:border-primary/40 hover:bg-white/60 md:gap-5 md:p-4"
                 >
-                  <article className="flex h-full flex-col gap-4 md:gap-5">
+                  <article className="flex h-full min-w-0 flex-col gap-4 md:gap-5">
                     <div className="relative aspect-[319.33331298828125/313] w-full shrink-0 overflow-hidden rounded-[10px] bg-transparent">
                       <Image
                         src={project.imageSrc}
@@ -167,11 +178,11 @@ export function ProjectsGridSection({ heading, intro, items }: ProjectsGridSecti
                       />
                     </div>
 
-                    <div className="flex min-h-0 flex-1 flex-col gap-2">
-                      <h3 className="font-(family-name:--font-nata-sans) text-xl font-semibold leading-snug tracking-[-0.03em] text-text-100 md:text-[22px]">
+                    <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-2">
+                      <h3 className="font-(family-name:--font-nata-sans) break-words text-xl font-semibold leading-snug tracking-[-0.03em] text-text-100 md:text-[22px]">
                         {project.title}
                       </h3>
-                      <p className="text-sm font-light leading-[1.55] tracking-[-0.01em] text-muted md:text-[15px]">
+                      <p className="break-words text-sm font-light leading-[1.55] tracking-[-0.01em] text-muted md:text-[15px]">
                         {project.description}
                       </p>
                     </div>
