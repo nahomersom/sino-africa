@@ -19,6 +19,8 @@ type ProjectsGridSectionProps = {
   items: readonly ProjectCard[];
   /** Full set of categories (e.g. from Strapi). Tabs also include any `filterId` on items not listed here. */
   categoryTabs?: readonly FilterTab[];
+  /** When true, shows placeholder tiles while Strapi data loads. */
+  loading?: boolean;
 };
 
 function ProjectsGridEmptyState({
@@ -69,7 +71,34 @@ function ProjectsGridEmptyState({
   );
 }
 
-export function ProjectsGridSection({ heading, intro, items, categoryTabs }: ProjectsGridSectionProps) {
+function ProjectsGridLoadingPlaceholder() {
+  return (
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+      {[0, 1, 2, 3, 4, 5].map((i) => (
+        <div
+          key={i}
+          className="flex min-w-0 flex-col rounded-[24px] border border-[#E7E9ED] border-[2px] p-3 md:gap-5 md:p-4"
+          aria-hidden
+        >
+          <div className="relative aspect-[319.33331298828125/313] w-full animate-pulse rounded-[10px] bg-border-light/60" />
+          <div className="mt-4 flex flex-col gap-2 md:mt-0">
+            <div className="h-7 w-4/5 animate-pulse rounded-md bg-border-light/70" />
+            <div className="h-4 w-full animate-pulse rounded-md bg-border-light/50" />
+            <div className="h-4 w-11/12 animate-pulse rounded-md bg-border-light/45" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function ProjectsGridSection({
+  heading,
+  intro,
+  items,
+  categoryTabs,
+  loading = false,
+}: ProjectsGridSectionProps) {
   const tabs = useMemo(() => {
     const seen = new Set<string>();
     const ordered: FilterTab[] = [];
@@ -101,7 +130,7 @@ export function ProjectsGridSection({ heading, intro, items, categoryTabs }: Pro
     [activeFilter, tabs],
   );
 
-  const showEmpty = filteredItems.length === 0;
+  const showEmpty = !loading && filteredItems.length === 0;
 
   return (
     <section className="relative mt-8 w-full overflow-x-hidden px-8 pb-14 pt-8 md:mt-10 md:px-20 md:pb-[100px] md:pt-10 lg:mt-12 lg:px-[120px] lg:pb-[100px] lg:pt-12">
@@ -148,7 +177,9 @@ export function ProjectsGridSection({ heading, intro, items, categoryTabs }: Pro
           </div>
         </div>
 
-        {showEmpty ? (
+        {loading ? (
+          <ProjectsGridLoadingPlaceholder />
+        ) : showEmpty ? (
           <ProjectsGridEmptyState
             activeFilter={activeFilter}
             filterLabel={activeTabLabel}
