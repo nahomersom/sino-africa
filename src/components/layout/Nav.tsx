@@ -9,7 +9,7 @@ import { cn } from "@/src/lib/utils";
 import { getStrapiMediaUrl, useGetVerticalsQuery } from "@/src/store/strapiApi";
 import { Button } from "../ui/app-button";
 
-type NavSubLink = { label: string; href: string; iconSrc?: string };
+type NavSubLink = { label: string; href: string; iconSrc?: string; bgColor?: string };
 
 type NavItem = {
   label: string;
@@ -64,7 +64,7 @@ function VerticalsSubmenuArtPanel({ className }: { className?: string }) {
       )}
       aria-hidden
     >
-      <Image src="/icons/verticalDropdownIcon.svg" alt="Vertical dropdown icon" width={120} height={120} />
+      <Image src="/brand/logo.svg" alt="Vertical dropdown icon" width={142.5} height={53.8} />
     </div>
   );
 }
@@ -76,19 +76,26 @@ function NavSubLinkRow({
   href,
   label,
   iconSrc,
+  bgColor,
   onClick,
 }: {
   href: string;
   label: string;
   iconSrc?: string;
+  bgColor?: string;
   onClick?: () => void;
 }) {
   const src = iconSrc || VERTICAL_SUBLINK_ICON_FALLBACK;
+  const useWhiteForeground = Boolean(bgColor);
   return (
     <Link
       href={href}
       onClick={onClick}
-      className="flex min-h-0 flex-1 items-center gap-2 rounded-lg bg-accent-60 px-3 py-3"
+      className={cn(
+        "flex min-h-0 flex-1 items-center gap-2 rounded-lg px-3 py-3",
+        !bgColor && "bg-accent-60",
+      )}
+      style={bgColor ? { backgroundColor: bgColor } : undefined}
     >
       <Image
         src={src}
@@ -97,7 +104,12 @@ function NavSubLinkRow({
         height={23}
         className="size-[23px] shrink-0 object-contain"
       />
-      <span className="min-w-0 flex-1 text-left text-sm font-normal leading-[1.5] text-text-100">
+      <span
+        className={cn(
+          "min-w-0 flex-1 text-left text-sm font-normal leading-[1.5]",
+          useWhiteForeground ? "text-white" : "text-text-100",
+        )}
+      >
         {label}
       </span>
       <svg
@@ -109,8 +121,10 @@ function NavSubLinkRow({
       >
         <path
           d="M1 6H13M13 6L8 1M13 6L8 11"
-          className={`transition-all duration-300 ${"stroke-[#1A1919]"
-            }`}
+          className={cn(
+            "transition-all duration-300",
+            useWhiteForeground ? "stroke-white" : "stroke-[#1A1919]",
+          )}
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -153,6 +167,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
               href: `/our-verticals/${slug}`,
             };
             if (iconSrc) link.iconSrc = iconSrc;
+            if (v.gradient?.accentColor) link.bgColor = v.gradient.accentColor;
             return link;
           })
           .filter((x): x is NavSubLink => x !== null),
@@ -297,6 +312,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
                               href={child.href}
                               label={child.label}
                               iconSrc={child.iconSrc}
+                              bgColor={child.bgColor}
                             />
                           ))}
                         </div>
@@ -395,6 +411,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
                               href={v.href}
                               label={v.label}
                               iconSrc={v.iconSrc}
+                              bgColor={v.bgColor}
                               onClick={() => setMenuOpen(false)}
                             />
                           ))}
