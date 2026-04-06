@@ -151,7 +151,7 @@ export function ProjectsGridSection({
         </div>
 
           <div
-            className="box-border mx-auto flex w-full max-w-[720px] flex-wrap justify-center gap-2 rounded-[24px] bg-[#F6F7FB] p-4"
+            className="box-border mx-auto flex w-full max-w-[720px] flex-wrap justify-center gap-2 rounded-[24px] bg-[#F6F7FB] p-4 lg:max-w-[960px]"
             role="group"
             aria-label="Filter projects by category"
           >
@@ -164,7 +164,7 @@ export function ProjectsGridSection({
                   aria-pressed={isActive}
                   onClick={() => setActiveFilter(tab.id)}
                   className={cn(
-                    "box-border flex h-[53px] w-[calc((100%-0.5rem)/2)] shrink-0 cursor-pointer items-center justify-center whitespace-nowrap rounded-[16px] px-4 py-4 text-center text-sm font-normal leading-[1.5] transition-colors sm:w-[calc((100%-1rem)/3)] md:w-[calc((100%-1.5rem)/4)] md:px-8",
+                    "box-border flex h-[53px] w-[calc((100%-1rem)/3)] shrink-0 cursor-pointer items-center justify-center whitespace-nowrap rounded-[16px] px-4 py-4 text-center text-sm font-normal leading-[1.5] transition-colors lg:w-[calc((100%-2rem)/5)] lg:px-6",
                     isActive
                       ? "bg-primary text-white shadow-sm"
                       : "bg-white text-text-100 hover:bg-white/90",
