@@ -19,6 +19,8 @@ type ProjectsGridSectionProps = {
   items: readonly ProjectCard[];
   /** Full set of categories (e.g. from Strapi). Tabs also include any `filterId` on items not listed here. */
   categoryTabs?: readonly FilterTab[];
+  /** When true, shows placeholder tiles while Strapi data loads. */
+  loading?: boolean;
 };
 
 function ProjectsGridEmptyState({
@@ -69,7 +71,34 @@ function ProjectsGridEmptyState({
   );
 }
 
-export function ProjectsGridSection({ heading, intro, items, categoryTabs }: ProjectsGridSectionProps) {
+function ProjectsGridLoadingPlaceholder() {
+  return (
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+      {[0, 1, 2, 3, 4, 5].map((i) => (
+        <div
+          key={i}
+          className="flex min-w-0 flex-col rounded-[24px] border border-[#E7E9ED] border-[2px] p-3 md:gap-5 md:p-4"
+          aria-hidden
+        >
+          <div className="relative aspect-[319.33331298828125/313] w-full animate-pulse rounded-[10px] bg-border-light/60" />
+          <div className="mt-4 flex flex-col gap-2 md:mt-0">
+            <div className="h-7 w-4/5 animate-pulse rounded-md bg-border-light/70" />
+            <div className="h-4 w-full animate-pulse rounded-md bg-border-light/50" />
+            <div className="h-4 w-11/12 animate-pulse rounded-md bg-border-light/45" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function ProjectsGridSection({
+  heading,
+  intro,
+  items,
+  categoryTabs,
+  loading = false,
+}: ProjectsGridSectionProps) {
   const tabs = useMemo(() => {
     const seen = new Set<string>();
     const ordered: FilterTab[] = [];
@@ -101,7 +130,7 @@ export function ProjectsGridSection({ heading, intro, items, categoryTabs }: Pro
     [activeFilter, tabs],
   );
 
-  const showEmpty = filteredItems.length === 0;
+  const showEmpty = !loading && filteredItems.length === 0;
 
   return (
     <section className="relative mt-8 w-full overflow-x-hidden px-8 pb-14 pt-8 md:mt-10 md:px-20 md:pb-[100px] md:pt-10 lg:mt-12 lg:px-[120px] lg:pb-[100px] lg:pt-12">
@@ -122,7 +151,7 @@ export function ProjectsGridSection({ heading, intro, items, categoryTabs }: Pro
         </div>
 
           <div
-            className="box-border mx-auto flex w-full max-w-[720px] flex-wrap justify-center gap-2 rounded-[24px] bg-[#F6F7FB] p-4"
+            className="box-border mx-auto flex w-full max-w-[720px] flex-wrap justify-center gap-2 rounded-[24px] bg-[#F6F7FB] p-4 lg:max-w-[960px]"
             role="group"
             aria-label="Filter projects by category"
           >
@@ -135,7 +164,7 @@ export function ProjectsGridSection({ heading, intro, items, categoryTabs }: Pro
                   aria-pressed={isActive}
                   onClick={() => setActiveFilter(tab.id)}
                   className={cn(
-                    "box-border flex h-[53px] w-[calc((100%-0.5rem)/2)] shrink-0 cursor-pointer items-center justify-center whitespace-nowrap rounded-[16px] px-4 py-4 text-center text-sm font-normal leading-[1.5] transition-colors sm:w-[calc((100%-1rem)/3)] md:w-[calc((100%-1.5rem)/4)] md:px-8",
+                    "box-border flex h-[53px] w-[calc((100%-1rem)/3)] shrink-0 cursor-pointer items-center justify-center whitespace-nowrap rounded-[16px] px-4 py-4 text-center text-sm font-normal leading-[1.5] transition-colors lg:w-[calc((100%-2rem)/5)] lg:px-6",
                     isActive
                       ? "bg-primary text-white shadow-sm"
                       : "bg-white text-text-100 hover:bg-white/90",
@@ -148,7 +177,9 @@ export function ProjectsGridSection({ heading, intro, items, categoryTabs }: Pro
           </div>
         </div>
 
-        {showEmpty ? (
+        {loading ? (
+          <ProjectsGridLoadingPlaceholder />
+        ) : showEmpty ? (
           <ProjectsGridEmptyState
             activeFilter={activeFilter}
             filterLabel={activeTabLabel}
