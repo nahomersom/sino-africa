@@ -1,6 +1,10 @@
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { fetchProjectById, PROJECTS_GRID_PAGE_SIZE } from "@/src/features/projects/fetchProjects";
+import {
+  fetchProjectById,
+  fetchProjectBySlug,
+  PROJECTS_GRID_PAGE_SIZE,
+} from "@/src/features/projects/fetchProjects";
 import { appendStrapiQuery, getStrapiApiBaseUrl, getStrapiMediaUrl } from "@/src/lib/strapiBase";
 
 export { getStrapiMediaUrl };
@@ -566,6 +570,21 @@ export const strapiApi = createApi({
       },
     }),
 
+    getProjectBySlug: builder.query<Project | null, string>({
+      async queryFn(slug) {
+        const project = await fetchProjectBySlug(slug);
+        if (project) {
+          return { data: project };
+        }
+        return {
+          error: {
+            status: 404,
+            data: "Project not found",
+          } as FetchBaseQueryError,
+        };
+      },
+    }),
+
     getProjectCategories: builder.query<
       ProjectCategory[],
       Record<string, unknown> | void
@@ -599,6 +618,7 @@ export const {
   useGetTeamsQuery,
   useGetProjectsQuery,
   useGetProjectByIdQuery,
+  useGetProjectBySlugQuery,
   useGetProjectCategoriesQuery,
   useCreateContactSubmissionMutation,
 } = strapiApi;
