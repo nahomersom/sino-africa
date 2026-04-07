@@ -66,7 +66,7 @@ export function KeyDomainsSection() {
   return (
     <section className="relative flex flex-col items-center overflow-hidden bg-white w-full pt-10 px-8 pb-10 gap-[45px] md:py-10 md:px-20 md:gap-10 lg:pt-[152px] lg:pb-[140px] lg:px-[237px] lg:min-h-[961px] lg:gap-[45px]">
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.04] hidden lg:block"
+        className="pointer-events-none absolute inset-0 opacity-[0.1] hidden lg:block"
         style={{
           backgroundImage: "url('/images/sino-symbol-tile.svg')",
           backgroundSize: "28px",
@@ -94,9 +94,10 @@ export function KeyDomainsSection() {
       {/* Cards Container */}
       <div className={`grid grid-cols-1 md:grid-cols-3 w-full gap-6 md:gap-2 md:max-w-[677px] lg:max-w-none lg:gap-2 transition-opacity duration-300 ${isFetching ? 'opacity-50' : 'opacity-100'}`}>
         {cards.map((card, index) => (
-          <div
+          <Link
             key={card.slug || index}
-            className="flex flex-col items-center justify-between text-center rounded-[8px] pt-10 pb-10 px-8 md:h-[459px] md:py-6 md:px-4 lg:h-[552px] lg:py-12 lg:px-16 z-1 overflow-hidden"
+            href={`/our-verticals/${card.slug}`}
+            className="group flex flex-col items-center justify-between text-center rounded-[8px] pt-10 pb-10 px-8 md:h-[459px] md:py-6 md:px-4 lg:h-[552px] lg:py-12 lg:px-16 z-1 overflow-hidden transition-transform duration-300 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
             style={{
               background: `linear-gradient(180deg, ${card.accentColor} 1%, ${card.baseColor} 100%)`
             }}
@@ -124,16 +125,15 @@ export function KeyDomainsSection() {
             </div>
 
             {/* Read More */}
-            <Link
-              href={`/our-verticals/${card.slug}`}
-              className="flex items-center gap-2 font-medium text-white transition-opacity hover:opacity-80 text-[17px] leading-[32px] shrink-0"
+            <span
+              className="flex items-center gap-2 font-medium text-white transition-opacity group-hover:opacity-80 text-[17px] leading-[32px] shrink-0"
             >
               READ MORE
               <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 7H17M17 7L11 1M17 7L11 13" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-            </Link>
-          </div>
+            </span>
+          </Link>
         ))}
       </div>
 

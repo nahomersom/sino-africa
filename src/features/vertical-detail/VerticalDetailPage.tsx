@@ -57,7 +57,7 @@ export function VerticalDetailPage({ content }: Props) {
             heading={homeContent.contact.heading}
             description={content.contactSubtitle}
             buttonLabel={homeContent.contact.buttonLabel}
-            accentColor={content.theme.heroGradient.accentColor}
+            accentColor={content.theme.heroGradient.baseColor}
           />
         </ScrollReveal>
       </main>

@@ -33,7 +33,7 @@ export function WhatDefinesUsSection({
       className="relative flex w-full flex-col items-center gap-8 overflow-hidden bg-white px-8 py-10 md:gap-10 md:px-8 md:py-10  lg:pt-[200px] lg:pb-[100px] lg:justify-center"
     >
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.04]"
+        className="pointer-events-none absolute inset-0 opacity-[0.1]"
         style={{ backgroundImage: "url('/images/sino-symbol-tile.svg')", backgroundSize: "28px", backgroundRepeat: "repeat" }}
       />
       <div className="pointer-events-none absolute right-[-532px] bottom-0 hidden size-[847px] rounded-full bg-primary/35 blur-[252px] lg:block" />

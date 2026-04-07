@@ -54,7 +54,7 @@ export function VerticalsSection() {
   return (
     <section className="relative w-full overflow-x-hidden bg-white">
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.04]"
+        className="pointer-events-none absolute inset-0 opacity-[0.1]"
         style={{
           backgroundImage: "url('/images/sino-symbol-tile.svg')",
           backgroundSize: "28px",
