@@ -167,7 +167,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
               href: `/our-verticals/${slug}`,
             };
             if (iconSrc) link.iconSrc = iconSrc;
-            if (v.gradient?.accentColor) link.bgColor = v.gradient.accentColor;
+            if (v.gradient?.baseColor) link.bgColor = v.gradient.baseColor;
             return link;
           })
           .filter((x): x is NavSubLink => x !== null),

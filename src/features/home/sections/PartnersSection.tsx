@@ -25,7 +25,7 @@ export function PartnersSection({
   return (
     <section className="relative flex w-full flex-col items-center gap-[90px] overflow-hidden bg-white px-8 py-10 md:gap-10 md:px-20 md:py-20 lg:gap-20 lg:px-60 lg:py-40">
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.04]"
+        className="pointer-events-none absolute inset-0 opacity-[0.1]"
         style={{
           backgroundImage: "url('/images/sino-symbol-tile.svg')",
           backgroundSize: "28px",
