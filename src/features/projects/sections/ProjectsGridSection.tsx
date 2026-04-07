@@ -164,7 +164,7 @@ export function ProjectsGridSection({
                   aria-pressed={isActive}
                   onClick={() => setActiveFilter(tab.id)}
                   className={cn(
-                    "box-border flex h-[53px] w-[calc((100%-1rem)/3)] shrink-0 cursor-pointer items-center justify-center whitespace-nowrap rounded-[16px] px-4 py-4 text-center text-sm font-normal leading-[1.5] transition-colors lg:w-[calc((100%-2rem)/5)] lg:px-6",
+                    "box-border flex h-[53px] min-w-[120px] flex-1 cursor-pointer items-center justify-center whitespace-nowrap rounded-[16px] px-4 py-4 text-center text-sm font-normal leading-[1.5] transition-colors sm:flex-none sm:min-w-[132px] lg:min-w-[150px] lg:px-6",
                     isActive
                       ? "bg-primary text-white shadow-sm"
                       : "bg-white text-text-100 hover:bg-white/90",
