@@ -17,7 +17,7 @@ const placeholderImage = "https://images.unsplash.com/photo-1522202176988-66273c
 
 const AllBlogCard = ({ slug, title, description, image }: AllBlogCardProps) => {
   return (
-    <Link href={`/blogs/${slug}`} className="flex flex-col gap-[16px] w-full rounded-[24px] border border-[#e7e9ed] p-[16px] bg-white transition-all hover:shadow-lg hover:-translate-y-1 group">
+    <Link href={`/blogs/${slug}`} className="flex flex-col gap-[16px] w-full rounded-[24px] border border-[#e7e9ed] p-[16px] bg-white transition-all hover:shadow-lg hover:-translate-y-1 group z-10">
       <div className="relative w-full h-[295px] rounded-[16px] overflow-hidden">
         <Image
           src={image || placeholderImage}
