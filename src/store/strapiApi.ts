@@ -260,6 +260,15 @@ export type Vertical = {
   focusAreas?: VerticalFocusArea[];
   ecosystemPartners?: VerticalEcosystemPartner[];
   gradient?: VerticalGradient | null;
+  tags?: VerticalTag[];
+  tag?: VerticalTag[];
+};
+
+export type VerticalTag = {
+  id?: number | string;
+  text?: string;
+  title?: string;
+  name?: string;
 };
 
 export type VerticalFocusArea = {
@@ -286,6 +295,7 @@ const VERTICAL_DEEP_POPULATE: Record<string, string> = {
   "populate[logo]": "true",
   "populate[heroImage]": "true",
   "populate[gradient]": "true",
+  "populate[tag]": "true",
   "populate[focusAreas][populate][images]": "true",
   "populate[ecosystemPartners][populate][icon]": "true",
 };

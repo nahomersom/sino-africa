@@ -4,11 +4,51 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { HERO_SLIDES, HERO_SOCIAL_ICONS } from "./HeroSection.constants";
+import {
+  getStrapiMediaUrl,
+  type Vertical,
+  type VerticalTag,
+  useGetVerticalsQuery,
+} from "@/src/store/strapiApi";
+import { HERO_SLIDES, type HeroSlide } from "./HeroSection.constants";
+
+function extractVerticalTags(vertical: Vertical): string[] {
+  const fromTag = Array.isArray(vertical.tag) ? (vertical.tag as VerticalTag[]) : [];
+  const fromTags = Array.isArray(vertical.tags) ? (vertical.tags as VerticalTag[]) : [];
+  const source = fromTag.length > 0 ? fromTag : fromTags;
+
+  return source
+    .map((item) => item.text ?? item.title ?? item.name)
+    .filter((value): value is string => typeof value === "string" && value.trim().length > 0)
+    .slice(0, 3);
+}
 
 export function HeroSection() {
-  const socialIcons = HERO_SOCIAL_ICONS;
-  const slides = HERO_SLIDES;
+  const { data: verticals = [] } = useGetVerticalsQuery();
+  const fallbackSlides = HERO_SLIDES.slice(1, 4);
+  const firstSlide = HERO_SLIDES[0];
+  const verticalSlides: HeroSlide[] = fallbackSlides.map((fallbackSlide, index) => {
+    const vertical = verticals[index];
+    if (!vertical) return fallbackSlide;
+    const tags = extractVerticalTags(vertical);
+
+    return {
+      imageSrc: getStrapiMediaUrl(vertical.heroImage?.url) || fallbackSlide.imageSrc,
+      title: vertical.title ?? vertical.name ?? fallbackSlide.title,
+      description:
+        vertical.summary ??
+        vertical.focusAreasDescription ??
+        vertical.description ??
+        fallbackSlide.description,
+      focusAreas: tags.length > 0 ? tags : fallbackSlide.focusAreas,
+      primaryCta: {
+        label: fallbackSlide.primaryCta.label,
+        href: vertical.slug ? `/our-verticals/${vertical.slug}` : fallbackSlide.primaryCta.href,
+      },
+      secondaryCta: fallbackSlide.secondaryCta,
+    };
+  });
+  const slides: readonly HeroSlide[] = [firstSlide, ...verticalSlides];
   const [activeSlide, setActiveSlide] = useState(0);
 
   useEffect(() => {
@@ -86,7 +126,9 @@ export function HeroSection() {
               </Link>
             </div>
             <div className="flex flex-row flex-wrap items-center gap-4">
-              {currentSlide.focusAreas.slice(0, 3).map((item, index) => (
+              {(currentSlide.focusAreas.length > 0 ? currentSlide.focusAreas : firstSlide.focusAreas)
+                .slice(0, 3)
+                .map((item, index) => (
                 <span
                   key={`${activeSlide}-${index}-${item}`}
                   className="rounded-[32px] bg-white/20 px-6 py-4 text-center text-[12px] font-medium leading-[1.26] tracking-[0.0525em] text-white backdrop-blur-[52px]"
@@ -163,22 +205,6 @@ export function HeroSection() {
         </motion.div>
       </motion.div>
 
-      <div className="pointer-events-none absolute right-0 bottom-[128px] z-20 hidden min-h-[228px] w-[68px] flex-col gap-3 rounded-l-[24px] bg-[#F4F7FACC] py-6 px-4 backdrop-blur-[44px] shadow-[-3px_0px_6px_0px_#0000001A,-11px_0px_11px_0px_#00000017,-25px_0px_15px_0px_#0000000D,-45px_0px_18px_0px_#00000003,-71px_0px_20px_0px_#00000000] lg:flex">
-        <div className="pointer-events-auto flex flex-col gap-3">
-          {socialIcons.map((social) => (
-            <Link
-              key={social.label}
-              href={social.href}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={social.label}
-              className="inline-flex size-9 items-center justify-center rounded-full bg-white text-white transition-colors "
-            >
-              {social.icon}
-            </Link>
-          ))}
-        </div>
-      </div>
     </section>
   );
 }
