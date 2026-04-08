@@ -9,9 +9,11 @@ export function prepareStrapiMarkdownString(input: string): string {
     .replace(/(\*\*[^*]+\*\*)_(?!_)/g, "$1 _");
 }
 
-type TextLeaf = RichTextNode & { type?: "text" };
+type TextMods = Partial<Pick<RichTextNode, "bold" | "italic" | "underline" | "strikethrough" | "code">>;
 
-function parseItalicU(s: string, base: Partial<Pick<RichTextNode, "bold">>): TextLeaf[] {
+type TextLeaf = { type: "text"; text: string } & TextMods;
+
+function parseItalicU(s: string, base: TextMods): TextLeaf[] {
   const leadingSpace = s.match(/^(\s+)/)?.[1] ?? "";
   const afterLeading = s.slice(leadingSpace.length);
   const trailingSpace = afterLeading.match(/(\s+)$/)?.[1] ?? "";
@@ -26,8 +28,11 @@ function parseItalicU(s: string, base: Partial<Pick<RichTextNode, "bold">>): Tex
     return out;
   }
 
-  if (t.startsWith("_") && t.endsWith("_") && t.length >= 2) {
-    const inner = t.slice(1, -1);
+  const isSingleUnderscoreWrapped = t.startsWith("_") && t.endsWith("_") && t.length >= 2;
+  const isDoubleUnderscoreWrapped = t.startsWith("__") && t.endsWith("__") && t.length >= 4;
+
+  if (isDoubleUnderscoreWrapped || isSingleUnderscoreWrapped) {
+    const inner = isDoubleUnderscoreWrapped ? t.slice(2, -2) : t.slice(1, -1);
     const um = inner.match(/^<u>(.*?)<\/u>$/i);
     if (um) {
       out.push({ type: "text", text: um[1], ...base, italic: true, underline: true });
@@ -102,10 +107,53 @@ export function stringToBlocksContent(input: string): BlocksContent {
   const prepared = prepareStrapiMarkdownString(input.trim());
   if (!prepared) return [];
 
-  const paragraphs = prepared.split(/\r?\n\r?\n/).filter((p) => p.trim().length > 0);
+  const blocks: BlocksContent = [];
 
-  return paragraphs.map((p) => ({
-    type: "paragraph" as const,
-    children: parseParagraphInline(p),
-  })) as BlocksContent;
+  const pushParagraph = (lines: string[]) => {
+    const text = lines.join(" ").trim();
+    if (!text) return;
+    blocks.push({
+      type: "paragraph" as const,
+      children: parseParagraphInline(text),
+    });
+  };
+
+  const pushHeading = (level: number, text: string) => {
+    const t = text.trim();
+    if (!t) return;
+    blocks.push({
+      type: "heading" as const,
+      level: Math.min(6, Math.max(1, level)) as 1 | 2 | 3 | 4 | 5 | 6,
+      children: parseParagraphInline(t),
+    });
+  };
+
+  const lines = prepared.split(/\r?\n/);
+  let paraLines: string[] = [];
+
+  for (const rawLine of lines) {
+    const line = rawLine.trimEnd();
+
+    // Blank line ends a paragraph.
+    if (line.trim().length === 0) {
+      pushParagraph(paraLines);
+      paraLines = [];
+      continue;
+    }
+
+    // ATX heading: # Heading (H1) ... ###### Heading (H6)
+    const hm = line.match(/^(#{1,6})\s+(.+?)\s*$/);
+    if (hm) {
+      pushParagraph(paraLines);
+      paraLines = [];
+      pushHeading(hm[1].length, hm[2]);
+      continue;
+    }
+
+    paraLines.push(line);
+  }
+
+  pushParagraph(paraLines);
+
+  return blocks;
 }
