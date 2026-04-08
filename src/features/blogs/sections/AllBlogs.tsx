@@ -17,7 +17,7 @@ const placeholderImage = "https://images.unsplash.com/photo-1522202176988-66273c
 
 const AllBlogCard = ({ slug, title, description, image }: AllBlogCardProps) => {
   return (
-    <Link href={`/blogs/${slug}`} className="flex flex-col gap-[16px] w-full rounded-[24px] border border-[#e7e9ed] p-[16px] bg-white transition-all hover:shadow-lg hover:-translate-y-1 group">
+    <Link href={`/blogs/${slug}`} className="flex flex-col gap-[16px] w-full rounded-[24px] border border-[#e7e9ed] p-[16px] bg-white transition-all hover:shadow-lg hover:-translate-y-1 group z-10">
       <div className="relative w-full h-[295px] rounded-[16px] overflow-hidden">
         <Image
           src={image || placeholderImage}
@@ -72,7 +72,7 @@ export function AllBlogs({ showTitle = true, excludeDocumentId, tags }: AllBlogs
 
   return (
     <section className="w-full bg-white py-[16px]">
-      <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 md:px-0 lg:px-0">
+      <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 md:px-6 lg:px-8">
         {/* Section Heading */}
         <div className="flex flex-col gap-[24px] mb-[24px]">
           {showTitle && (

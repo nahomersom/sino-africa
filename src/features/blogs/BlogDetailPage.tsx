@@ -20,7 +20,7 @@ export function BlogDetailPage({ id }: BlogDetailPageProps) {
     return (
       <main className="flex min-h-screen flex-col">
         <section className="w-full bg-white py-[80px]">
-          <div className="max-w-[1254px] mx-auto px-4 lg:px-0">
+          <div className="max-w-[1254px] mx-auto px-4 md:px-6 lg:px-8">
             <div className="h-8 w-32 bg-gray-200 rounded animate-pulse mb-[48px]" />
             <div className="flex flex-col lg:flex-row justify-between items-center lg:items-end gap-[48px]">
               <div className="flex flex-col gap-[8px] flex-1">
@@ -67,7 +67,7 @@ export function BlogDetailPage({ id }: BlogDetailPageProps) {
 
       {/* Main Content Area */}
       <div className="w-full bg-white">
-        <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 lg:px-0 py-[80px] flex flex-col items-center md:gap-[43px] lg:flex-row lg:justify-between lg:gap-[24px] lg:items-start">
+        <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 md:px-6 lg:px-8 py-[80px] flex flex-col items-center md:gap-[43px] lg:flex-row lg:justify-between lg:gap-[24px] lg:items-start">
           {/* Article Content */}
           <BlogContent description={blog.description} publishedDate={blog.publishedDate} />
 
@@ -78,7 +78,7 @@ export function BlogDetailPage({ id }: BlogDetailPageProps) {
 
       {/* Related Blogs Section */}
       <div className="bg-white py-[100px] w-full">
-        <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 lg:px-0">
+        <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 md:px-6 lg:px-8">
           <h2 className="text-[#161C2D] text-[24px] font-semibold mb-[48px] uppercase tracking-normal text-center md:text-center lg:text-left">
             Related Blogs
           </h2>
