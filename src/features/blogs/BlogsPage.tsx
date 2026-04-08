@@ -7,7 +7,11 @@ import { AllBlogs } from "./sections/AllBlogs";
 
 export function BlogsPage() {
   return (
-    <>
+    <div className="relative">
+     <div
+        className="pointer-events-none absolute inset-0 opacity-[0.1] top-64 "
+        style={{ backgroundImage: "url('/images/sino-symbol-tile.svg')", backgroundSize: "28px", backgroundRepeat: "repeat" }}
+      />
       {/* Hero Section */}
       <BlogHero />
 
@@ -20,6 +24,6 @@ export function BlogsPage() {
       <ScrollReveal>
         <AllBlogs />
       </ScrollReveal>
-    </>
+    </div>
   );
 }
