@@ -4,6 +4,7 @@
   --background: #ffffff;
   --foreground: #171717;
   --primary: #64c294;
+  --primary-rgb: 100, 194, 148;
   --text-100: #161c2d;
   --accent-60: #f6f7fb;
   --theme-secondary: #1a1919;
@@ -53,4 +54,32 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+@keyframes cta-shadow-burst {
+  0% {
+    transform: scale(0.96);
+    box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0.45);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 28px rgba(var(--primary-rgb), 0);
+  }
+  100% {
+    transform: scale(0.96);
+    box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0);
+  }
+}
+
+.cta-shadow-burst {
+  animation: cta-shadow-burst 1.8s ease-out infinite;
+}
+
+.cta-shadow-burst:hover {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-shadow-burst {
+    animation: none;
+  }
 }

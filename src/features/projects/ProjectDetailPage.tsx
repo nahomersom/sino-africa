@@ -1,7 +1,6 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { BlocksRenderer, type BlocksContent } from "@strapi/blocks-react-renderer";
 import { ScrollReveal } from "@/src/components/ui/scroll-reveal";
 import { ContactSection } from "@/src/features/home/sections/ContactSection";
 import Image from "next/image";
@@ -10,6 +9,7 @@ import { motion } from "framer-motion";
 import { projectsContent } from "./constants";
 import type { ProjectDetail } from "./constants";
 import { cn } from "@/src/lib/utils";
+import { StrapiBlocksRichText } from "@/src/lib/strapiBlocksRichText";
 
 type ProjectDetailPageProps = {
   project: ProjectDetail;
@@ -17,46 +17,6 @@ type ProjectDetailPageProps = {
 
 const PROJECT_DETAIL_TOP_VECTOR_IMAGE = "/images/projects/top-vector.png";
 const PROJECT_DETAIL_DOTS_IMAGE = "/images/projects/project-detail-dots.png";
-
-function ProjectDetailRichText({
-  value,
-  className,
-}: {
-  value: ProjectDetail["overview"];
-  className: string;
-}) {
-  if (typeof value === "string") {
-    return <p className={className}>{value}</p>;
-  }
-
-  return (
-    <div className={className}>
-      <BlocksRenderer
-        content={value as BlocksContent}
-        blocks={{
-          paragraph: ({ children }) => <p className="mb-3 last:mb-0">{children}</p>,
-          heading: ({ children, level }) => {
-            if (level === 1) return <h3 className="mb-3 text-xl font-semibold">{children}</h3>;
-            if (level === 2) return <h4 className="mb-3 text-lg font-semibold">{children}</h4>;
-            if (level === 3) return <h5 className="mb-2 text-base font-semibold">{children}</h5>;
-            return <h6 className="mb-2 text-base font-semibold">{children}</h6>;
-          },
-          list: ({ children, format }) =>
-            format === "ordered" ? (
-              <ol className="mb-3 ml-5 list-decimal space-y-1 last:mb-0">{children}</ol>
-            ) : (
-              <ul className="mb-3 ml-5 list-disc space-y-1 last:mb-0">{children}</ul>
-            ),
-          quote: ({ children }) => (
-            <blockquote className="mb-3 border-l-2 border-black/20 pl-3 italic last:mb-0">
-              {children}
-            </blockquote>
-          ),
-        }}
-      />
-    </div>
-  );
-}
 
 function BackToProjectsLink({ className }: { className?: string }) {
   return (
@@ -398,7 +358,7 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
                     "relative w-full min-h-0 max-w-[65ch] overflow-x-hidden break-words [overflow-wrap:anywhere]",
                   )}
                 >
-                  <ProjectDetailRichText
+                  <StrapiBlocksRichText
                     value={project.description}
                     className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black break-words [overflow-wrap:anywhere] md:text-left md:text-sm md:leading-[1.65] lg:text-lg"
                   />
@@ -456,7 +416,7 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
               <aside className="flex flex-col items-center gap-10 md:items-start">
                 <div className="flex w-full max-w-xl flex-col gap-3">
                   <SectionKicker>Development</SectionKicker>
-                  <ul className="flex flex-row flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center text-sm font-light leading-[1.55] tracking-[-0.01em] text-black md:list-outside md:list-disc md:flex-col md:items-start md:justify-start md:gap-2 md:pl-5 md:text-left md:text-[15px]">
+                  <ul className="font-(family-name:--font-nata-sans) flex flex-row flex-wrap items-center justify-center gap-x-6 gap-y-2 list-none pl-0 text-center text-sm font-light leading-[1.55] tracking-[-0.01em] text-black md:flex-col md:items-start md:justify-start md:gap-2 md:text-left md:text-[15px]">
                     {project.whatWeDid.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
@@ -464,7 +424,7 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
                 </div>
                 <div className="flex w-full max-w-xl flex-col gap-3">
                   <SectionKicker>Top features</SectionKicker>
-                  <ul className="flex flex-row flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center text-sm font-light leading-[1.55] tracking-[-0.01em] text-black md:list-outside md:list-disc md:flex-col md:items-start md:justify-start md:gap-2 md:pl-5 md:text-left md:text-[15px]">
+                  <ul className="font-(family-name:--font-nata-sans) flex flex-row flex-wrap items-center justify-center gap-x-6 gap-y-2 list-none pl-0 text-center text-sm font-light leading-[1.55] tracking-[-0.01em] text-black md:flex-col md:items-start md:justify-start md:gap-2 md:text-left md:text-[15px]">
                     {project.technologies.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
@@ -472,7 +432,7 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
                 </div>
                 <div className="flex w-full max-w-xl flex-col gap-2">
                   <SectionKicker>Client</SectionKicker>
-                  <p className="text-center text-sm font-light leading-[1.55] tracking-[-0.01em] text-black md:text-left md:text-[15px]">
+                  <p className="font-(family-name:--font-nata-sans) text-center text-sm font-light leading-[1.55] tracking-[-0.01em] text-black md:text-left md:text-[15px]">
                     {project.client}
                   </p>
                 </div>
@@ -482,23 +442,26 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
              
                 <article className="flex w-full max-w-3xl flex-col gap-3">
                   <SectionKicker>Challenges</SectionKicker>
-                  <ProjectDetailRichText
+                  <StrapiBlocksRichText
                     value={project.challenges}
-                    className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm lg:text-lg"
+                    className="font-(family-name:--font-nata-sans) text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm lg:text-lg"
+                    hideListMarkers
                   />
                 </article>
                 <article className="flex w-full max-w-3xl flex-col gap-3">
                   <SectionKicker>Results</SectionKicker>
-                  <ProjectDetailRichText
+                  <StrapiBlocksRichText
                     value={project.results}
-                    className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm lg:text-lg"
+                    className="font-(family-name:--font-nata-sans) text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm lg:text-lg"
+                    hideListMarkers
                   />
                 </article>
                 <article className="flex w-full max-w-3xl flex-col gap-3">
                   <SectionKicker>Solutions</SectionKicker>
-                  <ProjectDetailRichText
+                  <StrapiBlocksRichText
                     value={project.solution}
-                    className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm lg:text-lg"
+                    className="font-(family-name:--font-nata-sans) text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm lg:text-lg"
+                    hideListMarkers
                   />
                 </article>
               </div>

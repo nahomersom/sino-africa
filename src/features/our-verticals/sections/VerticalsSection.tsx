@@ -52,18 +52,14 @@ export function VerticalsSection() {
   const useApi = hasStrapi && verticals.length > 0 && !showSkeleton;
 
   return (
-    <section
-      className="relative w-full overflow-x-hidden bg-white"
-      style={{
-        backgroundImage: "url(/images/sino-symbol-tile.svg)",
-        backgroundSize: "28px",
-        backgroundPosition: "left top",
-        backgroundRepeat: "repeat",
-      }}
-    >
+    <section className="relative w-full overflow-x-hidden bg-white">
       <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 z-0 bg-white/90"
+        className="pointer-events-none absolute inset-0 opacity-[0.1]"
+        style={{
+          backgroundImage: "url('/images/sino-symbol-tile.svg')",
+          backgroundSize: "28px",
+          backgroundRepeat: "repeat",
+        }}
       />
 
       <div

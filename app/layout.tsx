@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Footer } from "@/src/components/layout/Footer";
+import { FloatingSocialBar } from "@/src/components/layout/FloatingSocialBar";
 
 import "./globals.css";
 import { Providers } from "./providers";
@@ -42,6 +43,7 @@ export default function RootLayout({
         <Providers>
           <div className="relative flex min-h-full flex-col">
             {children}
+            <FloatingSocialBar />
             <Footer />
           </div>
         </Providers>

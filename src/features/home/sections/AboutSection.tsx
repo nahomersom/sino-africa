@@ -10,7 +10,7 @@ export function AboutSection({ heading, bodyOne, bodyTwo }: AboutSectionProps) {
   return (
     <section className="relative flex w-full flex-col items-center gap-6 overflow-hidden bg-white px-8 py-10 md:px-20 md:py-20 lg:px-60 lg:py-24">
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.04]"
+        className="pointer-events-none absolute inset-0 opacity-[0.1]"
         style={{ backgroundImage: "url('/images/sino-symbol-tile.svg')", backgroundSize: "28px", backgroundRepeat: "repeat" }}
       />
       <h2 className="text-center font-(family-name:--font-nata-sans) text-[36px] font-semibold leading-[1.33] tracking-[-0.04em] text-text-100 md:text-4xl md:leading-snug md:tracking-tight">
@@ -24,9 +24,20 @@ export function AboutSection({ heading, bodyOne, bodyTwo }: AboutSectionProps) {
       </p>
       <Link
         href="/about"
-        className="font-(family-name:--font-nata-sans) text-center text-lg font-normal leading-[1.5] text-text-100 underline"
+        className=" text-center text-sm font-normal leading-[1.5] text-text-100 px-6 bg-accent-60 py-6 flex items-center justify-center z-10 rounded-[55px] max-h-[72px] min-w-[156px] gap-[13px]"
       >
         Read More
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M18.5 12H5M13 18C13 18 19 13.5811 19 12C19 10.4188 13 6 13 6"
+            stroke="#1A1919"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+
+
       </Link>
     </section>
   );

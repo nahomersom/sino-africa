@@ -2,11 +2,10 @@ export const aboutContent = {
   hero: {
     label: "ABOUT US",
     heading: "We empower growth by Powering the Systems That Keep Nations Moving.",
-    /** Photo collage slots — artboard 1236×611 (Figma); dot grid is `hero-dots.svg` */
     images: {
-      center: "/images/about/hero-photo-0.jpg",
-      left: "/images/about/hero-photo-2.png",
-      right: "/images/about/hero-photo-1.jpg",
+      center: "/images/about/hero-photo-1.png",
+      left: "/images/about/hero-photo-0.png",
+      right: "/images/about/hero-photo-2.png",
     },
     description:
       "We work at the core of critical infrastructure helping governments and institutions turn complex challenges into reliable, compliant systems that drive long-term growth and stability."
@@ -15,16 +14,7 @@ export const aboutContent = {
     heading: "What Defines us",
     description:
       "What shapes our decisions, and inspire us to create meaningful impact for our partners and communities.",
-    mission: {
-      title: "Our Mission",
-      description:
-        "Sino Africa delivers mission critical regulated financial, identity, security, and mobility systems through disciplined execution, strict regulatory alignment, and full lifecycle accountability. We transform policy into operational reality, embed global technologies within local governance frameworks, and assume end-to-end responsibility to ensure continuity, stability, and long-term institutional trust.",
-    },
-    vision: {
-      title: "Our Vision",
-      description:
-        "Strengthening Africa’s institutions by integrating and sustaining global technologies within local governance.",
-    },
+
     values: {
       title: "Our Core Values",
       items: [
@@ -36,6 +26,18 @@ export const aboutContent = {
         "Operational Readiness",
       ],
     },
+  },
+  mission: {
+    title: "Our Mission",
+    description:
+      "Sino Africa delivers mission critical regulated financial, identity, security, and mobility systems through disciplined execution, strict regulatory alignment, and full lifecycle accountability. We transform policy into operational reality, embed global technologies within local governance frameworks, and assume end-to-end responsibility to ensure continuity, stability, and long-term institutional trust.",
+    bgImage: "/images/about/mission-bg.jpg",
+  },
+  vision: {
+    title: "Our Vision",
+    description:
+      "Strengthening Africa’s institutions by integrating and sustaining global technologies within local governance.",
+    bgImage: "/images/about/vision-bg.jpg",
   },
   team: {
     heading: "Our Team",

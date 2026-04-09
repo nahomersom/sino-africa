@@ -27,7 +27,7 @@ export function WhySinoAfricaSection({
   return (
     <section className="relative flex w-full flex-col items-center gap-24 overflow-hidden bg-white px-8 py-10 md:px-20 md:py-20 lg:px-[143px] lg:py-[152px]">
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.04]"
+        className="pointer-events-none absolute inset-0 opacity-[0.1]"
         style={{
           backgroundImage: "url('/images/sino-symbol-tile.svg')",
           backgroundSize: "28px",

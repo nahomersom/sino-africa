@@ -1,5 +1,10 @@
 import { getStrapiMediaUrl } from "@/src/lib/strapiBase";
-import type { Project, ProjectMedia, RichTextBlock } from "@/src/store/strapiApi";
+import type {
+  Project,
+  ProjectCategory,
+  ProjectMedia,
+  RichTextBlock,
+} from "@/src/store/strapiApi";
 import type { ProjectCard, ProjectDetail } from "./constants";
 import { projectsContent } from "./constants";
 
@@ -46,7 +51,20 @@ function richFromMaybe(value: unknown): string | RichTextBlock[] | undefined {
   if (value == null) return undefined;
   if (typeof value === "string") {
     const trimmed = value.trim();
-    return trimmed.length > 0 ? trimmed : undefined;
+    if (!trimmed) return undefined;
+    // Some Strapi fields arrive as JSON-stringified blocks:
+    // "[{\"type\":\"paragraph\",\"children\":[...]}]"
+    if ((trimmed.startsWith("[") && trimmed.endsWith("]")) || (trimmed.startsWith("{") && trimmed.endsWith("}"))) {
+      try {
+        const parsed = JSON.parse(trimmed) as unknown;
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed as RichTextBlock[];
+        }
+      } catch {
+        // Fall back to plain string when parsing fails.
+      }
+    }
+    return trimmed;
   }
   if (Array.isArray(value) && value.length > 0) {
     return value as RichTextBlock[];
@@ -86,6 +104,17 @@ function projectCategorySlug(p: Project): string | undefined {
     slugishCategory(p.project_category) ??
     slugishCategory(p.vertical)
   );
+}
+
+/** Tab entry from Strapi `project-categories` — id must match `filterId` on project cards (category slug). */
+export function projectCategoryToFilterTab(c: ProjectCategory): { id: string; label: string } | null {
+  const slug =
+    typeof c.slug === "string" && c.slug.trim().length > 0 ? c.slug.trim() : undefined;
+  if (!slug) return null;
+  const name = typeof c.name === "string" && c.name.trim() ? c.name.trim() : undefined;
+  const title = typeof c.title === "string" && c.title.trim() ? c.title.trim() : undefined;
+  const label = name ?? title ?? slug;
+  return { id: slug, label };
 }
 
 function projectCategoryLabel(p: Project): string {

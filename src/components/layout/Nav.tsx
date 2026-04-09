@@ -6,10 +6,10 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { cn } from "@/src/lib/utils";
-import { useGetVerticalsQuery } from "@/src/store/strapiApi";
+import { getStrapiMediaUrl, useGetVerticalsQuery } from "@/src/store/strapiApi";
 import { Button } from "../ui/app-button";
 
-type NavSubLink = { label: string; href: string };
+type NavSubLink = { label: string; href: string; iconSrc?: string; bgColor?: string };
 
 type NavItem = {
   label: string;
@@ -46,8 +46,8 @@ const navItems: readonly NavItem[] = [
   { label: "About us", href: "/about" },
   { label: "Our Verticals", href: "/our-verticals", children: verticalSubLinks },
   { label: "Projects", href: "/projects" },
-  { label: "Technology and Infrastructure", href: "/technology" },
-  { label: "Blogs", href: "/blogs" },
+  { label: "Solutions", href: "/technology" },
+  { label: "Insights", href: "/blogs" },
 ];
 
 const SUBMENU_BACKDROP_SHADOW =
@@ -64,29 +64,52 @@ function VerticalsSubmenuArtPanel({ className }: { className?: string }) {
       )}
       aria-hidden
     >
-      <Image src="/icons/verticalDropdownIcon.svg" alt="Vertical dropdown icon" width={120} height={120} />
+      <Image src="/brand/logo.svg" alt="Vertical dropdown icon" width={142.5} height={53.8} />
     </div>
   );
 }
+
+const VERTICAL_SUBLINK_ICON_FALLBACK = "/images/about/value-check.svg";
 
 /** Figma layout_AMXIOM + style_TSI0YM — used in 6:2281 Backdrop (mobile drawer + lg+ submenu) */
 function NavSubLinkRow({
   href,
   label,
+  iconSrc,
+  bgColor,
   onClick,
 }: {
   href: string;
   label: string;
+  iconSrc?: string;
+  bgColor?: string;
   onClick?: () => void;
 }) {
+  const src = iconSrc || VERTICAL_SUBLINK_ICON_FALLBACK;
+  const useWhiteForeground = Boolean(bgColor);
   return (
     <Link
       href={href}
       onClick={onClick}
-      className="flex min-h-0 flex-1 items-center gap-2 rounded-lg bg-accent-60 px-3 py-3"
+      className={cn(
+        "flex min-h-0 flex-1 items-center gap-2 rounded-lg px-3 py-3",
+        !bgColor && "bg-accent-60",
+      )}
+      style={bgColor ? { backgroundColor: bgColor } : undefined}
     >
-      <Image src="/images/about/value-check.svg" alt="Vertical dropdown icon" width={23} height={23} />
-      <span className="min-w-0 flex-1 text-left text-sm font-normal leading-[1.5] text-text-100">
+      <Image
+        src={src}
+        alt=""
+        width={23}
+        height={23}
+        className="size-[23px] shrink-0 object-contain"
+      />
+      <span
+        className={cn(
+          "min-w-0 flex-1 text-left text-sm font-normal leading-[1.5]",
+          useWhiteForeground ? "text-white" : "text-text-100",
+        )}
+      >
         {label}
       </span>
       <svg
@@ -98,8 +121,10 @@ function NavSubLinkRow({
       >
         <path
           d="M1 6H13M13 6L8 1M13 6L8 11"
-          className={`transition-all duration-300 ${"stroke-[#1A1919]"
-            }`}
+          className={cn(
+            "transition-all duration-300",
+            useWhiteForeground ? "stroke-white" : "stroke-[#1A1919]",
+          )}
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -119,6 +144,7 @@ type NavProps = {
 export function Nav({ variant = "default", className = "" }: NavProps) {
   const pathname = usePathname();
   const useLightMobileBranding = variant === "default" && pathname === "/";
+  const [isMobileMdScrolled, setIsMobileMdScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const STRAPI_URL =
     process.env.NEXT_PUBLIC_STRAPI_URL?.trim() ||
@@ -135,9 +161,16 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
             const title = (v.title ?? v.name ?? v.slug ?? "").toString().trim();
             const slug = (v.slug ?? "").toString().trim();
             if (!title || !slug) return null;
-            return { label: title, href: `/our-verticals/${slug}` };
+            const iconSrc = getStrapiMediaUrl(v.logo?.url);
+            const link: NavSubLink = {
+              label: title,
+              href: `/our-verticals/${slug}`,
+            };
+            if (iconSrc) link.iconSrc = iconSrc;
+            if (v.gradient?.baseColor) link.bgColor = v.gradient.baseColor;
+            return link;
           })
-          .filter((x): x is NavSubLink => Boolean(x)),
+          .filter((x): x is NavSubLink => x !== null),
       )
       : verticalSubLinks;
 
@@ -150,17 +183,37 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    const onViewportChange = () => {
+      const isLgUp = window.matchMedia("(min-width: 1024px)").matches;
+      setIsMobileMdScrolled(!isLgUp && window.scrollY > 6);
+    };
+
+    onViewportChange();
+    window.addEventListener("scroll", onViewportChange, { passive: true });
+    window.addEventListener("resize", onViewportChange);
+    return () => {
+      window.removeEventListener("scroll", onViewportChange);
+      window.removeEventListener("resize", onViewportChange);
+    };
+  }, []);
+
+  const useDarkMobileBranding = !useLightMobileBranding || isMobileMdScrolled;
+
   return (
     <header className={`fixed inset-x-0 top-0 z-30 w-full ${className}`}>
-      <div className="mx-auto w-full max-w-[1252px] px-8 py-6 lg:px-4 lg:pt-8 lg:pb-0">
+      <div className="md:mx-auto w-full max-w-[1252px] px-8 py-6 lg:px-4 lg:pt-8 lg:pb-0">
         <div
-          className={`flex items-center justify-between lg:rounded-[32px] lg:p-4 lg:backdrop-blur-[32px] ${variant === "default"
+          className={`flex items-center justify-between transition-colors duration-200 ${isMobileMdScrolled
+            ? "rounded-[20px] bg-white/95 p-3 shadow-[0_6px_20px_rgba(15,23,42,0.08)] backdrop-blur-md"
+            : ""
+            } lg:rounded-[32px] lg:p-4 lg:backdrop-blur-[32px] ${variant === "default"
             ? "lg:bg-white/80 lg:shadow-[0_8px_30px_rgba(15,23,42,0.2)]"
             : "lg:bg-white/80 lg:shadow-[0_4px_20px_rgba(15,23,42,0.08)]"
             }`}
         >
           <Link href="/" className="flex shrink-0 items-center gap-2">
-            {useLightMobileBranding ? (
+            {useLightMobileBranding && !useDarkMobileBranding ? (
               <>
                 <Image
                   src="/brand/whiteLogo.svg"
@@ -199,7 +252,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
             onClick={() => setMenuOpen((o) => !o)}
             className={cn(
               "flex size-6 shrink-0 items-center justify-center lg:hidden",
-              useLightMobileBranding ? "text-white" : "text-text-100",
+              useLightMobileBranding && !useDarkMobileBranding ? "text-white" : "text-text-100",
             )}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -254,7 +307,13 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
                         <VerticalsSubmenuArtPanel className="w-[183px] min-h-[186px]" />
                         <div className="flex min-h-[186px] min-w-0 flex-1 flex-col gap-1 self-stretch py-2">
                           {children.map((child) => (
-                            <NavSubLinkRow key={child.label} href={child.href} label={child.label} />
+                            <NavSubLinkRow
+                              key={child.label}
+                              href={child.href}
+                              label={child.label}
+                              iconSrc={child.iconSrc}
+                              bgColor={child.bgColor}
+                            />
                           ))}
                         </div>
                       </div>
@@ -351,6 +410,8 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
                               key={v.label}
                               href={v.href}
                               label={v.label}
+                              iconSrc={v.iconSrc}
+                              bgColor={v.bgColor}
                               onClick={() => setMenuOpen(false)}
                             />
                           ))}

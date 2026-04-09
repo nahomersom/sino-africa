@@ -7,6 +7,7 @@ import { aboutContent } from "./constants";
 import { AboutHeroSection } from "./sections/AboutHeroSection";
 import { TeamSection } from "./sections/TeamSection";
 import { WhatDefinesUsSection } from "./sections/WhatDefinesUsSection";
+import { OurMissionSection } from "./sections/OurMissionSection";
 
 export function AboutPage() {
   const { data: teams = [] } = useGetTeamsQuery();
@@ -67,23 +68,27 @@ export function AboutPage() {
         description={aboutContent.hero.description}
         images={aboutContent.hero.images}
       />
-      <ScrollReveal>
+      <OurMissionSection
+       heading={aboutContent.mission.title}
+       description={aboutContent.mission.description}
+       bgImage={aboutContent.mission.bgImage}
+      />
+      {/* <ScrollReveal>
         <WhatDefinesUsSection
           heading={aboutContent.whatDefinesUs.heading}
           description={aboutContent.whatDefinesUs.description}
-          mission={aboutContent.whatDefinesUs.mission}
-          vision={aboutContent.whatDefinesUs.vision}
+       
           values={aboutContent.whatDefinesUs.values}
         />
-      </ScrollReveal>
-      <ScrollReveal>
+      </ScrollReveal> */}
+      {/* <ScrollReveal>
         <TeamSection
           heading={aboutContent.team.heading}
           description={aboutContent.team.description}
           highlightedMember={highlightedMember}
           rankedRows={rankedRows}
         />
-      </ScrollReveal>
+      </ScrollReveal> */}
       <ScrollReveal>
         <ContactSection
           heading={aboutContent.contact.heading}

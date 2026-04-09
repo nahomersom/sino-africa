@@ -10,7 +10,11 @@ type Props = {
 
 export function PartnerCardsSection({ title, subtitle, partners }: Props) {
   return (
-    <section className="w-full bg-white px-6 py-20 lg:px-[min(15rem,12vw)] lg:py-[100px]">
+    <section className="w-full relative bg-white px-6 py-20 lg:px-[min(15rem,12vw)] lg:py-[100px]">
+       <div
+        className="pointer-events-none absolute inset-0 opacity-[0.1]"
+        style={{ backgroundImage: "url('/images/sino-symbol-tile.svg')", backgroundSize: "28px", backgroundRepeat: "repeat" }}
+      />
       <div className="mx-auto flex w-full max-w-[1248px] flex-col gap-14">
         <div className="mx-auto flex max-w-[552px] flex-col gap-4 text-center">
           {title ? (
@@ -31,7 +35,7 @@ export function PartnerCardsSection({ title, subtitle, partners }: Props) {
           {partners.map((card, index) => (
             <article
               key={`${card.title}-${index}`}
-              className="flex min-h-0 w-full min-w-0 flex-col items-center gap-8 rounded-[16px] border border-border-card p-8 text-center lg:h-[552px] lg:items-stretch lg:justify-between lg:gap-0 lg:text-left"
+              className="bg-white z-10 flex min-h-0 w-full min-w-0 flex-col items-center gap-8 rounded-[16px] border border-border-card p-8 text-center lg:h-[552px] lg:items-stretch lg:justify-between lg:gap-0 lg:text-left"
             >
               {card.iconSrc ? (
                 <div className="relative size-[88px] shrink-0 self-center lg:self-start">

@@ -11,7 +11,7 @@ export const PROJECTS_GRID_PAGE_SIZE = 9;
 
 const serverFetchCache =
   typeof window === "undefined"
-    ? ({ next: { revalidate: 120 } } satisfies RequestInit & { next?: { revalidate: number } })
+    ? ({ next: { revalidate: 0 } } satisfies RequestInit & { next?: { revalidate: number } })
     : undefined;
 
 async function strapiGetJson<T>(

@@ -34,7 +34,7 @@ export async function fetchVerticalsList(): Promise<Vertical[]> {
     "pagination[pageSize]": 100,
   });
   try {
-    const res = await fetch(url, { next: { revalidate: 120 } });
+    const res = await fetch(url, { next: { revalidate: 0 } });
     if (!res.ok) return [];
     const json = (await res.json()) as StrapiListResponse<Vertical>;
     return json?.data ?? [];
@@ -54,7 +54,7 @@ export async function fetchVerticalBySlugServer(
     "pagination[pageSize]": 1,
   });
   try {
-    const res = await fetch(url, { next: { revalidate: 120 } });
+    const res = await fetch(url, { next: { revalidate: 0 } });
     if (!res.ok) return null;
     const json = (await res.json()) as StrapiListResponse<Vertical>;
     return json?.data?.[0] ?? null;

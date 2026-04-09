@@ -32,8 +32,9 @@ const footerLinks = {
   contact: {
     title: "Contact",
     links: [
-      { label: "contact@sinoafricatrading.com", href: "mailto:contact@sinoafricatrading.com" },
-      { label: "+251 9 00 00 0000", href: "tel:+251900000000" },
+      { label: "info@Sinoafricatrading.com", href: "mailto:info@Sinoafricatrading.com" },
+      { label: "+251900130895", href: "tel:+251900130895" },
+      { label: "+251944317816", href: "tel:+251944317816" },
       { label: "Contact us", href: "/contact" },
     ],
   },
@@ -73,8 +74,7 @@ export function Footer() {
             priority
           />
           <p className="text-base leading-6 text-white/65">
-            Sino Africa delivers technology-driven solutions across industries,
-            connecting innovation, infrastructure, and impact throughout Africa.
+          A Bridge Between Markets, Technology, and Institutional Infrastructure, Building scalable infrastructure systems across Africa through partnerships, technology, and institutional capital.
           </p>
           <div className="flex items-center gap-6">
             <Link href="#" aria-label="Twitter" className="text-[#7D818D] hover:text-primary">
@@ -100,7 +100,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-[1fr_1fr_1fr_1.4fr]">
           {sections.map((section) => (
             <div key={section.title} className="flex flex-col gap-5">
               <h3 className="text-[15px] font-light text-white/65">

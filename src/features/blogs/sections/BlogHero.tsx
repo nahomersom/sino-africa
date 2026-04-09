@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useGetBlogsQuery, Blog, getStrapiMediaUrl } from "@/src/store/strapiApi";
+import { blogDescriptionPlainText } from "@/src/features/blogs/blogDescriptionPlainText";
 import { ErrorState } from "@/src/components/ui/ErrorState";
 
 interface BlogCardProps {
@@ -76,10 +77,7 @@ function formatDate(dateStr: string): string {
 }
 
 function getDescriptionText(blog: Blog): string {
-  if (!blog.description || blog.description.length === 0) return "";
-  return blog.description
-    .flatMap((block) => (block.children || []).map((child: any) => child.text || ""))
-    .join(" ");
+  return blogDescriptionPlainText(blog.description);
 }
 
 function getBlogImage(blog: Blog): string {
@@ -136,7 +134,7 @@ export function BlogHero() {
 
   return (
     <section className="w-full mx-auto bg-white py-[40px] md:py-[80px]">
-      <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 md:px-0 lg:px-0">
+      <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 md:px-6 lg:px-8">
 
         {/* Section Heading Container - Configured for tab-responsive */}
         <motion.div
@@ -161,7 +159,7 @@ export function BlogHero() {
         >
           <div
             ref={scrollContainerRef}
-            className="flex gap-[24px] md:gap-[25px] overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory pb-[20px] md:px-0 lg:px-0"
+            className="flex gap-[24px] md:gap-[25px] overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory pb-[20px]"
           >
             {isLoading ? (
               Array.from({ length: 3 }).map((_, index) => (
@@ -192,7 +190,7 @@ export function BlogHero() {
 
         {/* Pagination & Navigation */}
         <motion.div
-          className="flex justify-between items-center mt-[32px] md:px-0 lg:px-0"
+          className="flex justify-between items-center mt-[32px]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}

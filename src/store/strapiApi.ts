@@ -1,6 +1,10 @@
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { fetchProjectById, PROJECTS_GRID_PAGE_SIZE } from "@/src/features/projects/fetchProjects";
+import {
+  fetchProjectById,
+  fetchProjectBySlug,
+  PROJECTS_GRID_PAGE_SIZE,
+} from "@/src/features/projects/fetchProjects";
 import { appendStrapiQuery, getStrapiApiBaseUrl, getStrapiMediaUrl } from "@/src/lib/strapiBase";
 
 export { getStrapiMediaUrl };
@@ -61,7 +65,7 @@ export type Blog = {
   title: string;
   slug: string;
   summary: string;
-  description: RichTextBlock[];
+  description: string | RichTextBlock[];
   cover_img: StrapiMedia | null;
   gallery: StrapiMedia[];
   isFeatured: boolean;
@@ -256,6 +260,15 @@ export type Vertical = {
   focusAreas?: VerticalFocusArea[];
   ecosystemPartners?: VerticalEcosystemPartner[];
   gradient?: VerticalGradient | null;
+  tags?: VerticalTag[];
+  tag?: VerticalTag[];
+};
+
+export type VerticalTag = {
+  id?: number | string;
+  text?: string;
+  title?: string;
+  name?: string;
 };
 
 export type VerticalFocusArea = {
@@ -282,6 +295,7 @@ const VERTICAL_DEEP_POPULATE: Record<string, string> = {
   "populate[logo]": "true",
   "populate[heroImage]": "true",
   "populate[gradient]": "true",
+  "populate[tag]": "true",
   "populate[focusAreas][populate][images]": "true",
   "populate[ecosystemPartners][populate][icon]": "true",
 };
@@ -566,6 +580,21 @@ export const strapiApi = createApi({
       },
     }),
 
+    getProjectBySlug: builder.query<Project | null, string>({
+      async queryFn(slug) {
+        const project = await fetchProjectBySlug(slug);
+        if (project) {
+          return { data: project };
+        }
+        return {
+          error: {
+            status: 404,
+            data: "Project not found",
+          } as FetchBaseQueryError,
+        };
+      },
+    }),
+
     getProjectCategories: builder.query<
       ProjectCategory[],
       Record<string, unknown> | void
@@ -599,6 +628,7 @@ export const {
   useGetTeamsQuery,
   useGetProjectsQuery,
   useGetProjectByIdQuery,
+  useGetProjectBySlugQuery,
   useGetProjectCategoriesQuery,
   useCreateContactSubmissionMutation,
 } = strapiApi;

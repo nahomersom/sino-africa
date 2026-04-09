@@ -70,7 +70,7 @@ function VerticalCardInner({ item }: { item: VerticalItem }) {
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-        <h3 className="text-2xl font-medium leading-[1.2] text-text-100 transition-colors duration-300">
+        <h3 className="text-2xl max-w-full truncate font-medium leading-[1.2] text-text-100 transition-colors duration-300">
           {item.title}
         </h3>
         <div className="min-w-0 py-2">
@@ -103,13 +103,36 @@ export function VerticalsSection({
   description,
   items,
 }: VerticalsSectionProps) {
+  const MAX_VISIBLE_CARDS = 3;
   const [activeIndex, setActiveIndex] = useState(0);
-  const activeGradient =
-    items[activeIndex]?.gradient ?? GRADIENTS[activeIndex] ?? GRADIENTS[0];
+  const [cardStart, setCardStart] = useState(0);
+  const hasOverflowCards = items.length > MAX_VISIBLE_CARDS;
+  const activeGradient = items[activeIndex]?.gradient ?? GRADIENTS[0];
+  const activeGradientRowIndex = Math.max(0, GRADIENTS.indexOf(activeGradient));
+  const activeEllipseTopRow =
+    VERTICALS_ELLIPSE_TOP_PX_BY_GRADIENT[activeGradientRowIndex] ??
+    VERTICALS_ELLIPSE_TOP_PX_BY_GRADIENT[0];
   const titleEntrance =
     VERTICALS_TITLE_ENTRANCE[activeIndex] ?? VERTICALS_TITLE_ENTRANCE[0];
   const titleTransition =
     VERTICALS_TITLE_TRANSITIONS[activeIndex] ?? VERTICALS_TITLE_TRANSITIONS[0];
+  const totalPages = Math.ceil(items.length / MAX_VISIBLE_CARDS);
+  const currentPage = Math.floor(cardStart / MAX_VISIBLE_CARDS);
+  const canGoPrev = currentPage > 0;
+  const canGoNext = currentPage < totalPages - 1;
+  const visibleCards = hasOverflowCards
+    ? items
+        .slice(cardStart, cardStart + MAX_VISIBLE_CARDS)
+        .map((item, offset) => ({ item, index: cardStart + offset }))
+    : items.map((item, index) => ({ item, index }));
+
+  const shiftCards = (direction: -1 | 1) => {
+    if (!hasOverflowCards) return;
+    setCardStart((prev) => {
+      if (direction < 0) return Math.max(0, prev - MAX_VISIBLE_CARDS);
+      return Math.min((totalPages - 1) * MAX_VISIBLE_CARDS, prev + MAX_VISIBLE_CARDS);
+    });
+  };
 
   return (
     <section
@@ -118,13 +141,13 @@ export function VerticalsSection({
       style={{ background: activeGradient }}
     >
       {VERTICALS_REFERENCE_ELLIPSES.map((ellipse, i) => {
-        const topPx = VERTICALS_ELLIPSE_TOP_PX_BY_GRADIENT[activeIndex][i];
+        const topPx = activeEllipseTopRow[i] ?? VERTICALS_ELLIPSE_TOP_PX_BY_GRADIENT[0][i];
         const fill = `rgba(255, 255, 255, ${ellipse.opacity / 100})`;
         return (
           <motion.div
             key={i}
             initial={false}
-            className="pointer-events-none absolute left-1/2 -translate-x-1/2 rounded-full"
+            className="pointer-events-none absolute left-1/2 -translate-x-1/2 rounded-full max-w-[100vw] overflow-x-hidden md:max-w-none md:overflow-x-visible"
             animate={{ top: topPx, width: ellipse.w, height: ellipse.h, backgroundColor: fill }}
             transition={VERTICALS_ELLIPSE_TRANSITIONS[i]}
             aria-hidden
@@ -169,31 +192,91 @@ export function VerticalsSection({
       </div>
 
       {/* Cards row */}
-      <StaggerContainer className="relative z-10 flex w-full flex-col gap-2 lg:flex-row" stagger={0.15}>
-        {items.map((item, i) => {
-          const href = item.slug ? `/our-verticals/${item.slug}` : undefined;
-          const cardClassName =
-            "flex min-w-0 cursor-pointer items-center gap-4 rounded-2xl bg-accent-60 p-4 backdrop-blur-[20px] transition-all duration-300";
+      <div className="relative z-10 flex w-full flex-col gap-3">
+        {hasOverflowCards ? (
+          <div className="flex items-center justify-end gap-2">
+            <button
+              type="button"
+              onClick={() => shiftCards(-1)}
+              disabled={!canGoPrev}
+              className="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-md transition-all hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-45"
+              aria-label="Show previous verticals"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path
+                  d="M15 18L9 12L15 6"
+                  className="stroke-current transition-transform group-hover:-translate-x-0.5"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+            <button
+              type="button"
+              onClick={() => shiftCards(1)}
+              disabled={!canGoNext}
+              className="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-md transition-all hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-45"
+              aria-label="Show next verticals"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path
+                  d="M9 6L15 12L9 18"
+                  className="stroke-current transition-transform group-hover:translate-x-0.5"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+        ) : null}
 
-          return (
-            <StaggerItem key={item.title} className="min-w-0 flex-1">
-              {href ? (
-                <Link
-                  href={href}
-                  onMouseEnter={() => setActiveIndex(i)}
-                  className={cardClassName}
+        <motion.div
+          key={cardStart}
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, ease: "easeOut" }}
+        >
+          <StaggerContainer
+            className={`relative flex w-full flex-col gap-2 lg:flex-row ${
+              hasOverflowCards && visibleCards.length < MAX_VISIBLE_CARDS ? "items-center lg:justify-center" : ""
+            }`}
+            stagger={0.12}
+          >
+            {visibleCards.map(({ item, index }) => {
+              const href = item.slug ? `/our-verticals/${item.slug}` : undefined;
+              const cardClassName =
+                "flex min-w-0 cursor-pointer items-center gap-4 rounded-2xl bg-accent-60 p-4 backdrop-blur-[20px] transition-all duration-300";
+
+              return (
+                <StaggerItem
+                  key={`${item.title}-${index}`}
+                  className={`min-w-0 ${
+                    hasOverflowCards && visibleCards.length < MAX_VISIBLE_CARDS
+                      ? "w-full lg:max-w-[420px]"
+                      : "flex-1"
+                  }`}
                 >
-                  <VerticalCardInner item={item} />
-                </Link>
-              ) : (
-                <div onMouseEnter={() => setActiveIndex(i)} className={cardClassName}>
-                  <VerticalCardInner item={item} />
-                </div>
-              )}
-            </StaggerItem>
-          );
-        })}
-      </StaggerContainer>
+                  {href ? (
+                    <Link
+                      href={href}
+                      onMouseEnter={() => setActiveIndex(index)}
+                      className={cardClassName}
+                    >
+                      <VerticalCardInner item={item} />
+                    </Link>
+                  ) : (
+                    <div onMouseEnter={() => setActiveIndex(index)} className={cardClassName}>
+                      <VerticalCardInner item={item} />
+                    </div>
+                  )}
+                </StaggerItem>
+              );
+            })}
+          </StaggerContainer>
+        </motion.div>
+      </div>
     </section>
   );
 }
