@@ -39,7 +39,7 @@ export function HeroSection() {
     const tags = extractVerticalTags(vertical);
 
     return {
-      imageSrc: getStrapiMediaUrl(vertical.heroImage?.url) || fallbackSlide.imageSrc,
+      imageSrc: getStrapiMediaUrl(vertical.homeHeroImage?.url) || fallbackSlide.imageSrc,
       title: vertical.title ?? vertical.name ?? fallbackSlide.title,
       description:
         vertical.summary ??

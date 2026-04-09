@@ -257,6 +257,7 @@ export type Vertical = {
   publishedAt?: string;
   logo?: StrapiMedia | null;
   heroImage?: StrapiMedia | null;
+  homeHeroImage?: StrapiMedia | null;
   focusAreas?: VerticalFocusArea[];
   ecosystemPartners?: VerticalEcosystemPartner[];
   gradient?: VerticalGradient | null;
@@ -294,6 +295,7 @@ export type VerticalGradient = {
 const VERTICAL_DEEP_POPULATE: Record<string, string> = {
   "populate[logo]": "true",
   "populate[heroImage]": "true",
+  "populate[homeHeroImage]": "true",
   "populate[gradient]": "true",
   "populate[tag]": "true",
   "populate[focusAreas][populate][images]": "true",
