@@ -197,8 +197,12 @@ export function BlogHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
         >
-          <div className="text-[#161C2D] text-[16px] font-medium opacity-60">
-            {blogs.length > 0 ? `${currentIndex + 1}/${blogs.length}` : "0/0"}
+          <div className="flex items-center gap-2 font-medium text-[#161C2D] text-[16px]">
+            <span className="opacity-100">{String(currentIndex + 1).padStart(2, '0')}</span>
+            <span className="opacity-40">/</span>
+            <span className="opacity-40">
+              {String(pagination?.total || blogs.length).padStart(2, '0')}
+            </span>
           </div>
           <div className="flex gap-[12px]">
             <button
