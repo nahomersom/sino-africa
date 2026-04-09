@@ -2,11 +2,10 @@ export const aboutContent = {
   hero: {
     label: "ABOUT US",
     heading: "We empower growth by Powering the Systems That Keep Nations Moving.",
-    /** Photo collage slots — artboard 1236×611 (Figma); dot grid is `hero-dots.svg` */
     images: {
-      center: "/images/about/hero-photo-0.jpg",
-      left: "/images/about/hero-photo-2.png",
-      right: "/images/about/hero-photo-1.jpg",
+      center: "/images/about/hero-photo-1.png",
+      left: "/images/about/hero-photo-0.png",
+      right: "/images/about/hero-photo-2.png",
     },
     description:
       "We work at the core of critical infrastructure helping governments and institutions turn complex challenges into reliable, compliant systems that drive long-term growth and stability."

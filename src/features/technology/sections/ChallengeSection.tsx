@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import centerImage from "@/public/assets/images/centerimage.png";
 
 const challengeItems = [
   {
@@ -81,7 +82,7 @@ export function ChallengeSection() {
         className="relative overflow-hidden w-full max-w-[530px] md:max-w-[677px] lg:max-w-[530px] lg:w-[530px] lg:flex-1 h-[400px] md:h-[419px] lg:h-[804px] rounded-[8px] shrink-0"
       >
         <Image
-          src="/assets/images/centerimage.png"
+          src={centerImage}
           alt="Challenge Illustration"
           fill
           className="object-cover"

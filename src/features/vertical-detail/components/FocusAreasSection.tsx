@@ -40,6 +40,7 @@ type Props = {
   subtitle: string;
   rows: FocusRowType[];
   patternSrc: string;
+  rightPanelColor?: string;
 };
 
 /** First focus row image mosaic: 449×511, staggered 212px columns, 25px gaps (design spec). Below lg: fluid width, same 2-col rhythm, no horizontal scroll. */
@@ -103,8 +104,14 @@ function FocusGridTextImages({
 }
 
 /** Second focus row images: 447×468 group; left 327×468, right 264×382 overlapping left (design spec). Below lg: percentage layout so width tracks container. */
-function FocusDualOverlapImages({ images }: { images: [string | null, string | null] }) {
-  const [leftSrc, rightSrc] = images;
+function FocusDualOverlapImages({
+  images,
+  rightPanelColor,
+}: {
+  images: [string | null, string | null];
+  rightPanelColor?: string;
+}) {
+  const [leftSrc] = images;
   return (
     <div className="relative mx-auto w-full max-w-[447px] min-w-0 lg:mx-0">
       <div className="relative aspect-[447/468] w-full lg:aspect-auto lg:h-[468px] lg:w-[447px]">
@@ -121,25 +128,16 @@ function FocusDualOverlapImages({ images }: { images: [string | null, string | n
             <div className="absolute inset-0 animate-pulse bg-border-light" aria-hidden />
           )}
         </div>
-        <div className="absolute left-[40.94%] top-[9.19%] z-0 h-[81.62%] w-[59.06%] overflow-hidden rounded-lg bg-border-light shadow-sm lg:left-[183px] lg:top-[43px] lg:h-[382px] lg:w-[264px]">
-          {rightSrc ? (
-            <Image
-              src={rightSrc}
-              alt=""
-              fill
-              className="object-cover"
-              sizes="(max-width: 1023px) 60vw, 264px"
-            />
-          ) : (
-            <div className="absolute inset-0 animate-pulse bg-border-light/90" aria-hidden />
-          )}
-        </div>
+        <div
+          className="absolute left-[40.94%] top-[9.19%] z-0 h-[81.62%] w-[59.06%] overflow-hidden rounded-lg shadow-sm lg:left-[183px] lg:top-[43px] lg:h-[382px] lg:w-[264px]"
+          style={{ backgroundColor: rightPanelColor || "var(--color-border-light)" }}
+        />
       </div>
     </div>
   );
 }
 
-function FocusRowBlock({ row }: { row: FocusRowType }) {
+function FocusRowBlock({ row, rightPanelColor }: { row: FocusRowType; rightPanelColor?: string }) {
   if (row.variant === "grid-text") {
     return (
       <div className="mx-auto grid w-full max-w-[1011px] grid-cols-1 items-center gap-10 lg:grid-cols-[449px_1fr] lg:gap-x-[62px] lg:gap-y-0">
@@ -154,7 +152,7 @@ function FocusRowBlock({ row }: { row: FocusRowType }) {
       <div className="mx-auto grid w-full max-w-[1011px] grid-cols-1 items-center gap-10 lg:grid-cols-[1fr_447px] lg:gap-x-[62px] lg:gap-y-0">
         <FocusRowCopy title={row.title} body={row.body} className="order-2 lg:order-1" />
         <div className="order-1 flex justify-center lg:order-2 lg:justify-end">
-          <FocusDualOverlapImages images={row.images} />
+          <FocusDualOverlapImages images={row.images} rightPanelColor={rightPanelColor} />
         </div>
       </div>
     );
@@ -180,7 +178,7 @@ function FocusRowBlock({ row }: { row: FocusRowType }) {
   );
 }
 
-export function FocusAreasSection({ title, subtitle, rows, patternSrc }: Props) {
+export function FocusAreasSection({ title, subtitle, rows, patternSrc, rightPanelColor }: Props) {
   return (
     <section
       className="relative isolate w-full overflow-hidden bg-white bg-[position:right_center] bg-no-repeat py-20 bg-[length:auto_72%] sm:bg-[length:auto_84%] lg:bg-[length:auto_100%] lg:py-[100px]"
@@ -214,7 +212,7 @@ export function FocusAreasSection({ title, subtitle, rows, patternSrc }: Props) 
 
           <div className="flex flex-col gap-20 lg:gap-24">
             {rows.map((row, i) => (
-              <FocusRowBlock key={`${row.variant}-${i}`} row={row} />
+              <FocusRowBlock key={`${row.variant}-${i}`} row={row} rightPanelColor={rightPanelColor} />
             ))}
           </div>
         </div>

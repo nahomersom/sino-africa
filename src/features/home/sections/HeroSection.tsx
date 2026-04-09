@@ -23,6 +23,12 @@ function extractVerticalTags(vertical: Vertical): string[] {
     .slice(0, 3);
 }
 
+function getSlideAnimationType(slideIndex: number): "up" | "down" | "none" {
+  if (slideIndex === 1) return "down";
+  if (slideIndex === 2) return "none";
+  return "up";
+}
+
 export function HeroSection() {
   const { data: verticals = [] } = useGetVerticalsQuery();
   const fallbackSlides = HERO_SLIDES.slice(1, 4);
@@ -54,33 +60,55 @@ export function HeroSection() {
   useEffect(() => {
     const timer = window.setTimeout(() => {
       setActiveSlide((prev) => (prev + 1) % slides.length);
-    }, 3000);
+    }, 4500);
 
     return () => window.clearTimeout(timer);
   }, [activeSlide, slides.length]);
 
   const currentSlide = slides[activeSlide];
+  const slideAnimationType = getSlideAnimationType(activeSlide);
+  const textInitial =
+    slideAnimationType === "up"
+      ? { opacity: 0, y: 18 }
+      : slideAnimationType === "down"
+        ? { opacity: 0, y: -18 }
+        : { opacity: 1, y: 0 };
+  const textAnimate = { opacity: 1, y: 0 };
+  const textExit =
+    slideAnimationType === "up"
+      ? { opacity: 0, y: -8 }
+      : slideAnimationType === "down"
+        ? { opacity: 0, y: 8 }
+        : { opacity: 1, y: 0 };
+  const textTransition =
+    slideAnimationType === "none"
+      ? { duration: 0 }
+      : { duration: 1.2, ease: [0.16, 1, 0.3, 1] as const };
 
   return (
     <section className="relative flex min-h-screen w-full flex-col justify-center overflow-hidden bg-black/50">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentSlide.imageSrc}
-          className="absolute inset-0"
-          initial={{ opacity: 0, scale: 1.02 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 1.01 }}
-          transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <Image
-            src={currentSlide.imageSrc}
-            alt="Sino Africa hero background"
-            fill
-            priority
-            className="object-cover"
-          />
-        </motion.div>
-      </AnimatePresence>
+      <div className="absolute inset-0">
+        {slides.map((slide, index) => (
+          <motion.div
+            key={`${index}-${slide.imageSrc}`}
+            className="absolute inset-0"
+            initial={false}
+            animate={{
+              opacity: index === activeSlide ? 1 : 0,
+              scale: index === activeSlide ? 1 : 1.01,
+            }}
+            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <Image
+              src={slide.imageSrc}
+              alt="Sino Africa hero background"
+              fill
+              priority={index === 0}
+              className="object-cover"
+            />
+          </motion.div>
+        ))}
+      </div>
       <div className="absolute inset-0 bg-black/70" />
       <div
         className="pointer-events-none absolute inset-0 z-1"
@@ -97,20 +125,38 @@ export function HeroSection() {
           <motion.div
             key={`hero-content-${activeSlide}`}
             className="flex flex-col gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           >
             <span className="text-[13px] leading-[1.26] tracking-[0.125em] text-[#68D585]">
               SINO AFRICA
             </span>
-            <h1 className="w-full max-w-[658px] text-left text-[40px] leading-[1.02] tracking-[-0.02em] text-white md:text-[52px] lg:text-[60px] lg:leading-[60px] lg:tracking-[-0.0333em]">
-              {currentSlide.title}
-            </h1>
-            <p className="w-full max-w-[599px] text-left text-[18px] leading-[1.5] tracking-[-0.03em] text-white md:text-[20px] lg:text-[24px]">
-              {currentSlide.description}
-            </p>
+            <AnimatePresence mode="wait">
+              <motion.h1
+                key={`hero-title-${activeSlide}`}
+                initial={textInitial}
+                animate={textAnimate}
+                exit={textExit}
+                transition={textTransition}
+                className="w-full max-w-[658px] text-left text-[40px] leading-[1.02] tracking-[-0.02em] text-white md:text-[52px] lg:text-[60px] lg:leading-[60px] lg:tracking-[-0.0333em]"
+              >
+                {currentSlide.title}
+              </motion.h1>
+            </AnimatePresence>
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={`hero-description-${activeSlide}`}
+                initial={textInitial}
+                animate={textAnimate}
+                exit={textExit}
+                transition={textTransition}
+                className="w-full max-w-[599px] text-left text-[18px] leading-[1.5] tracking-[-0.03em] text-white md:text-[20px] lg:text-[24px]"
+              >
+                {currentSlide.description}
+              </motion.p>
+            </AnimatePresence>
             <div className="flex flex-row flex-wrap items-center gap-4">
               <Link
                 href={currentSlide.primaryCta.href}
@@ -129,12 +175,19 @@ export function HeroSection() {
               {(currentSlide.focusAreas.length > 0 ? currentSlide.focusAreas : firstSlide.focusAreas)
                 .slice(0, 3)
                 .map((item, index) => (
-                <span
+                <motion.span
                   key={`${activeSlide}-${index}-${item}`}
+                  initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 0.16 * index,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
                   className="rounded-[32px] bg-white/20 px-6 py-4 text-center text-[12px] font-medium leading-[1.26] tracking-[0.0525em] text-white backdrop-blur-[52px]"
                 >
                   {item}
-                </span>
+                </motion.span>
               ))}
             </div>
           </motion.div>
