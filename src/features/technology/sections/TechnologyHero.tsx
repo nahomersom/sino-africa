@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import infraHeroImg from "@/public/assets/images/infrahero-img.png";
 
 export function TechnologyHero() {
   return (
@@ -61,7 +62,7 @@ export function TechnologyHero() {
 
           <div className="relative z-10 h-[429px] w-[366px] max-w-full overflow-hidden rounded-[20px] shadow-sm md:h-[331px] md:w-[324px] lg:h-[585px] lg:w-[495.51px] lg:translate-x-[88px] lg:translate-y-16">
             <Image
-              src="/assets/images/infrahero-img.png"
+              src={infraHeroImg}
               alt="Technology and Infrastructure Hero"
               width={496}
               height={585}

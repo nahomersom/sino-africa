@@ -151,7 +151,7 @@ export function ProjectsGridSection({
         </div>
 
           <div
-            className="box-border mx-auto flex w-full max-w-[720px] flex-wrap justify-center gap-2 rounded-[24px] bg-[#F6F7FB] p-4 lg:max-w-[960px]"
+            className="box-border mx-auto flex w-full max-w-[720px] flex-wrap justify-center gap-2 rounded-[24px] bg-[#F6F7FB] p-4 lg:max-w-[635px] lg:justify-start"
             role="group"
             aria-label="Filter projects by category"
           >
@@ -164,7 +164,7 @@ export function ProjectsGridSection({
                   aria-pressed={isActive}
                   onClick={() => setActiveFilter(tab.id)}
                   className={cn(
-                    "box-border flex h-[53px] min-w-[120px] flex-1 cursor-pointer items-center justify-center whitespace-nowrap rounded-[16px] px-4 py-4 text-center text-sm font-normal leading-[1.5] transition-colors sm:flex-none sm:min-w-[132px] lg:min-w-[150px] lg:px-6",
+                    "box-border flex h-[53px] min-w-[120px]  flex-1 cursor-pointer items-center justify-center lg:justify-normal whitespace-nowrap rounded-[16px] px-4 py-4 text-center text-sm font-normal leading-[1.5] transition-colors sm:flex-none sm:min-w-[132px] lg:min-w-0 lg:px-8",
                     isActive
                       ? "bg-primary text-white shadow-sm"
                       : "bg-white text-text-100 hover:bg-white/90",
@@ -196,7 +196,7 @@ export function ProjectsGridSection({
               <StaggerItem key={project.id} className="min-w-0">
                 <Link
                   href={`/projects/${project.id}`}
-                  className="flex h-full min-w-0 flex-col rounded-[24px] border border-[#E7E9ED] border-[2px] bg-transparent p-3 transition-colors hover:border-primary/40 hover:bg-white/60 md:gap-5 md:p-4"
+                  className="flex h-full min-w-0 flex-col rounded-[24px] border border-[#E7E9ED] p-3 transition-colors  bg-white z-20 md:gap-5 md:p-4"
                 >
                   <article className="flex h-full min-w-0 flex-col gap-4 md:gap-5">
                     <div className="relative aspect-[319.33331298828125/313] w-full shrink-0 overflow-hidden rounded-[10px] bg-transparent">

@@ -46,8 +46,8 @@ const navItems: readonly NavItem[] = [
   { label: "About us", href: "/about" },
   { label: "Our Verticals", href: "/our-verticals", children: verticalSubLinks },
   { label: "Projects", href: "/projects" },
-  { label: "Technology and Infrastructure", href: "/technology" },
-  { label: "Blogs", href: "/blogs" },
+  { label: "Solutions", href: "/technology" },
+  { label: "Insights", href: "/blogs" },
 ];
 
 const SUBMENU_BACKDROP_SHADOW =

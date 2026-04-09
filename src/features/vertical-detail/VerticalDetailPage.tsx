@@ -41,6 +41,7 @@ export function VerticalDetailPage({ content }: Props) {
             subtitle={content.focusIntroSubtitle}
             rows={content.focusRows}
             patternSrc={theme.focusPatternSrc}
+            rightPanelColor={theme.heroGradient.baseColor}
           />
         </ScrollReveal>
 
