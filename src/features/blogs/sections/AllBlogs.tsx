@@ -59,12 +59,15 @@ interface AllBlogsProps {
 
 export function AllBlogs({ showTitle = true, excludeDocumentId, tags }: AllBlogsProps) {
   const queryParams: Record<string, any> = {};
-  
+
   if (tags && tags.length > 0) {
     tags.forEach((tag, index) => {
       queryParams[`filters[tags][name][$in][${index}]`] = tag;
     });
   }
+
+  // Exclude featured blogs from All Blogs list
+  queryParams["filters[isFeatured][$ne]"] = true;
 
   const { data, isLoading, isError, refetch } = useGetBlogsQuery(queryParams);
   const allBlogs = data?.blogs ?? [];

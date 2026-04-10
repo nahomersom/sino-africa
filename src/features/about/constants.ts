@@ -14,16 +14,7 @@ export const aboutContent = {
     heading: "What Defines us",
     description:
       "What shapes our decisions, and inspire us to create meaningful impact for our partners and communities.",
-    mission: {
-      title: "Our Mission",
-      description:
-        "Sino Africa delivers mission critical regulated financial, identity, security, and mobility systems through disciplined execution, strict regulatory alignment, and full lifecycle accountability. We transform policy into operational reality, embed global technologies within local governance frameworks, and assume end-to-end responsibility to ensure continuity, stability, and long-term institutional trust.",
-    },
-    vision: {
-      title: "Our Vision",
-      description:
-        "Strengthening Africa’s institutions by integrating and sustaining global technologies within local governance.",
-    },
+
     values: {
       title: "Our Core Values",
       items: [
@@ -35,6 +26,18 @@ export const aboutContent = {
         "Operational Readiness",
       ],
     },
+  },
+  mission: {
+    title: "Our Mission",
+    description:
+      "Delivering mission-critical systems with strict regulatory alignment and full accountability, turning policy into reliable, real-world solutions.",
+    bgImage: "/images/about/mission-bg.jpg",
+  },
+  vision: {
+    title: "Our Vision",
+    description:
+      "Strengthening Africa’s institutions by integrating and sustaining global technologies within local governance.",
+    bgImage: "/images/about/vision-bg.jpg",
   },
   team: {
     heading: "Our Team",

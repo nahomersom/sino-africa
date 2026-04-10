@@ -55,13 +55,12 @@ function getBlogImage(blog: Blog): string {
 }
 
 export function RecentBlogs() {
-  const { data, isLoading, isError, refetch } = useGetBlogsQuery();
-  const allBlogs = data?.blogs ?? [];
-
-  // Sort by publishedDate descending (most recent first) and take top 6
-  const blogs = [...allBlogs]
-    .sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime())
-    .slice(0, 6);
+  const { data, isLoading, isError, refetch } = useGetBlogsQuery({ 
+    "filters[isFeatured][$ne]": true,
+    "pagination[pageSize]": 6,
+    "sort": "publishedDate:desc"
+  });
+  const blogs = data?.blogs ?? [];
 
   return (
     <section className="w-full bg-white pb-[100px]">

@@ -1,5 +1,4 @@
 import { Nav } from "@/src/components/layout/Nav";
-import { Footer } from "@/src/components/layout/Footer";
 import { BlogsPage } from "@/src/features/blogs/BlogsPage";
 
 export default function Page() {
