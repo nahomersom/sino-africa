@@ -5,9 +5,11 @@ import { ContactSection } from "@/src/features/home/sections/ContactSection";
 import { getStrapiMediaUrl, useGetTeamsQuery } from "@/src/store/strapiApi";
 import { aboutContent } from "./constants";
 import { AboutHeroSection } from "./sections/AboutHeroSection";
-import { TeamSection } from "./sections/TeamSection";
-import { WhatDefinesUsSection } from "./sections/WhatDefinesUsSection";
+// import { TeamSection } from "./sections/TeamSection";
+// import { WhatDefinesUsSection } from "./sections/WhatDefinesUsSection";
 import { OurMissionSection } from "./sections/OurMissionSection";
+import { OurVisionSection } from "./sections/OurVisionSection";
+import { CoreValuesSection } from "./sections/CoreValuesSection";
 
 export function AboutPage() {
   const { data: teams = [] } = useGetTeamsQuery();
@@ -16,19 +18,19 @@ export function AboutPage() {
   const highlightedFromApi = teams.find((member) => member.isHighlighted) ?? null;
   const highlightedMember = highlightedFromApi
     ? {
-        name: highlightedFromApi.name,
-        role: highlightedFromApi.position ?? "",
-        image: getStrapiMediaUrl(highlightedFromApi.image?.url) || aboutContent.team.ceo.image,
-        linkedin: highlightedFromApi.linkedin ?? null,
-        twitter: highlightedFromApi.twitter ?? null,
-      }
+      name: highlightedFromApi.name,
+      role: highlightedFromApi.position ?? "",
+      image: getStrapiMediaUrl(highlightedFromApi.image?.url) || aboutContent.team.ceo.image,
+      linkedin: highlightedFromApi.linkedin ?? null,
+      twitter: highlightedFromApi.twitter ?? null,
+    }
     : {
-        name: aboutContent.team.ceo.name,
-        role: aboutContent.team.ceo.role,
-        image: aboutContent.team.ceo.image,
-        linkedin: null,
-        twitter: null,
-      };
+      name: aboutContent.team.ceo.name,
+      role: aboutContent.team.ceo.role,
+      image: aboutContent.team.ceo.image,
+      linkedin: null,
+      twitter: null,
+    };
 
   const nonHighlightedRowsMap = new Map<number, {
     name: string;
@@ -56,8 +58,8 @@ export function AboutPage() {
   const rankedRows =
     nonHighlightedRowsMap.size > 0
       ? Array.from(nonHighlightedRowsMap.entries())
-          .sort((a, b) => a[0] - b[0])
-          .map(([, row]) => row)
+        .sort((a, b) => a[0] - b[0])
+        .map(([, row]) => row)
       : fallbackRows;
 
   return (
@@ -69,10 +71,15 @@ export function AboutPage() {
         images={aboutContent.hero.images}
       />
       <OurMissionSection
-       heading={aboutContent.mission.title}
-       description={aboutContent.mission.description}
-       bgImage={aboutContent.mission.bgImage}
+        heading={aboutContent.mission.title}
+        description={aboutContent.mission.description}
+        bgImage={aboutContent.mission.bgImage}
       />
+      <OurVisionSection
+        heading={aboutContent.vision.title}
+        description={aboutContent.vision.description}
+      />
+      <CoreValuesSection />
       {/* <ScrollReveal>
         <WhatDefinesUsSection
           heading={aboutContent.whatDefinesUs.heading}
