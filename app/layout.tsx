@@ -38,8 +38,12 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${outfit.variable} ${nataSans.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full bg-zinc-50 dark:bg-black">
+      <body
+        className="min-h-full bg-zinc-50 dark:bg-black"
+        suppressHydrationWarning
+      >
         <Providers>
           <div className="relative flex min-h-full flex-col">
             {children}
