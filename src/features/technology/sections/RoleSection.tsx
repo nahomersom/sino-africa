@@ -15,7 +15,7 @@ export function RoleSection() {
         {/* Logo Container */}
         <div className="relative flex shrink-0 items-center justify-center px-[30px] w-full md:w-[218px] lg:w-[545px] h-[205px] md:h-[60px] lg:h-[205px]">
           <Image
-            src="/assets/images/sinoafrica.png?v=2"
+            src="/assets/images/sinoafrica.png"
             alt="Sino Africa Trading"
             width={545}
             height={205}
