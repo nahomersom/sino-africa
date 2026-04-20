@@ -11,7 +11,7 @@ const footerLinks = {
       { label: "Home", href: "/" },
       { label: "About us", href: "/about" },
       { label: "Our Verticals", href: "/our-verticals" },
-      { label: "Technology and Infrastructure", href: "/technology" },
+      { label: "Solutions", href: "/technology" },
     ],
   },
   verticals: {
@@ -26,7 +26,7 @@ const footerLinks = {
     title: "Additional Links",
     links: [
       { label: "Projects", href: "/projects" },
-      { label: "Blogs", href: "/blogs" },
+      { label: "Insights", href: "/blogs" },
     ],
   },
   contact: {
