@@ -1,8 +1,5 @@
 import Image from "next/image";
-import {
-  StaggerContainer,
-  StaggerItem,
-} from "@/src/components/ui/scroll-reveal";
+
 
 type PartnerLogo = {
   src: string;
@@ -49,19 +46,44 @@ export function PartnersSection({
         </p>
       </div>
 
-      <StaggerContainer className="flex w-full max-w-4xl flex-wrap items-center justify-center gap-x-16 gap-y-10" stagger={0.1}>
-        {logos.map((logo) => (
-          <StaggerItem key={logo.alt} direction="none">
-            <Image
-              src={logo.src}
-              alt={logo.alt}
-              width={logo.width}
-              height={logo.height}
-              className="h-auto"
-            />
-          </StaggerItem>
-        ))}
-      </StaggerContainer>
+      <div className="group pause-on-hover relative w-full overflow-hidden">
+        <div className="animate-marquee flex w-max items-center py-4">
+          {/* First track */}
+          <div className="flex shrink-0 items-center gap-16 pr-16">
+            {logos.map((logo, idx) => (
+              <div
+                key={`${logo.alt}-${idx}`}
+                className="flex shrink-0 items-center justify-center"
+              >
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={logo.width}
+                  height={logo.height}
+                  className="h-10 w-auto object-contain md:h-12"
+                />
+              </div>
+            ))}
+          </div>
+          {/* Duplicate track for seamless loop */}
+          <div className="flex shrink-0 items-center gap-16 pr-16" aria-hidden="true">
+            {logos.map((logo, idx) => (
+              <div
+                key={`${logo.alt}-dup-${idx}`}
+                className="flex shrink-0 items-center justify-center"
+              >
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={logo.width}
+                  height={logo.height}
+                  className="h-10 w-auto object-contain md:h-12"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
