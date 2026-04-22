@@ -1,5 +1,3 @@
-import React from "react";
-
 type OurVisionSectionProps = {
   heading: string;
   description: string;
@@ -12,7 +10,7 @@ export function OurVisionSection({
   description,
 }: OurVisionSectionProps) {
   return (
-    <section className="relative flex min-h-[716px] w-full flex-col items-center justify-center gap-[40px] overflow-hidden bg-white px-6 py-[200px] lg:px-[464px]">
+    <section className="relative flex min-h-[421px] w-full flex-col items-center justify-center gap-6 overflow-hidden bg-white px-5 py-[100px] lg:min-h-[716px] lg:gap-[40px] lg:px-[464px] lg:py-[200px]">
       {/* Background Grid */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.1]"
@@ -33,7 +31,7 @@ export function OurVisionSection({
         aria-hidden="true"
       />
 
-      <div className="relative z-10 flex flex-col items-center gap-[40px]">
+      <div className="relative z-10 flex flex-col items-center gap-6 lg:gap-[40px]">
         {/* SVG Icon */}
         <svg
           width="65"

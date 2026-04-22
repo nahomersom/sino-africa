@@ -9,6 +9,7 @@ export type HeroSocialIcon = {
 export type HeroSlide = {
   imageSrc: string;
   title: string;
+  verticalName?: string;
   description: string;
   focusAreas: string[];
   primaryCta: { label: string; href: string };
@@ -60,6 +61,7 @@ export const HERO_SLIDES: readonly HeroSlide[] = [
   {
     imageSrc: "/images/home/hero-carousel-bg.png",
     title: "A Bridge Between Markets, Technology, and Institutional Infrastructure",
+    verticalName: "SINO AFRICA",
     description: "Building scalable infrastructure systems across Africa through partnerships, technology, and institutional capital.",
     focusAreas: ["Technology Deployment", "Institutional PartnershipS", "Technology Deployment"],
     primaryCta: { label: "Explore Our Platforms", href: "/our-verticals" },
@@ -68,25 +70,28 @@ export const HERO_SLIDES: readonly HeroSlide[] = [
   {
     imageSrc: "/images/home/carousel-image-2.jpg",
     title: "ACT IT",
+    verticalName: "ACT IT",
     description: "Building scalable infrastructure systems across Africa through partnerships, technology, and institutional capital.",
     focusAreas: ["Institutional Partnerships", "Technology Deployment", "Market Integration"],
-    primaryCta: { label: "Explore Our Platforms", href: "/our-verticals" },
+    primaryCta: { label: "Read more about ACT IT", href: "/our-verticals" },
     secondaryCta: { label: "Partner with us", href: "/contact" },
   },
   {
     imageSrc: "/images/home/carousel-image-3.jpg",
     title: "SINOSEC",
+    verticalName: "SINOSEC",
     description: "Building scalable infrastructure systems across Africa through partnerships, technology, and institutional capital.",
     focusAreas: ["Platform Infrastructure", "Operational Excellence", "Technology Deployment"],
-    primaryCta: { label: "Explore Our Platforms", href: "/our-verticals" },
+    primaryCta: { label: "Read more about SINOSEC", href: "/our-verticals" },
     secondaryCta: { label: "Partner with us", href: "/contact" },
   },
   {
     imageSrc: "/images/home/carousel-image-4.jpg",
     title: "MOBILITEX",
+    verticalName: "MOBILITEX",
     description: "Building scalable infrastructure systems across Africa through partnerships, technology, and institutional capital.",
     focusAreas: ["Market Integration", "Institutional Partnerships", "Platform Infrastructure"],
-    primaryCta: { label: "Explore Our Platforms", href: "/our-verticals" },
+    primaryCta: { label: "Read more about MOBILITEX", href: "/our-verticals" },
     secondaryCta: { label: "Partner with us", href: "/contact" },
   },
 ];

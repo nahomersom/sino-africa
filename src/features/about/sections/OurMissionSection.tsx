@@ -11,7 +11,7 @@ export function OurMissionSection({
 }: OurMissionSection) {
     return (
         <section
-            className="relative flex min-h-[667px] w-full flex-col items-center justify-center gap-[40px] overflow-hidden px-6 py-[156px] lg:px-[464px]"
+            className="relative flex min-h-[557px] w-full flex-col items-center justify-center gap-6 overflow-hidden px-5 py-[156px] lg:min-h-[667px] lg:gap-[40px] lg:px-[464px]"
             style={{
                 backgroundImage: `url(${bgImage})`,
                 backgroundSize: "cover",
@@ -19,7 +19,7 @@ export function OurMissionSection({
             }}
         >
             <div className="absolute inset-0 bg-black/70" />
-            <div className="relative z-10 flex flex-col items-center gap-[40px]">
+            <div className="relative z-10 flex flex-col items-center gap-6 lg:gap-[40px]">
                 <svg
                     width="65"
                     height="65"

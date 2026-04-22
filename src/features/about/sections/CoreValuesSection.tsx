@@ -1,4 +1,3 @@
-import React from "react";
 import { aboutContent } from "../constants";
 
 export function CoreValuesSection() {
@@ -20,12 +19,12 @@ export function CoreValuesSection() {
 
     // 3. Regulatory Alignment (Scales - Fallback)
     <svg width="65" height="65" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M32.4855 18.9494C35.4756 18.9494 37.8996 16.5254 37.8996 13.5353C37.8996 10.5451 35.4756 8.12109 32.4855 8.12109C29.4953 8.12109 27.0713 10.5451 27.0713 13.5353C27.0713 16.5254 29.4953 18.9494 32.4855 18.9494Z" stroke="white" stroke-width="2.37869" stroke-linecap="round" stroke-linejoin="round" />
-      <path d="M27.0716 13.5349H10.8291M37.8999 13.5349H54.1424" stroke="white" stroke-width="2.37869" stroke-linecap="round" stroke-linejoin="round" />
-      <path d="M46.021 56.8486H18.9502" stroke="white" stroke-width="2.37869" stroke-linecap="round" stroke-linejoin="round" />
-      <path d="M32.4854 18.949V56.8481" stroke="white" stroke-width="2.37869" stroke-linecap="round" stroke-linejoin="round" />
-      <path d="M59.556 37.8992C59.556 42.3846 55.9201 46.0205 51.4347 46.0205C46.9494 46.0205 43.3135 42.3846 43.3135 37.8992M59.556 37.8992L52.7883 21.6567H50.0812L43.3135 37.8992M59.556 37.8992H43.3135" stroke="white" stroke-width="2.37869" stroke-linecap="round" stroke-linejoin="round" />
-      <path d="M21.6566 37.8992C21.6566 42.3846 18.0205 46.0205 13.5353 46.0205C9.05008 46.0205 5.41406 42.3846 5.41406 37.8992M21.6566 37.8992L14.8889 21.6567H12.1818L5.41406 37.8992M21.6566 37.8992H5.41406" stroke="white" stroke-width="2.37869" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M32.4855 18.9494C35.4756 18.9494 37.8996 16.5254 37.8996 13.5353C37.8996 10.5451 35.4756 8.12109 32.4855 8.12109C29.4953 8.12109 27.0713 10.5451 27.0713 13.5353C27.0713 16.5254 29.4953 18.9494 32.4855 18.9494Z" stroke="white" strokeWidth="2.37869" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M27.0716 13.5349H10.8291M37.8999 13.5349H54.1424" stroke="white" strokeWidth="2.37869" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M46.021 56.8486H18.9502" stroke="white" strokeWidth="2.37869" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M32.4854 18.949V56.8481" stroke="white" strokeWidth="2.37869" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M59.556 37.8992C59.556 42.3846 55.9201 46.0205 51.4347 46.0205C46.9494 46.0205 43.3135 42.3846 43.3135 37.8992M59.556 37.8992L52.7883 21.6567H50.0812L43.3135 37.8992M59.556 37.8992H43.3135" stroke="white" strokeWidth="2.37869" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M21.6566 37.8992C21.6566 42.3846 18.0205 46.0205 13.5353 46.0205C9.05008 46.0205 5.41406 42.3846 5.41406 37.8992M21.6566 37.8992L14.8889 21.6567H12.1818L5.41406 37.8992M21.6566 37.8992H5.41406" stroke="white" strokeWidth="2.37869" strokeLinecap="round" strokeLinejoin="round" />
     </svg>,
 
 
@@ -52,13 +51,13 @@ export function CoreValuesSection() {
 
   return (
     <section
-      className="relative flex min-h-[895px] w-full flex-col items-center justify-center gap-[40px] overflow-hidden bg-cover bg-center py-[100px] lg:px-[464px]"
+      className="relative flex min-h-[1009px] md:min-h-[837px] lg:min-h-[895px] w-full flex-col items-center justify-center gap-[24px] md:gap-[32px] lg:gap-[40px] overflow-hidden bg-cover bg-center py-[100px] px-[20px] md:px-[80px] lg:px-[464px]"
       style={{ backgroundImage: "url('/images/about/core-values-bg.jpg')" }}
     >
       {/* Overlay for readability */}
       <div className="absolute inset-0 bg-black/70 z-0" />
 
-      <div className="relative z-10 flex flex-col items-center gap-[40px]">
+      <div className="relative z-10 flex flex-col items-center gap-[24px] md:gap-[32px] lg:gap-[40px]">
         {/* Diamond Icon */}
         <div className="flex flex-col items-center gap-4">
           <svg width="65" height="65" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -71,11 +70,11 @@ export function CoreValuesSection() {
         </div>
 
         {/* Cards Grid */}
-        <div className="grid w-full max-w-[728px] grid-cols-1 gap-[8px] sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid w-full grid-cols-2 md:grid-cols-3 gap-[16px] md:gap-[8px]">
           {coreValues.map((value, index) => (
             <div
               key={value}
-              className="flex h-[244px] w-full flex-col justify-between rounded-[16px] bg-white/10 p-[16px] backdrop-blur-[52px] border border-white/20 transition-all hover:bg-white/20 sm:w-[237.33px]"
+              className="flex h-[214px] md:h-[244px] w-[191px] md:w-full md:max-w-[237.33px] lg:w-[237.33px] flex-col justify-between rounded-[16px] bg-white/10 p-[16px] backdrop-blur-[52px] border border-white/20 transition-all hover:bg-white/20"
             >
               <div className="flex h-[65px] w-[65px] items-center justify-center">
                 {cardIcons[index] || cardIcons[0]}
