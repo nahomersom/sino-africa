@@ -187,6 +187,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
     const onViewportChange = () => {
       const isLgUp = window.matchMedia("(min-width: 1024px)").matches;
       setIsMobileMdScrolled(!isLgUp && window.scrollY > 6);
+      if (isLgUp) setMenuOpen(false);
     };
 
     onViewportChange();
@@ -346,9 +347,9 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
       {menuOpen ? (
         <div
           id="mobile-nav-menu"
-          className="fixed inset-0 z-50 flex min-h-[100dvh] flex-col justify-between bg-white py-12 pl-8 pr-8 lg:hidden"
+          className="fixed inset-0 z-50 flex flex-col bg-white overflow-y-auto py-12 pl-8 pr-8 lg:hidden"
         >
-          <div className="flex flex-col gap-20">
+          <div className="flex flex-col gap-10">
             <div className="flex items-center justify-between gap-[77px]">
               <Link href="/" onClick={() => setMenuOpen(false)} className="shrink-0">
                 <Image
@@ -441,7 +442,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
           <Link
             href="/contact"
             onClick={() => setMenuOpen(false)}
-            className="flex w-full shrink-0 items-center justify-center rounded-[23px] bg-primary px-6 py-6 text-sm font-normal leading-[1.5] text-white"
+            className="mt-12 flex w-full shrink-0 items-center justify-center rounded-[23px] bg-primary px-6 py-6 text-sm font-normal leading-[1.5] text-white"
           >
             Contact us
           </Link>

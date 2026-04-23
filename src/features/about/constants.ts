@@ -70,6 +70,6 @@ export const aboutContent = {
     heading: "Get In Touch with us",
     description:
       "Feel free to reach out! Whether you\u2019re looking for more details, have feedback, or just want to say hello, we\u2019re here to help.",
-    buttonLabel: "Contact us",
+    buttonLabel: "Send",
   },
 } as const;
