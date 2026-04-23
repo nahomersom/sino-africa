@@ -10,12 +10,17 @@ type Props = {
 
 export function PartnerCardsSection({ title, subtitle, partners }: Props) {
   return (
-    <section className="w-full relative bg-white px-6 py-20 lg:px-[min(15rem,12vw)] lg:py-[100px]">
-       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.1]"
-        style={{ backgroundImage: "url('/images/sino-symbol-tile.svg')", backgroundSize: "28px", backgroundRepeat: "repeat" }}
+    <section className="relative mx-auto w-full max-w-[1728px] overflow-hidden px-6 py-20 lg:pb-[64px] lg:pt-[104px] lg:px-[237px]">
+      {/* Background noise image */}
+      <Image
+        src="/images/our-verticals/vertical-partner-bg.png"
+        alt=""
+        fill
+        className="pointer-events-none object-cover"
+        aria-hidden="true"
       />
-      <div className="mx-auto flex w-full max-w-[1248px] flex-col gap-14">
+
+      <div className="relative z-10 mx-auto flex w-full flex-col gap-[54px]">
         <div className="mx-auto flex max-w-[552px] flex-col gap-4 text-center">
           {title ? (
             <h2 className="font-heading text-4xl font-semibold leading-[1.33] tracking-[-0.033em] text-text-100">
@@ -31,32 +36,32 @@ export function PartnerCardsSection({ title, subtitle, partners }: Props) {
           )}
         </div>
 
-        <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-3 md:gap-4">
+        <div className="grid w-full grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-6">
           {partners.map((card, index) => (
             <article
               key={`${card.title}-${index}`}
-              className="bg-white z-10 flex min-h-0 w-full min-w-0 flex-col items-center gap-8 rounded-[16px] border border-border-card p-8 text-center lg:h-[552px] lg:items-stretch lg:justify-between lg:gap-0 lg:text-left"
+              className="group flex min-h-[315px] w-full flex-col gap-[40px] rounded-[16px] border border-[#e7e9ed] bg-[#64C294] p-[32px] text-left lg:w-[407.33px]"
             >
               {card.iconSrc ? (
-                <div className="relative size-[88px] shrink-0 self-center lg:self-start">
-                  <Image src={card.iconSrc} alt="" fill className="object-contain object-left-top" sizes="88px" />
+                <div className="relative flex size-[80px] shrink-0 items-center justify-center rounded-[8px] bg-[#ffffff] p-[8px]">
+                  <Image src={card.iconSrc} alt="" fill className="object-contain p-[8px]" sizes="80px" />
                 </div>
               ) : (
                 <div
-                  className="size-[88px] shrink-0 animate-pulse rounded-2xl bg-border-light self-center lg:self-start"
+                  className="size-[80px] shrink-0 animate-pulse rounded-[8px] bg-white/30"
                   aria-hidden
                 />
               )}
-              <div className="flex w-full min-w-0 flex-col gap-[15px]">
+              <div className="flex w-full flex-col gap-[15px] lg:w-[343px]">
                 {card.title ? (
-                  <h3 className="text-2xl font-semibold leading-normal tracking-[-0.021em] text-text-100">
+                  <h3 className="text-[24px] font-semibold leading-normal tracking-[-0.021em] text-white">
                     {card.title}
                   </h3>
                 ) : (
                   <div className="h-8 w-full max-w-[240px] animate-pulse rounded-md bg-border-light" />
                 )}
                 {card.body ? (
-                  <p className="text-base font-light leading-normal tracking-[-0.0125em] text-muted">{card.body}</p>
+                  <p className="text-[16px] font-light leading-normal tracking-[-0.0125em] text-white/90">{card.body}</p>
                 ) : (
                   <div className="flex flex-col gap-2">
                     <div className="h-4 w-full animate-pulse rounded-md bg-border-light/75" />
