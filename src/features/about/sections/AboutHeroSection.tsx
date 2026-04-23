@@ -39,10 +39,10 @@ function HeroCollage({
     "relative overflow-hidden rounded-[10px] shadow-[0_1px_3px_rgba(0,0,0,0.08)]";
 
   return (
-    <div className="relative mt-10 w-full shrink-0 lg:mt-2 lg:w-full lg:max-w-[1236px] lg:left-[103px]">
+    <div className="relative mt-2 mb-5 w-full shrink-0 lg:mt-2 lg:w-full lg:max-w-[1236px] lg:left-[103px]">
       {/* Figma mobile stack: visible below lg (md alone is too narrow — tablets saw collage only) */}
       {/* Below lg: mobile stack + Tablet (md) row — Figma Tablet Hero 6:6503 */}
-      <div className="flex flex-col gap-[89px] md:flex-row md:items-center md:gap-10 lg:hidden">
+      <div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-10 lg:hidden">
         <div className={cn("relative h-[429px] w-full md:min-w-0 md:flex-1", frame)}>
           <Image
             src={images.left}
@@ -53,7 +53,7 @@ function HeroCollage({
           />
         </div>
 
-        <div className="relative flex min-w-0 flex-col items-start gap-[100px] md:min-w-0 md:flex-1 md:overflow-visible">
+        <div className="relative flex min-w-0 flex-col items-start gap-6 md:min-w-0 md:flex-1 md:overflow-visible">
           <div className="pointer-events-none absolute left-[calc(201.7/366*100%)] -top-[70px]  h-[109px] w-[calc(119.15/366*100%)] overflow-hidden md:left-[201.7px] md:top-[-70px] md:w-[119.15px]">
             <Image
               src="/images/about/hero-dots.svg"
@@ -101,7 +101,7 @@ function HeroCollage({
         </div>
       </div>
 
-      <div className="relative hidden w-full aspect-[1236/611] lg:block lg:h-[429px] lg:aspect-auto">
+      <div className="relative hidden w-full aspect-1236/611 lg:block lg:h-[429px] lg:aspect-auto">
         {/* Static dot grid — separated from photos for maintainability */}
         <div className="pointer-events-none absolute z-20 hidden overflow-hidden md:-top-[50.45px] md:right-0 md:block md:h-[109px] md:w-[119.15px] lg:hidden">
           <Image
@@ -169,7 +169,7 @@ function HeroCollage({
             />
           </div>
 
-          <p className="absolute bottom-[43px] left-[53%] lg:left-[49%] lg:bottom-auto  lg:top-[450px] z-20 max-w-[318.5px] lg:max-w-[545.62px] text-left text-base font-light leading-6 tracking-[-0.0125em] text-muted">
+          <p className="absolute bottom-[43px] left-[53%] lg:left-[49%] lg:bottom-auto lg:top-[450px] z-20 max-w-[318.5px] lg:max-w-[545.62px] text-left text-base font-light leading-6 tracking-[-0.0125em] text-muted">
             {description}
           </p>
         </div>
@@ -180,7 +180,7 @@ function HeroCollage({
 
 export function AboutHeroSection({ label, heading, description, images }: AboutHeroSectionProps) {
   return (
-    <section className="relative flex w-full flex-col items-stretch  bg-white px-8 lg:pb-[220px] pt-[120px] md:items-center md:px-20 md:pt-[211px] lg:h-auto lg:px-[237px] lg:pt-[152px] overflow-visible">
+    <section className="relative flex w-full flex-col items-stretch  bg-white px-8 lg:pb-[220px] pt-16 md:items-center md:px-20 md:pt-[211px] lg:h-auto lg:px-[237px] lg:pt-[152px] overflow-visible">
       {/* Green glow — concentric ellipses behind the content */}
       <motion.div
         className="pointer-events-none absolute -left-[155px] top-[49px] block w-[404px] select-none md:-left-[435px] md:top-[120px] md:w-[860.84px] lg:-left-[471px] lg:-top-[150px] lg:w-[1074px]"

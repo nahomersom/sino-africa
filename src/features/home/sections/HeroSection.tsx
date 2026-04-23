@@ -37,10 +37,12 @@ export function HeroSection() {
     const vertical = verticals[index];
     if (!vertical) return fallbackSlide;
     const tags = extractVerticalTags(vertical);
+    const verticalName = vertical.title ?? vertical.name ?? fallbackSlide.verticalName;
 
     return {
       imageSrc: getStrapiMediaUrl(vertical.homeHeroImage?.url) || fallbackSlide.imageSrc,
       title: vertical.title ?? vertical.name ?? fallbackSlide.title,
+      verticalName,
       description:
         vertical.summary ??
         vertical.focusAreasDescription ??
@@ -48,7 +50,7 @@ export function HeroSection() {
         fallbackSlide.description,
       focusAreas: tags.length > 0 ? tags : fallbackSlide.focusAreas,
       primaryCta: {
-        label: fallbackSlide.primaryCta.label,
+        label: verticalName ? `Read more about ${verticalName}` : fallbackSlide.primaryCta.label,
         href: vertical.slug ? `/our-verticals/${vertical.slug}` : fallbackSlide.primaryCta.href,
       },
       secondaryCta: fallbackSlide.secondaryCta,
@@ -131,7 +133,7 @@ export function HeroSection() {
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           >
             <span className="text-[13px] leading-[1.26] tracking-[0.125em] text-[#68D585]">
-              SINO AFRICA
+              {currentSlide.verticalName ?? "SINO AFRICA"}
             </span>
             <AnimatePresence mode="wait">
               <motion.h1

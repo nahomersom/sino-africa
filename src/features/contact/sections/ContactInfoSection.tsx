@@ -53,12 +53,13 @@ export function ContactInfoSection({ items }: ContactInfoSectionProps) {
   return (
     <section
       className={cn(
-        "flex w-full flex-col items-stretch pt-28 pb-8 min-[400px]:pt-32 min-[400px]:pb-10 sm:pt-36 md:pt-40 md:pb-10 lg:pt-48 lg:pb-12 xl:pt-[208px] xl:pb-[52px]",
+        "flex w-full flex-col items-center pt-28 pb-8 min-[400px]:pt-32 min-[400px]:pb-10 sm:pt-36 md:pt-40 md:pb-10 lg:pt-48 lg:pb-12 xl:pt-[208px] xl:pb-[52px]",
         sectionX,
       )}
     >
+
       <StaggerContainer
-        className="mx-auto grid w-full min-w-0 max-w-[1252px] grid-cols-2 gap-x-3 gap-y-8 min-[400px]:gap-x-4 min-[400px]:gap-y-9 md:gap-x-8 lg:grid-cols-3 lg:items-end lg:gap-x-10 lg:gap-y-8 xl:gap-x-12"
+        className="mx-auto grid w-full min-w-0 max-w-[1252px] grid-cols-2 gap-x-3 gap-y-8 min-[400px]:gap-x-4 min-[400px]:gap-y-9 md:gap-x-8 lg:grid-cols-3 lg:items-start lg:gap-x-10 lg:gap-y-8 xl:gap-x-12"
         stagger={0.15}
         delay={0.2}
       >

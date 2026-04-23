@@ -55,7 +55,7 @@ function getBlogImage(blog: Blog): string {
 }
 
 export function RecentBlogs() {
-  const { data, isLoading, isError, refetch } = useGetBlogsQuery({ 
+  const { data, isLoading, isError, refetch } = useGetBlogsQuery({
     "filters[isFeatured][$ne]": true,
     "pagination[pageSize]": 6,
     "sort": "publishedDate:desc"
@@ -64,7 +64,7 @@ export function RecentBlogs() {
 
   return (
     <section className="w-full bg-white pb-[100px]">
-      <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 md:px-6 lg:px-8 flex flex-col gap-[24px]">
+      <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 md:px-0 lg:px-0 flex flex-col gap-[24px]">
         {/* Section Heading */}
         <h2 className="text-[#161C2D] text-[24px] font-normal uppercase leading-none tracking-tight">
           Most Recent

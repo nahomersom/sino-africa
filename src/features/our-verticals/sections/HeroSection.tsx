@@ -56,7 +56,7 @@ export function HeroSection() {
             <div className="relative aspect-[608/612] w-full overflow-hidden lg:aspect-auto lg:h-[612px] lg:w-[608px]">
               <div className="absolute inset-0 z-20 lg:relative lg:left-0 lg:right-auto lg:top-0 lg:h-[721.41px] lg:w-[627.27px]">
                 <Image
-                  src="/images/our-verticals/our-verticals-hero.png"
+                  src="/images/our-verticals/vertical-hero.png"
                   alt="Our verticals"
                   fill
                   priority
