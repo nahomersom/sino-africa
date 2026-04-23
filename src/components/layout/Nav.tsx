@@ -48,6 +48,7 @@ const navItems: readonly NavItem[] = [
   { label: "Projects", href: "/projects" },
   { label: "Solutions", href: "/technology" },
   { label: "Insights", href: "/blogs" },
+  { label: "Careers", href: "/careers" },
 ];
 
 const SUBMENU_BACKDROP_SHADOW =
@@ -209,8 +210,8 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
             ? "rounded-[20px] bg-white/95 p-3 shadow-[0_6px_20px_rgba(15,23,42,0.08)] backdrop-blur-md"
             : ""
             } lg:rounded-[32px] lg:p-4 lg:backdrop-blur-[32px] ${variant === "default"
-            ? "lg:bg-white/80 lg:shadow-[0_8px_30px_rgba(15,23,42,0.2)]"
-            : "lg:bg-white/80 lg:shadow-[0_4px_20px_rgba(15,23,42,0.08)]"
+              ? "lg:bg-white/80 lg:shadow-[0_8px_30px_rgba(15,23,42,0.2)]"
+              : "lg:bg-white/80 lg:shadow-[0_4px_20px_rgba(15,23,42,0.08)]"
             }`}
         >
           <Link href="/" className="flex shrink-0 items-center gap-2">
