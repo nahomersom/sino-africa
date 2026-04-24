@@ -133,9 +133,12 @@ export function ContactFormMapSection() {
       ) : null}
 
       <section
-        className="flex w-full justify-center bg-accent-60/35 px-4 pt-5 pb-6 min-[400px]:px-5 sm:px-6 sm:pb-8 md:px-8 md:pt-5 md:pb-8 lg:px-10 lg:pb-10 xl:px-12 xl:pb-[116px] 2xl:px-16"
+        className="relative flex w-full justify-center overflow-hidden bg-accent-60/35 px-4 pt-5 pb-6 min-[400px]:px-5 sm:px-6 sm:pb-8 md:px-8 md:pt-5 md:pb-8 lg:px-10 lg:pb-10 xl:px-12 xl:pb-[116px] 2xl:px-16"
         style={{ "--contact-cta": "var(--primary)" } as CSSProperties}
       >
+        <div className="pointer-events-none absolute right-[-532px] top-[2px] size-[847px] rounded-full bg-[#64C294]/20 blur-[252px] hidden lg:block" />
+        <div className="pointer-events-none absolute -left-[532px] top-[70px] size-[847px] rounded-full bg-[#64C294]/20 blur-[252px] hidden lg:block" />
+
         <div className="flex w-full min-w-0 max-w-[1252px] flex-col items-stretch gap-7 max-md:items-center md:gap-6 xl:flex-row xl:items-stretch">
           <div className="w-full min-w-0 max-w-[366px] rounded-[16px] bg-white opacity-100 max-md:mx-auto max-md:min-h-[834px] md:max-w-none md:min-h-0 md:rounded-2xl xl:max-w-[607px] xl:shrink-0">
             <div className="flex h-full min-h-0 w-full min-w-0 flex-col gap-8 md:gap-6">

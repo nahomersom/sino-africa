@@ -10,7 +10,7 @@ type Props = {
 
 export function PartnerCardsSection({ title, subtitle, partners }: Props) {
   return (
-    <section className="relative mx-auto w-full max-w-[1728px] overflow-hidden px-6 py-20 lg:pb-[64px] lg:pt-[104px] lg:px-[237px]">
+    <section className="relative mx-auto w-full max-w-[1728px] overflow-hidden px-6 py-20 md:px-12 lg:px-20 lg:pb-[64px] lg:pt-[104px] xl:px-[237px]">
       {/* Background noise image */}
       <Image
         src="/images/our-verticals/vertical-partner-bg.png"
@@ -40,11 +40,20 @@ export function PartnerCardsSection({ title, subtitle, partners }: Props) {
           {partners.map((card, index) => (
             <article
               key={`${card.title}-${index}`}
-              className="group flex min-h-[315px] w-full flex-col gap-[40px] rounded-[16px] border border-[#e7e9ed] bg-[#64C294] p-[32px] text-left lg:w-[407.33px]"
+              className="group flex min-h-[315px] w-full flex-col gap-[40px] rounded-[16px] border border-[#e7e9ed] bg-[#64C294] p-[32px] text-left"
             >
               {card.iconSrc ? (
                 <div className="relative flex size-[80px] shrink-0 items-center justify-center rounded-[8px] bg-[#ffffff] p-[8px]">
-                  <Image src={card.iconSrc} alt="" fill className="object-contain p-[8px]" sizes="80px" />
+                  <div
+                    className="h-full w-full bg-[#64C294]"
+                    style={{
+                      maskImage: `url(${card.iconSrc})`,
+                      WebkitMaskImage: `url(${card.iconSrc})`,
+                      maskRepeat: "no-repeat",
+                      maskPosition: "center",
+                      maskSize: "contain",
+                    }}
+                  />
                 </div>
               ) : (
                 <div
@@ -52,7 +61,7 @@ export function PartnerCardsSection({ title, subtitle, partners }: Props) {
                   aria-hidden
                 />
               )}
-              <div className="flex w-full flex-col gap-[15px] lg:w-[343px]">
+              <div className="flex w-full flex-col gap-[15px]">
                 {card.title ? (
                   <h3 className="text-[24px] font-semibold leading-normal tracking-[-0.021em] text-white">
                     {card.title}

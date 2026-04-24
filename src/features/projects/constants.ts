@@ -139,7 +139,7 @@ export const projectsContent = {
     heading: "Get In Touch with us",
     description:
       "Have a project in mind? Tell us about your goals—we\u2019ll help you shape the right approach.",
-    buttonLabel: "Contact us",
+    buttonLabel: "Send",
   },
 } as const;
 
