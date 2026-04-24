@@ -12,6 +12,8 @@
   --border-light: #e8e8e9;
   --border-card: #e7e9ed;
   --surface: #f4f7fa;
+  /* --font-outfit: var(--font-outfit);
+  --font-nata-sans: var(--font-nata-sans); */
 }
 
 @theme inline {
@@ -37,6 +39,7 @@ body {
 }
 
 @layer base {
+
   button:not(:disabled),
   input[type="button"]:not(:disabled),
   input[type="submit"]:not(:disabled),
@@ -52,18 +55,23 @@ body {
 }
 
 .no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
+
 @keyframes cta-shadow-burst {
   0% {
     transform: scale(0.96);
     box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0.45);
   }
+
   70% {
     transform: scale(1);
     box-shadow: 0 0 0 28px rgba(var(--primary-rgb), 0);
   }
+
   100% {
     transform: scale(0.96);
     box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0);
@@ -88,6 +96,7 @@ body {
   0% {
     transform: translate3d(0, 0, 0);
   }
+
   100% {
     transform: translate3d(-50%, 0, 0);
   }
@@ -101,4 +110,4 @@ body {
 
 .pause-on-hover:hover .animate-marquee {
   animation-play-state: paused;
-}
+}

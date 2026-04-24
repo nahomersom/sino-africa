@@ -39,12 +39,12 @@ export function CareerDetail({ documentId }: { documentId: string }) {
 
         {/* Background Decoration */}
         <div
-          className="pointer-events-none absolute inset-0 opacity-[0.1]"
+          className="pointer-events-none absolute inset-0 opacity-[0.05]"
           style={{ backgroundImage: "url('/images/sino-symbol-tile.svg')", backgroundSize: "28px", backgroundRepeat: "repeat" }}
         />
 
         <div className="z-10 flex w-full max-w-[1254px] flex-col items-start gap-4">
-          <Link href="/careers" className="flex items-center gap-2 text-sm text-[#161C2D]/70 hover:text-primary transition-colors">
+          <Link href="/careers" className="flex items-center gap-2 text-[18px] text-[#161C2D]/70 hover:text-primary transition-colors font-outfit">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -92,7 +92,7 @@ export function CareerDetail({ documentId }: { documentId: string }) {
                   }
 
                   return (
-                    <p key={i} className="text-[16px] font-light leading-[150%] text-[#161C2D] md:text-[18px] lg:font-light lg:weight-300">
+                    <p key={i} className="text-[16px] font-light leading-[150%] text-[#5C606C] md:text-[18px] lg:font-light lg:weight-300">
                       {paragraph}
                     </p>
                   );
@@ -111,7 +111,7 @@ export function CareerDetail({ documentId }: { documentId: string }) {
           lg:px-[237px]">
 
           <div
-            className="pointer-events-none absolute inset-0 opacity-[0.1]"
+            className="pointer-events-none absolute inset-0 opacity-[0.05]"
             style={{ backgroundImage: "url('/images/sino-symbol-tile.svg')", backgroundSize: "28px", backgroundRepeat: "repeat" }}
           />
 

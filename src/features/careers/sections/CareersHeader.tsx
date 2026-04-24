@@ -14,7 +14,7 @@ export function CareersHeader() {
         >
           CAREERS
         </motion.span>
-        
+
         <div className="flex w-full flex-col items-center gap-2 md:gap-2 lg:items-start lg:gap-2">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -31,7 +31,7 @@ export function CareersHeader() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-[14px] font-normal leading-[1.5] text-[#161C2D] md:w-[382px] md:text-[18px] lg:h-[54px] lg:w-[382px]"
           >
-            Lorem ipsum dolor sit amet consectetur. Elit eget mauris sed diam urna.
+            Explore through our job openings and join a team of experts.
           </motion.p>
         </div>
       </div>
