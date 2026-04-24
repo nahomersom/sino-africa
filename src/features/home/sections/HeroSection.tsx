@@ -9,6 +9,7 @@ import {
   type Vertical,
   type VerticalTag,
   useGetVerticalsQuery,
+  useGetHomeHeroQuery,
 } from "@/src/store/strapiApi";
 import { HERO_SLIDES, type HeroSlide } from "./HeroSection.constants";
 
@@ -31,8 +32,23 @@ function getSlideAnimationType(slideIndex: number): "up" | "down" | "none" {
 
 export function HeroSection() {
   const { data: verticals = [] } = useGetVerticalsQuery();
+  const { data: homeHero } = useGetHomeHeroQuery();
+
   const fallbackSlides = HERO_SLIDES.slice(1, 4);
-  const firstSlide = HERO_SLIDES[0];
+  const firstSlideTemplate = HERO_SLIDES[0];
+
+  const dynamicFirstSlide: HeroSlide = homeHero
+    ? {
+        imageSrc: getStrapiMediaUrl(homeHero.heroImage?.url) || firstSlideTemplate.imageSrc,
+        title: homeHero.title || firstSlideTemplate.title,
+        verticalName: firstSlideTemplate.verticalName,
+        description: homeHero.description || firstSlideTemplate.description,
+        focusAreas: homeHero.tag?.map((t) => t.text).filter(Boolean) || firstSlideTemplate.focusAreas,
+        primaryCta: firstSlideTemplate.primaryCta,
+        secondaryCta: firstSlideTemplate.secondaryCta,
+      }
+    : firstSlideTemplate;
+
   const verticalSlides: HeroSlide[] = fallbackSlides.map((fallbackSlide, index) => {
     const vertical = verticals[index];
     if (!vertical) return fallbackSlide;
@@ -56,7 +72,8 @@ export function HeroSection() {
       secondaryCta: fallbackSlide.secondaryCta,
     };
   });
-  const slides: readonly HeroSlide[] = [firstSlide, ...verticalSlides];
+
+  const slides: readonly HeroSlide[] = [dynamicFirstSlide, ...verticalSlides];
   const [activeSlide, setActiveSlide] = useState(0);
 
   useEffect(() => {
@@ -174,7 +191,7 @@ export function HeroSection() {
               </Link>
             </div>
             <div className="flex flex-row flex-wrap items-center gap-4">
-              {(currentSlide.focusAreas.length > 0 ? currentSlide.focusAreas : firstSlide.focusAreas)
+              {(currentSlide.focusAreas.length > 0 ? currentSlide.focusAreas : slides[0].focusAreas)
                 .slice(0, 3)
                 .map((item, index) => (
                 <motion.span
