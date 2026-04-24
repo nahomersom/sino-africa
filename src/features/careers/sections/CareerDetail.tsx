@@ -66,13 +66,25 @@ export function CareerDetail({ documentId }: { documentId: string }) {
               </div>
 
               <div className="flex flex-col gap-4">
-                <button
-                  type="button"
-                  className="flex items-center justify-center bg-[#64C294] text-white font-medium text-sm
-                    h-[69px] w-full rounded-[23px] px-6 py-4 gap-2 md:w-[142px]"
-                >
-                  Apply
-                </button>
+                {job.googleFormLink ? (
+                  <a
+                    href={job.googleFormLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center bg-[#64C294] text-white font-medium text-sm
+                      h-[69px] w-full rounded-[23px] px-6 py-4 gap-2 md:w-[142px]"
+                  >
+                    Apply
+                  </a>
+                ) : (
+                  <button
+                    type="button"
+                    className="flex items-center justify-center bg-[#64C294] text-white font-medium text-sm
+                      h-[69px] w-full rounded-[23px] px-6 py-4 gap-2 md:w-[142px]"
+                  >
+                    Apply
+                  </button>
+                )}
                 <span className="text-base text-[#5C606C]">jobs@sinoafrica.com</span>
               </div>
             </div>

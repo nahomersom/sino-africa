@@ -298,6 +298,22 @@ export type Career = {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
+  googleFormLink?: string;
+  slug?: string;
+};
+
+export type HomeHeroTag = {
+  id: number;
+  text: string;
+};
+
+export type HomeHero = {
+  id: number;
+  documentId: string;
+  title: string;
+  description: string;
+  heroImage: StrapiMedia | null;
+  tag: HomeHeroTag[];
 };
 
 export type VerticalGradient = {
@@ -658,6 +674,13 @@ export const strapiApi = createApi({
         return (response?.data as unknown as Career) ?? null;
       },
     }),
+
+    getHomeHero: builder.query<HomeHero | null, void>({
+      query: () => "hero-home-section?populate=*",
+      transformResponse: (response: { data: HomeHero }) => {
+        return response?.data ?? null;
+      },
+    }),
   }),
 });
 
@@ -678,5 +701,6 @@ export const {
   useGetProjectCategoriesQuery,
   useGetCareersQuery,
   useGetCareerByDocumentIdQuery,
+  useGetHomeHeroQuery,
   useCreateContactSubmissionMutation,
 } = strapiApi;
