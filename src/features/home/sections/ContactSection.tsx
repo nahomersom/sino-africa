@@ -165,11 +165,11 @@ export function ContactSection({
         </div>
       ) : null}
 
-    
-        <>
-          <div className="pointer-events-none absolute right-[-532px] top-[2px] size-[847px] rounded-full bg-primary/30 blur-[252px] hidden lg:block" />
-          <div className="pointer-events-none absolute -left-[532px] top-[70px] size-[847px] rounded-full bg-primary/30 blur-[252px] hidden lg:block" />
-        </>
+
+      <>
+        <div className="pointer-events-none absolute right-[-532px] top-[2px] size-[847px] rounded-full bg-[#64C294]/20 blur-[252px] hidden lg:block" />
+        <div className="pointer-events-none absolute -left-[532px] top-[70px] size-[847px] rounded-full bg-[#64C294]/20 blur-[252px] hidden lg:block" />
+      </>
 
 
       <ContactBadgeIcon
@@ -179,10 +179,7 @@ export function ContactSection({
       />
 
       <div className="relative z-10 flex max-w-[502px] flex-col items-center gap-4">
-        <h2
-          className="text-center font-(family-name:--font-nata-sans) text-[36px] font-semibold leading-[1.4] tracking-[-0.04em] text-text-100"
-          style={accentColor ? { color: accentColor } : undefined}
-        >
+        <h2 className="text-center font-(family-name:--font-nata-sans) text-[36px] font-semibold leading-[1.4] tracking-[-0.04em] text-text-100">
           {heading}
         </h2>
         <p className="max-w-[502px] text-center text-base font-light leading-normal tracking-[-0.0125em] text-muted md:text-lg md:tracking-[-0.011em]">

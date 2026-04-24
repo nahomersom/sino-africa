@@ -54,7 +54,7 @@ export function OurMissionSection({
                     </h2>
                 </StaggerItem>
                 <StaggerItem>
-                    <p className="max-w-[492px] text-center text-[26px] font-normal leading-[150%] text-white">
+                    <p className="max-w-[492px] text-center text-[24px] font-normal leading-[150%] text-white">
                         {description}
                     </p>
                 </StaggerItem>

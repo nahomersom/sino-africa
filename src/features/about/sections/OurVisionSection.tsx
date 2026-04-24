@@ -77,7 +77,7 @@ export function OurVisionSection({
           </h2>
         </StaggerItem>
         <StaggerItem>
-          <p className="max-w-[492px] text-center text-[26px] font-normal leading-[150%] text-[#161C2D]">
+          <p className="max-w-[492px] text-center text-[24px] font-normal leading-[150%] text-[#161C2D]">
             {description}
           </p>
         </StaggerItem>
