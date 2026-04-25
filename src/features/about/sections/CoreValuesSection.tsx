@@ -53,7 +53,7 @@ export function CoreValuesSection() {
 
   return (
     <section
-      className="relative flex min-h-[1009px] md:min-h-[837px] lg:min-h-[895px] w-full flex-col items-center justify-center gap-[24px] md:gap-[32px] lg:gap-[40px] overflow-hidden bg-cover bg-center py-[100px] px-[20px] md:px-[80px] lg:px-[464px]"
+      className="relative flex min-h-[1009px] md:min-h-[837px] lg:min-h-[895px] w-full flex-col items-center justify-center gap-[24px] md:gap-[32px] lg:gap-[40px] overflow-hidden bg-cover bg-center py-[100px] px-[20px] md:px-[80px] lg:px-[120px] xl:px-[240px] 2xl:px-[464px]"
       style={{ backgroundImage: "url('/images/about/core-values-bg.jpg')" }}
     >
       {/* Overlay for readability */}

@@ -12,7 +12,7 @@ export function OurVisionSection({
   description,
 }: OurVisionSectionProps) {
   return (
-    <section className="relative flex min-h-[421px] w-full flex-col items-center justify-center gap-6 overflow-hidden bg-white px-5 py-[100px] lg:min-h-[716px] lg:gap-[40px] lg:px-[464px] lg:py-[200px]">
+    <section className="relative flex min-h-[421px] w-full flex-col items-center justify-center gap-6 overflow-hidden bg-white px-5 py-[100px] lg:min-h-[716px] lg:gap-[40px] lg:px-[120px] xl:px-[240px] 2xl:px-[464px] lg:py-[200px]">
       {/* Background Grid */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.1]"
