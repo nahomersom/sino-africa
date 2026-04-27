@@ -135,7 +135,7 @@ export function HeroSection() {
       />
 
       <motion.div
-        className="z-10 mx-auto flex h-full w-full max-w-[1920px] flex-col justify-end gap-4 px-6 pt-[118px] pb-24 md:px-10 md:justify-end lg:gap-4 lg:px-44 lg:pt-[88px] lg:pb-[100px]"
+        className="z-10 mx-auto flex h-full w-full max-w-[1252px] 2xl:max-w-[1920px] flex-col justify-end gap-4 px-6 pt-[118px] pb-24 md:px-10 md:justify-end lg:gap-4 lg:px-4 2xl:px-44 lg:pt-[88px] lg:pb-[100px]"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -149,8 +149,10 @@ export function HeroSection() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="text-[13px] leading-[1.26] tracking-[0.125em] text-[#68D585]">
-              {currentSlide.verticalName ?? "SINO AFRICA"}
+            <span className="text-[13px] leading-[1.26] tracking-[0.125em] text-[#68D585] uppercase">
+              {currentSlide.verticalName && currentSlide.verticalName !== "SINO AFRICA"
+                ? `SINO AFRICA`
+                : "SINO AFRICA"}
             </span>
             <AnimatePresence mode="wait">
               <motion.h1
