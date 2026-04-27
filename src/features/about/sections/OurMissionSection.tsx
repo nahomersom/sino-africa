@@ -13,7 +13,7 @@ export function OurMissionSection({
 }: OurMissionSection) {
     return (
         <section
-            className="relative flex min-h-[557px] w-full flex-col items-center justify-center gap-6 overflow-hidden px-5 py-[156px] lg:min-h-[667px] lg:gap-[40px] lg:px-[464px]"
+            className="relative flex min-h-[557px] w-full flex-col items-center justify-center gap-6 overflow-hidden px-5 py-[156px] lg:min-h-[667px] lg:gap-[40px] lg:px-[120px] xl:px-[240px] 2xl:px-[464px]"
             style={{
                 backgroundImage: `url(${bgImage})`,
                 backgroundSize: "cover",

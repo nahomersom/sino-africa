@@ -403,7 +403,7 @@ export const strapiApi = createApi({
     }),
 
     // Blog endpoints
-    getBlogs: builder.query<{blogs: Blog[], pagination: StrapiPagination}, Record<string, unknown> | void>({
+    getBlogs: builder.query<{ blogs: Blog[], pagination: StrapiPagination }, Record<string, unknown> | void>({
       query: (params) => {
         const base = "blogs";
         const withDefaults: Record<string, unknown> = {
