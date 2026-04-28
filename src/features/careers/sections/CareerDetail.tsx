@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useGetCareerByDocumentIdQuery, useGetCareersQuery } from "@/src/store/strapiApi";
+import { StrapiBlocksRichText } from "@/src/lib/strapiBlocksRichText";
 
 export function CareerDetail({ documentId }: { documentId: string }) {
   const { data: job, isLoading } = useGetCareerByDocumentIdQuery(documentId);
@@ -109,36 +110,10 @@ export function CareerDetail({ documentId }: { documentId: string }) {
 
             {/* Right Column: Job Description */}
             <div className="flex flex-col gap-8 lg:w-[699px] lg:pt-0">
-              <div className="flex flex-col gap-8 text-[#161C2D]">
-                {job.description.split('\n\n').map((paragraph, i) => {
-                  const cleanParagraph = paragraph.replace(/\*/g, '').trim();
-                  const isHeading = cleanParagraph.length < 100 && (
-                    cleanParagraph === cleanParagraph.toUpperCase() || 
-                    cleanParagraph.includes('Responsibilities') || 
-                    cleanParagraph.includes('What We Offer') ||
-                    cleanParagraph.includes('Requirements') ||
-                    cleanParagraph.includes('Nice to Have') ||
-                    cleanParagraph.includes('Description') ||
-                    cleanParagraph.includes('Offer')
-                  );
-
-                  if (isHeading && cleanParagraph) {
-                    return (
-                      <h2 key={i} className="text-[18px] font-semibold uppercase tracking-wider">
-                        {cleanParagraph}
-                      </h2>
-                    );
-                  }
-
-                  if (!cleanParagraph) return null;
-
-                  return (
-                    <p key={i} className="text-[16px] font-light leading-[150%] text-[#5C606C] md:text-[18px] lg:font-light lg:weight-300">
-                      {cleanParagraph}
-                    </p>
-                  );
-                })}
-              </div>
+              <StrapiBlocksRichText
+                value={job.description}
+                className="flex flex-col gap-8 text-[#161C2D]"
+              />
             </div>
           </div>
         </div>
