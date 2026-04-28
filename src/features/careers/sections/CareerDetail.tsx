@@ -73,7 +73,7 @@ export function CareerDetail({ documentId }: { documentId: string }) {
                 <span>{job.type}</span>
                 <span>{job.location}</span>
                 {jobExpired ? (
-                  <span className="font-semibold text-red-500 uppercase">Expired</span>
+                  <span className="font-semibold text-red-500">Expired</span>
                 ) : (
                   <span className="font-medium text-primary">Expire Date: {job.deadline}</span>
                 )}
@@ -166,7 +166,7 @@ export function CareerDetail({ documentId }: { documentId: string }) {
                       <span>{otherJob.type}</span>
                       <span>{otherJob.location}</span>
                       {isExpired(otherJob.deadline) ? (
-                        <span className="font-semibold text-red-500 uppercase">Expired</span>
+                        <span className="font-semibold text-red-500">Expired</span>
                       ) : (
                         <span className="font-medium text-primary">Expire Date: {otherJob.deadline}</span>
                       )}
@@ -179,8 +179,7 @@ export function CareerDetail({ documentId }: { documentId: string }) {
                       h-[53px] w-full rounded-[16px] px-6 py-4 gap-2
                       md:h-[69px] md:w-[159px] md:rounded-[23px]
                       lg:h-[69px] lg:w-[159px] lg:rounded-[23px] transition-all
-                      ${isExpired(otherJob.deadline) ? "bg-gray-400 cursor-not-allowed opacity-70" : "bg-[#64C294] hover:bg-[#55a67f]"}`}
-                    onClick={(e) => isExpired(otherJob.deadline) && e.preventDefault()}
+                      ${isExpired(otherJob.deadline) ? "bg-gray-400 opacity-70" : "bg-[#64C294] hover:bg-[#55a67f]"}`}
                   >
                     {isExpired(otherJob.deadline) ? "Expired" : "Apply for position"}
                   </Link>
