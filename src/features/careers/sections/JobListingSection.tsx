@@ -69,7 +69,7 @@ export function JobListingSection() {
                     <span>{job.type}</span>
                     <span>{job.location}</span>
                     {jobExpired ? (
-                      <span className="font-semibold text-red-500 uppercase">Expired</span>
+                      <span className="font-semibold text-red-500">Expired</span>
                     ) : (
                       <span className="font-medium text-primary">Expire Date: {job.deadline}</span>
                     )}
@@ -77,13 +77,12 @@ export function JobListingSection() {
                 </div>
 
                 <Link
-                  href={jobExpired ? "#" : `/careers/${job.documentId}`}
+                  href={`/careers/${job.documentId}`}
                   className={`flex items-center justify-center text-white text-sm font-outfit
                     h-[53px] w-full rounded-[16px] px-6 py-4 gap-2 transition-all
                     md:h-[69px] md:w-[159px] md:rounded-[23px]
                     lg:h-[69px] lg:w-[159px] lg:rounded-[23px]
-                    ${jobExpired ? "bg-gray-400 cursor-not-allowed opacity-70" : "bg-[#64C294] hover:bg-[#55a67f]"}`}
-                  onClick={(e) => jobExpired && e.preventDefault()}
+                    ${jobExpired ? "bg-gray-400 opacity-70" : "bg-[#64C294] hover:bg-[#55a67f]"}`}
                 >
                   {jobExpired ? "Expired" : "Apply for position"}
                 </Link>
