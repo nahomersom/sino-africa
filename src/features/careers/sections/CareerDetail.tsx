@@ -30,6 +30,16 @@ export function CareerDetail({ documentId }: { documentId: string }) {
 
   const filteredJobs = otherJobs.filter((j) => j.documentId !== documentId);
 
+  const isExpired = (deadline: string) => {
+    if (!deadline) return false;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const expiryDate = new Date(deadline);
+    return expiryDate < today;
+  };
+
+  const jobExpired = isExpired(job.deadline);
+
   return (
     <>
       <section className="relative flex w-full flex-col items-center bg-white overflow-hidden
@@ -61,28 +71,36 @@ export function CareerDetail({ documentId }: { documentId: string }) {
               <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-[#5C606C] md:text-base">
                 <span>{job.type}</span>
                 <span>{job.location}</span>
-                <span>{job.deadline}</span>
+                {jobExpired ? (
+                  <span className="font-semibold text-red-500 uppercase">Expired</span>
+                ) : (
+                  <span className="font-medium text-primary">Expire Date: {job.deadline}</span>
+                )}
                 <span>{job.level}</span>
               </div>
 
               <div className="flex flex-col gap-4">
                 {job.googleFormLink ? (
                   <a
-                    href={job.googleFormLink}
+                    href={jobExpired ? undefined : job.googleFormLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center bg-[#64C294] text-white font-medium text-sm
-                      h-[69px] w-full rounded-[23px] px-6 py-4 gap-2 md:w-[142px]"
+                    className={`flex items-center justify-center text-white font-medium text-sm
+                      h-[69px] w-full rounded-[23px] px-6 py-4 gap-2 md:w-[142px] transition-all
+                      ${jobExpired ? "bg-gray-400 cursor-not-allowed opacity-70" : "bg-[#64C294] hover:bg-[#55a67f]"}`}
+                    onClick={(e) => jobExpired && e.preventDefault()}
                   >
-                    Apply
+                    {jobExpired ? "Expired" : "Apply"}
                   </a>
                 ) : (
                   <button
                     type="button"
-                    className="flex items-center justify-center bg-[#64C294] text-white font-medium text-sm
-                      h-[69px] w-full rounded-[23px] px-6 py-4 gap-2 md:w-[142px]"
+                    disabled={jobExpired}
+                    className={`flex items-center justify-center text-white font-medium text-sm
+                      h-[69px] w-full rounded-[23px] px-6 py-4 gap-2 md:w-[142px] transition-all
+                      ${jobExpired ? "bg-gray-400 cursor-not-allowed opacity-70" : "bg-[#64C294] hover:bg-[#55a67f]"}`}
                   >
-                    Apply
+                    {jobExpired ? "Expired" : "Apply"}
                   </button>
                 )}
                 <span className="text-base text-[#5C606C]">jobs@sinoafrica.com</span>
@@ -93,19 +111,30 @@ export function CareerDetail({ documentId }: { documentId: string }) {
             <div className="flex flex-col gap-8 lg:w-[699px] lg:pt-0">
               <div className="flex flex-col gap-8 text-[#161C2D]">
                 {job.description.split('\n\n').map((paragraph, i) => {
-                  const isHeading = paragraph.length < 50 && (paragraph === paragraph.toUpperCase() || paragraph.includes('Responsibilities') || paragraph.includes('What we Offer'));
+                  const cleanParagraph = paragraph.replace(/\*/g, '').trim();
+                  const isHeading = cleanParagraph.length < 100 && (
+                    cleanParagraph === cleanParagraph.toUpperCase() || 
+                    cleanParagraph.includes('Responsibilities') || 
+                    cleanParagraph.includes('What We Offer') ||
+                    cleanParagraph.includes('Requirements') ||
+                    cleanParagraph.includes('Nice to Have') ||
+                    cleanParagraph.includes('Description') ||
+                    cleanParagraph.includes('Offer')
+                  );
 
-                  if (isHeading) {
+                  if (isHeading && cleanParagraph) {
                     return (
                       <h2 key={i} className="text-[18px] font-semibold uppercase tracking-wider">
-                        {paragraph}
+                        {cleanParagraph}
                       </h2>
                     );
                   }
 
+                  if (!cleanParagraph) return null;
+
                   return (
                     <p key={i} className="text-[16px] font-light leading-[150%] text-[#5C606C] md:text-[18px] lg:font-light lg:weight-300">
-                      {paragraph}
+                      {cleanParagraph}
                     </p>
                   );
                 })}
@@ -161,18 +190,24 @@ export function CareerDetail({ documentId }: { documentId: string }) {
                       <span>{otherJob.level}</span>
                       <span>{otherJob.type}</span>
                       <span>{otherJob.location}</span>
-                      <span>{otherJob.deadline}</span>
+                      {isExpired(otherJob.deadline) ? (
+                        <span className="font-semibold text-red-500 uppercase">Expired</span>
+                      ) : (
+                        <span className="font-medium text-primary">Expire Date: {otherJob.deadline}</span>
+                      )}
                     </div>
                   </div>
 
                   <Link
                     href={`/careers/${otherJob.documentId}`}
-                    className="flex items-center justify-center bg-[#64C294] text-white font-medium text-sm
+                    className={`flex items-center justify-center text-white font-medium text-sm
                       h-[53px] w-full rounded-[16px] px-6 py-4 gap-2
                       md:h-[69px] md:w-[159px] md:rounded-[23px]
-                      lg:h-[69px] lg:w-[159px] lg:rounded-[23px]"
+                      lg:h-[69px] lg:w-[159px] lg:rounded-[23px] transition-all
+                      ${isExpired(otherJob.deadline) ? "bg-gray-400 cursor-not-allowed opacity-70" : "bg-[#64C294] hover:bg-[#55a67f]"}`}
+                    onClick={(e) => isExpired(otherJob.deadline) && e.preventDefault()}
                   >
-                    Apply for position
+                    {isExpired(otherJob.deadline) ? "Expired" : "Apply for position"}
                   </Link>
                 </motion.div>
               ))}
