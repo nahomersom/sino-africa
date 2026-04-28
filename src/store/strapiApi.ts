@@ -286,6 +286,36 @@ export type VerticalEcosystemPartner = {
   icon?: StrapiMedia | null;
 };
 
+export type Career = {
+  id: number;
+  documentId: string;
+  title: string;
+  type: string;
+  location: string;
+  deadline: string;
+  level: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  googleFormLink?: string;
+  slug?: string;
+};
+
+export type HomeHeroTag = {
+  id: number;
+  text: string;
+};
+
+export type HomeHero = {
+  id: number;
+  documentId: string;
+  title: string;
+  description: string;
+  heroImage: StrapiMedia | null;
+  tag: HomeHeroTag[];
+};
+
 export type VerticalGradient = {
   id: number | string;
   accentColor: string;
@@ -373,7 +403,7 @@ export const strapiApi = createApi({
     }),
 
     // Blog endpoints
-    getBlogs: builder.query<{blogs: Blog[], pagination: StrapiPagination}, Record<string, unknown> | void>({
+    getBlogs: builder.query<{ blogs: Blog[], pagination: StrapiPagination }, Record<string, unknown> | void>({
       query: (params) => {
         const base = "blogs";
         const withDefaults: Record<string, unknown> = {
@@ -614,6 +644,43 @@ export const strapiApi = createApi({
         return response?.data ?? [];
       },
     }),
+
+    getCareers: builder.query<Career[], Record<string, unknown> | void>({
+      query: (params) => {
+        const base = "careers";
+        const withDefaults: Record<string, unknown> = {
+          populate: "*",
+          sort: "createdAt:desc",
+          "pagination[pageSize]": 100,
+          ...(params ?? {}),
+        };
+        return appendStrapiQuery(base, withDefaults);
+      },
+      transformResponse: (response: StrapiListResponse<Career>) => {
+        return response?.data ?? [];
+      },
+    }),
+
+    getCareerByDocumentId: builder.query<Career | null, string>({
+      query: (documentId) => {
+        const base = `careers/${documentId}`;
+        const withDefaults: Record<string, unknown> = {
+          populate: "*",
+        };
+        return appendStrapiQuery(base, withDefaults);
+      },
+      transformResponse: (response: StrapiBlogResponse) => {
+        // Careers likely use the same structure as single blog responses
+        return (response?.data as unknown as Career) ?? null;
+      },
+    }),
+
+    getHomeHero: builder.query<HomeHero | null, void>({
+      query: () => "hero-home-section?populate=*",
+      transformResponse: (response: { data: HomeHero }) => {
+        return response?.data ?? null;
+      },
+    }),
   }),
 });
 
@@ -632,5 +699,8 @@ export const {
   useGetProjectByIdQuery,
   useGetProjectBySlugQuery,
   useGetProjectCategoriesQuery,
+  useGetCareersQuery,
+  useGetCareerByDocumentIdQuery,
+  useGetHomeHeroQuery,
   useCreateContactSubmissionMutation,
 } = strapiApi;

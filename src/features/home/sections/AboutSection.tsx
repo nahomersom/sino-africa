@@ -24,7 +24,7 @@ export function AboutSection({ heading, bodyOne, bodyTwo }: AboutSectionProps) {
       </p>
       <Link
         href="/about"
-        className=" text-center text-sm font-normal leading-[1.5] text-text-100 px-6 bg-accent-60 py-6 flex items-center justify-center z-10 rounded-[55px] max-h-[72px] min-w-[156px] gap-[13px]"
+        className="w-full md:w-fit shadow-[0_0_32px_0_rgba(0,0,0,0.12)] text-center text-sm font-normal leading-[1.5] text-text-100 px-6 bg-accent-60 py-6 flex items-center justify-center z-10 rounded-[55px] max-h-[72px] min-w-[156px] gap-[13px]"
       >
         Read More
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

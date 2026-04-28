@@ -412,8 +412,8 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
               Project Details
             </h2>
 
-            <div className="grid grid-cols-1 gap-12 md:grid-cols-[minmax(0,280px)_1fr] md:gap-10 lg:gap-16 xl:grid-cols-[minmax(0,320px)_1fr]">
-              <aside className="flex flex-col items-center gap-10 md:items-start">
+            <div className="grid grid-cols-1 gap-12 md:grid-cols-[minmax(0,280px)_1fr] md:gap-0 xl:grid-cols-[minmax(0,320px)_1fr]">
+              <aside className="flex flex-col items-center gap-10 md:items-start md:pr-10 lg:pr-16 xl:pr-20">
                 <div className="flex w-full max-w-xl flex-col gap-3">
                   <SectionKicker>Development</SectionKicker>
                   <ul className="font-(family-name:--font-nata-sans) flex flex-row flex-wrap items-center justify-center gap-x-6 gap-y-2 list-none pl-0 text-center text-sm font-light leading-[1.55] tracking-[-0.01em] text-black md:flex-col md:items-start md:justify-start md:gap-2 md:text-left md:text-[15px]">
@@ -438,8 +438,8 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
                 </div>
               </aside>
 
-              <div className="flex min-w-0 flex-col items-center gap-10 md:items-start">
-             
+              <div className="flex min-w-0 flex-col items-center gap-10 md:items-start md:border-l md:border-black/10 md:pl-10 lg:pl-16 xl:pl-20">
+
                 <article className="flex w-full max-w-3xl flex-col gap-3">
                   <SectionKicker>Challenges</SectionKicker>
                   <StrapiBlocksRichText
@@ -470,6 +470,7 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
         </section>
       </ScrollReveal>
 
+
       {project.gallery.length > 0 ? (
         <ScrollReveal>
           <section className="w-full bg-white py-10 md:py-[88px]">
@@ -488,7 +489,7 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
         <ContactSection
           heading={projectsContent.contact.heading}
           description={projectsContent.contact.description}
-          buttonLabel="Submit"
+          buttonLabel="Send"
           namePlaceholder="Full Name"
         />
       </ScrollReveal>

@@ -35,7 +35,7 @@ export function HeroSection() {
               </h1>
             </div>
             <p
-              className="mx-auto max-w-[620px] pb-2 text-base font-normal leading-[1.5em] text-muted lg:mx-0"
+              className="mx-auto max-w-[520px] pb-2 text-base font-normal leading-[1.5em] text-muted lg:mx-0"
               style={{ letterSpacing: "-0.00625em" }}
             >
               Our verticals operate with specialized focus but shared architecture. They maintain distinct
@@ -43,7 +43,7 @@ export function HeroSection() {
               function as unified infrastructure.
             </p>
             <p
-              className="mx-auto max-w-[620px] text-base font-normal leading-[1.5em] text-muted lg:mx-0"
+              className="mx-auto max-w-[520px] text-base font-normal leading-[1.5em] text-muted lg:mx-0"
               style={{ letterSpacing: "-0.00625em" }}
             >
               Sino Africa&apos;s three verticals are not silos. They are specialized execution platforms
@@ -52,19 +52,17 @@ export function HeroSection() {
             </p>
           </div>
 
-          <div className="relative order-1 w-full min-w-0 max-w-[608px] shrink-0 overflow-hidden lg:order-2">
-            <div className="relative aspect-[608/612] w-full overflow-hidden lg:aspect-auto lg:h-[612px] lg:w-[608px]">
-              <div className="absolute inset-0 z-20 lg:relative lg:left-0 lg:right-auto lg:top-0 lg:h-[721.41px] lg:w-[627.27px]">
-                <Image
-                  src="/images/our-verticals/our-verticals-hero.png"
-                  alt="Our verticals"
-                  fill
-                  priority
-                  sizes="(max-width: 1023px) 100vw, 608px"
-                  className="object-cover object-top"
-                  unoptimized
-                />
-              </div>
+          <div className="relative order-1 w-full min-w-0 max-w-[620px] shrink-0 lg:order-2">
+            <div className="relative aspect-620/713 w-full overflow-hidden rounded-lg lg:aspect-auto lg:h-[713px] lg:w-[620px]">
+              <Image
+                src="/images/our-verticals/vertical-hero.png"
+                alt="Our verticals"
+                fill
+                priority
+                sizes="(max-width: 1023px) 100vw, 620px"
+                className="rounded-lg object-cover object-top"
+                unoptimized
+              />
             </div>
           </div>
         </div>

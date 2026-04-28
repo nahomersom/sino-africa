@@ -4,6 +4,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { useGetVerticalsQuery } from "@/src/store/strapiApi";
 
+const EmailIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 6L8.91302 9.91697C11.4616 11.361 12.5384 11.361 15.087 9.91697L22 6" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+    <path d="M2.01577 13.4756C2.08114 16.5412 2.11383 18.0739 3.24496 19.2094C4.37608 20.3448 5.95033 20.3843 9.09883 20.4634C11.0393 20.5122 12.9607 20.5122 14.9012 20.4634C18.0497 20.3843 19.6239 20.3448 20.7551 19.2094C21.8862 18.0739 21.9189 16.5412 21.9842 13.4756C22.0053 12.4899 22.0053 11.5101 21.9842 10.5244C21.9189 7.45886 21.8862 5.92609 20.7551 4.79066C19.6239 3.65523 18.0497 3.61568 14.9012 3.53657C12.9607 3.48781 11.0393 3.48781 9.09882 3.53656C5.95033 3.61566 4.37608 3.65521 3.24495 4.79065C2.11382 5.92608 2.08114 7.45885 2.01576 10.5244C1.99474 11.5101 1.99475 12.4899 2.01577 13.4756Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  </svg>
+);
+
+const PhoneIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4.74038 14.3685L6.69351 12.9816C7.24445 12.5904 7.80305 12.3282 8.44034 12.1585C9.17201 11.9636 9.5 11.5644 9.5 10.711C9.5 8.54629 14.5 8.31595 14.5 10.711C14.5 11.5644 14.828 11.9636 15.5597 12.1585C16.202 12.3295 16.7599 12.5934 17.3065 12.9816L19.2596 14.3685C20.1434 14.9961 20.5547 15.2995 20.7842 15.7819C21 16.2358 21 16.768 21 17.8324C21 19.7461 21 20.703 20.4642 21.3164C19.8152 22.0593 18.128 21.9955 17.0917 21.9955H6.90833C5.87197 21.9955 4.21909 22.0986 3.5358 21.3164C3 20.703 3 19.7461 3 17.8324C3 16.768 3 16.2358 3.21584 15.7819C3.44526 15.2995 3.85662 14.9961 4.74038 14.3685Z" stroke="currentColor" strokeWidth="1.5" />
+    <path d="M14 17C14 18.1046 13.1046 19 12 19C10.8954 19 10 18.1046 10 17C10 15.8954 10.8954 15 12 15C13.1046 15 14 15.8954 14 17Z" stroke="currentColor" strokeWidth="1.5" />
+    <path d="M6.96014 3.69772C5.6417 4.07415 4.69384 4.54112 3.82645 5.10455C2.45318 5.9966 1.86443 7.60404 2.02607 9.15513C2.09439 9.81068 2.62064 10.1241 3.23089 9.95455C3.69451 9.82571 4.15888 9.7003 4.61961 9.56364C5.96706 9.16397 6.28399 8.67812 6.47124 7.29885L6.96014 3.69772ZM6.96014 3.69772C10.2186 2.76743 13.7814 2.76743 17.0399 3.69772M17.0399 3.69772C18.3583 4.07415 19.3062 4.54112 20.1735 5.10455C21.5468 5.9966 22.1356 7.60404 21.9739 9.15513C21.9056 9.81068 21.3794 10.1241 20.7691 9.95455C20.3055 9.82571 19.8411 10.7003 19.3804 9.56364C18.0329 9.16397 17.716 8.67812 17.5288 7.29885L17.0399 3.69772Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  </svg>
+);
+
 const footerLinks = {
   quickLinks: {
     title: "Quick Links",
@@ -46,13 +61,13 @@ export function Footer() {
   const dynamicVerticalLinks =
     verticals.length > 0
       ? verticals
-          .map((item) => {
-            const label = (item.title ?? item.name ?? "").trim();
-            const slug = (item.slug ?? "").trim();
-            if (!label || !slug) return null;
-            return { label, href: `/our-verticals/${slug}` };
-          })
-          .filter((link): link is { label: string; href: string } => link !== null)
+        .map((item) => {
+          const label = (item.title ?? item.name ?? "").trim();
+          const slug = (item.slug ?? "").trim();
+          if (!label || !slug) return null;
+          return { label, href: `/our-verticals/${slug}` };
+        })
+        .filter((link): link is { label: string; href: string } => link !== null)
       : footerLinks.verticals.links;
 
   const sections = [
@@ -75,7 +90,7 @@ export function Footer() {
             priority
           />
           <p className="text-base leading-6 text-white/65">
-          A Bridge Between Markets, Technology, and Institutional Infrastructure, Building scalable infrastructure systems across Africa through partnerships, technology, and institutional capital.
+            A Bridge Between Markets, Technology, and Institutional Infrastructure, Building scalable infrastructure systems across Africa through partnerships, technology, and institutional capital.
           </p>
           <div className="flex items-center gap-6">
             <Link
@@ -99,19 +114,31 @@ export function Footer() {
                 {section.title}
               </h3>
               <div className="flex flex-col gap-2">
-                {section.links.map((link) => (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    className={
-                      link.href.startsWith("mailto:") || link.href.startsWith("tel:")
-                        ? "block max-w-full wrap-break-word py-2 text-sm text-white hover:text-primary sm:text-base"
-                        : "py-2 text-base text-white hover:text-primary"
-                    }
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                {(() => {
+                  const hasAnyIcon = section.links.some((l: any) => l.icon);
+                  return section.links.map((link: any) => (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      className={`${link.href.startsWith("mailto:")
+                        ? "block max-w-full wrap-break-word text-sm sm:text-base"
+                        : "text-base"
+                        } flex items-start gap-4 py-2 text-white transition-colors hover:text-primary`}
+                    >
+                      {link.icon ? (
+                        <span className="shrink-0">{link.icon}</span>
+                      ) : (
+                        hasAnyIcon && (
+                          <div
+                            className="h-6 w-6 shrink-0"
+                            aria-hidden="true"
+                          />
+                        )
+                      )}
+                      <span>{link.label}</span>
+                    </Link>
+                  ));
+                })()}
               </div>
             </div>
           ))}

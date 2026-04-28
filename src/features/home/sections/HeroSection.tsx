@@ -9,6 +9,7 @@ import {
   type Vertical,
   type VerticalTag,
   useGetVerticalsQuery,
+  useGetHomeHeroQuery,
 } from "@/src/store/strapiApi";
 import { HERO_SLIDES, type HeroSlide } from "./HeroSection.constants";
 
@@ -31,16 +32,33 @@ function getSlideAnimationType(slideIndex: number): "up" | "down" | "none" {
 
 export function HeroSection() {
   const { data: verticals = [] } = useGetVerticalsQuery();
+  const { data: homeHero } = useGetHomeHeroQuery();
+
   const fallbackSlides = HERO_SLIDES.slice(1, 4);
-  const firstSlide = HERO_SLIDES[0];
+  const firstSlideTemplate = HERO_SLIDES[0];
+
+  const dynamicFirstSlide: HeroSlide = homeHero
+    ? {
+      imageSrc: getStrapiMediaUrl(homeHero.heroImage?.url) || firstSlideTemplate.imageSrc,
+      title: homeHero.title || firstSlideTemplate.title,
+      verticalName: firstSlideTemplate.verticalName,
+      description: homeHero.description || firstSlideTemplate.description,
+      focusAreas: homeHero.tag?.map((t) => t.text).filter(Boolean) || firstSlideTemplate.focusAreas,
+      primaryCta: firstSlideTemplate.primaryCta,
+      secondaryCta: firstSlideTemplate.secondaryCta,
+    }
+    : firstSlideTemplate;
+
   const verticalSlides: HeroSlide[] = fallbackSlides.map((fallbackSlide, index) => {
     const vertical = verticals[index];
     if (!vertical) return fallbackSlide;
     const tags = extractVerticalTags(vertical);
+    const verticalName = vertical.title ?? vertical.name ?? fallbackSlide.verticalName;
 
     return {
       imageSrc: getStrapiMediaUrl(vertical.homeHeroImage?.url) || fallbackSlide.imageSrc,
       title: vertical.title ?? vertical.name ?? fallbackSlide.title,
+      verticalName,
       description:
         vertical.summary ??
         vertical.focusAreasDescription ??
@@ -48,13 +66,14 @@ export function HeroSection() {
         fallbackSlide.description,
       focusAreas: tags.length > 0 ? tags : fallbackSlide.focusAreas,
       primaryCta: {
-        label: fallbackSlide.primaryCta.label,
+        label: verticalName ? `Read more about ${verticalName}` : fallbackSlide.primaryCta.label,
         href: vertical.slug ? `/our-verticals/${vertical.slug}` : fallbackSlide.primaryCta.href,
       },
       secondaryCta: fallbackSlide.secondaryCta,
     };
   });
-  const slides: readonly HeroSlide[] = [firstSlide, ...verticalSlides];
+
+  const slides: readonly HeroSlide[] = [dynamicFirstSlide, ...verticalSlides];
   const [activeSlide, setActiveSlide] = useState(0);
 
   useEffect(() => {
@@ -86,7 +105,7 @@ export function HeroSection() {
       : { duration: 1.2, ease: [0.16, 1, 0.3, 1] as const };
 
   return (
-    <section className="relative flex min-h-screen w-full flex-col justify-center overflow-hidden bg-black/50">
+    <section className="relative flex h-[971px] w-full flex-col justify-center overflow-hidden bg-black/50 md:min-h-screen">
       <div className="absolute inset-0">
         {slides.map((slide, index) => (
           <motion.div
@@ -116,7 +135,7 @@ export function HeroSection() {
       />
 
       <motion.div
-        className="z-10 mx-auto flex h-full w-full max-w-[1920px] flex-col justify-end gap-4 px-6 py-16 md:px-10  lg:gap-4 lg:px-44 lg:pt-[88px]x lg:pb-[100px]"
+        className="z-10 mx-auto flex h-full w-full max-w-[1252px] 2xl:max-w-[1920px] flex-col justify-end gap-4 px-6 pt-[118px] pb-24 md:px-10 md:justify-end lg:gap-4 lg:px-4 2xl:px-44 lg:pt-[88px] lg:pb-[100px]"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -130,8 +149,10 @@ export function HeroSection() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="text-[13px] leading-[1.26] tracking-[0.125em] text-[#68D585]">
-              SINO AFRICA
+            <span className="text-[13px] leading-[1.26] tracking-[0.125em] text-[#68D585] uppercase">
+              {currentSlide.verticalName && currentSlide.verticalName !== "SINO AFRICA"
+                ? `SINO AFRICA`
+                : "SINO AFRICA"}
             </span>
             <AnimatePresence mode="wait">
               <motion.h1
@@ -140,7 +161,7 @@ export function HeroSection() {
                 animate={textAnimate}
                 exit={textExit}
                 transition={textTransition}
-                className="w-full max-w-[658px] text-left text-[40px] leading-[1.02] tracking-[-0.02em] text-white md:text-[52px] lg:text-[60px] lg:leading-[60px] lg:tracking-[-0.0333em]"
+                className="w-full max-w-[658px] font-outfit text-left text-[36px] font-normal leading-[100%] tracking-[-0.02em] text-white md:text-[52px] md:leading-[1.02] lg:text-[60px] lg:leading-[60px] lg:tracking-[-0.0333em]"
               >
                 {currentSlide.title}
               </motion.h1>
@@ -152,47 +173,47 @@ export function HeroSection() {
                 animate={textAnimate}
                 exit={textExit}
                 transition={textTransition}
-                className="w-full max-w-[599px] text-left text-[18px] leading-[1.5] tracking-[-0.03em] text-white md:text-[20px] lg:text-[24px]"
+                className="w-full max-w-[599px] text-left text-[16px] font-normal leading-[150%] tracking-[-0.03em] text-white md:text-[20px] lg:text-[24px]"
               >
                 {currentSlide.description}
               </motion.p>
             </AnimatePresence>
-            <div className="flex flex-row flex-wrap items-center gap-4">
+            <div className="flex flex-col gap-[8px] md:flex-row md:flex-wrap md:items-center md:gap-4">
               <Link
                 href={currentSlide.primaryCta.href}
-                className="inline-flex min-h-[68px] items-center justify-center rounded-[23px] bg-[#64C294] px-6 text-center text-sm leading-6 text-white"
+                className="inline-flex h-[69px] w-full max-w-[390px] items-center justify-center rounded-[23px] bg-[#64C294] px-6 text-center text-sm font-medium leading-6 text-white md:w-auto"
               >
                 {currentSlide.primaryCta.label}
               </Link>
               <Link
                 href={currentSlide.secondaryCta.href}
-                className="inline-flex min-h-[68px] min-w-[187px] items-center justify-center rounded-[23px] bg-[#F6F7FB] px-6 text-center text-sm leading-6 text-[#161C2D]"
+                className="inline-flex h-[69px] w-full max-w-[390px] items-center justify-center rounded-[23px] bg-[#F6F7FB] px-6 text-center text-sm font-medium leading-6 text-[#161C2D] md:min-w-[187px] md:w-auto"
               >
                 {currentSlide.secondaryCta.label}
               </Link>
             </div>
-            <div className="flex flex-row flex-wrap items-center gap-4">
-              {(currentSlide.focusAreas.length > 0 ? currentSlide.focusAreas : firstSlide.focusAreas)
+            <div className="grid grid-cols-2 gap-[8px] md:flex md:flex-row md:flex-wrap md:items-center md:gap-4">
+              {(currentSlide.focusAreas.length > 0 ? currentSlide.focusAreas : slides[0].focusAreas)
                 .slice(0, 3)
                 .map((item, index) => (
-                <motion.span
-                  key={`${activeSlide}-${index}-${item}`}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    duration: 0.8,
-                    delay: 0.16 * index,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  className="rounded-[32px] bg-white/20 px-6 py-4 text-center text-[12px] font-medium leading-[1.26] tracking-[0.0525em] text-white backdrop-blur-[52px]"
-                >
-                  {item}
-                </motion.span>
-              ))}
+                  <motion.span
+                    key={`${activeSlide}-${index}-${item}`}
+                    initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      duration: 0.8,
+                      delay: 0.16 * index,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    className="rounded-[32px] bg-white/20 px-6 py-4 text-center text-[12px] font-medium leading-[1.26] tracking-[0.0525em] text-white backdrop-blur-[52px]"
+                  >
+                    {item}
+                  </motion.span>
+                ))}
             </div>
           </motion.div>
         </AnimatePresence>
-       
+
         <motion.div
           className="mt-2 grid w-full grid-cols-[104px_1fr_104px] items-center gap-4"
           initial={{ opacity: 0, y: 20 }}

@@ -12,24 +12,24 @@ export type VerticalDetailTheme = {
 
 export type FocusRow =
   | {
-      variant: "grid-text";
-      title: string;
-      body: string;
-      /** Use `null` for a static skeleton cell when the CMS has no image. */
-      gridImages: [string | null, string | null, string | null, string | null];
-    }
+    variant: "grid-text";
+    title: string;
+    body: string;
+    /** Use `null` for a static skeleton cell when the CMS has no image. */
+    gridImages: [string | null, string | null, string | null, string | null];
+  }
   | {
-      variant: "text-dual";
-      title: string;
-      body: string;
-      images: [string | null, string | null];
-    }
+    variant: "text-dual";
+    title: string;
+    body: string;
+    images: [string | null, string | null];
+  }
   | {
-      variant: "wide-text";
-      title: string;
-      body: string;
-      image: string | null;
-    };
+    variant: "wide-text";
+    title: string;
+    body: string;
+    image: string | null;
+  };
 
 export type PartnerCard = {
   title: string;
