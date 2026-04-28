@@ -108,52 +108,83 @@ export function stringToBlocksContent(input: string): BlocksContent {
   if (!prepared) return [];
 
   const blocks: BlocksContent = [];
+  let currentParagraphLines: string[] = [];
+  let currentList: { format: "unordered" | "ordered"; items: string[] } | null = null;
 
-  const pushParagraph = (lines: string[]) => {
-    const text = lines.join(" ").trim();
-    if (!text) return;
-    blocks.push({
-      type: "paragraph" as const,
-      children: parseParagraphInline(text),
-    });
+  const flushParagraph = () => {
+    if (currentParagraphLines.length > 0) {
+      blocks.push({
+        type: "paragraph",
+        children: parseParagraphInline(currentParagraphLines.join(" ")),
+      });
+      currentParagraphLines = [];
+    }
   };
 
-  const pushHeading = (level: number, text: string) => {
-    const t = text.trim();
-    if (!t) return;
-    blocks.push({
-      type: "heading" as const,
-      level: Math.min(6, Math.max(1, level)) as 1 | 2 | 3 | 4 | 5 | 6,
-      children: parseParagraphInline(t),
-    });
+  const flushList = () => {
+    if (currentList) {
+      blocks.push({
+        type: "list",
+        format: currentList.format,
+        children: currentList.items.map((item) => ({
+          type: "list-item",
+          children: parseParagraphInline(item),
+        })),
+      });
+      currentList = null;
+    }
   };
 
   const lines = prepared.split(/\r?\n/);
-  let paraLines: string[] = [];
 
   for (const rawLine of lines) {
     const line = rawLine.trimEnd();
+    const trimmed = line.trim();
 
-    // Blank line ends a paragraph.
-    if (line.trim().length === 0) {
-      pushParagraph(paraLines);
-      paraLines = [];
+    if (trimmed.length === 0) {
+      flushParagraph();
+      flushList();
       continue;
     }
 
-    // ATX heading: # Heading (H1) ... ###### Heading (H6)
+    // Heading check
     const hm = line.match(/^(#{1,6})\s+(.+?)\s*$/);
     if (hm) {
-      pushParagraph(paraLines);
-      paraLines = [];
-      pushHeading(hm[1].length, hm[2]);
+      flushParagraph();
+      flushList();
+      blocks.push({
+        type: "heading",
+        level: Math.min(6, Math.max(1, hm[1].length)) as any,
+        children: parseParagraphInline(hm[2]),
+      });
       continue;
     }
 
-    paraLines.push(line);
+    // List item check
+    const unorderedMatch = line.match(/^[\s]*([-*+])\s+(.+)$/);
+    const orderedMatch = line.match(/^[\s]*(\d+)\.\s+(.+)$/);
+
+    if (unorderedMatch || orderedMatch) {
+      flushParagraph();
+      const format = unorderedMatch ? "unordered" : "ordered";
+      const content = unorderedMatch ? unorderedMatch[2] : orderedMatch![2];
+
+      if (currentList && currentList.format === format) {
+        currentList.items.push(content);
+      } else {
+        flushList();
+        currentList = { format, items: [content] };
+      }
+      continue;
+    }
+
+    // Regular line - either adds to paragraph or breaks a list
+    flushList();
+    currentParagraphLines.push(trimmed);
   }
 
-  pushParagraph(paraLines);
+  flushParagraph();
+  flushList();
 
   return blocks;
 }
