@@ -149,7 +149,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const STRAPI_URL =
     process.env.NEXT_PUBLIC_STRAPI_URL?.trim() ||
-    "https://sino-cms.ablazelabs.com";
+    "https://sino-cms.abalaz.et";
   const { data: verticals = [] } = useGetVerticalsQuery(undefined, {
     skip: !STRAPI_URL,
   });

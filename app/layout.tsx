@@ -18,14 +18,44 @@ const nataSans = localFont({
   display: "swap",
 });
 
+const siteTitle = "Sino Africa";
+const siteDescription =
+  "Sino Africa connects technology, infrastructure, and partners across markets.";
+
+function resolveMetadataBase(): URL {
+  const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (raw) {
+    try {
+      return new URL(raw.endsWith("/") ? raw.slice(0, -1) : raw);
+    } catch {
+      /* fall through */
+    }
+  }
+  if (process.env.VERCEL_URL) {
+    return new URL(`https://${process.env.VERCEL_URL}`);
+  }
+  return new URL("http://localhost:3000");
+}
+
 export const metadata: Metadata = {
-  title: "Sino Africa",
-  description:
-    "Sino Africa connects technology, infrastructure, and partners across markets.",
+  metadataBase: resolveMetadataBase(),
+  title: siteTitle,
+  description: siteDescription,
   icons: {
     icon: [{ url: "/brand/logo.svg", type: "image/svg+xml" }],
     shortcut: "/brand/logo.svg",
     apple: "/brand/logo.svg",
+  },
+  openGraph: {
+    type: "website",
+    siteName: siteTitle,
+    title: siteTitle,
+    description: siteDescription,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
   },
 };
 

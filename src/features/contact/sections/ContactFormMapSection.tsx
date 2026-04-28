@@ -5,8 +5,12 @@ import { Button } from "@/src/components/ui/app-button";
 import { cn } from "@/src/lib/utils";
 import { useCreateContactSubmissionMutation } from "@/src/store/strapiApi";
 
-const OPEN_STREET_MAP_EMBED_URL =
-  "https://www.openstreetmap.org/export/embed.html?bbox=38.7905%2C9.0074%2C38.8315%2C9.0368&layer=mapnik&marker=9.0221%2C38.8110";
+/**
+ * Sur construction Head office (pin matches shared place:
+ * google.com/maps/place/Sur+construction+Head+office/ — coords 8.9998439, 38.7702279).
+ */
+const GOOGLE_MAPS_EMBED_URL =
+  "https://www.google.com/maps?q=8.9998439%2C38.7702279&z=17&hl=en&output=embed";
 
 const NAME_MIN_LENGTH = 2;
 const NAME_MAX_LENGTH = 80;
@@ -281,8 +285,8 @@ export function ContactFormMapSection() {
           </div>
           <div className="relative w-full min-w-0 shrink-0 overflow-hidden rounded-2xl opacity-100 max-md:mx-auto max-md:h-[792px] max-md:max-w-[366px] max-md:rounded-[16px] md:block md:h-[min(50vw,560px)] md:min-h-[380px] md:max-w-none md:rounded-2xl lg:min-h-[440px] xl:h-auto xl:min-h-[792px] xl:flex-1">
             <iframe
-              src={OPEN_STREET_MAP_EMBED_URL}
-              title="Sino Africa location map"
+              src={GOOGLE_MAPS_EMBED_URL}
+              title="Sur construction Head office on Google Maps"
               className="absolute inset-0 h-full w-full border-0"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
