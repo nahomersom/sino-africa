@@ -7,7 +7,7 @@
 export function getStrapiRootUrl(): string {
   const raw =
     typeof process !== "undefined"
-      ? (process.env.STRAPI_URL ?? process.env.NEXT_PUBLIC_STRAPI_URL ?? "https://sino-cms.ablazelabs.com")
+      ? (process.env.STRAPI_URL ?? process.env.NEXT_PUBLIC_STRAPI_URL ?? "https://sino-cms.abalaz.et")
       : undefined;
   if (!raw) return "";
   // Strip optional /api suffix, trim, then remove trailing slashes so `${root}/api` never becomes `//api`
