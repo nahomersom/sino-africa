@@ -75,7 +75,7 @@ export function CareerDetail({ documentId }: { documentId: string }) {
                 {jobExpired ? (
                   <span className="font-semibold text-red-500">Expired</span>
                 ) : (
-                  <span className="font-medium text-primary">Expire Date: {job.deadline}</span>
+                  <span className="font-medium text-primary">Deadline: {job.deadline}</span>
                 )}
                 <span>{job.level}</span>
               </div>
