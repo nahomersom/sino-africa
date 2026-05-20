@@ -137,7 +137,7 @@ export function VerticalsSection({
   return (
     <section
       id="platforms"
-      className="relative flex h-auto min-h-screen max-w-screen w-full flex-col gap-4 overflow-visible px-8 py-20 transition-all duration-500 md:h-screen md:overflow-hidden md:px-20 md:py-20 lg:px-[286px] lg:pb-16 lg:pt-[160px]"
+      className="relative flex h-auto min-h-screen max-w-screen w-full flex-col gap-4 overflow-visible px-8 py-20 transition-all duration-500 md:px-20 md:py-20 lg:px-[286px] lg:pb-16 lg:pt-[160px] "
       style={{ background: activeGradient }}
     >
       {VERTICALS_REFERENCE_ELLIPSES.map((ellipse, i) => {

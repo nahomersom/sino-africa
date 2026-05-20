@@ -3,7 +3,7 @@ export const contactContent = {
     {
       icon: "/images/contact/phone-icon.svg",
       title: "Call us",
-      lines: ["+251-944-317-816", "+251-900-130-895", "+251-982-919-293"],
+      lines: ["+251-944-317-816","+251-982-919-293"],
     },
     {
       icon: "/images/contact/email-icon.svg",
