@@ -61,13 +61,13 @@ export const aboutContent = {
   mission: {
     title: "Our Mission",
     description:
-      "Delivering mission-critical systems with strict regulatory alignment and full accountability, turning policy into reliable, real-world solutions.",
+      "Sino Africa delivers regulated financial, identity, security, and mobility systems through disciplined execution, strict regulatory alignment, and full lifecycle accountability. We transform policy into operational reality, embed global technologies within local governance frameworks, and assume end-to-end responsibility to ensure continuity, stability, and long- term institutional trust.",
     bgImage: "/images/about/mission-bg.jpg",
   },
   vision: {
     title: "Our Vision",
     description:
-      "Strengthening Africa’s institutions by integrating and sustaining global technologies within local governance.",
+      "To strengthen Africa's institutional infrastructure ecosystems by ensuring global technologies are effectively integrated, deployed, and sustained within local governance and regulatory environments.",
     bgImage: "/images/about/vision-bg.jpg",
   },
   team: {
