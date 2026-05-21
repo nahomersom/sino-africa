@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { StaggerContainer, StaggerItem } from "@/src/components/ui/scroll-reveal";
 
 type OurVisionSectionProps = {
@@ -5,83 +6,88 @@ type OurVisionSectionProps = {
   description: string;
 };
 
-const VISION_ICON_PATH = "M63.8825 32.0774C55.6935 20.3508 44.8355 13.8006 33.239 13.5317V9.28405C33.239 9.08815 33.1611 8.90027 33.0226 8.76175C32.8841 8.62323 32.6962 8.54541 32.5003 8.54541C32.3044 8.54541 32.1165 8.62323 31.978 8.76175C31.8395 8.90027 31.7617 9.08815 31.7617 9.28405V13.5317C20.1661 13.7996 9.30713 20.3498 1.11812 32.0764C1.03169 32.2003 0.985352 32.3478 0.985352 32.4989C0.985352 32.65 1.03169 32.7975 1.11812 32.9214C9.30713 44.649 20.1661 51.1992 31.7617 51.4681V55.7157C31.7617 55.9116 31.8395 56.0995 31.978 56.238C32.1165 56.3765 32.3044 56.4544 32.5003 56.4544C32.6962 56.4544 32.8841 56.3765 33.0226 56.238C33.1611 56.0995 33.239 55.9116 33.239 55.7157V51.4681C44.8355 51.2002 55.6935 44.65 63.8825 32.9234C63.9692 32.7993 64.0156 32.6517 64.0156 32.5004C64.0156 32.3491 63.9692 32.2014 63.8825 32.0774ZM23.6534 27.8248C23.0655 27.6774 22.5441 27.337 22.1725 26.8581C21.8009 26.3792 21.6007 25.7895 21.604 25.1834C21.6047 24.4575 21.8934 23.7616 22.4067 23.2483C22.92 22.7351 23.6159 22.4463 24.3418 22.4456C28.4142 22.4465 27.5711 28.9475 23.6534 27.8248ZM23.9311 29.3789C26.7222 29.6684 29.0445 27.1147 28.4585 24.3217C29.4922 23.8129 30.6131 23.5051 31.7617 23.4147V31.7612H23.4082C23.4718 30.9468 23.6478 30.1451 23.9311 29.3789ZM31.7617 33.2385V41.5841C29.607 41.4075 27.585 40.4716 26.056 38.9432C24.5271 37.4148 23.5905 35.3931 23.4131 33.2385H31.7617ZM33.239 33.2385H41.5885C41.23 37.6772 37.6816 41.2237 33.239 41.5831V33.2385ZM33.239 31.7612V23.4097C35.394 23.5884 37.4157 24.5257 38.9446 26.055C40.4735 27.5842 41.4103 29.6062 41.5885 31.7612H33.239ZM31.7617 21.9433C30.4223 22.0378 29.1174 22.3855 27.907 22.9705C27.5313 22.3619 27.0069 21.8589 26.3832 21.5088C25.7595 21.1587 25.057 20.9731 24.3418 20.9693C22.0176 20.9693 20.1267 22.8602 20.1267 25.1844C20.1267 26.8419 21.0869 28.3025 22.5179 28.9771C22.1967 29.8742 22.0015 30.8115 21.9378 31.7622H15.0163C15.3974 22.6908 22.6912 15.397 31.7627 15.0159L31.7617 21.9433ZM21.9358 33.2385C22.3002 38.4937 26.5055 42.699 31.7617 43.0614V49.9849C22.6902 49.6037 15.3965 42.31 15.0153 33.2385H21.9358ZM33.239 43.0614C38.4961 42.694 42.7014 38.4917 43.0658 33.2395H49.9853C49.6042 42.3109 42.3104 49.6047 33.239 49.9859V43.0614ZM43.0658 31.7612C42.7004 26.5051 38.4951 22.2988 33.239 21.9325V15.0149C42.3104 15.396 49.6042 22.6898 49.9853 31.7612H43.0658ZM2.62789 32.4999C7.96774 24.9963 14.4362 19.751 21.4671 17.0614C16.8422 20.3764 13.7724 25.7054 13.538 31.7612H9.28448C9.08858 31.7612 8.90071 31.8391 8.76219 31.9776C8.62367 32.1161 8.54585 32.304 8.54585 32.4999C8.54585 32.6958 8.62367 32.8837 8.76219 33.0222C8.90071 33.1607 9.08858 33.2385 9.28448 33.2385H13.538C13.7724 39.2934 16.8422 44.6224 21.4671 47.9374C14.4362 45.2487 7.96774 40.0034 2.62789 32.4999ZM43.5336 47.9374C48.1584 44.6224 51.2282 39.2934 51.4626 33.2385H55.7152C55.9111 33.2385 56.0989 33.1607 56.2375 33.0222C56.376 32.8837 56.4538 32.6958 56.4538 32.4999C56.4538 32.304 56.376 32.1161 56.2375 31.9776C56.0989 31.8391 55.9111 31.7612 55.7152 31.7612H51.4626C51.2282 25.7064 48.1584 20.3774 43.5336 17.0614C50.5644 19.751 57.0329 24.9963 62.3727 32.4999C57.0329 40.0034 50.5644 45.2487 43.5336 47.9374ZM52.7468 10.0227H59.2911V16.567C59.2911 16.7629 59.369 16.9508 59.5075 17.0893C59.646 17.2278 59.8339 17.3056 60.0298 17.3056C60.2257 17.3056 60.4136 17.2278 60.5521 17.0893C60.6906 16.9508 60.7684 16.7629 60.7684 16.567V9.28405C60.7684 9.08815 60.6906 8.90027 60.5521 8.76175C60.4136 8.62323 60.2257 8.54541 60.0298 8.54541H52.7468C52.5509 8.54541 52.3631 8.62323 52.2245 8.76175C52.086 8.90027 52.0082 9.08815 52.0082 9.28405C52.0082 9.47995 52.086 9.66782 52.2245 9.80634C52.3631 9.94486 52.5509 10.0227 52.7468 10.0227ZM4.96986 17.3056C5.16576 17.3056 5.35363 17.2278 5.49216 17.0893C5.63068 16.9508 5.7085 16.7629 5.7085 16.567V10.0227H12.2528C12.4487 10.0227 12.6366 9.94486 12.7751 9.80634C12.9136 9.66782 12.9915 9.47995 12.9915 9.28405C12.9915 9.08815 12.9136 8.90027 12.7751 8.76175C12.6366 8.62323 12.4487 8.54541 12.2528 8.54541H4.96986C4.77396 8.54541 4.58609 8.62323 4.44757 8.76175C4.30905 8.90027 4.23122 9.08815 4.23122 9.28405V16.567C4.23122 16.9747 4.56213 17.3056 4.96986 17.3056ZM12.2528 54.9771H5.7085V48.4328C5.7085 48.2369 5.63068 48.049 5.49216 47.9105C5.35363 47.7719 5.16576 47.6941 4.96986 47.6941C4.77396 47.6941 4.58609 47.7719 4.44757 47.9105C4.30905 48.049 4.23122 48.2369 4.23122 48.4328V55.7157C4.23122 56.1234 4.56213 56.4544 4.96986 56.4544H12.2528C12.4487 56.4544 12.6366 56.3765 12.7751 56.238C12.9136 56.0995 12.9915 55.9116 12.9915 55.7157C12.9915 55.5198 12.9136 55.3319 12.7751 55.1934C12.6366 55.0549 12.4487 54.9771 12.2528 54.9771ZM60.0298 47.6941C59.8339 47.6941 59.646 47.7719 59.5075 47.9105C59.369 48.049 59.2911 48.2369 60.0298 47.6941Z";
-
 export function OurVisionSection({
   heading,
   description,
 }: OurVisionSectionProps) {
   return (
-    <section className="relative flex min-h-[421px] w-full flex-col items-center justify-center gap-6 overflow-hidden bg-white px-5 py-[100px] lg:min-h-[716px] lg:gap-[40px] lg:px-[120px] xl:px-[240px] 2xl:px-[464px] lg:py-[200px]">
-      {/* Background Grid */}
+    <section className="relative flex w-full items-center justify-center overflow-hidden bg-white px-8 py-20 md:px-20 md:py-24 lg:px-[120px] lg:py-[120px] xl:px-[240px]">
+      {/* Face-icon background pattern */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.1]"
         style={{
           backgroundImage: "url('/images/sino-symbol-tile.svg')",
-          backgroundSize: "28px",
+          backgroundSize: "20px",
           backgroundRepeat: "repeat",
         }}
       />
 
-      {/* Glow Effects */}
-      <div
-        className="pointer-events-none absolute -left-[423px] -top-[423px] h-[847px] w-[847px] rounded-full bg-[#64C294] opacity-20 blur-[252px]"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute -right-[423px] -top-[423px] h-[847px] w-[847px] rounded-full bg-[#64C294] opacity-20 blur-[252px]"
-        aria-hidden="true"
-      />
-
-      <StaggerContainer className="relative z-10 flex flex-col items-center gap-6 lg:gap-[40px]">
-        {/* SVG Icon */}
-        <StaggerItem>
-          <svg
-            width="65"
-            height="65"
-            viewBox="0 0 65 65"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <mask
-              id="path-1-outside-1_1676_2505"
-              maskUnits="userSpaceOnUse"
-              x="-0.0146484"
-              y="7.54541"
-              width="65"
-              height="50"
-              fill="black"
-            >
-              <rect
-                fill="white"
-                x="-0.0146484"
-                y="7.54541"
-                width="65"
-                height="50"
-              />
-              <path d={VISION_ICON_PATH} />
-            </mask>
-            <path d={VISION_ICON_PATH} fill="#161C2D" />
-            <path
-              d={VISION_ICON_PATH}
-              stroke="#161C2D"
-              strokeWidth="0.8"
-              mask="url(#path-1-outside-1_1676_2505)"
+      <div className="relative z-10 flex w-full max-w-[1240px] flex-col items-center gap-12 lg:flex-row lg:items-center lg:gap-20">
+        {/* Image with decorative accents */}
+        <StaggerItem className="w-full lg:w-[498px] lg:shrink-0">
+          <div className="relative mx-auto w-full max-w-[498px]">
+            {/* Dots accent — top left, behind image */}
+            <Image
+              src="/images/dots-circle.svg"
+              alt=""
+              aria-hidden="true"
+              width={140}
+              height={140}
+              className="pointer-events-none absolute -left-8 -top-8 z-0 h-auto w-[140px] select-none"
             />
-          </svg>
+
+            {/* Coral circle accent — bottom left, behind image */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -bottom-10 -left-10 z-0 rounded-full bg-[#F64B4B]/57"
+              style={{ width: 221.14999389648438, height: 221.14999389648438 }}
+            />
+
+            <div className="relative z-10 h-[360px] w-full overflow-hidden rounded-[16px] shadow-[0_24px_48px_rgba(0,0,0,0.12)] md:h-[480px] lg:h-[560px]">
+              <Image
+                src="/images/hands-on-tree.jpg"
+                alt="Hands stacked together on a tree branch"
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 498px, 100vw"
+              />
+            </div>
+          </div>
         </StaggerItem>
 
-        <StaggerItem>
-          <h2 className="text-center text-[36px] font-normal leading-[150%] text-[#161C2D]">
-            {heading}
-          </h2>
-        </StaggerItem>
-        <StaggerItem>
-          <p className="max-w-[492px] text-center text-[24px] font-normal leading-[150%] text-[#161C2D]">
-            {description}
-          </p>
-        </StaggerItem>
-      </StaggerContainer>
+        {/* Content */}
+        <StaggerContainer className="flex w-full flex-col gap-6 lg:flex-1">
+          <StaggerItem>
+            <svg
+              width="48"
+              height="48"
+              viewBox="0 0 48 48"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M2 24C2 24 10 10 24 10C38 10 46 24 46 24C46 24 38 38 24 38C10 38 2 24 2 24Z"
+                stroke="#161C2D"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <circle cx="24" cy="24" r="5" fill="#3FAF7E" />
+            </svg>
+          </StaggerItem>
+          <StaggerItem>
+            <h2 className="text-[32px] font-medium leading-tight text-text-100 md:text-[40px]">
+              {heading}
+            </h2>
+          </StaggerItem>
+          <StaggerItem>
+            <p className="max-w-[492px] text-base leading-7 text-text-100/80 md:text-lg md:leading-8">
+              {description}
+            </p>
+          </StaggerItem>
+        </StaggerContainer>
+      </div>
     </section>
   );
 }

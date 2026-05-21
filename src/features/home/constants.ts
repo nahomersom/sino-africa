@@ -1,9 +1,11 @@
 export const homeContent = {
   about: {
     heading: "Who we are",
-    bodyOne:
-   "Sino Africa is an institutional infrastructure platform. We design, deploy, and operate mission-critical systems that governments and institutions cannot afford to get wrong. We are not a trading company. We do not distribute consumer technology. We own execution risk end-to-end from system integration and regulatory compliance to long-term lifecycle accountability." , 
-      bodyTwo:"We operate across three specialized verticals: financial access infrastructure (ACT IT), identity and security systems (SINOSEC), and regulated mobility platforms (MOBILITEX). Every mandate is multi year, institution-grade, and delivered with disciplined execution. If we do not own the risk, we do not participate.",
+    bodyOne:"Sino Africa, with more than 15 years of experience, has consistently contributed to national development by focusing on structured platform development rather than short-cycle project execution. Its programs are designed to operate within institutional environments, ensuring long-term system reliability and supporting the growth of resilient infrastructure ecosystems. Through its sustainable model, the company plays a key role in building the institutional foundations that underpin modern economies.",
+    bodyTwo:"Sino Africa is an institutional infrastructure platform focused on structuring, integrating, and governing regulated systems across financial services, sovereign identity, security architecture, and next-generation mobility.",
+    bodyThree:
+    "Through structured program governance, execution oversight, and lifecycle responsibility, Sino Africa ensures systems are deployed responsibly, aligned with institutional requirements, and sustained over the long term.",
+    bodyFour:"We operate at the intersection of global technology providers and African public and private institutions, ensuring that advanced systems are not only deployed, but embedded within compliant regulatory and governance frameworks.",
   },
   whyChooseUs: {
     label: "What makes us different",
@@ -35,6 +37,18 @@ export const homeContent = {
         description:
           "We focus only on what we do best delivering within defined domains with precision, structure, and consistency.",
       },
+      {
+        icon: "/images/icon-03.svg",
+        title: "Long-Term Commitment",
+        description:
+          "We don’t just deploy and leave. We support, maintain, and evolve every system we build over time.",
+      },
+      {
+        icon: "/images/icon-04.svg",
+        title: "Disciplined Execution",
+        description:
+          "We focus only on what we do best delivering within defined domains with precision, structure, and consistency.",
+      },
     ],
   },
   cta: {
@@ -43,9 +57,9 @@ export const homeContent = {
     buttonLabel: "Get Started With us",
   },
   whySinoAfrica: {
-    heading: "Why Sino Africa",
+    heading: "What We Do at Sino Africa",
     description:
-      "Sino Africa exists to deliver infrastructure that works consistently, securely, and at scale in environments where precision matters most.",
+      "Sino Africa designs, deploys, and operates institutional infrastructure for systems that must perform with certainty.",
     image: "/images/why-sino-africa.svg",
     steps: [
       {
@@ -63,6 +77,12 @@ export const homeContent = {
       {
         number: "3",
         title: "Governance-First Approach",
+        description:
+          "Every solution is built within clear regulatory frameworks, ensuring stability, transparency, and trust.",
+      },
+      {
+        number: "4",
+        title: "How We Work",
         description:
           "Every solution is built within clear regulatory frameworks, ensuring stability, transparency, and trust.",
       },

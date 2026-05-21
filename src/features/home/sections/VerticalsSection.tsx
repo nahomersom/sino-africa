@@ -108,9 +108,8 @@ export function VerticalsSection({
   const [cardStart, setCardStart] = useState(0);
   const hasOverflowCards = items.length > MAX_VISIBLE_CARDS;
   const activeGradient = items[activeIndex]?.gradient ?? GRADIENTS[0];
-  const activeGradientRowIndex = Math.max(0, GRADIENTS.indexOf(activeGradient));
   const activeEllipseTopRow =
-    VERTICALS_ELLIPSE_TOP_PX_BY_GRADIENT[activeGradientRowIndex] ??
+    VERTICALS_ELLIPSE_TOP_PX_BY_GRADIENT[activeIndex] ??
     VERTICALS_ELLIPSE_TOP_PX_BY_GRADIENT[0];
   const titleEntrance =
     VERTICALS_TITLE_ENTRANCE[activeIndex] ?? VERTICALS_TITLE_ENTRANCE[0];
@@ -137,7 +136,7 @@ export function VerticalsSection({
   return (
     <section
       id="platforms"
-      className="relative flex h-auto min-h-screen max-w-screen w-full flex-col gap-4 overflow-visible px-8 py-20 transition-all duration-500 md:px-20 md:py-20 lg:px-[286px] lg:pb-16 lg:pt-[160px] "
+      className="relative flex h-auto min-h-screen max-w-screen w-full flex-col gap-4  px-8 py-20 transition-all duration-500 md:px-20 md:py-20 lg:px-[286px] lg:pb-16 lg:pt-[160px] overflow-hidden   "
       style={{ background: activeGradient }}
     >
       {VERTICALS_REFERENCE_ELLIPSES.map((ellipse, i) => {
