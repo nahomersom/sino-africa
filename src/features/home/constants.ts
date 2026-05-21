@@ -64,19 +64,19 @@ export const homeContent = {
     steps: [
       {
         number: "1",
-        title: "Proven in Complex Environments",
+        title: "Regulated Financial Access Infrastructure",
         description:
-          "We operate in highly regulated, high-stakes sectors where coordination, compliance, and precision are essential.",
+          "Lorem ipsum dolor sit amet consectetur. Pellentesque luctus ornare in purus tellus. Tempus dignissim tellus semper ac. Non.",
       },
       {
         number: "2",
-        title: "Seamless System Integration",
+        title: "Identity, Security & GovTech Infrastructure",
         description:
           "We bring together global technologies and local systems into one cohesive, fully functional infrastructure.",
       },
       {
         number: "3",
-        title: "Governance-First Approach",
+        title: "Regulated Mobility & Autonomous Logistics Infrastructure",
         description:
           "Every solution is built within clear regulatory frameworks, ensuring stability, transparency, and trust.",
       },

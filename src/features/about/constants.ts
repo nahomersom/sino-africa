@@ -9,7 +9,7 @@ export const aboutContent = {
     },
     headingDescription:"We design, deploy, and operate the infrastructure behind financial access, identity and security, and regulated mobility — systems that move money, protect rights, strengthen institutions, and connect populations.",
     description:
-      "We work at the core of critical infrastructure helping governments and institutions turn complex challenges into reliable, compliant systems that drive long-term growth and stability."
+      "Our position is defined by execution ownership. We do not act as a reseller, distributor, or short-term vendor. We take responsibility from architecture and regulatory alignment to deployment, integration, operations, and long-term lifecycle performance.\nSino Africa is the partner chosen when infrastructure must be trusted, compliant, and built to last — because in the systems we serve, failure is not an option."
   },
   whatDefinesUs: {
     heading: "What Defines us",

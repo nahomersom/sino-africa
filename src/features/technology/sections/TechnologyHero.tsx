@@ -20,14 +20,16 @@ export function TechnologyHero() {
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
         >
           <h1 className="text-[13px] text-center text-[#64C294]  leading-[56px] lg:text-[13px] lg:text-left uppercase">
-            Technology and infrastructure
+            Solutions
           </h1>
           <h1 className="text-[46px] text-center font-semibold leading-[56px] tracking-[-1px] text-[#161C2D] lg:text-[48px] lg:leading-[58px] lg:tracking-[-1.8px] lg:text-left">
-            Technology Exists. Execution Does Not.
+            Our Value Proposition
           </h1>
           <p className="text-[14px] text-center font-normal leading-[24px] tracking-[-0.2px] text-[#676D80] lg:text-[19px] lg:leading-[32px] lg:text-left">
-            Global technology reaches Africa. But disciplined, end-to-end execution does not follow.
-            Sino Africa closes the gap owning delivery from integration to long-term continuity.
+           Sino Africa's value proposition is to transform complex, regulated infrastructure mandates into reliable, compliant, and sustainable systems — owning execution end to end for governments, institutions, technology providers, and investors.
+          </p>
+          <p className="text-[14px] text-center font-normal leading-[24px] tracking-[-0.2px] text-[#676D80] lg:text-[19px] lg:leading-[32px] lg:text-left">
+          Sino Africa helps institutions deliver infrastructure that works, lasts, and earns trust. We integrate global technology into local institutional environments, manage regulatory complexity, and take lifecycle responsibility for mission-critical systems across finance, identity, security, and mobility.
           </p>
         </motion.div>
 

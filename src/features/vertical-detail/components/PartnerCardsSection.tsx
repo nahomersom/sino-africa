@@ -5,7 +5,7 @@ import type { PartnerCard } from "../types";
 type Props = {
   title: string;
   subtitle: string;
-  partners: [PartnerCard, PartnerCard, PartnerCard];
+  partners: readonly PartnerCard[];
 };
 
 export function PartnerCardsSection({ title, subtitle, partners }: Props) {

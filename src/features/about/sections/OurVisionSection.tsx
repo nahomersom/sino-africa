@@ -22,6 +22,17 @@ export function OurVisionSection({
         }}
       />
 
+
+            {/* Gradient glows — match ContactSection treatment */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-0 top-[88px] hidden h-[489px] w-[489px] rounded-full bg-[#64C294]/20 blur-[252px] lg:block"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-0 top-1/2 hidden h-[605px] w-[605px] -translate-y-1/2 rounded-full bg-[#64C294]/20 blur-[252px] lg:block"
+      />
+
       <div className="relative z-10 flex w-full max-w-[1240px] flex-col items-center gap-12 lg:flex-row lg:items-center lg:gap-20">
         {/* Image with decorative accents */}
         <StaggerItem className="w-full lg:w-[498px] lg:shrink-0">
