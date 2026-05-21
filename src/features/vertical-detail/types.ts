@@ -55,7 +55,7 @@ export type VerticalDetailContent = {
   focusRows: FocusRow[];
   partnersTitle: string;
   partnersSubtitle: string;
-  partners: [PartnerCard, PartnerCard, PartnerCard];
+  partners: PartnerCard[];
   contactSubtitle: string;
   theme: VerticalDetailTheme;
 };

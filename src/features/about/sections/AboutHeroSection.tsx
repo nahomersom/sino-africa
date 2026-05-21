@@ -38,6 +38,22 @@ function HeroCollage({
 }) {
   const frame =
     "relative overflow-hidden rounded-[10px] shadow-[0_1px_3px_rgba(0,0,0,0.08)]";
+  const closingSentenceStart = "Sino Africa is the partner chosen";
+  const closingSentenceIndex = description.indexOf(closingSentenceStart);
+  const descriptionIntro =
+    closingSentenceIndex >= 0
+      ? description.slice(0, closingSentenceIndex).trim()
+      : description;
+  const descriptionClosing =
+    closingSentenceIndex >= 0 ? description.slice(closingSentenceIndex).trim() : "";
+  const descriptionContent = (
+    <>
+      {descriptionIntro}
+      {descriptionClosing ? (
+        <span className="mt-[10px] block">{descriptionClosing}</span>
+      ) : null}
+    </>
+  );
 
   return (
     <div className="relative mt-2 mb-5 w-full shrink-0 lg:mt-2 lg:w-full lg:max-w-[1236px] lg:left-[103px]">
@@ -82,7 +98,7 @@ function HeroCollage({
           </div>
 
           <p className="w-full text-left text-base font-light leading-[1.5] tracking-[-0.0125em] text-[rgba(92,96,108,0.7)]">
-            {description}
+            {descriptionContent}
           </p>
 
           <div
@@ -171,7 +187,7 @@ function HeroCollage({
           </div>
 
           <p className="absolute bottom-[43px] left-[53%] lg:left-[49%] lg:bottom-auto lg:top-[450px] z-20 max-w-[318.5px] lg:max-w-[545.62px] text-left text-base font-light leading-6 tracking-[-0.0125em] text-muted">
-            {description}
+            {descriptionContent}
           </p>
         </div>
       </div>

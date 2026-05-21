@@ -57,8 +57,8 @@ export function WhyChooseUsSection({
         className="mt-0 grid w-full max-w-5xl grid-cols-1 gap-x-10 gap-y-12 md:mt-12 md:grid-cols-2 md:gap-y-14"
         stagger={0.15}
       >
-        {statements.map((item) => (
-          <StaggerItem key={item.title}>
+        {statements.map((item, index) => (
+          <StaggerItem key={`${item.title}-${index}`}>
             <div className="flex flex-col items-center gap-6 md:flex-col md:items-center md:gap-6 lg:flex-row lg:items-start lg:gap-6 lg:text-left">
               <div className="flex h-14 w-14 shrink-0 items-center justify-center md:h-auto md:w-auto">
                 <Image

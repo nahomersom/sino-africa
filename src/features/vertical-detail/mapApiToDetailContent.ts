@@ -7,12 +7,6 @@ import {
 
 import type { FocusRow, PartnerCard, VerticalDetailContent } from "./types";
 
-const EMPTY_PARTNERS: [PartnerCard, PartnerCard, PartnerCard] = [
-  { title: "", body: "" },
-  { title: "", body: "" },
-  { title: "", body: "" },
-];
-
 const DEFAULT_THEME: VerticalDetailContent["theme"] = {
   focusHeadingColor: "#3FAF7E",
   heroGradient: { baseColor: "#3FAF7E", accentColor: "#328B64" },
@@ -96,22 +90,22 @@ function getFocusBody(row: FocusRow): string {
 
 function buildPartners(
   api: NonNullable<Vertical["ecosystemPartners"]> | undefined,
-  fallback: [PartnerCard, PartnerCard, PartnerCard] | undefined
-): [PartnerCard, PartnerCard, PartnerCard] {
-  const fb = fallback ?? EMPTY_PARTNERS;
-  const cards: PartnerCard[] = [0, 1, 2].map((i) => {
-    const row = api?.[i];
+  fallback: readonly PartnerCard[] | undefined
+): PartnerCard[] {
+  const fb = fallback ?? [];
+  if (!api?.length) return [...fb];
+
+  return api.map((row, i) => {
     const baseCard = fb[i];
     const iconSrc = row?.icon
       ? getStrapiMediaUrl(resolveStrapiUploadUrl(row.icon)) || undefined
       : undefined;
     return {
-      title: row?.title?.trim() || baseCard.title,
-      body: row?.description?.trim() || baseCard.body,
-      iconSrc: iconSrc ?? baseCard.iconSrc,
+      title: row?.title?.trim() || baseCard?.title || "",
+      body: row?.description?.trim() || baseCard?.body || "",
+      iconSrc: iconSrc ?? baseCard?.iconSrc,
     };
   });
-  return [cards[0], cards[1], cards[2]];
 }
 
 export function mergeVerticalDetailFromApi(
