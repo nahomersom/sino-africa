@@ -42,7 +42,7 @@ function VerticalCardSkeleton() {
 }
 
 export function VerticalsSection() {
-  const hasStrapi = Boolean(process.env.NEXT_PUBLIC_STRAPI_URL) || "https://sino-cms.ablazelabs.com";
+  const hasStrapi = Boolean(process.env.NEXT_PUBLIC_STRAPI_URL) || "https://sino-cms.abalaz.et";
   const { data: verticals = [], isLoading, isFetching } = useGetVerticalsQuery(
     undefined,
     { skip: !hasStrapi }
@@ -57,7 +57,7 @@ export function VerticalsSection() {
         className="pointer-events-none absolute inset-0 opacity-[0.1]"
         style={{
           backgroundImage: "url('/images/sino-symbol-tile.svg')",
-          backgroundSize: "28px",
+          backgroundSize: "20px",
           backgroundRepeat: "repeat",
         }}
       />

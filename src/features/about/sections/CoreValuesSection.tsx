@@ -1,83 +1,137 @@
-import { StaggerContainer, StaggerItem } from "@/src/components/ui/scroll-reveal";
 import { motion } from "framer-motion";
+import type { ReactNode } from "react";
+import { StaggerContainer, StaggerItem } from "@/src/components/ui/scroll-reveal";
 import { aboutContent } from "../constants";
+
+const STROKE = "#161C2D";
+
+const VALUE_ICONS: readonly ReactNode[] = [
+  // 1. Institutional Integrity — compass/navigation
+  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="16" cy="16" r="11" stroke={STROKE} strokeWidth="1.8" />
+    <path
+      d="M20.5 11.5L18.2 17.2C18.06 17.55 17.78 17.83 17.43 17.97L11.7 20.3L14.03 14.58C14.17 14.22 14.45 13.94 14.8 13.8L20.5 11.5Z"
+      stroke={STROKE}
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>,
+
+  // 2. Disciplined Execution — rocket
+  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path
+      d="M16 4C20 6 24 10 24 16C24 19 22 21 20 22V25C20 25.55 19.55 26 19 26H13C12.45 26 12 25.55 12 25V22C10 21 8 19 8 16C8 10 12 6 16 4Z"
+      stroke={STROKE}
+      strokeWidth="1.8"
+      strokeLinejoin="round"
+    />
+    <circle cx="16" cy="14" r="2.2" stroke={STROKE} strokeWidth="1.8" />
+    <path d="M13 26L12 29M19 26L20 29M16 26V29" stroke={STROKE} strokeWidth="1.8" strokeLinecap="round" />
+  </svg>,
+
+  // 3. Partnership-Driven Approach — handshake
+  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path
+      d="M3 14L7 10L12 12L16 16M29 14L25 10L20 12L16 16M16 16L13 19C12.45 19.55 12.45 20.45 13 21V21C13.55 21.55 14.45 21.55 15 21L18 18M18 18L20.5 20.5C21.05 21.05 21.05 21.95 20.5 22.5V22.5C19.95 23.05 19.05 23.05 18.5 22.5L16 20M18 18L21 15"
+      stroke={STROKE}
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path d="M3 14V20L7 22M29 14V20L25 22" stroke={STROKE} strokeWidth="1.8" strokeLinecap="round" />
+  </svg>,
+
+  // 4. Regulatory Alignment — scales
+  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M16 6V26" stroke={STROKE} strokeWidth="1.8" strokeLinecap="round" />
+    <path d="M9 26H23" stroke={STROKE} strokeWidth="1.8" strokeLinecap="round" />
+    <path d="M8 9H24" stroke={STROKE} strokeWidth="1.8" strokeLinecap="round" />
+    <path
+      d="M8 9L4 18H12L8 9ZM8 9L24 9M24 9L20 18H28L24 9"
+      stroke={STROKE}
+      strokeWidth="1.8"
+      strokeLinejoin="round"
+    />
+    <path d="M4 18C4 20.2 5.8 22 8 22C10.2 22 12 20.2 12 18" stroke={STROKE} strokeWidth="1.8" strokeLinecap="round" />
+    <path d="M20 18C20 20.2 21.8 22 24 22C26.2 22 28 20.2 28 18" stroke={STROKE} strokeWidth="1.8" strokeLinecap="round" />
+  </svg>,
+
+  // 5. Operational Excellence — gear
+  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path
+      d="M28 13L25 12.4C24.8 11.7 24.5 11.1 24.2 10.5L25.8 7.9L24.1 6.2L21.5 7.8C20.9 7.4 20.3 7.2 19.6 7L19 4H13L12.4 7C11.7 7.2 11.1 7.5 10.5 7.8L7.9 6.2L6.2 7.9L7.8 10.5C7.5 11.1 7.2 11.7 7 12.4L4 13V19L7 19.6C7.2 20.3 7.5 20.9 7.8 21.5L6.2 24.1L7.9 25.8L10.5 24.2C11.1 24.5 11.7 24.8 12.4 25L13 28H19L19.6 25C20.3 24.8 20.9 24.5 21.5 24.2L24.1 25.8L25.8 24.1L24.2 21.5C24.5 20.9 24.8 20.3 25 19.6L28 19V13Z"
+      stroke={STROKE}
+      strokeWidth="1.8"
+      strokeLinejoin="round"
+    />
+    <circle cx="16" cy="16" r="3.5" stroke={STROKE} strokeWidth="1.8" />
+  </svg>,
+
+  // 6. Lifecycle Partner — refresh loop
+  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path
+      d="M6 16C6 10.5 10.5 6 16 6C19.5 6 22.6 7.8 24.4 10.5"
+      stroke={STROKE}
+      strokeWidth="1.8"
+      strokeLinecap="round"
+    />
+    <path d="M25 6V11H20" stroke={STROKE} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M26 16C26 21.5 21.5 26 16 26C12.5 26 9.4 24.2 7.6 21.5"
+      stroke={STROKE}
+      strokeWidth="1.8"
+      strokeLinecap="round"
+    />
+    <path d="M7 26V21H12" stroke={STROKE} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>,
+];
 
 export function CoreValuesSection() {
   const coreValues = aboutContent.whatDefinesUs.values.items;
 
-  const cardIcons = [
-    // 1. Execution Ownership (Gear)
-    <svg width="65" height="65" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M57.7089 19.3318L56.3726 17.013C55.3621 15.2592 54.8569 14.3824 53.9972 14.0327C53.1374 13.6831 52.165 13.959 50.2205 14.5108L46.9173 15.4412C45.6759 15.7275 44.3732 15.5651 43.2398 14.9826L42.3278 14.4565C41.3556 13.8339 40.6079 12.9159 40.194 11.8369L39.2901 9.13689C38.6957 7.35016 38.3984 6.45679 37.6908 5.9458C36.9834 5.43481 36.0435 5.43481 34.1637 5.43481H31.1459C29.2663 5.43481 28.3264 5.43481 27.6188 5.9458C26.9113 6.45679 26.6141 7.35016 26.0197 9.13689L25.1157 11.8369C24.7018 12.9159 23.9541 13.8339 22.982 14.4565L22.0701 14.9826C20.9365 15.5651 19.634 15.7275 18.3925 15.4412L15.0892 14.5108C13.1446 13.959 12.1723 13.6831 11.3126 14.0327C10.4529 14.3824 9.94765 15.2592 8.9371 17.013L7.60093 19.3318C6.6537 20.9757 6.18007 21.7977 6.272 22.6727C6.36391 23.5476 6.99796 24.2528 8.26604 25.663L11.0571 28.7834C11.7393 29.6469 12.2237 31.1521 12.2237 32.5053C12.2237 33.8592 11.7395 35.3638 11.0572 36.2276L8.26604 39.348C6.99796 40.7584 6.36393 41.4634 6.272 42.3386C6.18007 43.2135 6.6537 44.0354 7.60093 45.6791L8.93707 47.998C9.9476 49.7516 10.4529 50.6287 11.3126 50.9782C12.1723 51.328 13.1446 51.0521 15.0893 50.5001L18.3924 49.5697C19.6341 49.2833 20.9368 49.446 22.0706 50.0286L22.9824 50.5548C23.9543 51.1775 24.7018 52.0952 25.1156 53.1742L26.0197 55.8745C26.6141 57.6612 26.9113 58.5545 27.6188 59.0656C28.3264 59.5764 29.2663 59.5764 31.1459 59.5764H34.1637C36.0435 59.5764 36.9834 59.5764 37.6908 59.0656C38.3984 58.5545 38.6957 57.6612 39.2901 55.8745L40.1943 53.1742C40.6079 52.0952 41.3554 51.1775 42.3275 50.5548L43.2392 50.0286C44.373 49.446 45.6756 49.2833 46.9173 49.5697L50.2205 50.5001C52.165 51.0521 53.1374 51.328 53.9972 50.9782C54.8569 50.6287 55.3621 49.7516 56.3726 47.998L57.7089 45.6791C58.6561 44.0354 59.1295 43.2135 59.0378 42.3386C58.9457 41.4634 58.3117 40.7584 57.0437 39.348L54.2525 36.2276C53.5703 35.3638 53.086 33.8592 53.086 32.5053C53.086 31.1521 53.5705 29.6469 54.2525 28.7834L57.0437 25.663C58.3117 24.2528 58.9457 23.5476 59.0378 22.6727C59.1295 21.7977 58.6561 20.9757 57.7089 19.3318Z" stroke="white" strokeWidth="2.37869" strokeLinecap="round" />
-      <path d="M42.013 32.485C42.013 37.7178 37.771 41.9598 32.5382 41.9598C27.3054 41.9598 23.0635 37.7178 23.0635 32.485C23.0635 27.2523 27.3054 23.0103 32.5382 23.0103C37.771 23.0103 42.013 27.2523 42.013 32.485Z" stroke="white" strokeWidth="2.37869" />
-    </svg>,
-
-    // 2. Institutional Trust (Hands)
-    <svg width="65" height="65" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M59.5557 18.2723H52.0059C50.3787 18.2723 49.565 18.2723 48.7978 18.04C48.0306 17.8077 47.3535 17.3564 45.9995 16.4537C43.9686 15.0997 41.6516 13.5551 40.5006 13.2066C39.3498 12.8582 38.1292 12.8582 35.6882 12.8582C32.3688 12.8582 30.2291 12.8582 28.7367 13.4763C27.2443 14.0945 26.0706 15.2682 23.7233 17.6155L23.7233 17.6155C21.6576 19.6812 21.6576 19.6812 21.6576 19.6812C21.1286 20.2102 20.8641 20.4747 20.7008 20.7358C20.0955 21.7038 20.1626 22.9476 20.8685 23.8449C21.0589 24.0869 21.3504 24.3215 21.9332 24.7905C24.0874 26.5242 27.1931 26.3511 29.1438 24.3888L32.4849 21.0278H35.192L51.4345 37.3669C52.9296 38.871 52.9296 41.3092 51.4345 42.8133C49.9394 44.3174 47.5154 44.3174 46.0203 42.8133L44.6668 41.4516M44.6668 41.4516L36.5455 33.2822M44.6668 41.4516C46.1619 42.9557 46.1619 45.3942 44.6668 46.898C43.1716 48.4021 40.7477 48.4021 39.2526 46.898L36.5455 44.175M36.5455 44.175C38.0406 45.6788 38.0406 48.1173 36.5455 49.6213C35.0504 51.1251 32.6265 51.1251 31.1314 49.6213L27.0707 45.5364M36.5455 44.175L31.1314 38.7608M27.0707 45.5364L25.7172 44.175M27.0707 45.5364C28.5659 47.0404 28.5659 49.479 27.0707 50.983C25.5757 52.4868 23.1517 52.4868 21.6566 50.983L14.0128 43.1798C12.4421 41.5764 11.6567 40.7749 10.6505 40.3518C9.64431 39.9289 8.52201 39.9289 6.27746 39.9289H5.41406" stroke="white" strokeWidth="2.37869" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M59.5558 39.929H52.7881" stroke="white" strokeWidth="2.37869" strokeLinecap="round" />
-      <path d="M23.0101 18.2722H5.41406" stroke="white" strokeWidth="2.37869" strokeLinecap="round" />
-    </svg>,
-
-    // 3. Regulatory Alignment (Scales - Fallback)
-    <svg width="65" height="65" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M32.4855 18.9494C35.4756 18.9494 37.8996 16.5254 37.8996 13.5353C37.8996 10.5451 35.4756 8.12109 32.4855 8.12109C29.4953 8.12109 27.0713 10.5451 27.0713 13.5353C27.0713 16.5254 29.4953 18.9494 32.4855 18.9494Z" stroke="white" strokeWidth="2.37869" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M27.0716 13.5349H10.8291M37.8999 13.5349H54.1424" stroke="white" strokeWidth="2.37869" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M46.021 56.8486H18.9502" stroke="white" strokeWidth="2.37869" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M32.4854 18.949V56.8481" stroke="white" strokeWidth="2.37869" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M59.556 37.8992C59.556 42.3846 55.9201 46.0205 51.4347 46.0205C46.9494 46.0205 43.3135 42.3846 43.3135 37.8992M59.556 37.8992L52.7883 21.6567H50.0812L43.3135 37.8992M59.556 37.8992H43.3135" stroke="white" strokeWidth="2.37869" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M21.6566 37.8992C21.6566 42.3846 18.0205 46.0205 13.5353 46.0205C9.05008 46.0205 5.41406 42.3846 5.41406 37.8992M21.6566 37.8992L14.8889 21.6567H12.1818L5.41406 37.8992M21.6566 37.8992H5.41406" stroke="white" strokeWidth="2.37869" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>,
-
-
-    // 4. Lifecycle Responsibility (Loop)
-    <svg width="65" height="65" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M24.3636 10.0784C13.5137 12.5404 5.41406 22.2435 5.41406 33.8384C5.41406 35.222 5.52938 36.5785 5.75093 37.899M24.3636 10.0784L16.2424 6.76758M24.3636 10.0784L21.6566 17.5959M51.6091 44.6667C53.2301 41.4047 54.1416 37.7279 54.1416 33.8384C54.1416 21.7662 45.3614 11.7447 33.8384 9.81153M51.6091 44.6667L59.5557 39.2526M51.6091 44.6667L47.3739 36.5455M9.51678 47.3738C13.8874 53.9033 21.3306 58.2022 29.7778 58.2022C36.0179 58.2022 41.7098 55.8562 46.0203 51.9983M9.51678 47.3738H18.9495M9.51678 47.3738V56.8486" stroke="white" strokeWidth="2.37869" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>,
-
-    // 5. Strategic Discipline (Target)
-    <svg width="65" height="65" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M42.5229 22.5516C45.0755 25.0807 40.9918 45.6491 36.8013 46.0116C33.2861 46.3156 32.1905 39.3822 31.4502 37.1848C30.7195 35.0159 29.9063 34.2352 27.7555 33.5235C22.2912 31.716 19.559 30.8115 19.0181 29.3809C17.5857 25.5911 39.2631 19.3214 42.5229 22.5516Z" stroke="white" strokeWidth="2.37869" />
-      <path d="M59.5577 32.4849C59.5577 47.4356 47.4375 59.5557 32.4868 59.5557C17.536 59.5557 5.41602 47.4356 5.41602 32.4849C5.41602 17.5341 17.536 5.41406 32.4868 5.41406C47.4375 5.41406 59.5577 17.5341 59.5577 32.4849Z" stroke="white" strokeWidth="2.37869" />
-    </svg>,
-
-    // 6. Operational Readiness (Rocket)
-    <svg width="65" height="65" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M31.9468 17.5675L35.9685 13.5459C40.4966 9.01772 46.4248 7.13946 52.6988 6.83253C55.1392 6.71315 56.3593 6.65346 57.3376 7.63191C58.3162 8.61033 58.2564 9.83046 58.137 12.2708C57.8301 18.5448 55.9519 24.4731 51.4237 29.0011L47.4021 33.0228C44.0902 36.3346 43.1487 37.2764 43.8439 40.8687C44.5302 43.6129 45.1942 46.2702 43.1988 48.2655C40.7784 50.686 38.5705 50.686 36.1501 48.2655L16.704 28.8195C14.2836 26.399 14.2835 24.1912 16.704 21.7708C18.6993 19.7754 21.3567 20.4396 24.1008 21.1257C27.6932 21.8209 28.635 20.8793 31.9468 17.5675Z" stroke="white" strokeWidth="2.37869" strokeLinejoin="round" />
-      <path d="M6.76758 58.2017L20.303 44.6663" stroke="white" strokeWidth="2.37869" strokeLinecap="round" />
-      <path d="M23.0098 58.2023L28.4239 52.7881" stroke="white" strokeWidth="2.37869" strokeLinecap="round" />
-      <path d="M6.76758 41.9593L12.1817 36.5452" stroke="white" strokeWidth="2.37869" strokeLinecap="round" />
-      <path d="M46.357 18.949H46.0186M46.6953 18.949C46.6953 19.3228 46.3924 19.6258 46.0186 19.6258C45.6447 19.6258 45.3418 19.3228 45.3418 18.949C45.3418 18.5752 45.6447 18.2722 46.0186 18.2722C46.3924 18.2722 46.6953 18.5752 46.6953 18.949Z" stroke="white" strokeWidth="2.37869" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>,
-  ];
-
   return (
-    <section
-      className="relative flex min-h-[1009px] md:min-h-[837px] lg:min-h-[895px] w-full flex-col items-center justify-center gap-[24px] md:gap-[32px] lg:gap-[40px] overflow-hidden bg-cover bg-center py-[100px] px-[20px] md:px-[80px] lg:px-[120px] xl:px-[240px] 2xl:px-[464px]"
-      style={{ backgroundImage: "url('/images/about/core-values-bg.jpg')" }}
-    >
-      {/* Overlay for readability */}
-      <div className="absolute inset-0 bg-black/70 z-0" />
+    <section className="relative flex w-full flex-col items-center overflow-hidden bg-white px-8 py-20 md:px-20 md:py-24 lg:px-[120px] lg:py-[120px] xl:px-[240px]">
+      {/* Face-icon background pattern */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.1]"
+        style={{
+          backgroundImage: "url('/images/sino-symbol-tile.svg')",
+          backgroundSize: "20px",
+          backgroundRepeat: "repeat",
+        }}
+      />
 
-      <div className="relative z-10 flex flex-col items-center gap-[24px] md:gap-[32px] lg:gap-[40px]">
-        {/* Diamond Icon */}
+      <div className="relative z-10 flex w-full max-w-[1100px] flex-col items-center gap-12">
+        {/* Header */}
         <StaggerContainer className="flex flex-col items-center gap-4">
           <StaggerItem>
-            <svg width="65" height="65" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M61.435 40.6841C60.2137 39.1084 58.0077 38.6947 56.3039 39.6993L45.8842 45.8349C45.8448 44.0031 44.5448 42.3781 42.6736 42.0235L41.935 41.8856L55.7622 24.4932C55.8804 24.3455 55.9395 24.1584 55.9493 23.9811C55.9592 23.8334 55.9395 23.6758 55.8706 23.5281L52.2266 15.3932L51.5668 13.9258C51.5569 13.9061 51.5372 13.8864 51.5274 13.8667C51.5175 13.847 51.4978 13.8273 51.488 13.8076C51.4289 13.719 51.3698 13.65 51.291 13.5909C51.2812 13.5811 51.2812 13.5712 51.2713 13.5712C51.2713 13.5712 51.2615 13.5712 51.2615 13.5614C51.163 13.4925 51.0645 13.4432 50.9463 13.4137C50.9365 13.4137 50.9266 13.4137 50.9069 13.4038C50.8478 13.394 50.7789 13.3743 50.71 13.3743H21.3221C21.2827 13.3743 21.2433 13.3841 21.2039 13.394C21.1743 13.394 21.1546 13.4038 21.1251 13.4038C20.9084 13.4531 20.7115 13.5712 20.5736 13.7584C20.5539 13.7781 20.544 13.8076 20.5243 13.8273C20.5046 13.8568 20.485 13.8864 20.4653 13.9258L17.8357 19.7856L16.1812 23.4591C16.1713 23.4788 16.1615 23.4985 16.1516 23.5182C15.994 23.8334 16.0433 24.2175 16.2599 24.4932L26.2463 37.0599L23.7743 36.5872C21.9327 36.2326 20.0418 36.5872 18.4365 37.5621L12.8819 41.019L12.8425 40.9303C12.6554 40.4773 12.3009 40.1326 11.8478 39.9455C11.3948 39.7584 10.8925 39.7584 10.4395 39.9455L3.85086 42.6932C3.39783 42.8803 3.04328 43.2349 2.85616 43.6879C2.66904 44.1409 2.66904 44.6432 2.85616 45.0962L9.86828 61.8978C10.1637 62.6068 10.8334 63.0402 11.5524 63.0402C11.7887 63.0402 12.0349 62.9909 12.2713 62.8925L18.8698 60.1447C19.3228 59.9576 19.6774 59.5932 19.8645 59.1402C20.0516 58.6871 20.0516 58.1849 19.8546 57.7417L19.5493 57.0031L20.7903 56.422C21.5584 56.0576 22.4251 55.9493 23.2819 56.1068L40.4281 59.3864C40.8615 59.475 41.3046 59.5144 41.738 59.5144C43.3039 59.5144 44.8304 58.9826 46.0713 57.9879L60.7653 46.1993C61.7009 45.4508 62.2425 44.3281 62.2425 43.1167C62.2622 42.2205 61.9668 41.3637 61.435 40.6841ZM39.0493 41.3243L44.2789 24.8182H53.1228L39.8766 41.4818L39.0493 41.3243ZM29.063 37.5917L18.9092 24.8182H26.8274L31.8698 38.9409L30.9342 38.35C30.3728 37.9955 29.7425 37.7394 29.063 37.5917ZM29.5456 22.9667L35.9766 15.7281L41.6789 22.9667H29.5456ZM53.5956 22.9667H45.441L50.5327 16.1122L53.5956 22.9667ZM43.5796 22.3758L37.9365 15.2159H48.8978L43.5796 22.3758ZM27.6054 22.3758L23.016 15.2159H33.9675L27.6054 22.3758ZM21.4698 16.2402L25.7834 22.9765H18.4463L19.5493 20.5144L21.4698 16.2402ZM34.3516 40.369L28.7971 24.8281H42.3387L37.2175 40.9796L34.8933 40.5364C34.7062 40.497 34.5289 40.4281 34.3516 40.369ZM11.6016 61.1887L4.57965 44.3871L11.1584 41.6296L17.5107 56.8849L18.1706 58.4311L11.6016 61.1887ZM59.6327 44.7417L44.9387 56.5205C43.7668 57.4561 42.2599 57.8303 40.7925 57.5447L23.6463 54.2652C22.3956 54.0288 21.1448 54.1962 20.0221 54.7281L18.8501 55.2697L13.6304 42.7425L19.4312 39.1281C20.6425 38.3894 22.0607 38.1334 23.4493 38.3993L28.6001 39.3743C29.0925 39.4728 29.5456 39.6599 29.9592 39.9159L32.5887 41.5705C32.766 41.6788 32.9531 41.7773 33.1403 41.8659C33.1698 41.8856 33.2092 41.9053 33.2387 41.925C33.6524 42.122 34.0956 42.2697 34.5683 42.3584L42.3486 43.8356C43.491 44.0523 44.2395 45.1652 44.0228 46.3076C43.9637 46.6326 43.816 46.9281 43.6387 47.1743L42.2501 47.9917C42.0236 48.0212 41.7971 48.0212 41.5706 47.9818L33.1206 46.3765C32.6084 46.2781 32.1357 46.6129 32.0372 47.1152C31.9387 47.6175 32.2736 48.1 32.7759 48.1985L41.2259 49.8038C41.4819 49.8531 41.7183 49.8728 41.9743 49.8728C42.2107 49.8728 42.4471 49.8531 42.6736 49.8137C42.6933 49.8137 42.7228 49.8038 42.7425 49.8038C42.7524 49.8038 42.7721 49.794 42.7819 49.794C42.7918 49.794 42.8115 49.7841 42.8213 49.7841C43.5895 49.6068 44.2789 49.2129 44.8403 48.6319L57.2887 41.3046C58.1948 40.7728 59.3668 40.9993 60.0168 41.8364C60.2925 42.1909 60.4501 42.6538 60.4501 43.1167C60.4107 43.747 60.1251 44.3379 59.6327 44.7417ZM18.5546 9.87806C18.7221 10.1932 19.0471 10.3803 19.3819 10.3803C19.5198 10.3803 19.6675 10.3508 19.8054 10.2818C20.2584 10.0455 20.4357 9.49397 20.2092 9.03109L19.0471 6.77579C18.8107 6.32276 18.2592 6.14548 17.7963 6.372C17.3433 6.60836 17.166 7.15988 17.3925 7.62276L18.5546 9.87806ZM26.6206 6.64776C26.719 7.07124 27.1031 7.35685 27.5168 7.35685C27.5857 7.35685 27.6645 7.347 27.7334 7.3273C28.2259 7.20912 28.541 6.70685 28.413 6.21442L27.8221 3.7523C27.7039 3.25988 27.2016 2.95457 26.7092 3.07276C26.2168 3.19094 25.9016 3.69321 26.0296 4.18564L26.6206 6.64776ZM36.0259 6.3523C36.538 6.3523 36.9516 5.93867 36.9516 5.42654V2.89548C36.9516 2.38336 36.538 1.96973 36.0259 1.96973C35.5137 1.96973 35.1001 2.38336 35.1001 2.89548V5.42654C35.1001 5.93867 35.5137 6.3523 36.0259 6.3523ZM44.3084 7.33715C44.3774 7.35685 44.4562 7.3667 44.5251 7.3667C44.9387 7.3667 45.3228 7.08109 45.4213 6.65761L46.0122 4.19548C46.1304 3.70306 45.8251 3.20079 45.3327 3.08261C44.8403 2.95458 44.338 3.25988 44.2198 3.7523L43.6289 6.21442C43.5107 6.7167 43.816 7.21897 44.3084 7.33715ZM52.2365 10.272C52.3743 10.3409 52.5122 10.3705 52.66 10.3705C52.9948 10.3705 53.3198 10.1834 53.4872 9.86821L54.6493 7.61291C54.8857 7.15988 54.7084 6.59851 54.2456 6.36215C53.7925 6.12579 53.2312 6.31291 52.9948 6.76594L51.8327 9.02124C51.6062 9.48412 51.7834 10.0455 52.2365 10.272Z" fill="white" />
-              <path d="M13.8369 55.8999C12.8126 55.8999 11.9854 56.7272 11.9854 57.7514C11.9854 58.7757 12.8126 59.6029 13.8369 59.6029C14.8611 59.6029 15.6884 58.7757 15.6884 57.7514C15.6884 56.737 14.8611 55.8999 13.8369 55.8999Z" fill="white" />
+            <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path
+                d="M28 6L33 11L28 16L23 11L28 6Z"
+                stroke="#3FAF7E"
+                strokeWidth="2"
+                strokeLinejoin="round"
+              />
+              <path d="M28 6L26 4M28 6L30 4M28 6V3" stroke="#3FAF7E" strokeWidth="2" strokeLinecap="round" />
+              <path
+                d="M10 32C10 32 14 28 20 28C24 28 27 30 28 32C29 30 32 28 36 28C42 28 46 32 46 32C46 38 36 50 28 50C20 50 10 38 10 32Z"
+                stroke="#3FAF7E"
+                strokeWidth="2"
+                strokeLinejoin="round"
+              />
             </svg>
           </StaggerItem>
           <StaggerItem>
-            <h2 className="text-center text-[36px] font-normal leading-normal text-white">
+            <h2 className="text-center text-[36px] font-medium leading-tight text-text-100">
               Our Core Values
             </h2>
           </StaggerItem>
         </StaggerContainer>
 
-        {/* Cards Grid — uses y-only animation to avoid backdrop-filter + opacity conflict */}
+        {/* Values grid */}
         <motion.div
-          className="grid w-full grid-cols-2 md:grid-cols-3 gap-[16px] md:gap-[8px]"
+          className="grid w-full grid-cols-1 gap-x-12 gap-y-10 md:grid-cols-2"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
@@ -88,21 +142,25 @@ export function CoreValuesSection() {
         >
           {coreValues.map((value, index) => (
             <motion.div
-              key={value}
+              key={value.title}
+              className="flex items-start gap-5"
               variants={{
-                hidden: { y: 30 },
-                visible: { y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
               }}
             >
               <div
-                className="flex h-[214px] md:h-[244px] w-full md:max-w-[237.33px] lg:w-[237.33px] flex-col justify-between rounded-[16px] bg-white/10 p-[16px] backdrop-blur-[52px] border border-white/20 transition-colors duration-300 hover:bg-white/20 transform-gpu"
-                style={{ WebkitBackdropFilter: "blur(52px)" }}
+                className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl"
+                style={{ backgroundColor: value.accent }}
               >
-                <div className="flex h-[65px] w-[65px] items-center justify-center">
-                  {cardIcons[index] || cardIcons[0]}
-                </div>
-                <p className="text-left text-[22px] font-bold leading-tight text-white drop-shadow-sm">
-                  {value}
+                {VALUE_ICONS[index] ?? VALUE_ICONS[0]}
+              </div>
+              <div className="flex flex-col gap-2">
+                <h3 className="text-[20px] font-semibold leading-tight text-text-100">
+                  {value.title}
+                </h3>
+                <p className="text-sm leading-6 text-text-100/70 md:text-base md:leading-7">
+                  {value.description}
                 </p>
               </div>
             </motion.div>

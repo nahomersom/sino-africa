@@ -1,22 +1,6 @@
+import { appendStrapiQuery, getStrapiApiBaseUrl } from "@/src/lib/strapiBase";
 import type { StrapiListResponse } from "@/src/store/strapiApi";
 import type { Vertical } from "@/src/store/strapiApi";
-
-function getStrapiBaseUrl(): string | null {
-  const raw = process.env.NEXT_PUBLIC_STRAPI_URL || "https://sino-cms.ablazelabs.com";
-  if (!raw) return null;
-  return raw.replace(/\/api\/?$/, "");
-}
-
-function appendQuery(url: string, params: Record<string, unknown>): string {
-  const search = new URLSearchParams();
-  for (const [key, value] of Object.entries(params)) {
-    if (value === undefined || value === null) continue;
-    search.append(key, String(value));
-  }
-  const qs = search.toString();
-  if (!qs) return url;
-  return url.includes("?") ? `${url}&${qs}` : `${url}?${qs}`;
-}
 
 const VERTICAL_POPULATE: Record<string, string | number> = {
   "populate[logo]": "true",
@@ -27,9 +11,9 @@ const VERTICAL_POPULATE: Record<string, string | number> = {
 };
 
 export async function fetchVerticalsList(): Promise<Vertical[]> {
-  const base = getStrapiBaseUrl();
-  if (!base) return [];
-  const url = appendQuery(`${base}/api/verticals`, {
+  const apiBase = getStrapiApiBaseUrl();
+  if (!apiBase) return [];
+  const url = appendStrapiQuery(`${apiBase}/verticals`, {
     ...VERTICAL_POPULATE,
     "pagination[pageSize]": 100,
   });
@@ -46,9 +30,9 @@ export async function fetchVerticalsList(): Promise<Vertical[]> {
 export async function fetchVerticalBySlugServer(
   slug: string
 ): Promise<Vertical | null> {
-  const base = getStrapiBaseUrl();
-  if (!base) return null;
-  const url = appendQuery(`${base}/api/verticals`, {
+  const apiBase = getStrapiApiBaseUrl();
+  if (!apiBase) return null;
+  const url = appendStrapiQuery(`${apiBase}/verticals`, {
     "filters[slug][$eq]": slug,
     ...VERTICAL_POPULATE,
     "pagination[pageSize]": 1,

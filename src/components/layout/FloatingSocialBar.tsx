@@ -12,7 +12,7 @@ export function FloatingSocialBar() {
             key={social.label}
             href={social.href}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             aria-label={social.label}
             className="inline-flex size-9 items-center justify-center rounded-full bg-white text-white transition-colors"
           >

@@ -14,6 +14,7 @@ type AboutHeroSectionProps = {
   label: string;
   heading: string;
   description: string;
+  headingDescription:string;
   images: AboutHeroImages;
 };
 
@@ -178,7 +179,7 @@ function HeroCollage({
   );
 }
 
-export function AboutHeroSection({ label, heading, description, images }: AboutHeroSectionProps) {
+export function AboutHeroSection({ label, heading, headingDescription ,description, images }: AboutHeroSectionProps) {
   return (
     <section className="relative flex w-full flex-col items-stretch  bg-white px-8 lg:pb-[220px] pt-16 md:items-center md:px-20 md:pt-[211px] lg:h-auto lg:px-[237px] lg:pt-[152px] overflow-visible">
       {/* Green glow — concentric ellipses behind the content */}
@@ -211,6 +212,9 @@ export function AboutHeroSection({ label, heading, description, images }: AboutH
         </span>
         <h1 className="max-w-none font-(family-name:--font-nata-sans) text-[32px] font-semibold leading-[1.25] tracking-[-0.0375em] text-text-100 text-left md:max-w-[677px] lg:max-w-[515px] md:text-[36px] md:leading-[1.33] md:tracking-[-0.033em] md:text-center lg:text-left lg:text-[36px] lg:leading-[48px] lg:tracking-[-1.2px]">
           {heading}
+        </h1>
+        <h1 className="max-w-none font-(family-name:--font-nata-sans)  font-light   text-[#5C606C] text-left md:max-w-[677px] lg:max-w-[515px]  md:text-center lg:text-left ">
+          {headingDescription}
         </h1>
       </motion.div>
 

@@ -12,7 +12,7 @@ import { VerticalDetailSkeleton } from "./VerticalDetailSkeleton";
 type Props = { slug: string };
 
 export function VerticalDetailPageClient({ slug }: Props) {
-  const hasStrapi = Boolean(process.env.NEXT_PUBLIC_STRAPI_URL) || "https://sino-cms.ablazelabs.com";
+  const hasStrapi = Boolean(process.env.NEXT_PUBLIC_STRAPI_URL) || "https://sino-cms.abalaz.et";
   const { data: apiVertical, isLoading, isFetching } = useGetVerticalBySlugQuery(
     slug,
     { skip: !hasStrapi }

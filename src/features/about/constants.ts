@@ -1,12 +1,13 @@
 export const aboutContent = {
   hero: {
     label: "ABOUT US",
-    heading: "We empower growth by Powering the Systems That Keep Nations Moving.",
+    heading: "We empower growth by connecting global markets and unlocking new opportunities.",
     images: {
       center: "/images/about/hero-photo-1.png",
       left: "/images/about/hero-photo-0.png",
       right: "/images/about/hero-photo-2.png",
     },
+    headingDescription:"We design, deploy, and operate the infrastructure behind financial access, identity and security, and regulated mobility — systems that move money, protect rights, strengthen institutions, and connect populations.",
     description:
       "We work at the core of critical infrastructure helping governments and institutions turn complex challenges into reliable, compliant systems that drive long-term growth and stability."
   },
@@ -18,12 +19,42 @@ export const aboutContent = {
     values: {
       title: "Our Core Values",
       items: [
-        "Execution Ownership",
-        "Institutional Trust",
-        "Regulatory Alignment",
-        "Lifecycle Responsibility",
-        "Strategic Discipline",
-        "Operational Readiness",
+        {
+          title: "Institutional Integrity",
+          description:
+            "Operating within established regulatory frameworks and governance standards remains central to how Sino Africa structures and manages institutional systems.",
+          accent: "#E6F1E9",
+        },
+        {
+          title: "Disciplined Execution",
+          description:
+            "Complex infrastructure and technology programs are delivered through structured implementation, operational reliability, and clear accountability at every stage.",
+          accent: "#FCE4E4",
+        },
+        {
+          title: "Partnership-Driven Approach",
+          description:
+            "Long-term collaboration with governments, institutions, and global technology providers strengthens the ability to build sustainable and impactful ecosystems.",
+          accent: "#F5EFE6",
+        },
+        {
+          title: "Regulatory Alignment",
+          description:
+            "Every platform and system is designed to integrate seamlessly within compliant legal, regulatory, and institutional environments.",
+          accent: "#ECE6F2",
+        },
+        {
+          title: "Operational Excellence",
+          description:
+            "High standards in deployment, integration, and system performance ensure reliability, efficiency, and long-term operational stability.",
+          accent: "#E6F1E9",
+        },
+        {
+          title: "Lifecycle Partner",
+          description:
+            "Continuous support, modernization, and operational oversight ensure systems remain effective and sustainable throughout their full lifecycle.",
+          accent: "#ECE6F2",
+        },
       ],
     },
   },

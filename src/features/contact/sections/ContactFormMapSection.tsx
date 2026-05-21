@@ -5,8 +5,12 @@ import { Button } from "@/src/components/ui/app-button";
 import { cn } from "@/src/lib/utils";
 import { useCreateContactSubmissionMutation } from "@/src/store/strapiApi";
 
-const OPEN_STREET_MAP_EMBED_URL =
-  "https://www.openstreetmap.org/export/embed.html?bbox=38.7905%2C9.0074%2C38.8315%2C9.0368&layer=mapnik&marker=9.0221%2C38.8110";
+/**
+ * Sur construction Head office (pin matches shared place:
+ * google.com/maps/place/Sur+construction+Head+office/ — coords 8.9998439, 38.7702279).
+ */
+const GOOGLE_MAPS_EMBED_URL =
+  "https://www.google.com/maps?q=8.9998439%2C38.7702279&z=17&hl=en&output=embed";
 
 const NAME_MIN_LENGTH = 2;
 const NAME_MAX_LENGTH = 80;
@@ -136,10 +140,10 @@ export function ContactFormMapSection() {
         className="relative flex w-full justify-center overflow-hidden bg-accent-60/35 px-4 pt-5 pb-6 min-[400px]:px-5 sm:px-6 sm:pb-8 md:px-8 md:pt-5 md:pb-8 lg:px-10 lg:pb-10 xl:px-12 xl:pb-[116px] 2xl:px-16"
         style={{ "--contact-cta": "var(--primary)" } as CSSProperties}
       >
-        <div className="pointer-events-none absolute right-[-532px] top-[2px] size-[847px] rounded-full bg-[#64C294]/20 blur-[252px] hidden lg:block" />
-        <div className="pointer-events-none absolute -left-[532px] top-[70px] size-[847px] rounded-full bg-[#64C294]/20 blur-[252px] hidden lg:block" />
+        <div className="pointer-events-none absolute right-[-532px] top-[2px] z-0 size-[847px] rounded-full bg-[#64C294]/20 blur-[252px] hidden lg:block" />
+        <div className="pointer-events-none absolute -left-[532px] top-[70px] z-0 size-[847px] rounded-full bg-[#64C294]/20 blur-[252px] hidden lg:block" />
 
-        <div className="flex w-full min-w-0 max-w-[1252px] flex-col items-stretch gap-7 max-md:items-center md:gap-6 xl:flex-row xl:items-stretch">
+        <div className="relative z-10 flex w-full min-w-0 max-w-[1252px] flex-col items-stretch gap-7 max-md:items-center md:gap-6 xl:flex-row xl:items-stretch">
           <div className="w-full min-w-0 max-w-[366px] rounded-[16px] bg-white opacity-100 max-md:mx-auto max-md:min-h-[834px] md:max-w-none md:min-h-0 md:rounded-2xl xl:max-w-[607px] xl:shrink-0">
             <div className="flex h-full min-h-0 w-full min-w-0 flex-col gap-8 md:gap-6">
               <div className="flex flex-col items-center gap-3 text-center sm:gap-4 md:items-center md:text-center">
@@ -281,8 +285,8 @@ export function ContactFormMapSection() {
           </div>
           <div className="relative w-full min-w-0 shrink-0 overflow-hidden rounded-2xl opacity-100 max-md:mx-auto max-md:h-[792px] max-md:max-w-[366px] max-md:rounded-[16px] md:block md:h-[min(50vw,560px)] md:min-h-[380px] md:max-w-none md:rounded-2xl lg:min-h-[440px] xl:h-auto xl:min-h-[792px] xl:flex-1">
             <iframe
-              src={OPEN_STREET_MAP_EMBED_URL}
-              title="Sino Africa location map"
+              src={GOOGLE_MAPS_EMBED_URL}
+              title="Sur construction Head office on Google Maps"
               className="absolute inset-0 h-full w-full border-0"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

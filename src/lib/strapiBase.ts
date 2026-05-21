@@ -7,9 +7,12 @@
 export function getStrapiRootUrl(): string {
   const raw =
     typeof process !== "undefined"
-      ? (process.env.STRAPI_URL ?? process.env.NEXT_PUBLIC_STRAPI_URL ?? "https://sino-cms.ablazelabs.com")
+      ? (process.env.STRAPI_URL ?? process.env.NEXT_PUBLIC_STRAPI_URL ?? "https://sino-cms.abalaz.et")
       : undefined;
-  return raw?.replace(/\/api\/?$/, "").trim() ?? "";
+  if (!raw) return "";
+  // Strip optional /api suffix, trim, then remove trailing slashes so `${root}/api` never becomes `//api`
+  // (Strapi returns 400 "Malicious Path" for paths like https://host//api/...).
+  return raw.replace(/\/api\/?$/, "").trim().replace(/\/+$/, "");
 }
 
 export function getStrapiApiBaseUrl(): string {

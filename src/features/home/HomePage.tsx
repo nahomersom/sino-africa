@@ -92,6 +92,8 @@ export function HomePage() {
           heading={homeContent.about.heading}
           bodyOne={homeContent.about.bodyOne}
           bodyTwo={homeContent.about.bodyTwo}
+          bodyThree={homeContent.about.bodyThree}
+          bodyFour={homeContent.about.bodyFour}
         />
       </ScrollReveal>
       <ScrollReveal>
