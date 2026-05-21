@@ -50,7 +50,7 @@ export function OurVisionSection({
             {/* Coral circle accent — bottom left, behind image */}
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute -bottom-10 -left-10 z-0 rounded-full bg-[#F64B4B]/57"
+              className="pointer-events-none absolute -bottom-22 -left-10 z-0 rounded-full bg-[#F64B4B]/57"
               style={{ width: 221.14999389648438, height: 221.14999389648438 }}
             />
 
@@ -69,22 +69,9 @@ export function OurVisionSection({
         {/* Content */}
         <StaggerContainer className="flex w-full flex-col gap-6 lg:flex-1">
           <StaggerItem>
-            <svg
-              width="48"
-              height="48"
-              viewBox="0 0 48 48"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <path
-                d="M2 24C2 24 10 10 24 10C38 10 46 24 46 24C46 24 38 38 24 38C10 38 2 24 2 24Z"
-                stroke="#161C2D"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <circle cx="24" cy="24" r="5" fill="#3FAF7E" />
+            <svg width="69" height="45" viewBox="0 0 69 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M34.3483 29.573C38.4314 29.573 41.7415 26.263 41.7415 22.1798C41.7415 18.0967 38.4314 14.7866 34.3483 14.7866C30.2651 14.7866 26.9551 18.0967 26.9551 22.1798C26.9551 26.263 30.2651 29.573 34.3483 29.573Z" stroke="#64C294" stroke-width="6.7" stroke-linejoin="round"/>
+            <path d="M34.3485 1.84839C18.4353 1.84839 6.53601 15.0944 2.53836 20.2031C1.61872 21.3782 1.61872 22.9811 2.53836 24.1562C6.53601 29.2649 18.4353 42.5109 34.3485 42.5109C50.2616 42.5109 62.161 29.2649 66.1589 24.1562C67.0786 22.9811 67.0786 21.3782 66.1589 20.2031C62.161 15.0944 50.2616 1.84839 34.3485 1.84839Z" stroke="#1A1919" stroke-width="3.69659" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </StaggerItem>
           <StaggerItem>
