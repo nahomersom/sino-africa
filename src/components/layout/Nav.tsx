@@ -103,7 +103,10 @@ function NavSubLinkRow({
         alt=""
         width={23}
         height={23}
-        className="size-[23px] shrink-0 object-contain"
+        className={cn(
+          "size-[23px] shrink-0 object-contain",
+          useWhiteForeground && "brightness-0 invert",
+        )}
       />
       <span
         className={cn(

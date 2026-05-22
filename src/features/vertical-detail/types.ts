@@ -28,7 +28,8 @@ export type FocusRow =
     variant: "wide-text";
     title: string;
     body: string;
-    image: string | null;
+    /** 1 entry → single wide image. 2+ entries → 4-cell mosaic (extra null slots render skeleton). */
+    images: (string | null)[];
   };
 
 export type PartnerCard = {
