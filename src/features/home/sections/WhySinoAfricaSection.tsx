@@ -8,7 +8,8 @@ import {
 type Step = {
   number: string;
   title: string;
-  description: string;
+  intro?: string;
+  bullets: readonly string[];
 };
 
 type WhySinoAfricaSectionProps = {
@@ -43,8 +44,8 @@ export function WhySinoAfricaSection({
         </p>
       </div>
 
-      <div className="flex w-full  flex-col items-center gap-16 lg:h-[529px] lg:flex-row lg:items-center lg:gap-[42px]">
-        <ScrollReveal direction="left" distance={50} className="relative w-full max-w-[419.72px] shrink-0 lg:h-full">
+      <div className="flex w-full  flex-col items-center gap-16 lg:min-h-[529px] lg:flex-row lg:items-center lg:gap-[42px]">
+        <ScrollReveal direction="left" distance={50} className="relative w-full max-w-[419.72px]  shrink-0 lg:h-[529px]">
           <div className="absolute top-[25.48px] left-[54.19px] md:top-[28px] md:left-[69px] lg:top-[57.72px] lg:bottom-0 lg:right-0  h-[208.02px] w-[311.81px]  md:h-[228.51px] md:w-[392.7940673828125px] lg:h-[471.28px] lg:w-[357.57px] rounded-[10px] bg-primary/10" />
           <div className="relative h-[208.02px] w-[311.81px] overflow-hidden rounded-[10px] shadow-[0_31px_34px_rgba(0,0,0,0.09)] md:h-[228.51px] md:w-[392.7940673828125px] lg:h-[491.95px] lg:w-[382.79px]">
             <Image
@@ -57,7 +58,7 @@ export function WhySinoAfricaSection({
           </div>
         </ScrollReveal>
 
-        <StaggerContainer className="flex w-full max-w-[364.33px] flex-col gap-[43px] md:grid md:max-w-none md:grid-cols-2 md:grid-rows-2 md:grid-flow-col md:gap-8 " stagger={0.2}>
+        <StaggerContainer className="flex w-full max-w-[364.33px] flex-col gap-[43px] md:grid md:max-w-none md:grid-cols-2 md:grid-rows-2 md:grid-flow-col md:gap-8 lg:flex-1 lg:max-w-none" stagger={0.2}>
           {steps.map((step) => (
             <StaggerItem key={step.number} direction="right" distance={30}>
               <div className="flex flex-col lg:flex-row items-center lg:items-start gap-4">
@@ -70,9 +71,19 @@ export function WhySinoAfricaSection({
                   <h3 className="text-[21px] font-normal leading-[1.5238] tracking-[-0.0238em] text-text-100 text-center lg:text-left">
                     {step.title}
                   </h3>
-                  <p className="text-base font-normal leading-6 text-muted/70 text-center lg:text-left">
-                    {step.description}
-                  </p>
+                  {step.intro ? (
+                    <p className="text-base font-normal leading-6 text-muted/70 text-center lg:text-left">
+                      {step.intro}
+                    </p>
+                  ) : null}
+                  <ul className="flex flex-col gap-1.5 text-base font-normal leading-6 text-muted/70 text-left">
+                    {step.bullets.map((bullet) => (
+                      <li key={bullet} className="flex gap-2">
+                        <span aria-hidden="true">•</span>
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </StaggerItem>

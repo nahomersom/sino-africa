@@ -58,33 +58,62 @@ export const homeContent = {
   },
   whySinoAfrica: {
     heading: "What We Do at Sino Africa",
-    description:
-      "Sino Africa designs, deploys, and operates institutional infrastructure for systems that must perform with certainty.",
-    image: "/images/why-sino-africa.svg",
+    description:" Sino Africa designs, deploys, and operates institutional infrastructure for systems that must perform with certainty.We work with governments, financial institutions, telecom operators, regulators,technology providers, and strategic partners to deliver mission-critical platforms across financial access, identity and security, and regulated mobility.",
+    
+      image: "/images/why-sino-africa.svg",
     steps: [
       {
         number: "1",
         title: "Regulated Financial Access Infrastructure",
-        description:
-          "Lorem ipsum dolor sit amet consectetur. Pellentesque luctus ornare in purus tellus. Tempus dignissim tellus semper ac. Non.",
+        intro:
+          "Through ACT IT, we enable secure and scalable financial ecosystems for institutions. We support:",
+        bullets: [
+          "Digital payment platform integration",
+          "Identity-linked onboarding",
+          "Agency banking structures",
+          "Financial access networks",
+          "Compliance-ready financial infrastructure",
+        ],
       },
       {
         number: "2",
         title: "Identity, Security & GovTech Infrastructure",
-        description:
-          "We bring together global technologies and local systems into one cohesive, fully functional infrastructure.",
+        intro:
+          "Through SINOSEC, we design and integrate trusted identity, security, and government technology systems. We support:",
+        bullets: [
+          "National ID programs",
+          "Biometric platforms",
+          "Border control systems",
+          "Secure credentialing",
+          "Sovereign digital infrastructure",
+          "Track-and-trace systems",
+          "Public-sector integration platforms",
+        ],
       },
       {
         number: "3",
         title: "Regulated Mobility & Autonomous Logistics Infrastructure",
-        description:
-          "Every solution is built within clear regulatory frameworks, ensuring stability, transparency, and trust.",
+        intro:
+          "Through MOBILITEX, we structure and govern next generation mobility systems. We support:",
+        bullets: [
+          "Smart transport networks",
+          "Autonomous logistics platforms",
+          "Urban mobility programs",
+          "Fleet and operational platforms",
+          "Safety compliance and lifecycle governance",
+        ],
       },
       {
         number: "4",
         title: "How We Work",
-        description:
-          "Every solution is built within clear regulatory frameworks, ensuring stability, transparency, and trust.",
+        intro: "",
+        bullets: [
+          "We approach every mandate with discipline, structure, and accountability.",
+          "We align global technology with local institutional realities.",
+          "We operate within clear regulatory frameworks.",
+          "We coordinate stakeholders across complex environments.",
+          "We remain accountable beyond deployment",
+        ],
       },
     ],
   },
