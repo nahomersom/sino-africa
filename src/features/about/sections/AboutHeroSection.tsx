@@ -186,7 +186,7 @@ function HeroCollage({
             />
           </div>
 
-          <p className="absolute bottom-[43px] left-[53%] lg:left-[49%] lg:bottom-auto lg:top-[450px] z-20 max-w-[318.5px] lg:max-w-[545.62px] text-left text-base font-light leading-6 tracking-[-0.0125em] text-muted">
+          <p className="absolute bottom-[43px] left-[53%] lg:left-[49%] lg:bottom-auto lg:top-[410px] z-20 max-w-[318.5px] lg:max-w-[545.62px] text-left text-base font-light leading-6 tracking-[-0.0125em] text-muted">
             {descriptionContent}
           </p>
         </div>
@@ -229,7 +229,7 @@ export function AboutHeroSection({ label, heading, headingDescription ,descripti
         <h1 className="max-w-none font-(family-name:--font-nata-sans) text-[32px] font-semibold leading-[1.25] tracking-[-0.0375em] text-text-100 text-left md:max-w-[677px] lg:max-w-[515px] md:text-[36px] md:leading-[1.33] md:tracking-[-0.033em] md:text-center lg:text-left lg:text-[36px] lg:leading-[48px] lg:tracking-[-1.2px]">
           {heading}
         </h1>
-        <h1 className="max-w-none font-(family-name:--font-nata-sans)  font-light   text-[#5C606C] text-left md:max-w-[677px] lg:max-w-[515px]  md:text-center lg:text-left ">
+        <h1 className="max-w-none font-(family-name:--font-nata-sans) font-sans font-light   text-[#5C606C] text-left md:max-w-[677px] lg:max-w-[515px]  md:text-center lg:text-left ">
           {headingDescription}
         </h1>
       </motion.div>
