@@ -17,7 +17,7 @@ export const verticalDetailBySlug: Record<VerticalDetailSlug, VerticalDetailCont
       "ACT IT is built to support large programmes where reliability, governance, and clear ownership matter. We combine delivery discipline with practical change management so adoption sticks.",
       "From architecture and integration to run-state support, we help you modernise without losing control of cost, security, or service levels.",
     ],
-    focusIntroTitle: "Our Focus Areas",
+    focusIntroTitle: "Core Operational Areas",
     focusIntroSubtitle:
       "Where we concentrate effort—so outcomes are measurable and your teams stay focused on mission-critical work.",
     focusRows: [
@@ -45,7 +45,7 @@ export const verticalDetailBySlug: Record<VerticalDetailSlug, VerticalDetailCont
         image: u("photo-1506905925346-21bda4d32df4", 1200, 640),
       },
     ],
-    partnersTitle: "Ecosystem Partners",
+    partnersTitle: "Operating Ecosystem",
     partnersSubtitle: "Organisations we collaborate with to deliver secure, scalable outcomes.",
     partners: [
       {
@@ -82,7 +82,7 @@ export const verticalDetailBySlug: Record<VerticalDetailSlug, VerticalDetailCont
       "Sino Sec. supports public and private institutions that cannot afford ambiguity in security posture. We translate policy into architecture, controls, and operating rhythms your teams can run.",
       "Our work spans advisory, design, and implementation support—with emphasis on traceability, incident readiness, and long-term maintainability.",
     ],
-    focusIntroTitle: "Our Focus Areas",
+    focusIntroTitle: "Core Operational Areas",
     focusIntroSubtitle: "Core pillars we use to structure programmes from discovery through steady-state operations.",
     focusRows: [
       {
@@ -109,7 +109,7 @@ export const verticalDetailBySlug: Record<VerticalDetailSlug, VerticalDetailCont
         image: u("photo-1504384308090-c894fdcc538d", 1200, 640),
       },
     ],
-    partnersTitle: "Ecosystem Partners",
+    partnersTitle: "Operating Ecosystem",
     partnersSubtitle: "Trusted collaboration across the institutions and vendors that shape secure digital states.",
     partners: [
       {
@@ -146,7 +146,7 @@ export const verticalDetailBySlug: Record<VerticalDetailSlug, VerticalDetailCont
       "Mobilutex supports operators and public authorities modernising transport and logistics networks. We bring programme structure, vendor-neutral technical judgement, and a focus on safe, capital-efficient rollouts.",
       "Whether you are integrating OEM systems, designing SLAs, or standing up control towers, we align delivery to operational reality—not slide decks.",
     ],
-    focusIntroTitle: "Our Focus Areas",
+    focusIntroTitle: "Core Operational Areas",
     focusIntroSubtitle: "How we help teams move from strategy to working mobility infrastructure.",
     focusRows: [
       {
@@ -173,7 +173,7 @@ export const verticalDetailBySlug: Record<VerticalDetailSlug, VerticalDetailCont
         image: u("photo-1506905925346-21bda4d32df4", 1200, 640),
       },
     ],
-    partnersTitle: "Ecosystem Partners",
+    partnersTitle: "Operating Ecosystem",
     partnersSubtitle: "Working across the stakeholders who keep cities and corridors moving.",
     partners: [
       {

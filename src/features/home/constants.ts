@@ -1,9 +1,11 @@
 export const homeContent = {
   about: {
     heading: "Who we are",
-    bodyOne:
-   "Sino Africa is an institutional infrastructure platform. We design, deploy, and operate mission-critical systems that governments and institutions cannot afford to get wrong. We are not a trading company. We do not distribute consumer technology. We own execution risk end-to-end from system integration and regulatory compliance to long-term lifecycle accountability." , 
-      bodyTwo:"We operate across three specialized verticals: financial access infrastructure (ACT IT), identity and security systems (SINOSEC), and regulated mobility platforms (MOBILITEX). Every mandate is multi year, institution-grade, and delivered with disciplined execution. If we do not own the risk, we do not participate.",
+    bodyOne:"Sino Africa, with more than 15 years of experience, has consistently contributed to national development by focusing on structured platform development rather than short-cycle project execution. Its programs are designed to operate within institutional environments, ensuring long-term system reliability and supporting the growth of resilient infrastructure ecosystems. Through its sustainable model, the company plays a key role in building the institutional foundations that underpin modern economies.",
+    bodyTwo:"Sino Africa is an institutional infrastructure platform focused on structuring, integrating, and governing regulated systems across financial services, sovereign identity, security architecture, and next-generation mobility.",
+    bodyThree:
+    "Through structured program governance, execution oversight, and lifecycle responsibility, Sino Africa ensures systems are deployed responsibly, aligned with institutional requirements, and sustained over the long term.",
+    bodyFour:"We operate at the intersection of global technology providers and African public and private institutions, ensuring that advanced systems are not only deployed, but embedded within compliant regulatory and governance frameworks.",
   },
   whyChooseUs: {
     label: "What makes us different",
@@ -35,6 +37,18 @@ export const homeContent = {
         description:
           "We focus only on what we do best delivering within defined domains with precision, structure, and consistency.",
       },
+      {
+        icon: "/images/icon-03.svg",
+        title: "Long-Term Commitment",
+        description:
+          "We don’t just deploy and leave. We support, maintain, and evolve every system we build over time.",
+      },
+      {
+        icon: "/images/icon-04.svg",
+        title: "Disciplined Execution",
+        description:
+          "We focus only on what we do best delivering within defined domains with precision, structure, and consistency.",
+      },
     ],
   },
   cta: {
@@ -43,28 +57,63 @@ export const homeContent = {
     buttonLabel: "Get Started With us",
   },
   whySinoAfrica: {
-    heading: "Why Sino Africa",
-    description:
-      "Sino Africa exists to deliver infrastructure that works consistently, securely, and at scale in environments where precision matters most.",
-    image: "/images/why-sino-africa.svg",
+    heading: "What We Do at Sino Africa",
+    description:" Sino Africa designs, deploys, and operates institutional infrastructure for systems that must perform with certainty.We work with governments, financial institutions, telecom operators, regulators,technology providers, and strategic partners to deliver mission-critical platforms across financial access, identity and security, and regulated mobility.",
+    
+      image: "/images/why-sino-africa.svg",
     steps: [
       {
         number: "1",
-        title: "Proven in Complex Environments",
-        description:
-          "We operate in highly regulated, high-stakes sectors where coordination, compliance, and precision are essential.",
+        title: "Regulated Financial Access Infrastructure",
+        intro:
+          "Through ACT IT, we enable secure and scalable financial ecosystems for institutions. We support:",
+        bullets: [
+          "Digital payment platform integration",
+          "Identity-linked onboarding",
+          "Agency banking structures",
+          "Financial access networks",
+          "Compliance-ready financial infrastructure",
+        ],
       },
       {
         number: "2",
-        title: "Seamless System Integration",
-        description:
-          "We bring together global technologies and local systems into one cohesive, fully functional infrastructure.",
+        title: "Identity, Security & GovTech Infrastructure",
+        intro:
+          "Through SINOSEC, we design and integrate trusted identity, security, and government technology systems. We support:",
+        bullets: [
+          "National ID programs",
+          "Biometric platforms",
+          "Border control systems",
+          "Secure credentialing",
+          "Sovereign digital infrastructure",
+          "Track-and-trace systems",
+          "Public-sector integration platforms",
+        ],
       },
       {
         number: "3",
-        title: "Governance-First Approach",
-        description:
-          "Every solution is built within clear regulatory frameworks, ensuring stability, transparency, and trust.",
+        title: "Regulated Mobility & Autonomous Logistics Infrastructure",
+        intro:
+          "Through MOBILITEX, we structure and govern next generation mobility systems. We support:",
+        bullets: [
+          "Smart transport networks",
+          "Autonomous logistics platforms",
+          "Urban mobility programs",
+          "Fleet and operational platforms",
+          "Safety compliance and lifecycle governance",
+        ],
+      },
+      {
+        number: "4",
+        title: "How We Work",
+        intro: "",
+        bullets: [
+          "We approach every mandate with discipline, structure, and accountability.",
+          "We align global technology with local institutional realities.",
+          "We operate within clear regulatory frameworks.",
+          "We coordinate stakeholders across complex environments.",
+          "We remain accountable beyond deployment",
+        ],
       },
     ],
   },

@@ -6,40 +6,40 @@ import centerImage from "@/public/assets/images/centerimage.png";
 
 const challengeItems = [
   {
-    title: "Industry Challenge",
-    description: "Technology exists, but disciplined execution is lacking.",
+    title: "Execution certainty",
+    description: "We take responsibility for turning complex infrastructure mandates into working, sustainable systems.",
   },
   {
-    title: "Fragmented Delivery",
+    title: "Regulatory alignment",
     description:
-      "Multiple vendors operate without end-to-end accountability, causing integration failures and compliance gaps.",
+      "We ensure every program is structured within clear legal, compliance, and governance frameworks.",
   },
   {
-    title: "Regulatory Complexity",
-    description: "Complex governance frameworks are often mismanaged, creating institutional risk.",
+    title: "End-to-end accountability",
+    description: "We do not simply introduce technology or hand over products. We remain responsible across design, deployment, integration, support, and long-term performance.",
   },
   {
-    title: "Lifecycle Neglect",
+    title: "Local institutional integration",
     description:
-      "Deployment is treated as completion; maintenance is reactive, leading to system degradation.",
+      "We bridge global technology capabilities with African institutional, regulatory, and operational realities.",
   },
   {
-    title: "Consequence",
+    title: "Lifecycle responsibility",
     description:
-      "Fragmented execution and weak accountability result in failed systems, eroded trust, and reduced access to essential services.",
+      "We sustain what we build through maintenance, upgrades, service continuity, and long-term operational support.",
   },
 ] as const;
 
 export function ChallengeSection() {
   return (
     <section
-      className="relative overflow-hidden flex w-full max-w-[1728px] mx-auto items-center justify-center bg-white flex-col lg:flex-row h-auto lg:h-[996px] pt-[40px] lg:pt-[152px] pb-[40px] px-[32px] md:px-[80px] lg:px-[237px] gap-[32px]"
+      className="relative overflow-hidden flex w-full mx-auto items-center justify-center bg-white flex-col lg:flex-row h-auto lg:h-[996px] pt-[40px] lg:pt-[152px] pb-[40px] px-[32px] md:px-[80px] lg:px-[237px] gap-[32px]"
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.1] hidden lg:block"
         style={{
           backgroundImage: "url('/images/sino-symbol-tile.svg')",
-          backgroundSize: "28px",
+          backgroundSize: "20px",
           backgroundRepeat: "repeat",
         }}
       />

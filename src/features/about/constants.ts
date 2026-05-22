@@ -1,14 +1,15 @@
 export const aboutContent = {
   hero: {
     label: "ABOUT US",
-    heading: "We empower growth by Powering the Systems That Keep Nations Moving.",
+    heading: "We empower growth by connecting global markets and unlocking new opportunities.",
     images: {
       center: "/images/about/hero-photo-1.png",
       left: "/images/about/hero-photo-0.png",
       right: "/images/about/hero-photo-2.png",
     },
+    headingDescription:"We design, deploy, and operate the infrastructure behind financial access, identity and security, and regulated mobility — systems that move money, protect rights, strengthen institutions, and connect populations.",
     description:
-      "We work at the core of critical infrastructure helping governments and institutions turn complex challenges into reliable, compliant systems that drive long-term growth and stability."
+      "Our position is defined by execution ownership. We do not act as a reseller, distributor, or short-term vendor. We take responsibility from architecture and regulatory alignment to deployment, integration, operations, and long-term lifecycle performance.\nSino Africa is the partner chosen when infrastructure must be trusted, compliant, and built to last — because in the systems we serve, failure is not an option."
   },
   whatDefinesUs: {
     heading: "What Defines us",
@@ -18,25 +19,55 @@ export const aboutContent = {
     values: {
       title: "Our Core Values",
       items: [
-        "Execution Ownership",
-        "Institutional Trust",
-        "Regulatory Alignment",
-        "Lifecycle Responsibility",
-        "Strategic Discipline",
-        "Operational Readiness",
+        {
+          title: "Institutional Integrity",
+          description:
+            "Operating within established regulatory frameworks and governance standards remains central to how Sino Africa structures and manages institutional systems.",
+          accent: "#E6F1E9",
+        },
+        {
+          title: "Disciplined Execution",
+          description:
+            "Complex infrastructure and technology programs are delivered through structured implementation, operational reliability, and clear accountability at every stage.",
+          accent: "#FCE4E4",
+        },
+        {
+          title: "Partnership-Driven Approach",
+          description:
+            "Long-term collaboration with governments, institutions, and global technology providers strengthens the ability to build sustainable and impactful ecosystems.",
+          accent: "#F5EFE6",
+        },
+        {
+          title: "Regulatory Alignment",
+          description:
+            "Every platform and system is designed to integrate seamlessly within compliant legal, regulatory, and institutional environments.",
+          accent: "#ECE6F2",
+        },
+        {
+          title: "Operational Excellence",
+          description:
+            "High standards in deployment, integration, and system performance ensure reliability, efficiency, and long-term operational stability.",
+          accent: "#E6F1E9",
+        },
+        {
+          title: "Lifecycle Partner",
+          description:
+            "Continuous support, modernization, and operational oversight ensure systems remain effective and sustainable throughout their full lifecycle.",
+          accent: "#ECE6F2",
+        },
       ],
     },
   },
   mission: {
     title: "Our Mission",
     description:
-      "Delivering mission-critical systems with strict regulatory alignment and full accountability, turning policy into reliable, real-world solutions.",
+      "Sino Africa delivers regulated financial, identity, security, and mobility systems through disciplined execution, strict regulatory alignment, and full lifecycle accountability. We transform policy into operational reality, embed global technologies within local governance frameworks, and assume end-to-end responsibility to ensure continuity, stability, and long- term institutional trust.",
     bgImage: "/images/about/mission-bg.jpg",
   },
   vision: {
     title: "Our Vision",
     description:
-      "Strengthening Africa’s institutions by integrating and sustaining global technologies within local governance.",
+      "To strengthen Africa's institutional infrastructure ecosystems by ensuring global technologies are effectively integrated, deployed, and sustained within local governance and regulatory environments.",
     bgImage: "/images/about/vision-bg.jpg",
   },
   team: {

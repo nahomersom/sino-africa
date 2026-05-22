@@ -67,13 +67,13 @@ export function AboutPage() {
       <AboutHeroSection
         label={aboutContent.hero.label}
         heading={aboutContent.hero.heading}
+        headingDescription={aboutContent.hero.headingDescription}
         description={aboutContent.hero.description}
         images={aboutContent.hero.images}
       />
       <OurMissionSection
         heading={aboutContent.mission.title}
         description={aboutContent.mission.description}
-        bgImage={aboutContent.mission.bgImage}
       />
       <OurVisionSection
         heading={aboutContent.vision.title}

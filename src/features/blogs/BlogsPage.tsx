@@ -10,7 +10,7 @@ export function BlogsPage() {
     <div className="relative">
      <div
         className="pointer-events-none absolute inset-0 opacity-[0.1] top-64 "
-        style={{ backgroundImage: "url('/images/sino-symbol-tile.svg')", backgroundSize: "28px", backgroundRepeat: "repeat" }}
+        style={{ backgroundImage: "url('/images/sino-symbol-tile.svg')", backgroundSize: "20px", backgroundRepeat: "repeat" }}
       />
       {/* Hero Section */}
       <BlogHero />

@@ -51,7 +51,7 @@ export function CareerDetail({ documentId }: { documentId: string }) {
         {/* Background Decoration */}
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.05]"
-          style={{ backgroundImage: "url('/images/sino-symbol-tile.svg')", backgroundSize: "28px", backgroundRepeat: "repeat" }}
+          style={{ backgroundImage: "url('/images/sino-symbol-tile.svg')", backgroundSize: "20px", backgroundRepeat: "repeat" }}
         />
 
         <div className="z-10 flex w-full max-w-[1254px] flex-col items-start gap-4">
@@ -75,7 +75,7 @@ export function CareerDetail({ documentId }: { documentId: string }) {
                 {jobExpired ? (
                   <span className="font-semibold text-red-500">Expired</span>
                 ) : (
-                  <span className="font-medium text-primary">Expire Date: {job.deadline}</span>
+                  <span className="font-medium text-primary">Deadline: {job.deadline}</span>
                 )}
                 <span>{job.level}</span>
               </div>
@@ -128,7 +128,7 @@ export function CareerDetail({ documentId }: { documentId: string }) {
 
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.05]"
-            style={{ backgroundImage: "url('/images/sino-symbol-tile.svg')", backgroundSize: "28px", backgroundRepeat: "repeat" }}
+            style={{ backgroundImage: "url('/images/sino-symbol-tile.svg')", backgroundSize: "20px", backgroundRepeat: "repeat" }}
           />
 
           <Image
