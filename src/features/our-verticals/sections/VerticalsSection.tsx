@@ -7,6 +7,7 @@ import {
   getStrapiMediaUrl,
   useGetVerticalsQuery,
 } from "@/src/store/strapiApi";
+import { sortByVerticalOrder } from "@/src/lib/vertical-order";
 
 import { verticalItems } from "../constants";
 
@@ -19,6 +20,7 @@ const ARROW_BY_INDEX = [
 const FALLBACK_GRADIENT = "#94a3b8";
 
 const STATIC_CARD_HEX = ["#3FAF7E", "#4A5568", "#2F6FED"] as const;
+
 
 function VerticalCardSkeleton() {
   return (
@@ -50,6 +52,8 @@ export function VerticalsSection() {
 
   const showSkeleton = hasStrapi && (isLoading || isFetching);
   const useApi = hasStrapi && verticals.length > 0 && !showSkeleton;
+
+  const orderedVerticals = sortByVerticalOrder(verticals, (v) => v.slug ?? v.title);
 
   return (
     <section className="relative w-full overflow-x-hidden bg-white">
@@ -105,7 +109,7 @@ export function VerticalsSection() {
             {showSkeleton
               ? [0, 1, 2].map((i) => <VerticalCardSkeleton key={i} />)
               : useApi
-                ? verticals.map((v, index) => {
+                ? orderedVerticals.map((v, index) => {
                   const slug = v.slug?.trim() || "";
                   const href = slug ? `/our-verticals/${slug}` : "#";
                   const title = v.title?.trim() || "";
