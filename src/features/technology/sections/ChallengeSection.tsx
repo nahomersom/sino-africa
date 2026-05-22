@@ -63,7 +63,7 @@ export function ChallengeSection() {
         <h2
           className="font-bold text-[#161C2D] text-[32px] leading-[44px] tracking-[-1.2px] lg:mb-[24px]"
         >
-          The Challenge
+         Sino Africa delivers value through:
         </h2>
 
         <div
