@@ -41,7 +41,7 @@ export function PartnersSection({
         <h2 className="text-center font-(family-name:--font-nata-sans) text-[36px] font-semibold leading-[1.4] tracking-[-0.04em] text-text-100 md:text-4xl md:tracking-tight">
           {heading}
         </h2>
-        <p className="max-w-2xl text-center text-base font-light leading-7 text-muted md:text-lg">
+        <p className="max-w-[478px] text-center text-base font-light leading-7 text-muted md:text-lg">
           {description}
         </p>
       </div>

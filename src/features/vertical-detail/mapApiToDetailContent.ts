@@ -36,8 +36,9 @@ function buildFocusRows(
   fallbackRows: FocusRow[] | undefined
 ): FocusRow[] {
   const fb = fallbackRows ?? [];
+  const count = Math.max(apiAreas?.length ?? 0, fb.length, 3);
 
-  return [0, 1, 2].map((i): FocusRow => {
+  return Array.from({ length: count }, (_, i): FocusRow => {
     const rowFallback = fb[i];
     const area = apiAreas?.[i];
     const title =
@@ -74,9 +75,13 @@ function buildFocusRows(
       return { variant: "text-dual", title, body, images };
     }
 
-    const fbImg = rowFallback?.variant === "wide-text" ? rowFallback.image : null;
-    const image = urls[0] ?? fbImg ?? null;
-    return { variant: "wide-text", title, body, image };
+    const fbImages = rowFallback?.variant === "wide-text" ? rowFallback.images : [];
+    const length = Math.max(urls.length, fbImages.length, 1);
+    const images = Array.from(
+      { length },
+      (_, j) => urls[j] ?? fbImages[j] ?? null
+    );
+    return { variant: "wide-text", title, body, images };
   });
 }
 

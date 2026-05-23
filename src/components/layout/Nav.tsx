@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { cn } from "@/src/lib/utils";
+import { sortByVerticalOrder } from "@/src/lib/vertical-order";
 import { getStrapiMediaUrl, useGetVerticalsQuery } from "@/src/store/strapiApi";
 import { Button } from "../ui/app-button";
 
@@ -17,22 +18,8 @@ type NavItem = {
   children?: readonly NavSubLink[];
 };
 
-/** Submenu order: Act IT → Sino Tec → Mobilitex (slug may be `sino-sec` or `sino-tec` from CMS). */
-const VERTICAL_NAV_SLUG_ORDER: Readonly<Record<string, number>> = {
-  "act-it": 0,
-  "sino-sec": 1,
-  "sino-tec": 1,
-  mobilitex: 2,
-};
-
 function sortVerticalNavLinks(links: readonly NavSubLink[]): NavSubLink[] {
-  return [...links].sort((a, b) => {
-    const slugA = a.href.replace(/^\/our-verticals\//, "");
-    const slugB = b.href.replace(/^\/our-verticals\//, "");
-    const ia = VERTICAL_NAV_SLUG_ORDER[slugA] ?? 100;
-    const ib = VERTICAL_NAV_SLUG_ORDER[slugB] ?? 100;
-    return ia - ib || slugA.localeCompare(slugB);
-  });
+  return sortByVerticalOrder(links, (link) => link.href);
 }
 
 const verticalSubLinks: readonly NavSubLink[] = [
@@ -103,7 +90,10 @@ function NavSubLinkRow({
         alt=""
         width={23}
         height={23}
-        className="size-[23px] shrink-0 object-contain"
+        className={cn(
+          "size-[23px] shrink-0 object-contain",
+          useWhiteForeground && "brightness-0 invert",
+        )}
       />
       <span
         className={cn(

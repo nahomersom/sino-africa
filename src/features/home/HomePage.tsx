@@ -6,6 +6,7 @@ import {
   useGetPartnersQuery,
   useGetVerticalsQuery,
 } from "@/src/store/strapiApi";
+import { sortByVerticalOrder } from "@/src/lib/vertical-order";
 import { homeContent } from "./constants";
 import { AboutSection } from "./sections/AboutSection";
 import { ContactSection } from "./sections/ContactSection";
@@ -37,9 +38,11 @@ export function HomePage() {
 
   const fallbackVerticalSlugs = ["act-it", "sino-sec", "mobilitex"] as const;
 
+  const orderedVerticals = sortByVerticalOrder(verticals, (v) => v.slug ?? v.title ?? v.name);
+
   const verticalItems =
-    verticals.length > 0
-      ? verticals.map((item) => ({
+    orderedVerticals.length > 0
+      ? orderedVerticals.map((item) => ({
           title: item.title ?? item.name ?? "",
           description: item.description ?? "",
           subtitle:

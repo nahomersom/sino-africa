@@ -108,12 +108,17 @@ export function CoreValuesSection() {
             >
               <div
                 className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl"
-                style={{ backgroundColor: value.accent }}
+                style={{
+                  backgroundColor:
+                    index === 0
+                      ? value.accent
+                      : `color-mix(in srgb, ${value.accent} 10%, white)`,
+                }}
               >
                 {VALUE_ICONS[index] ?? VALUE_ICONS[0]}
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="text-[20px] font-semibold leading-tight text-text-100">
+                <h3 className="text-[20px] lg:text-2xl  leading-tight text-text-100">
                   {value.title}
                 </h3>
                 <p className="text-sm leading-6 text-text-100/70 md:text-base md:leading-7">

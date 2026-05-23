@@ -34,10 +34,10 @@ export function OurMissionSection({
         className="pointer-events-none absolute right-0 top-1/2 hidden h-[605px] w-[605px] -translate-y-1/2 rounded-full bg-[#64C294]/20 blur-[252px] lg:block"
       />
 
-      <div className="relative z-10 flex w-full max-w-[1240px] flex-col items-center gap-12 lg:flex-row lg:items-center lg:gap-20">
+      <div className="relative z-10 mx-auto flex w-full max-w-[1240px] flex-col items-center justify-center gap-10 lg:flex-row lg:items-center lg:justify-center lg:gap-10">
         {/* Content */}
         <motion.div
-          className="flex w-full flex-col gap-6 lg:flex-1"
+          className="order-2 flex w-full flex-col items-center gap-[24px] text-center lg:order-0 lg:w-auto lg:items-start lg:gap-[30px] lg:text-left"
           initial={{ opacity: 0, x: -48 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.25 }}
@@ -78,7 +78,7 @@ export function OurMissionSection({
 
         {/* Image with decorative accents */}
         <motion.div
-          className="w-full lg:w-[498px] lg:shrink-0"
+          className="order-1 w-full lg:order-0 lg:w-[498px] lg:shrink-0"
           initial={{ opacity: 0, x: 48 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.2 }}
@@ -92,17 +92,16 @@ export function OurMissionSection({
               aria-hidden="true"
               width={140}
               height={140}
-              className="pointer-events-none absolute -right-12 -top-20 z-0 h-auto w-[140px] select-none"
+              className="pointer-events-none absolute -right-4 -top-10 z-0 h-auto w-[80px] select-none md:-right-12 md:-top-20 md:w-[140px]"
             />
 
             {/* Coral circle accent — bottom right, behind image */}
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute -bottom-20 -right-20 z-0 rounded-full bg-[#F64B4B]/57"
-              style={{ width: 221.14999389648438, height: 221.14999389648438 }}
+              className="pointer-events-none absolute -bottom-10 -right-6 z-0 h-[130px] w-[130px] rounded-full bg-[#F64B4B]/57 md:-bottom-20 md:-right-20 md:h-[221px] md:w-[221px]"
             />
 
-            <div className="relative z-10 h-[360px] w-full overflow-hidden rounded-[16px] shadow-[0_24px_48px_rgba(0,0,0,0.12)] md:h-[480px] lg:h-[560px]">
+            <div className="relative z-10 h-[320px] w-full overflow-hidden rounded-[16px] shadow-[0_24px_48px_rgba(0,0,0,0.12)] md:h-[480px] lg:h-[560px]">
               <Image
                 src="/images/hands-on-tree.jpg"
                 alt="Hands stacked together on a tree branch"
