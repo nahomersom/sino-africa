@@ -137,7 +137,7 @@ export function VerticalsSection() {
                                 src={logoSrc}
                                 alt={v.logo?.alternativeText ?? ""}
                                 fill
-                                className="object-contain"
+                                className="object-contain brightness-0 invert"
                                 sizes="142px"
                               />
                             </div>
