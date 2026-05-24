@@ -76,6 +76,29 @@ export function hasStrapiRichTextContent(value: StrapiRichTextValue): boolean {
   return Array.isArray(value) && value.length > 0;
 }
 
+/** Typography used for Strapi rich-text bodies (matches blog detail page). */
+export const STRAPI_RICH_TEXT_BODY_CLASS =
+  "text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black break-words [overflow-wrap:anywhere] md:text-left md:text-sm md:leading-[1.65] lg:text-lg";
+
+/**
+ * Renders Strapi rich text with the same wrapper + typography used on the blog detail page.
+ * Pass `className` to layer extra utilities on top of the shared body class.
+ */
+export function StrapiRichTextBody({
+  value,
+  className,
+}: {
+  value: StrapiRichTextValue;
+  className?: string;
+}) {
+  if (!hasStrapiRichTextContent(value)) return null;
+  return (
+    <div className="relative w-full min-h-0 max-w-[65ch] overflow-x-hidden break-words [overflow-wrap:anywhere]">
+      <StrapiBlocksRichText value={value} className={cn(STRAPI_RICH_TEXT_BODY_CLASS, className)} />
+    </div>
+  );
+}
+
 export function StrapiBlocksRichText({
   value,
   className,

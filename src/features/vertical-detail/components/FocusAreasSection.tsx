@@ -237,7 +237,7 @@ function FocusRowBlock({
   }
 
   const singleImage = row.images[0] ?? null;
-  const image = (
+  const leftImage = (
     <div className="relative aspect-[16/10] w-full min-w-0 overflow-hidden rounded-lg bg-border-light shadow-sm">
       {singleImage ? (
         <Image
@@ -256,18 +256,22 @@ function FocusRowBlock({
   return (
     <div
       className={cn(
-        "mx-auto grid w-full max-w-[1011px] grid-cols-1 items-center gap-10 lg:gap-x-[62px] lg:gap-y-0",
-        reversed ? "lg:grid-cols-[auto_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)_auto]"
+        "mx-auto grid w-full max-w-[1011px] grid-cols-1 items-center gap-10 lg:gap-y-0",
+        reversed
+          ? "lg:grid-cols-[1fr_447px] lg:gap-x-[62px]"
+          : "lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-x-[62px]"
       )}
     >
       {reversed ? (
         <>
           <FocusRowCopy title={row.title} body={row.body} className="order-2 lg:order-1" />
-          <div className="order-1 lg:order-2">{image}</div>
+          <div className="order-1 flex justify-center lg:order-2 lg:justify-end">
+            <FocusDualOverlapImages images={[singleImage, null]} rightPanelColor={rightPanelColor} />
+          </div>
         </>
       ) : (
         <>
-          {image}
+          {leftImage}
           <FocusRowCopy title={row.title} body={row.body} />
         </>
       )}

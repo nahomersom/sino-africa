@@ -33,7 +33,7 @@ const challengeItems = [
 export function ChallengeSection() {
   return (
     <section
-      className="relative overflow-hidden flex w-full mx-auto items-center justify-center bg-white flex-col lg:flex-row h-auto lg:h-[996px] pt-[40px] lg:pt-[152px] pb-[40px] px-[32px] md:px-[80px] lg:px-[237px] gap-[32px]"
+      className="relative overflow-hidden flex w-full mx-auto items-center justify-center bg-white flex-col lg:flex-row h-auto lg:h-[996px] pt-[40px] lg:pt-[152px] pb-[40px] px-[32px] md:px-[80px] lg:px-[220px] gap-[32px]"
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.1] hidden lg:block"
@@ -63,16 +63,14 @@ export function ChallengeSection() {
         <h2
           className="font-bold text-[#161C2D] text-[32px] leading-[44px] tracking-[-1.2px] lg:mb-[24px]"
         >
-         Sino Africa delivers value through:
+        Our Value Delivery Approach
         </h2>
 
         <div
           className="flex flex-col gap-6 text-[16px] leading-[150%] tracking-[-0.2px] font-normal text-[#5C606C]"
         >
           <p>
-            Africa’s infrastructure faces a persistent gap, where technology exists but disciplined execution is lacking.
-            Fragmented deployments with weak accountability and reactive maintenance cause integration failures, compliance gaps, and unsustainable systems.
-            Dense regulatory environments compound institutional risk, eroding trust and limiting population access to essential services.
+          Africa’s infrastructure faces a persistent gap, where technology exists but disciplined execution is lacking. Fragmented deployments with weak accountability and reactive maintenance cause integration failures, compliance gaps, and unsustainable systems. Dense regulatory environments compound institutional risk, eroding trust and limiting population access to essential services.
           </p>
         </div>
       </motion.div>
