@@ -126,7 +126,7 @@ export function VerticalsSection() {
                       id={slug || undefined}
                       href={href}
                       aria-label={title ? `${title}: read more` : "Read more"}
-                      className="flex w-full flex-col items-center justify-between rounded-[8px] px-8 py-10 transition hover:brightness-105 md:px-6 lg:h-full lg:min-h-0 lg:px-16"
+                      className="flex w-full flex-col items-center justify-between rounded-[8px] px-8 py-10 transition hover:brightness-105 md:px-6 lg:h-full lg:min-h-0 lg:px-16 gap-3.5"
                       style={{ backgroundColor: bgColor }}
                     >
                       <div className="flex w-full shrink-0 flex-col items-center">
@@ -166,7 +166,7 @@ export function VerticalsSection() {
                         )}
                         {description ? (
                           <p
-                            className="max-h-[96px] overflow-hidden text-base font-light leading-[1.5em] text-white line-clamp-4"
+                            className=" overflow-hidden text-base font-light leading-[1.5em] text-white "
                             style={{ letterSpacing: "-0.012500000186264515em" }}
                           >
                             {description}
@@ -212,7 +212,7 @@ export function VerticalsSection() {
                       id={slug || undefined}
                       href={href}
                       aria-label={`${item.title}: read more`}
-                      className={`${item.colorClass} flex w-full flex-col items-center justify-between rounded-[8px] px-8 py-10 transition hover:brightness-105 md:px-6 lg:h-full lg:min-h-0 lg:px-16`}
+                      className={`${item.colorClass} flex w-full flex-col items-center justify-between rounded-[8px] px-8 py-10 transition hover:brightness-105 md:px-6 lg:h-full lg:min-h-0 lg:px-16 `}
                     >
                       <div className="flex w-full shrink-0 flex-col items-center">
                         <div className="flex h-[142px] w-[142px] flex-col items-center justify-center">

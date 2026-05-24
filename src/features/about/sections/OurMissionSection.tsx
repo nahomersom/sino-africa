@@ -103,7 +103,7 @@ export function OurMissionSection({
 
             <div className="relative z-10 h-[320px] w-full overflow-hidden rounded-[16px] shadow-[0_24px_48px_rgba(0,0,0,0.12)] md:h-[480px] lg:h-[560px]">
               <Image
-                src="/images/hands-on-tree.jpg"
+                src="assets/images/mission-bg.png"
                 alt="Hands stacked together on a tree branch"
                 fill
                 className="object-cover"

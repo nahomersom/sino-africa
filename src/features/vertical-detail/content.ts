@@ -45,8 +45,8 @@ export const verticalDetailBySlug: Record<VerticalDetailSlug, VerticalDetailCont
         images: [u("photo-1506905925346-21bda4d32df4", 1200, 640)],
       },
     ],
-    partnersTitle: "Operating Ecosystem",
-    partnersSubtitle: "Organisations we collaborate with to deliver secure, scalable outcomes.",
+    partnersTitle: "Ecosystem Partners",
+    partnersSubtitle:"The partners we work with",
     partners: [
       {
         title: "Banks & Financial Institutions",

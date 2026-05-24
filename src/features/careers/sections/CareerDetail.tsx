@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useGetCareerByDocumentIdQuery, useGetCareersQuery } from "@/src/store/strapiApi";
-import { StrapiBlocksRichText } from "@/src/lib/strapiBlocksRichText";
+import { StrapiRichTextBody } from "@/src/lib/strapiBlocksRichText";
 
 export function CareerDetail({ documentId }: { documentId: string }) {
   const { data: job, isLoading } = useGetCareerByDocumentIdQuery(documentId);
@@ -110,10 +110,7 @@ export function CareerDetail({ documentId }: { documentId: string }) {
 
             {/* Right Column: Job Description */}
             <div className="flex flex-col gap-8 lg:w-[699px] lg:pt-0">
-              <StrapiBlocksRichText
-                value={job.description}
-                className="flex flex-col gap-8 text-[#161C2D]"
-              />
+              <StrapiRichTextBody value={job.description} />
             </div>
           </div>
         </div>

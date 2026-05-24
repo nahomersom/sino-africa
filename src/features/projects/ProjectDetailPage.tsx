@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { projectsContent } from "./constants";
 import type { ProjectDetail } from "./constants";
 import { cn } from "@/src/lib/utils";
-import { StrapiBlocksRichText } from "@/src/lib/strapiBlocksRichText";
+import { StrapiRichTextBody } from "@/src/lib/strapiBlocksRichText";
 
 type ProjectDetailPageProps = {
   project: ProjectDetail;
@@ -51,7 +51,7 @@ function BackToProjectsLink({ className }: { className?: string }) {
 
 function SectionKicker({ children }: { children: ReactNode }) {
   return (
-    <span className="block w-full text-center text-[13px] font-normal uppercase leading-[1.26] tracking-[0.125em] text-black md:text-left">
+    <span className="block w-full text-center text-lg font-medium uppercase leading-[1.26] tracking-[0.125em] text-text-100 md:text-left">
       {children}
     </span>
   );
@@ -353,16 +353,7 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
                     {project.title}
                   </h1>
                 </div>
-                <div
-                  className={cn(
-                    "relative w-full min-h-0 max-w-[65ch] overflow-x-hidden break-words [overflow-wrap:anywhere]",
-                  )}
-                >
-                  <StrapiBlocksRichText
-                    value={project.description}
-                    className="text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black break-words [overflow-wrap:anywhere] md:text-left md:text-sm md:leading-[1.65] lg:text-lg"
-                  />
-                </div>
+                <StrapiRichTextBody value={project.description} />
               </div>
             </motion.div>
 
@@ -442,27 +433,15 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
 
                 <article className="flex w-full max-w-3xl flex-col gap-3">
                   <SectionKicker>Challenges</SectionKicker>
-                  <StrapiBlocksRichText
-                    value={project.challenges}
-                    className="font-(family-name:--font-nata-sans) text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm lg:text-lg"
-                    hideListMarkers
-                  />
+                  <StrapiRichTextBody value={project.challenges} />
                 </article>
                 <article className="flex w-full max-w-3xl flex-col gap-3">
                   <SectionKicker>Results</SectionKicker>
-                  <StrapiBlocksRichText
-                    value={project.results}
-                    className="font-(family-name:--font-nata-sans) text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm lg:text-lg"
-                    hideListMarkers
-                  />
+                  <StrapiRichTextBody value={project.results} />
                 </article>
                 <article className="flex w-full max-w-3xl flex-col gap-3">
                   <SectionKicker>Solutions</SectionKicker>
-                  <StrapiBlocksRichText
-                    value={project.solution}
-                    className="font-(family-name:--font-nata-sans) text-center text-base font-light leading-[1.65] tracking-[-0.0125em] text-black md:text-left md:text-sm lg:text-lg"
-                    hideListMarkers
-                  />
+                  <StrapiRichTextBody value={project.solution} />
                 </article>
               </div>
             </div>
