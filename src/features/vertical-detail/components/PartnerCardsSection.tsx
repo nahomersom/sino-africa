@@ -42,14 +42,13 @@ export function PartnerCardsSection({ title, subtitle, partners }: Props) {
           {partners.map((card, index) => (
             <article
               key={`${card.title}-${index}`}
-              className="group flex min-h-[220px] w-full flex-col justify-between rounded-[16px] border border-[#e7e9ed] bg-white p-[32px] text-left"
+              className="group flex min-h-[220px] w-full flex-col justify-between rounded-[16px] border border-[#e7e9ed] bg-white p-[32px] text-left transition-colors duration-300 ease-out hover:bg-primary"
             >
               {card.iconSrc ? (
-                <div className="relative flex size-[80px] shrink-0 items-center justify-center rounded-[8px] bg-accent-60 p-[8px]">
+                <div className="relative flex size-[80px] shrink-0 items-center justify-center rounded-[8px] bg-accent-60 p-[8px] transition-colors duration-300 ease-out group-hover:bg-white">
                   <div
-                    className="h-full w-full"
+                    className="h-full w-full bg-[#1A1919] transition-colors duration-300 ease-out"
                     style={{
-                      backgroundColor: "#1A1919",
                       maskImage: `url(${card.iconSrc})`,
                       WebkitMaskImage: `url(${card.iconSrc})`,
                       maskRepeat: "no-repeat",
@@ -69,7 +68,7 @@ export function PartnerCardsSection({ title, subtitle, partners }: Props) {
               )}
               <div className="flex w-full flex-col gap-[15px]">
                 {card.title ? (
-                  <h3 className="text-[24px] font-semibold leading-normal tracking-[-0.021em] text-text-100 font-outfit!">
+                  <h3 className="text-[24px] font-semibold leading-normal tracking-[-0.021em] text-text-100 transition-colors duration-300 ease-out group-hover:text-white font-outfit!">
                     {card.title}
                   </h3>
                 ) : (

@@ -61,7 +61,7 @@ export function OurVisionSection({
               className="pointer-events-none absolute -bottom-10 -left-4 z-0 h-[130px] w-[130px] rounded-full bg-[#F64B4B]/57 md:-bottom-[88px] md:-left-10 md:h-[221px] md:w-[221px]"
             />
 
-            <div className="relative z-10 h-[320px] w-full overflow-hidden rounded-[16px] shadow-[0_24px_48px_rgba(0,0,0,0.12)] md:h-[480px] lg:h-[560px]">
+            <div className="relative z-10 h-[320px] w-full overflow-hidden rounded-[16px] shadow-[0_24px_48px_rgba(0,0,0,0.12)] md:h-[480px] lg:h-[659px] lg:w-[498px]">
               <Image
                 src="assets/images/vision-bg.png"
                 alt="Hands stacked together on a tree branch"
