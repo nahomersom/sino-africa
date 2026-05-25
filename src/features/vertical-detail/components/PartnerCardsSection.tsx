@@ -47,13 +47,17 @@ export function PartnerCardsSection({ title, subtitle, partners }: Props) {
               {card.iconSrc ? (
                 <div className="relative flex size-[80px] shrink-0 items-center justify-center rounded-[8px] bg-accent-60 p-[8px]">
                   <div
-                    className="h-full w-full bg-[#64C294]"
+                    className="h-full w-full"
                     style={{
+                      backgroundColor: "#1A1919",
                       maskImage: `url(${card.iconSrc})`,
                       WebkitMaskImage: `url(${card.iconSrc})`,
                       maskRepeat: "no-repeat",
                       maskPosition: "center",
                       maskSize: "contain",
+                      WebkitMaskRepeat: "no-repeat",
+                      WebkitMaskPosition: "center",
+                      WebkitMaskSize: "contain",
                     }}
                   />
                 </div>

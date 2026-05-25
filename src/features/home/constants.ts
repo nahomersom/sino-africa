@@ -9,7 +9,7 @@ export const homeContent = {
   },
   whyChooseUs: {
     label: "What makes us different",
-    heading: "Our Partners choose us because ...",
+    heading: "Why our Partners Choose us ... ",
     description:
       "They choose a partner who owns execution end-to-end, ensures compliance, and delivers systems that perform reliably over time.",
     statements: [
