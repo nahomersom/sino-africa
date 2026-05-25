@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useGetVerticalsQuery } from "@/src/store/strapiApi";
+import { sortByVerticalOrder } from "@/src/lib/vertical-order";
 
 type FooterNavLink = {
   label: string;
@@ -24,8 +25,8 @@ const footerLinks = {
   verticals: {
     title: "Our Verticals",
     links: [
-      { label: "Sino Sec", href: "/our-verticals/sino-sec" },
       { label: "ACT IT", href: "/our-verticals/act-it" },
+      { label: "Sino Sec", href: "/our-verticals/sino-sec" },
       { label: "Mobilitex", href: "/our-verticals/mobilitex" },
     ],
   },
@@ -57,9 +58,10 @@ const footerLinks = {
 
 export function Footer() {
   const { data: verticals = [] } = useGetVerticalsQuery();
+  const orderedVerticals = sortByVerticalOrder(verticals, (v) => v.slug ?? v.title ?? v.name);
   const dynamicVerticalLinks =
-    verticals.length > 0
-      ? verticals
+    orderedVerticals.length > 0
+      ? orderedVerticals
         .map((item) => {
           const label = (item.title ?? item.name ?? "").trim();
           const slug = (item.slug ?? "").trim();

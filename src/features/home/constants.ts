@@ -9,45 +9,44 @@ export const homeContent = {
   },
   whyChooseUs: {
     label: "What makes us different",
-    heading: "Our Partners choose us because ...",
+    heading: "Why our Partners Choose us ... ",
     description:
       "They choose a partner who owns execution end-to-end, ensures compliance, and delivers systems that perform reliably over time.",
     statements: [
       {
         icon: "/images/icon-01.svg",
-        title: "End-to-End Ownership",
+        title: "Institutional Infrastructure Expertise",
         description:
-          "We take full responsibility from design and integration to compliance and long-term performance. No gaps, no handoffs.",
-      },
+     "Deep experience in structuring and supporting regulated institutional infrastructure across critical sectors."
+        },
       {
         icon: "/images/icon-02.svg",
-        title: "Built for Critical Systems",
-        description:
-          "We operate where failure isn’t an option delivering infrastructure that institutions depend on every day.",
-      },
+        title: "End-to-End Execution Accountability",
+        description:"Full responsibility from system design and integration to deployment, governance, and operational continuity.",
+     
+        },
       {
-        icon: "/images/icon-03.svg",
-        title: "Long-Term Commitment",
-        description:
-          "We don’t just deploy and leave. We support, maintain, and evolve every system we build over time.",
-      },
-      {
-        icon: "/images/icon-04.svg",
-        title: "Disciplined Execution",
-        description:
-          "We focus only on what we do best delivering within defined domains with precision, structure, and consistency.",
-      },
-      {
-        icon: "/images/icon-03.svg",
-        title: "Long-Term Commitment",
-        description:
-          "We don’t just deploy and leave. We support, maintain, and evolve every system we build over time.",
+        icon: "/images/icon-06.svg",
+        title: "Strong Regulatory Alignment",
+        description:"Ensuring all systems operate within compliant legal, institutional, and regulatory frameworks."
       },
       {
         icon: "/images/icon-04.svg",
-        title: "Disciplined Execution",
+        title: "Proven Integration of Global Technologies",
         description:
-          "We focus only on what we do best delivering within defined domains with precision, structure, and consistency.",
+        "Successfully embedding advanced international technologies into local operational environments.",
+      },
+      {
+        icon: "/images/icon-05.svg",
+        title: "Long-Term Platform Sustainability",
+        description:
+     "Building resilient systems designed for stability, scalability, and long-term institutional value."
+        },
+      {
+        icon: "/images/icon-03.svg",
+        title: "Strategic Institutional Partnerships",
+        description:
+"Collaborating closely with governments, institutions, and technology providers to deliver sustainable outcomes."
       },
     ],
   },
@@ -58,34 +57,51 @@ export const homeContent = {
   },
   whySinoAfrica: {
     heading: "What We Do at Sino Africa",
-    description:
+    description: [
       "Sino Africa designs, deploys, and operates institutional infrastructure for systems that must perform with certainty.",
+      "We work with governments, financial institutions, telecom operators, regulators, technology providers, and strategic partners to deliver mission-critical platforms across financial access, identity and security, and regulated mobility.",
+    ],
+
     image: "/images/why-sino-africa.svg",
     steps: [
       {
         number: "1",
         title: "Regulated Financial Access Infrastructure",
-        description:
-          "Lorem ipsum dolor sit amet consectetur. Pellentesque luctus ornare in purus tellus. Tempus dignissim tellus semper ac. Non.",
+       
+          bullets: [
+          "Digital payment platform integration",
+          "Identity-linked onboarding",
+          "Agency banking structures",
+          "Financial access networks",
+          "Compliance-ready financial infrastructure",
+        ],
       },
       {
         number: "2",
         title: "Identity, Security & GovTech Infrastructure",
-        description:
-          "We bring together global technologies and local systems into one cohesive, fully functional infrastructure.",
+          bullets: [
+          "National ID programs",
+          "Biometric platforms",
+          "Border control systems",
+          "Secure credentialing",
+          "Sovereign digital infrastructure",
+          "Track-and-trace systems",
+          "Public-sector integration platforms",
+        ],
       },
       {
         number: "3",
         title: "Regulated Mobility & Autonomous Logistics Infrastructure",
-        description:
-          "Every solution is built within clear regulatory frameworks, ensuring stability, transparency, and trust.",
+       
+          bullets: [
+          "Smart transport networks",
+          "Autonomous logistics platforms",
+          "Urban mobility programs",
+          "Fleet and operational platforms",
+          "Safety compliance and lifecycle governance",
+        ],
       },
-      {
-        number: "4",
-        title: "How We Work",
-        description:
-          "Every solution is built within clear regulatory frameworks, ensuring stability, transparency, and trust.",
-      },
+     
     ],
   },
   verticals: {

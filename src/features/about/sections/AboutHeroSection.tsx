@@ -21,8 +21,8 @@ type AboutHeroSectionProps = {
 /** Figma export artboard — positions as % of width / height (md+ collage) */
 const SLOT = {
   left: "left-0 md:top-0  lg:top-[182px] h-[429px] w-[318.5px] lg:h-[429px] lg:w-[495.5px]",
-  center: "left-[53%] lg:left-[48.647%] -top-[11.45px] lg:top-[11.948%] md:h-[238px] lg:h-[332px] md:w-[254px] lg:w-[354px] h-[51.064%] w-[28.665%]",
-  right: "left-[85.587%] lg:left-[80%] top-[16.806%] lg:top-[28.806%] md:h-[84px] md:w-[89px] h-[25.695%] w-[14.414%]",
+  center: "left-[53%] lg:left-[600.99px] -top-[11.45px] lg:top-[11.948%] md:h-[238px] lg:h-[285.27px] md:w-[254px] lg:w-[354.10px] h-[51.064%] w-[28.665%]",
+  right: "left-[85.587%] lg:left-[1059.49px] top-[16.806%] lg:top-[28.806%] md:h-[84px] lg:h-[143.49px] md:w-[89px] lg:w-[178.16px] h-[25.695%] w-[14.414%]",
 } as const;
 
 /**
@@ -38,7 +38,8 @@ function HeroCollage({
 }) {
   const frame =
     "relative overflow-hidden rounded-[10px] shadow-[0_1px_3px_rgba(0,0,0,0.08)]";
-  const closingSentenceStart = "Sino Africa is the partner chosen";
+  
+    const closingSentenceStart = "Sino Africa is the partner chosen";
   const closingSentenceIndex = description.indexOf(closingSentenceStart);
   const descriptionIntro =
     closingSentenceIndex >= 0
@@ -71,7 +72,7 @@ function HeroCollage({
         </div>
 
         <div className="relative flex min-w-0 flex-col items-start gap-6 md:min-w-0 md:flex-1 md:overflow-visible">
-          <div className="pointer-events-none absolute left-[calc(201.7/366*100%)] -top-[70px]  h-[109px] w-[calc(119.15/366*100%)] overflow-hidden md:left-[201.7px] md:top-[-70px] md:w-[119.15px]">
+          <div className="pointer-events-none absolute left-[calc(201.7/366*100%)] -top-[70px] hidden h-[109px] w-[calc(119.15/366*100%)] overflow-hidden md:left-[201.7px] md:top-[-70px] md:block md:w-[119.15px]">
             <Image
               src="/images/about/hero-dots.svg"
               alt=""
@@ -156,8 +157,7 @@ function HeroCollage({
 
           <div
             className={cn(
-              frame,
-              "absolute aspect-auto",
+              "absolute overflow-hidden rounded-[6px] shadow-[0_1px_3px_rgba(0,0,0,0.08)]",
               SLOT.right,
             )}
           >
@@ -170,23 +170,13 @@ function HeroCollage({
             />
           </div>
 
-          <div
-            className={cn(
-              frame,
-              "absolute aspect-auto overflow-visible",
-              SLOT.center,
-            )}
-          >
-            <Image
-              src={images.center}
-              alt=""
-              fill
-              className="object-cover"
-              sizes="(max-width: 1023px) 100vw, 29vw"
-            />
-          </div>
+          <img
+            src={images.center}
+            alt=""
+            className={cn("absolute rounded-[10px] object-cover shadow-[0px_42px_44px_-10px_#0117301E]", SLOT.center)}
+          />
 
-          <p className="absolute bottom-[43px] left-[53%] lg:left-[49%] lg:bottom-auto lg:top-[410px] z-20 max-w-[318.5px] lg:max-w-[545.62px] text-left text-base font-light leading-6 tracking-[-0.0125em] text-muted">
+          <p className="absolute bottom-[43px] left-[53%] lg:left-[600.99px] lg:bottom-auto lg:top-[410px] z-20 max-w-[318.5px] lg:max-w-[635px] text-left text-base font-light leading-6 tracking-[-0.0125em] text-muted">
             {descriptionContent}
           </p>
         </div>

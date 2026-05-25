@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Transition } from "framer-motion";
+import { AnimatePresence, motion, type Transition } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -136,9 +136,22 @@ export function VerticalsSection({
   return (
     <section
       id="platforms"
-      className="relative flex h-auto min-h-screen max-w-screen w-full flex-col gap-4  px-8 py-20 transition-all duration-500 md:px-20 md:py-20 lg:px-[286px] lg:pb-16 lg:pt-[160px] overflow-hidden   "
-      style={{ background: activeGradient }}
+      className="relative flex h-auto min-h-screen max-w-screen w-full flex-col gap-4  px-8 py-20 md:px-20 md:py-20 lg:px-[286px] lg:pb-16 lg:pt-[160px] overflow-hidden   "
+      style={{ background: GRADIENTS[0] }}
     >
+      <AnimatePresence initial={false}>
+        <motion.div
+          key={activeIndex}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="pointer-events-none absolute inset-0 z-0"
+          style={{ background: activeGradient }}
+          aria-hidden
+        />
+      </AnimatePresence>
+
       {VERTICALS_REFERENCE_ELLIPSES.map((ellipse, i) => {
         const topPx = activeEllipseTopRow[i] ?? VERTICALS_ELLIPSE_TOP_PX_BY_GRADIENT[0][i];
         const fill = `rgba(255, 255, 255, ${ellipse.opacity / 100})`;

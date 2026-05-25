@@ -1,11 +1,15 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 export function CareersHeader() {
   return (
     <section className="w-full bg-white pt-[131px] pb-16 md:pt-[102px] lg:pt-[189px] lg:pb-[82px]">
       <div className="mx-auto flex w-full flex-col items-center px-8 text-center md:max-w-[837px] md:gap-2 md:px-0 md:pb-10 lg:max-w-[1254px] lg:items-start lg:gap-2 lg:pb-0 lg:text-left">
+      <div className="flex justify-between w-full flex-col md:flex-row">
+        <div>
+
         <motion.span
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -14,6 +18,7 @@ export function CareersHeader() {
         >
           CAREERS
         </motion.span>
+       
 
         <div className="flex w-full flex-col items-center gap-2 md:gap-2 lg:items-start lg:gap-2">
           <motion.h1
@@ -33,6 +38,17 @@ export function CareersHeader() {
           >
             Explore through our job openings and join a team of experts.
           </motion.p>
+        </div>
+        </div>
+
+        <Image
+          src="/images/career-hero.svg"
+          alt=""
+          width={182}
+          height={182}
+          priority
+          className="self-center md:self-end"
+        />
         </div>
       </div>
     </section>

@@ -7,6 +7,7 @@ import {
   getStrapiMediaUrl,
   useGetVerticalsQuery,
 } from "@/src/store/strapiApi";
+import { sortByVerticalOrder } from "@/src/lib/vertical-order";
 
 import { verticalItems } from "../constants";
 
@@ -19,6 +20,7 @@ const ARROW_BY_INDEX = [
 const FALLBACK_GRADIENT = "#94a3b8";
 
 const STATIC_CARD_HEX = ["#3FAF7E", "#4A5568", "#2F6FED"] as const;
+
 
 function VerticalCardSkeleton() {
   return (
@@ -50,6 +52,8 @@ export function VerticalsSection() {
 
   const showSkeleton = hasStrapi && (isLoading || isFetching);
   const useApi = hasStrapi && verticals.length > 0 && !showSkeleton;
+
+  const orderedVerticals = sortByVerticalOrder(verticals, (v) => v.slug ?? v.title);
 
   return (
     <section className="relative w-full overflow-x-hidden bg-white">
@@ -90,13 +94,13 @@ export function VerticalsSection() {
             className="w-full max-w-[560px] text-[36px] font-normal text-text-100"
             style={{ letterSpacing: "-0.03333333465788099em", lineHeight: "1.5em" }}
           >
-            Our Verticals
+            Key Infrastructure Domains
           </h2>
           <p
             className="max-w-[540px] text-[18px] font-normal leading-[1.5em] text-muted"
             style={{ letterSpacing: "-0.011111111276679568em" }}
           >
-            Three focused businesses—each delivering depth, compliance, and outcomes where it matters most.
+            Our verticals operate with specialized focus but shared architecture. They maintain distinct execution mandates while enabling seamless integration. They deliver discrete systems that function as unified infrastructure.
           </p>
         </div>
 
@@ -105,7 +109,7 @@ export function VerticalsSection() {
             {showSkeleton
               ? [0, 1, 2].map((i) => <VerticalCardSkeleton key={i} />)
               : useApi
-                ? verticals.map((v, index) => {
+                ? orderedVerticals.map((v, index) => {
                   const slug = v.slug?.trim() || "";
                   const href = slug ? `/our-verticals/${slug}` : "#";
                   const title = v.title?.trim() || "";
@@ -122,7 +126,7 @@ export function VerticalsSection() {
                       id={slug || undefined}
                       href={href}
                       aria-label={title ? `${title}: read more` : "Read more"}
-                      className="flex w-full flex-col items-center justify-between rounded-[8px] px-8 py-10 transition hover:brightness-105 md:px-6 lg:h-full lg:min-h-0 lg:px-16"
+                      className="flex w-full flex-col items-center justify-between rounded-[8px] px-8 py-10 transition hover:brightness-105 md:px-6 lg:h-full lg:min-h-0 lg:px-16 gap-3.5"
                       style={{ backgroundColor: bgColor }}
                     >
                       <div className="flex w-full shrink-0 flex-col items-center">
@@ -133,7 +137,7 @@ export function VerticalsSection() {
                                 src={logoSrc}
                                 alt={v.logo?.alternativeText ?? ""}
                                 fill
-                                className="object-contain"
+                                className="object-contain brightness-0 invert"
                                 sizes="142px"
                               />
                             </div>
@@ -162,7 +166,7 @@ export function VerticalsSection() {
                         )}
                         {description ? (
                           <p
-                            className="max-h-[96px] overflow-hidden text-base font-light leading-[1.5em] text-white line-clamp-4"
+                            className=" overflow-hidden text-base font-light leading-[1.5em] text-white "
                             style={{ letterSpacing: "-0.012500000186264515em" }}
                           >
                             {description}
@@ -208,7 +212,7 @@ export function VerticalsSection() {
                       id={slug || undefined}
                       href={href}
                       aria-label={`${item.title}: read more`}
-                      className={`${item.colorClass} flex w-full flex-col items-center justify-between rounded-[8px] px-8 py-10 transition hover:brightness-105 md:px-6 lg:h-full lg:min-h-0 lg:px-16`}
+                      className={`${item.colorClass} flex w-full flex-col items-center justify-between rounded-[8px] px-8 py-10 transition hover:brightness-105 md:px-6 lg:h-full lg:min-h-0 lg:px-16 `}
                     >
                       <div className="flex w-full shrink-0 flex-col items-center">
                         <div className="flex h-[142px] w-[142px] flex-col items-center justify-center">

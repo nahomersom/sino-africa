@@ -34,7 +34,7 @@ export function HowWeWorkSection() {
 
   return (
     <section
-      className="relative overflow-hidden flex w-full max-w-[1728px] mx-auto flex-col items-center bg-white h-auto pt-[40px] pb-[40px] px-[32px] gap-[40px] md:px-[80px] md:py-[40px] lg:min-h-[828px] lg:pt-[100px] lg:pb-[100px] lg:px-[80px] xl:px-[188px] lg:gap-[40px]"
+      className="relative overflow-hidden flex w-full  mx-auto flex-col items-center bg-white h-auto pt-[40px] pb-[40px] px-[32px] gap-[40px] md:px-[80px] md:py-[40px] lg:min-h-[828px] lg:pt-[100px] lg:pb-[100px] lg:px-[80px] xl:px-[188px] lg:gap-[40px]"
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.1] hidden lg:block"
@@ -55,7 +55,7 @@ export function HowWeWorkSection() {
 
       {/* Header */}
       <div
-        className="flex flex-col items-center text-center w-full max-w-[366px] gap-[16px] md:max-w-[677px] lg:max-w-[552px]"
+        className="flex flex-col items-center text-center w-full max-w-[366px] gap-[16px] md:max-w-[677px] lg:max-w-full"
       >
         <h2
           className="font-normal text-[#161C2D]"

@@ -3,7 +3,7 @@ export const aboutContent = {
     label: "ABOUT US",
     heading: "We empower growth by connecting global markets and unlocking new opportunities.",
     images: {
-      center: "/images/about/hero-photo-1.png",
+      center: "/images/about/hero-photo-1.jpg",
       left: "/images/about/hero-photo-0.png",
       right: "/images/about/hero-photo-2.png",
     },
@@ -23,37 +23,37 @@ export const aboutContent = {
           title: "Institutional Integrity",
           description:
             "Operating within established regulatory frameworks and governance standards remains central to how Sino Africa structures and manages institutional systems.",
-          accent: "#E6F1E9",
+          accent: "#FDFDFF",
         },
         {
           title: "Disciplined Execution",
           description:
             "Complex infrastructure and technology programs are delivered through structured implementation, operational reliability, and clear accountability at every stage.",
-          accent: "#FCE4E4",
+          accent: "#F64B4B",
         },
         {
           title: "Partnership-Driven Approach",
           description:
             "Long-term collaboration with governments, institutions, and global technology providers strengthens the ability to build sustainable and impactful ecosystems.",
-          accent: "#F5EFE6",
+          accent: "#68D585",
         },
         {
           title: "Regulatory Alignment",
           description:
             "Every platform and system is designed to integrate seamlessly within compliant legal, regulatory, and institutional environments.",
-          accent: "#ECE6F2",
+          accent: "#161C2D",
         },
         {
           title: "Operational Excellence",
           description:
             "High standards in deployment, integration, and system performance ensure reliability, efficiency, and long-term operational stability.",
-          accent: "#E6F1E9",
+          accent: "#68D585",
         },
         {
           title: "Lifecycle Partner",
           description:
             "Continuous support, modernization, and operational oversight ensure systems remain effective and sustainable throughout their full lifecycle.",
-          accent: "#ECE6F2",
+          accent: "#161C2D",
         },
       ],
     },

@@ -103,6 +103,47 @@ function FocusGridTextImages({
   );
 }
 
+/** Adaptive 2-col staggered mosaic for the wide-text grid path: renders only the cells that have images (2–4). */
+function FocusWideMosaic({ images }: { images: string[] }) {
+  const cellSizes = "(max-width: 1023px) 42vw, 212px";
+  const cellClasses = [
+    "aspect-[206/212] w-full lg:aspect-auto lg:h-[206px] lg:w-[212px] lg:shrink-0",
+    "aspect-[255/212] w-full lg:aspect-auto lg:h-[255px] lg:w-[212px] lg:shrink-0",
+    "aspect-[255/212] w-full lg:aspect-auto lg:h-[255px] lg:w-[212px] lg:shrink-0",
+    "aspect-[206/212] w-full lg:aspect-auto lg:h-[206px] lg:w-[212px] lg:shrink-0",
+  ];
+  // Reading-order distribution across the two staggered columns.
+  const left = [
+    { src: images[0], className: cellClasses[0] },
+    images[2] ? { src: images[2], className: cellClasses[1] } : null,
+  ].filter((c): c is { src: string; className: string } => Boolean(c?.src));
+  const right = [
+    images[1] ? { src: images[1], className: cellClasses[2] } : null,
+    images[3] ? { src: images[3], className: cellClasses[3] } : null,
+  ].filter((c): c is { src: string; className: string } => Boolean(c?.src));
+
+  return (
+    <div className="relative mx-auto w-full max-w-[449px] min-w-0">
+      <div className="relative flex w-full min-w-0 flex-row gap-3 lg:w-[449px] lg:gap-[25px]">
+        {left.length > 0 && (
+          <div className="flex min-w-0 flex-1 flex-col gap-3 lg:w-[212px] lg:flex-none lg:gap-[25px]">
+            {left.map((c, i) => (
+              <FocusImageCell key={i} src={c.src} sizes={cellSizes} className={c.className} />
+            ))}
+          </div>
+        )}
+        {right.length > 0 && (
+          <div className="flex min-w-0 flex-1 flex-col gap-3 pt-3 lg:w-[212px] lg:flex-none lg:gap-[25px] lg:pt-[25px]">
+            {right.map((c, i) => (
+              <FocusImageCell key={i} src={c.src} sizes={cellSizes} className={c.className} />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 /** Second focus row images: 447×468 group; left 327×468, right 264×382 overlapping left (design spec). Below lg: percentage layout so width tracks container. */
 function FocusDualOverlapImages({
   images,
@@ -137,7 +178,15 @@ function FocusDualOverlapImages({
   );
 }
 
-function FocusRowBlock({ row, rightPanelColor }: { row: FocusRowType; rightPanelColor?: string }) {
+function FocusRowBlock({
+  row,
+  index,
+  rightPanelColor,
+}: {
+  row: FocusRowType;
+  index: number;
+  rightPanelColor?: string;
+}) {
   if (row.variant === "grid-text") {
     return (
       <div className="mx-auto grid w-full max-w-[1011px] grid-cols-1 items-center gap-10 lg:grid-cols-[449px_1fr] lg:gap-x-[62px] lg:gap-y-0">
@@ -158,22 +207,74 @@ function FocusRowBlock({ row, rightPanelColor }: { row: FocusRowType; rightPanel
     );
   }
 
-  return (
-    <div className="mx-auto grid w-full max-w-[1011px] grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-x-[62px] lg:gap-y-0">
-      <div className="relative aspect-[16/10] w-full min-w-0 overflow-hidden rounded-lg bg-border-light shadow-sm">
-        {row.image ? (
-          <Image
-            src={row.image}
-            alt=""
-            fill
-            className="object-cover"
-            sizes="(max-width: 1024px) 100vw, 560px"
-          />
+  const reversed = index % 2 === 1;
+  const validImages = row.images.filter((s): s is string => Boolean(s)).slice(0, 4);
+  const useGrid = validImages.length >= 2;
+
+  if (useGrid) {
+    return (
+      <div
+        className={cn(
+          "mx-auto grid w-full max-w-[1011px] grid-cols-1 items-center gap-10 lg:gap-x-[62px] lg:gap-y-0",
+          reversed ? "lg:grid-cols-[1fr_449px]" : "lg:grid-cols-[449px_1fr]"
+        )}
+      >
+        {reversed ? (
+          <>
+            <FocusRowCopy title={row.title} body={row.body} className="order-2 lg:order-1" />
+            <div className="order-1 lg:order-2">
+              <FocusWideMosaic images={validImages} />
+            </div>
+          </>
         ) : (
-          <div className="absolute inset-0 animate-pulse bg-border-light" aria-hidden />
+          <>
+            <FocusWideMosaic images={validImages} />
+            <FocusRowCopy title={row.title} body={row.body} />
+          </>
         )}
       </div>
-      <FocusRowCopy title={row.title} body={row.body} />
+    );
+  }
+
+  const singleImage = row.images[0] ?? null;
+  const leftImage = (
+    <div className="relative aspect-[16/10] w-full min-w-0 overflow-hidden rounded-lg bg-border-light shadow-sm">
+      {singleImage ? (
+        <Image
+          src={singleImage}
+          alt=""
+          fill
+          className="object-cover"
+          sizes="(max-width: 1024px) 100vw, 560px"
+        />
+      ) : (
+        <div className="absolute inset-0 animate-pulse bg-border-light" aria-hidden />
+      )}
+    </div>
+  );
+
+  return (
+    <div
+      className={cn(
+        "mx-auto grid w-full max-w-[1011px] grid-cols-1 items-center gap-10 lg:gap-y-0",
+        reversed
+          ? "lg:grid-cols-[1fr_447px] lg:gap-x-[62px]"
+          : "lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-x-[62px]"
+      )}
+    >
+      {reversed ? (
+        <>
+          <FocusRowCopy title={row.title} body={row.body} className="order-2 lg:order-1" />
+          <div className="order-1 flex justify-center lg:order-2 lg:justify-end">
+            <FocusDualOverlapImages images={[singleImage, null]} rightPanelColor={rightPanelColor} />
+          </div>
+        </>
+      ) : (
+        <>
+          {leftImage}
+          <FocusRowCopy title={row.title} body={row.body} />
+        </>
+      )}
     </div>
   );
 }
@@ -212,7 +313,7 @@ export function FocusAreasSection({ title, subtitle, rows, patternSrc, rightPane
 
           <div className="flex flex-col gap-20 lg:gap-24">
             {rows.map((row, i) => (
-              <FocusRowBlock key={`${row.variant}-${i}`} row={row} rightPanelColor={rightPanelColor} />
+              <FocusRowBlock key={`${row.variant}-${i}`} row={row} index={i} rightPanelColor={rightPanelColor} />
             ))}
           </div>
         </div>

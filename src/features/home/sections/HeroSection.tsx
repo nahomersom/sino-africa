@@ -11,6 +11,7 @@ import {
   useGetVerticalsQuery,
   useGetHomeHeroQuery,
 } from "@/src/store/strapiApi";
+import { sortByVerticalOrder } from "@/src/lib/vertical-order";
 import { HERO_SLIDES, type HeroSlide } from "./HeroSection.constants";
 
 function extractVerticalTags(vertical: Vertical): string[] {
@@ -49,8 +50,10 @@ export function HeroSection() {
     }
     : firstSlideTemplate;
 
+  const orderedVerticals = sortByVerticalOrder(verticals, (v) => v.slug ?? v.title ?? v.name);
+
   const verticalSlides: HeroSlide[] = fallbackSlides.map((fallbackSlide, index) => {
-    const vertical = verticals[index];
+    const vertical = orderedVerticals[index];
     if (!vertical) return fallbackSlide;
     const tags = extractVerticalTags(vertical);
     const verticalName = vertical.title ?? vertical.name ?? fallbackSlide.verticalName;
