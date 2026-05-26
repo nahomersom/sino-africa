@@ -1,4 +1,12 @@
+"use client";
+
 import Image from "next/image";
+
+import {
+  ScrollReveal,
+  StaggerContainer,
+  StaggerItem,
+} from "@/src/components/ui/scroll-reveal";
 
 export function RoleSection() {
   const checklistItems = [
@@ -13,7 +21,13 @@ export function RoleSection() {
       <div className="flex flex-col md:flex-row items-center w-full max-w-[366px] md:max-w-[677px] lg:max-w-[1053px] gap-[40px] md:gap-[51px]">
 
         {/* Logo Container */}
-        <div className="relative flex shrink-0 items-center justify-center px-[30px] w-full md:w-[218px] lg:w-[545px] h-[205px] md:h-[60px] lg:h-[205px]">
+        <ScrollReveal
+          amount="some"
+          direction="right"
+          distance={48}
+          duration={1}
+          className="relative flex shrink-0 items-center justify-center px-[30px] w-full md:w-[218px] lg:w-[545px] h-[205px] md:h-[60px] lg:h-[205px]"
+        >
           <Image
             src="/assets/images/sinoafrica.png"
             alt="Sino Africa Trading"
@@ -21,36 +35,58 @@ export function RoleSection() {
             height={205}
             className="h-full w-full object-contain max-sm:max-w-[254px] max-sm:max-h-[95px]"
           />
-        </div>
+        </ScrollReveal>
 
         {/* Text and Checklist Container */}
-        <div className="flex flex-col w-full text-center md:text-left md:w-[407px] lg:w-[457px] gap-[32px] lg:gap-[16px]">
-          <h2 className="text-[#64C294] text-[13px] leading-[120%]">
-          Sino africa’s role
-          </h2>
+        <StaggerContainer
+          className="flex flex-col w-full text-center md:text-left md:w-[407px] lg:w-[457px] gap-[32px] lg:gap-[16px]"
+          stagger={0.18}
+          delay={0.1}
+          amount="some"
+        >
+          <StaggerItem duration={0.9} distance={32} ease={[0.16, 1, 0.3, 1]}>
+            <h2 className="text-[#64C294] text-[13px] leading-[120%]">
+              Sino africa’s role
+            </h2>
+          </StaggerItem>
 
-          <h2 className="font-bold text-[#161C2D] text-[24px] md:text-[32px] lg:text-[36px] leading-[120%] tracking-[-1.2px]">
-            How Sino Africa Provides Solutions
-          </h2>
+          <StaggerItem duration={0.9} distance={32} ease={[0.16, 1, 0.3, 1]}>
+            <h2 className="font-bold text-[#161C2D] text-[24px] md:text-[32px] lg:text-[36px] leading-[120%] tracking-[-1.2px]">
+              How Sino Africa Provides Solutions
+            </h2>
+          </StaggerItem>
 
-          <p className="font-light text-[#5C606C] text-[16px] md:text-[16px] leading-[150%] tracking-[-0.2px]">
-            Sino Africa closes the gap in infrastructure by ensuring disciplined, end-to-end execution, operating fully within regulatory frameworks, and taking full lifecycle responsibility. We operate on the principle that infrastructure that truly matters cannot be treated as a mere transaction.
-          </p>
+          <StaggerItem duration={0.9} distance={32} ease={[0.16, 1, 0.3, 1]}>
+            <p className="font-light text-[#5C606C] text-[16px] md:text-[16px] leading-[150%] tracking-[-0.2px]">
+              Sino Africa closes the gap in infrastructure by ensuring disciplined, end-to-end execution, operating fully within regulatory frameworks, and taking full lifecycle responsibility. We operate on the principle that infrastructure that truly matters cannot be treated as a mere transaction.
+            </p>
+          </StaggerItem>
 
-          <div className="grid grid-cols-2 gap-x-8 lg:gap-x-12 gap-y-4 text-left lg:mt-4">
+          <StaggerContainer
+            className="grid grid-cols-2 gap-x-8 lg:gap-x-12 gap-y-4 text-left lg:mt-4"
+            stagger={0.1}
+            amount="some"
+          >
             {checklistItems.map((item, index) => (
-              <div key={index} className="flex items-center gap-3">
+              <StaggerItem
+                key={index}
+                duration={0.8}
+                distance={24}
+                scale={0.96}
+                ease={[0.16, 1, 0.3, 1]}
+                className="flex items-center gap-3"
+              >
                 <svg width="17" height="12" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
                   <path d="M16.6666 5L7.49992 14.1667L3.33325 10" stroke="#3FAF7E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 <span className="font-normal text-[#161C2D] text-[16px] md:text-[14px] lg:text-[16px]">
                   {item}
                 </span>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
 
-        </div>
+        </StaggerContainer>
 
       </div>
     </section>

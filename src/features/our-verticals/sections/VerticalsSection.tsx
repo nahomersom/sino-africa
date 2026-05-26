@@ -8,6 +8,11 @@ import {
   useGetVerticalsQuery,
 } from "@/src/store/strapiApi";
 import { sortByVerticalOrder } from "@/src/lib/vertical-order";
+import {
+  ScrollReveal,
+  StaggerContainer,
+  StaggerItem,
+} from "@/src/components/ui/scroll-reveal";
 
 import { verticalItems } from "../constants";
 
@@ -89,26 +94,43 @@ export function VerticalsSection() {
       </div>
 
       <div className="relative z-[2] mx-auto flex w-full max-w-[1252px] flex-col items-center gap-[45px] px-8 pb-[88px] pt-24 lg:px-4 lg:pt-[152px]">
-        <div className="flex w-full max-w-[700px] flex-col items-center gap-4 text-center">
-          <h2
-            className="w-full max-w-[560px] text-[36px] font-normal text-text-100"
-            style={{ letterSpacing: "-0.03333333465788099em", lineHeight: "1.5em" }}
-          >
-            Key Infrastructure Domains
-          </h2>
-          <p
-            className="max-w-[552px] text-[18px] font-normal leading-[1.5em] text-muted"
-            style={{ letterSpacing: "-0.011111111276679568em" }}
-          >
-            Our verticals operate with specialized focus but shared architecture. They maintain distinct execution mandates while enabling seamless integration. They deliver discrete systems that function as unified infrastructure.
-          </p>
-        </div>
-        
+        <ScrollReveal amount="some" duration={0.9} distance={32}>
+          <div className="flex w-full max-w-[700px] flex-col items-center gap-4 text-center">
+            <h2
+              className="w-full max-w-[560px] text-[36px] font-normal text-text-100"
+              style={{ letterSpacing: "-0.03333333465788099em", lineHeight: "1.5em" }}
+            >
+              Key Infrastructure Domains
+            </h2>
+            <p
+              className="max-w-[552px] text-[18px] font-normal leading-[1.5em] text-muted"
+              style={{ letterSpacing: "-0.011111111276679568em" }}
+            >
+              Our verticals operate with specialized focus but shared architecture. They maintain distinct execution mandates while enabling seamless integration. They deliver discrete systems that function as unified infrastructure.
+            </p>
+          </div>
+        </ScrollReveal>
+
 
         <div className="relative mx-auto w-full">
-          <div className="grid w-full grid-cols-1 gap-2 md:grid-cols-3 md:auto-rows-[1fr] lg:auto-rows-[552px] lg:grid-cols-3">
+          <StaggerContainer
+            className="grid w-full grid-cols-1 gap-2 md:grid-cols-3 md:auto-rows-[1fr] lg:auto-rows-[552px] lg:grid-cols-3"
+            stagger={0.22}
+            delay={0.1}
+            amount="some"
+          >
             {showSkeleton
-              ? [0, 1, 2].map((i) => <VerticalCardSkeleton key={i} />)
+              ? [0, 1, 2].map((i) => (
+                  <StaggerItem
+                    key={i}
+                    duration={1}
+                    distance={48}
+                    scale={0.94}
+                    ease={[0.16, 1, 0.3, 1]}
+                  >
+                    <VerticalCardSkeleton />
+                  </StaggerItem>
+                ))
               : useApi
                 ? orderedVerticals.map((v, index) => {
                   const slug = v.slug?.trim() || "";
@@ -122,12 +144,19 @@ export function VerticalsSection() {
                   const arrowSrc = ARROW_BY_INDEX[index % ARROW_BY_INDEX.length];
 
                   return (
-                    <Link
+                    <StaggerItem
                       key={v.documentId ?? v.id}
+                      className="h-full"
+                      duration={1}
+                      distance={48}
+                      scale={0.94}
+                      ease={[0.16, 1, 0.3, 1]}
+                    >
+                    <Link
                       id={slug || undefined}
                       href={href}
                       aria-label={title ? `${title}: read more` : "Read more"}
-                      className="flex w-full flex-col items-center justify-between rounded-[8px] px-8 py-10 transition hover:brightness-105 md:px-6 lg:h-full lg:min-h-0 lg:px-16 gap-3.5"
+                      className="flex h-full w-full flex-col items-center justify-between rounded-[8px] px-8 py-10 transition hover:brightness-105 md:px-6 lg:h-full lg:min-h-0 lg:px-16 gap-3.5"
                       style={{ backgroundColor: bgColor }}
                     >
                       <div className="flex w-full shrink-0 flex-col items-center">
@@ -195,6 +224,7 @@ export function VerticalsSection() {
                         </span>
                       </div>
                     </Link>
+                    </StaggerItem>
                   );
                 })
                 : verticalItems.map((item) => {
@@ -208,12 +238,19 @@ export function VerticalsSection() {
                           : "";
                   const href = `/our-verticals/${slug}`;
                   return (
-                    <Link
+                    <StaggerItem
                       key={item.title}
+                      className="h-full"
+                      duration={1}
+                      distance={48}
+                      scale={0.94}
+                      ease={[0.16, 1, 0.3, 1]}
+                    >
+                    <Link
                       id={slug || undefined}
                       href={href}
                       aria-label={`${item.title}: read more`}
-                      className={`${item.colorClass} flex w-full flex-col items-center justify-between rounded-[8px] px-8 py-10 transition hover:brightness-105 md:px-6 lg:h-full lg:min-h-0 lg:px-16 `}
+                      className={`${item.colorClass} flex h-full w-full flex-col items-center justify-between rounded-[8px] px-8 py-10 transition hover:brightness-105 md:px-6 lg:h-full lg:min-h-0 lg:px-16 `}
                     >
                       <div className="flex w-full shrink-0 flex-col items-center">
                         <div className="flex h-[142px] w-[142px] flex-col items-center justify-center">
@@ -256,9 +293,10 @@ export function VerticalsSection() {
                         </span>
                       </div>
                     </Link>
+                    </StaggerItem>
                   );
                 })}
-          </div>
+          </StaggerContainer>
         </div>
       </div>
     </section>

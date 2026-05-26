@@ -8,6 +8,7 @@ import { BlogContent } from "./sections/BlogContent";
 import { SharingSidebar } from "./sections/SharingSidebar";
 import { AllBlogs } from "./sections/AllBlogs";
 import { ErrorState } from "@/src/components/ui/ErrorState";
+import { ScrollReveal, StaggerContainer, StaggerItem } from "@/src/components/ui/scroll-reveal";
 
 interface BlogDetailPageProps {
   id: string;
@@ -93,16 +94,33 @@ export function BlogDetailPage({ id }: BlogDetailPageProps) {
               sizes="847px"
             />
           </div>
-        <div className="relative max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] md:mx-auto px-8 md:px-0  py-[80px] md:py-0 flex flex-col items-center md:gap-[43px] lg:flex-row lg:justify-between lg:gap-[24px] lg:items-start">
-          {/* Top-right decorative oval */}
-      
-
+        <StaggerContainer
+          className="relative max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] md:mx-auto px-8 md:px-0  py-[80px] md:py-0 flex flex-col items-center md:gap-[43px] lg:flex-row lg:justify-between lg:gap-[24px] lg:items-start"
+          stagger={0.18}
+          delay={0.1}
+          amount="some"
+        >
           {/* Article Content */}
-          <BlogContent description={blog.description} publishedDate={blog.publishedDate} />
+          <StaggerItem
+            duration={0.9}
+            distance={32}
+            ease={[0.16, 1, 0.3, 1]}
+            className="w-full"
+          >
+            <BlogContent description={blog.description} publishedDate={blog.publishedDate} />
+          </StaggerItem>
 
           {/* Sidebar */}
-          <SharingSidebar title={blog.title} />
-        </div>
+          <StaggerItem
+            duration={0.9}
+            distance={32}
+            scale={0.96}
+            ease={[0.16, 1, 0.3, 1]}
+            className="w-full md:max-w-[677px] lg:w-[343px] lg:max-w-none lg:shrink-0"
+          >
+            <SharingSidebar title={blog.title} />
+          </StaggerItem>
+        </StaggerContainer>
       </div>
 
       {/* Related Blogs Section */}
@@ -120,7 +138,12 @@ export function BlogDetailPage({ id }: BlogDetailPageProps) {
             />
           </div>
 
-        <div className="relative max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto ">
+        <ScrollReveal
+          amount="some"
+          duration={0.9}
+          distance={32}
+          className="relative max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto"
+        >
           <h2 className="text-[#161C2D] text-[24px] font-semibold mb-[48px] uppercase tracking-normal text-center md:text-center lg:text-left">
             Related Blogs
           </h2>
@@ -129,7 +152,7 @@ export function BlogDetailPage({ id }: BlogDetailPageProps) {
             excludeDocumentId={blog.documentId}
             tags={blog.tags?.map((t) => t.name)}
           />
-        </div>
+        </ScrollReveal>
       </div>
     </main>
   );

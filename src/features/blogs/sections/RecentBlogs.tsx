@@ -1,7 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useGetBlogsQuery, getStrapiMediaUrl, Blog } from "@/src/store/strapiApi";
 import { ErrorState } from "@/src/components/ui/ErrorState";
+import { StaggerContainer, StaggerItem } from "@/src/components/ui/scroll-reveal";
 
 interface RecentBlogCardProps {
   slug: string;
@@ -80,57 +83,86 @@ export function RecentBlogs() {
           <ErrorState onRetry={refetch} />
         ) : (
           <>
-            {/* 
+            {/*
                 DESKTOP VIEW (1024px and up)
              */}
-            <div className="hidden lg:flex flex-col gap-[8px]">
+            <StaggerContainer
+              className="hidden lg:flex flex-col gap-[8px]"
+              stagger={0.12}
+              amount="some"
+            >
               {/* Row 1 - Custom Alignment (487px, 375.5px, 375.5px) */}
               <div className="grid gap-[8px] w-full" style={{ gridTemplateColumns: '487px 1fr 1fr' }}>
                 {blogs.slice(0, 3).map((blog) => (
-                  <RecentBlogCard
+                  <StaggerItem
                     key={blog.id}
-                    slug={blog.documentId}
-                    title={blog.title}
-                    readTime={blog.readTime || "5 minutes"}
-                    date={formatDate(blog.publishedDate)}
-                    image={getBlogImage(blog)}
-                    className="h-[360px] w-full"
-                  />
+                    duration={0.95}
+                    distance={40}
+                    scale={0.94}
+                    ease={[0.16, 1, 0.3, 1]}
+                  >
+                    <RecentBlogCard
+                      slug={blog.documentId}
+                      title={blog.title}
+                      readTime={blog.readTime || "5 minutes"}
+                      date={formatDate(blog.publishedDate)}
+                      image={getBlogImage(blog)}
+                      className="h-[360px] w-full"
+                    />
+                  </StaggerItem>
                 ))}
               </div>
 
               {/* Row 2 - Equal Alignment */}
               <div className="grid grid-cols-3 gap-[8px] w-full">
                 {blogs.slice(3, 6).map((blog) => (
-                  <RecentBlogCard
+                  <StaggerItem
                     key={blog.id}
+                    duration={0.95}
+                    distance={40}
+                    scale={0.94}
+                    ease={[0.16, 1, 0.3, 1]}
+                  >
+                    <RecentBlogCard
+                      slug={blog.documentId}
+                      title={blog.title}
+                      readTime={blog.readTime || "5 minutes"}
+                      date={formatDate(blog.publishedDate)}
+                      image={getBlogImage(blog)}
+                      className="h-[360px] w-full"
+                    />
+                  </StaggerItem>
+                ))}
+              </div>
+            </StaggerContainer>
+
+            {/* =========================================
+                TABLET & MOBILE VIEW (Below 1024px)
+            ========================================= */}
+            <StaggerContainer
+              className="grid lg:hidden grid-cols-1 md:grid-cols-[repeat(auto-fill,minmax(326px,1fr))] gap-[8px] w-full"
+              stagger={0.1}
+              amount="some"
+            >
+              {blogs.map((blog) => (
+                <StaggerItem
+                  key={blog.id}
+                  duration={0.9}
+                  distance={32}
+                  scale={0.95}
+                  ease={[0.16, 1, 0.3, 1]}
+                >
+                  <RecentBlogCard
                     slug={blog.documentId}
                     title={blog.title}
                     readTime={blog.readTime || "5 minutes"}
                     date={formatDate(blog.publishedDate)}
                     image={getBlogImage(blog)}
-                    className="h-[360px] w-full"
+                    className="h-[240px] w-full"
                   />
-                ))}
-              </div>
-            </div>
-
-            {/* =========================================
-                TABLET & MOBILE VIEW (Below 1024px)
-            ========================================= */}
-            <div className="grid lg:hidden grid-cols-1 md:grid-cols-[repeat(auto-fill,minmax(326px,1fr))] gap-[8px] w-full">
-              {blogs.map((blog) => (
-                <RecentBlogCard
-                  key={blog.id}
-                  slug={blog.documentId}
-                  title={blog.title}
-                  readTime={blog.readTime || "5 minutes"}
-                  date={formatDate(blog.publishedDate)}
-                  image={getBlogImage(blog)}
-                  className="h-[240px] w-full"
-                />
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerContainer>
           </>
         )}
 

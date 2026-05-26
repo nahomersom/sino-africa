@@ -68,7 +68,7 @@ type StaggerContainerProps = {
   stagger?: number;
   delay?: number;
   once?: boolean;
-  amount?: number;
+  amount?: number | "some" | "all";
 };
 
 export function StaggerContainer({
@@ -103,6 +103,8 @@ type StaggerItemProps = {
   direction?: Direction;
   distance?: number;
   duration?: number;
+  ease?: Transition["ease"];
+  scale?: number;
 };
 
 export function StaggerItem({
@@ -111,13 +113,22 @@ export function StaggerItem({
   direction = "up",
   distance = 30,
   duration = 0.5,
+  ease = "easeOut",
+  scale,
 }: StaggerItemProps) {
+  const initial = getInitial(direction, distance);
   return (
     <motion.div
       className={className}
       variants={{
-        hidden: getInitial(direction, distance),
-        visible: { opacity: 1, x: 0, y: 0, transition: { duration, ease: "easeOut" } },
+        hidden: scale !== undefined ? { ...initial, scale } : initial,
+        visible: {
+          opacity: 1,
+          x: 0,
+          y: 0,
+          ...(scale !== undefined ? { scale: 1 } : {}),
+          transition: { duration, ease },
+        },
       }}
     >
       {children}

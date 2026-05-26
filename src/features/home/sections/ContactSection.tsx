@@ -5,6 +5,10 @@ import { Button } from "@/src/components/ui/app-button";
 import { cn } from "@/src/lib/utils";
 import { ContactBadgeIcon } from "@/src/components/icons/ContactBadgeIcon";
 import { useCreateContactSubmissionMutation } from "@/src/store/strapiApi";
+import {
+  StaggerContainer,
+  StaggerItem,
+} from "@/src/components/ui/scroll-reveal";
 
 type ContactSectionProps = {
   heading: string;
@@ -172,23 +176,46 @@ export function ContactSection({
       </>
 
 
-      <ContactBadgeIcon
-        size={78}
-        backgroundColor="var(--contact-cta)"
-        className="relative z-10"
-      />
+      <StaggerContainer
+        className="relative z-10 flex w-full flex-col items-center gap-[49px]"
+        stagger={0.18}
+        delay={0.1}
+        amount="some"
+      >
+        <StaggerItem
+          duration={0.9}
+          distance={32}
+          scale={0.92}
+          ease={[0.16, 1, 0.3, 1]}
+        >
+          <ContactBadgeIcon
+            size={78}
+            backgroundColor="var(--contact-cta)"
+          />
+        </StaggerItem>
 
-      <div className="relative z-10 flex max-w-[502px] flex-col items-center gap-4">
-        <h2 className="text-center font-(family-name:--font-nata-sans) text-[36px] font-semibold leading-[1.4] tracking-[-0.04em] text-text-100">
-          {heading}
-        </h2>
-        <p className="max-w-[502px] text-center text-base font-light leading-normal tracking-[-0.0125em] text-muted md:text-lg md:tracking-[-0.011em]">
-          {description}
-        </p>
-      </div>
+        <StaggerItem
+          duration={0.9}
+          distance={32}
+          ease={[0.16, 1, 0.3, 1]}
+          className="flex max-w-[502px] flex-col items-center gap-4"
+        >
+          <h2 className="text-center font-(family-name:--font-nata-sans) text-[36px] font-semibold leading-[1.4] tracking-[-0.04em] text-text-100">
+            {heading}
+          </h2>
+          <p className="max-w-[502px] text-center text-base font-light leading-normal tracking-[-0.0125em] text-muted md:text-lg md:tracking-[-0.011em]">
+            {description}
+          </p>
+        </StaggerItem>
 
+      <StaggerItem
+        duration={1}
+        distance={40}
+        ease={[0.16, 1, 0.3, 1]}
+        className="w-full flex justify-center"
+      >
       <form
-        className="relative z-10 flex w-full max-w-[522px] flex-col items-center gap-6 lg:h-[409px]"
+        className="flex w-full max-w-[522px] flex-col items-center gap-6 lg:h-[409px]"
         onSubmit={handleSubmit}
       >
         <div className="flex w-full flex-col gap-6">
@@ -307,6 +334,8 @@ export function ContactSection({
           </p>
         ) : null}
       </form>
+      </StaggerItem>
+      </StaggerContainer>
     </section>
   );
 }

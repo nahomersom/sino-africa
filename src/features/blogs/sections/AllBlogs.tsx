@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useGetBlogsQuery, Blog, getStrapiMediaUrl } from "@/src/store/strapiApi";
 import { blogDescriptionPlainText } from "@/src/features/blogs/blogDescriptionPlainText";
 import { ErrorState } from "@/src/components/ui/ErrorState";
+import { StaggerContainer, StaggerItem } from "@/src/components/ui/scroll-reveal";
 
 interface AllBlogCardProps {
   slug: string;
@@ -100,17 +101,28 @@ export function AllBlogs({ showTitle = true, excludeDocumentId, tags }: AllBlogs
           ) : isError ? (
             <ErrorState onRetry={refetch} />
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-[16px]">
+            <StaggerContainer
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-[16px]"
+              stagger={0.12}
+              amount="some"
+            >
               {blogs.map((blog) => (
-                <AllBlogCard
+                <StaggerItem
                   key={blog.id}
-                  slug={blog.documentId}
-                  title={blog.title}
-                  description={blog.summary || getDescriptionText(blog)}
-                  image={getBlogImage(blog)}
-                />
+                  duration={0.9}
+                  distance={36}
+                  scale={0.94}
+                  ease={[0.16, 1, 0.3, 1]}
+                >
+                  <AllBlogCard
+                    slug={blog.documentId}
+                    title={blog.title}
+                    description={blog.summary || getDescriptionText(blog)}
+                    image={getBlogImage(blog)}
+                  />
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerContainer>
           )}
         </div>
       </div>
