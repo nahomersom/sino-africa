@@ -94,13 +94,13 @@ export function VerticalsSection() {
             className="w-full max-w-[560px] text-[36px] font-normal text-text-100"
             style={{ letterSpacing: "-0.03333333465788099em", lineHeight: "1.5em" }}
           >
-            Our Verticals
+            Key Infrastructure Domains
           </h2>
           <p
             className="max-w-[552px] text-[18px] font-normal leading-[1.5em] text-muted"
             style={{ letterSpacing: "-0.011111111276679568em" }}
           >
-            Sino Africa delivers essential institutional frameworks across monetary systems, sovereign security and public administration platforms, and national transport and supply networks.
+            Our verticals operate with specialized focus but shared architecture. They maintain distinct execution mandates while enabling seamless integration. They deliver discrete systems that function as unified infrastructure.
           </p>
         </div>
         
