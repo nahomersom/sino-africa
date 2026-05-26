@@ -41,8 +41,8 @@ const footerLinks = {
     title: "Contact",
     links: [
       {
-        label: "info@Sinoafricatrading.com",
-        href: "mailto:info@Sinoafricatrading.com",
+        label: "info@api.sinoafricatrading.com ",
+        href: "mailto:info@api.sinoafricatrading.com ",
         leadingIconSrc: "/icons/mail.svg",
       },
       {

@@ -4,7 +4,7 @@ import { useGetLandingPageQuery } from "@/src/store/strapiApi";
 
 const STRAPI_URL =
   process.env.NEXT_PUBLIC_STRAPI_URL?.trim() ||
-  "https://sino-cms.abalaz.et";
+  "https://api.sinoafricatrading.com ";
 
 export function LandingPageClient() {
   const { data, isLoading, error } = useGetLandingPageQuery(undefined, {

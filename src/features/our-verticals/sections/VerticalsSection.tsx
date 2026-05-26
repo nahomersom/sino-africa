@@ -49,7 +49,7 @@ function VerticalCardSkeleton() {
 }
 
 export function VerticalsSection() {
-  const hasStrapi = Boolean(process.env.NEXT_PUBLIC_STRAPI_URL) || "https://sino-cms.abalaz.et";
+  const hasStrapi = Boolean(process.env.NEXT_PUBLIC_STRAPI_URL) || "https://api.sinoafricatrading.com ";
   const { data: verticals = [], isLoading, isFetching } = useGetVerticalsQuery(
     undefined,
     { skip: !hasStrapi }
