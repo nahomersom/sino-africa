@@ -21,7 +21,7 @@ export function BlogContent({ description, publishedDate }: BlogContentProps) {
     : null;
 
   return (
-    <div className="flex flex-col gap-[24px] lg:gap-[43px] text-[#161C2D]/80 text-[14px] md:text-[16px] leading-[1.8] font-normal w-full lg:w-[887px]">
+    <div className="flex flex-col gap-[24px] lg:gap-[43px] text-[#161C2D]/80 text-[14px] md:text-[16px] leading-[1.8] font-normal w-full ">
       {formattedDate && (
         <p className="text-[#5C606C] text-[14px] font-medium mb-[16px]">
           Published on {formattedDate}

@@ -61,13 +61,25 @@ export function BlogDetailPage({ id }: BlogDetailPageProps) {
     : placeholderImage;
 
   return (
-    <main className="flex min-h-screen flex-col">
+    <main className="relative flex min-h-screen flex-col">
+      {/* Mobile-only top pattern (extends under navbar) */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 -top-20 z-10 h-[681px] md:hidden"
+        style={{
+          backgroundImage: "url('/images/blog-detail-bg-pattern.svg')",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "top center",
+        }}
+      />
+
       {/* Hero Section */}
       <BlogDetailHero title={blog.title} image={coverImage} />
 
       {/* Main Content Area */}
       <div className="w-full bg-white">
-        <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 md:px-6 lg:px-8 py-[80px] flex flex-col items-center md:gap-[43px] lg:flex-row lg:justify-between lg:gap-[24px] lg:items-start">
+        <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] md:mx-auto px-8 md:px-0  py-[80px] md:py-0 flex flex-col items-center md:gap-[43px] lg:flex-row lg:justify-between lg:gap-[24px] lg:items-start">
           {/* Article Content */}
           <BlogContent description={blog.description} publishedDate={blog.publishedDate} />
 
@@ -77,7 +89,7 @@ export function BlogDetailPage({ id }: BlogDetailPageProps) {
       </div>
 
       {/* Related Blogs Section */}
-      <div className="bg-white py-[100px] w-full">
+      <div className="bg-white md:py-[100px] w-full">
         <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 md:px-6 lg:px-8">
           <h2 className="text-[#161C2D] text-[24px] font-semibold mb-[48px] uppercase tracking-normal text-center md:text-center lg:text-left">
             Related Blogs

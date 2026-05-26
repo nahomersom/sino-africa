@@ -20,7 +20,7 @@ export function BlogDetailHero({ title, image }: BlogDetailHeroProps) {
         </svg>
       </div>
 
-      <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 lg:px-0 relative z-10">
+      <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] md:mx-auto px-8 md:px-4 lg:px-0 relative z-10">
         {/* Back Link */}
         <Link
           href="/blogs"

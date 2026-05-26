@@ -57,7 +57,7 @@ export function DetailHero({
                       src={heroLogoSrc}
                       alt=""
                       fill
-                      className="object-contain object-center md:object-left"
+                      className="object-contain object-center md:object-left brightness-0 invert"
                       sizes="142px"
                     />
                   </div>
