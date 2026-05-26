@@ -99,10 +99,9 @@ export function SharingSidebar({ title }: SharingSidebarProps) {
       )
     },
   ];
-
   return (
     <aside className="w-full md:max-w-[677px] lg:max-w-none lg:w-[343px] shrink-0 lg:h-fit lg:self-start z-0">
-      <div className="bg-linear-to-br from-[#64C294] to-[#4A9070] rounded-[24px] p-8 flex flex-col md:justify-between gap-6 text-white overflow-hidden relative group shadow-xl md:h-[282px] lg:h-auto">
+      <div className="bg-linear-to-br from-[#64C294] to-[#4A9070] rounded-[24px] p-8 flex flex-col md:justify-between gap-6 text-white overflow-hidden relative group shadow-xl md:h-[282px] lg:h-[282px] lg:w-[343px]">
         {/* Top Header Icons */}
         <div className="flex justify-between items-start w-full relative z-10">
           {/* Company Logo Icon */}

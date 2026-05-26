@@ -359,8 +359,8 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
 
             <motion.div
               className={cn(
-                "relative order-2 mx-auto w-full max-w-[651.24px] shrink-0 overflow-hidden rounded-[6px]",
-                "aspect-[651.24/735] md:mx-0 md:mt-8 md:h-[383px] md:w-[318.5px] md:max-w-none xl:mt-0 xl:h-[500px] xl:w-[420px]",
+                "relative order-2 mx-auto w-full max-w-[651.24px] shrink-0 overflow-hidden rounded-[5px]",
+                "aspect-[651.24/735] md:mx-0 md:mt-8 md:h-[383px] md:w-[318.5px] md:max-w-none xl:mt-0 xl:h-[620px] xl:w-[550px]",
               )}
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}

@@ -57,7 +57,7 @@ function HeroCollage({
   );
 
   return (
-    <div className="relative mt-2 mb-5 w-full shrink-0 lg:mt-2 lg:w-full lg:max-w-[1236px] lg:left-[103px]">
+    <div className="relative mt-2 w-full shrink-0 lg:mt-2 lg:w-full lg:max-w-[1236px] lg:left-[103px]">
       {/* Figma mobile stack: visible below lg (md alone is too narrow — tablets saw collage only) */}
       {/* Below lg: mobile stack + Tablet (md) row — Figma Tablet Hero 6:6503 */}
       <div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-10 lg:hidden">

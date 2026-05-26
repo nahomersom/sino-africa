@@ -31,7 +31,7 @@ export function ProjectsHeroSection({ label, heading, description }: ProjectsHer
         aria-hidden
       />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-[1252px] flex-col items-stretch gap-10 px-8 py-5 md:flex-row md:items-start md:justify-between md:gap-8 md:py-12 lg:px-4 lg:items-center">
+      <div className="relative z-10 mx-auto flex w-full max-w-[1000px] flex-col items-stretch gap-10 px-8 py-5 md:flex-row md:items-center md:justify-between md:gap-8 md:py-12 lg:px-4 lg:items-center">
         <div className="flex flex-col items-center gap-2 text-center md:w-[48%] md:items-start md:text-left md:min-h-[264px] lg:w-[507px]">
           <motion.div
             className="flex flex-col items-center gap-2 md:items-start"
