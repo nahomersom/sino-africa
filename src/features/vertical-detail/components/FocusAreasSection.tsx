@@ -7,9 +7,9 @@ import type { FocusRow as FocusRowType } from "../types";
 /** Focus row title + body stack (design: 434px wide, 21px gap). */
 const focusRowCopyStack = "flex w-full max-w-[434px] min-w-0 flex-col gap-[21px]";
 const focusRowCopyTitle =
-  "font-heading text-[36px] font-semibold leading-[48px] tracking-[-1.2px] text-balance text-text-100";
+  "font-heading text-[32px] lg:text-[36px] font-semibold leading-[48px] tracking-[-1.2px] text-balance text-text-100";
 const focusRowCopyBody =
-  "font-sans text-[19px] font-normal leading-[32px] tracking-[-0.2px] text-muted";
+  "font-sans text-sm lg:text-[19px] font-normal leading-[32px] tracking-[-0.2px] text-muted";
 
 function FocusRowCopy({ title, body, className }: { title: string; body: string; className?: string }) {
   return (

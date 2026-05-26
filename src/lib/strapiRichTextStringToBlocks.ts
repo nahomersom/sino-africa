@@ -108,18 +108,7 @@ export function stringToBlocksContent(input: string): BlocksContent {
   if (!prepared) return [];
 
   const blocks: BlocksContent = [];
-  let currentParagraphLines: string[] = [];
   let currentList: { format: "unordered" | "ordered"; items: string[] } | null = null;
-
-  const flushParagraph = () => {
-    if (currentParagraphLines.length > 0) {
-      blocks.push({
-        type: "paragraph",
-        children: parseParagraphInline(currentParagraphLines.join(" ")),
-      });
-      currentParagraphLines = [];
-    }
-  };
 
   const flushList = () => {
     if (currentList) {
@@ -142,7 +131,6 @@ export function stringToBlocksContent(input: string): BlocksContent {
     const trimmed = line.trim();
 
     if (trimmed.length === 0) {
-      flushParagraph();
       flushList();
       continue;
     }
@@ -150,7 +138,6 @@ export function stringToBlocksContent(input: string): BlocksContent {
     // Heading check
     const hm = line.match(/^(#{1,6})\s+(.+?)\s*$/);
     if (hm) {
-      flushParagraph();
       flushList();
       blocks.push({
         type: "heading",
@@ -165,7 +152,6 @@ export function stringToBlocksContent(input: string): BlocksContent {
     const orderedMatch = line.match(/^[\s]*(\d+)\.\s+(.+)$/);
 
     if (unorderedMatch || orderedMatch) {
-      flushParagraph();
       const format = unorderedMatch ? "unordered" : "ordered";
       const content = unorderedMatch ? unorderedMatch[2] : orderedMatch![2];
 
@@ -178,12 +164,27 @@ export function stringToBlocksContent(input: string): BlocksContent {
       continue;
     }
 
-    // Regular line - either adds to paragraph or breaks a list
+    // Regular line — each newline becomes its own paragraph block.
     flushList();
-    currentParagraphLines.push(trimmed);
+
+    // A line that is entirely wrapped in **bold** (e.g. "**Outlook**") is treated
+    // as a heading so it renders larger than body paragraphs.
+    const wholeBoldMatch = trimmed.match(/^\*\*(.+)\*\*$/);
+    if (wholeBoldMatch && !wholeBoldMatch[1].includes("**")) {
+      blocks.push({
+        type: "heading",
+        level: 2 as any,
+        children: parseParagraphInline(wholeBoldMatch[1]),
+      });
+      continue;
+    }
+
+    blocks.push({
+      type: "paragraph",
+      children: parseParagraphInline(trimmed),
+    });
   }
 
-  flushParagraph();
   flushList();
 
   return blocks;

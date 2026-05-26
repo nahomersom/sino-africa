@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(xargs sed -i '' 's/backgroundSize: \"28px\"/backgroundSize: \"20px\"/g')"
+      "Bash(xargs sed -i '' 's/backgroundSize: \"28px\"/backgroundSize: \"20px\"/g')",
+      "Bash(gh auth *)",
+      "Bash(git remote *)",
+      "Bash(git push *)"
     ]
   }
 }
