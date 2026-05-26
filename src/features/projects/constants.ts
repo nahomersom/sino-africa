@@ -31,7 +31,7 @@ export type ProjectCard = {
 export const projectsContent = {
   hero: {
     label: "OUR PROJECTS",
-    heading: "Delivering technology and infrastructure that moves businesses forward.",
+    heading:"Our projects that showcase how We turns innovative solutions into tangible results, driving growth and strengthening institutions across diverse sectors.",
     description: "",
   },
   grid: {
