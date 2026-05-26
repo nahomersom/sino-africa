@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { useGetBlogByDocumentIdQuery, getStrapiMediaUrl } from "@/src/store/strapiApi";
 import { BlogDetailHero } from "./sections/BlogDetailHero";
 import { BlogContent } from "./sections/BlogContent";
@@ -78,8 +80,23 @@ export function BlogDetailPage({ id }: BlogDetailPageProps) {
       <BlogDetailHero title={blog.title} image={coverImage} />
 
       {/* Main Content Area */}
-      <div className="w-full bg-white">
-        <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] md:mx-auto px-8 md:px-0  py-[80px] md:py-0 flex flex-col items-center md:gap-[43px] lg:flex-row lg:justify-between lg:gap-[24px] lg:items-start">
+      <div className="relative w-full bg-white overflow-x-clip">
+      <div
+            aria-hidden
+            className="pointer-events-none absolute overflow-visible -top-[200px] z-10  size-[847px]  right-0"
+          >
+            <Image
+              src="/images/insights/top-right-oval.svg"
+              alt=""
+              fill
+              className="object-contain object-right"
+              sizes="847px"
+            />
+          </div>
+        <div className="relative max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] md:mx-auto px-8 md:px-0  py-[80px] md:py-0 flex flex-col items-center md:gap-[43px] lg:flex-row lg:justify-between lg:gap-[24px] lg:items-start">
+          {/* Top-right decorative oval */}
+      
+
           {/* Article Content */}
           <BlogContent description={blog.description} publishedDate={blog.publishedDate} />
 
@@ -89,15 +106,28 @@ export function BlogDetailPage({ id }: BlogDetailPageProps) {
       </div>
 
       {/* Related Blogs Section */}
-      <div className="bg-white md:py-[100px] w-full">
-        <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 md:px-6 lg:px-8">
+      <div className="relative bg-white md:py-[100px] w-full overflow-x-clip">
+      <div
+            aria-hidden
+            className="pointer-events-none absolute -top-[95px] overflow-visible  z-10  size-[847px]  left-0"
+          >
+            <Image
+              src="/images/insights/bottom-left-oval.svg"
+              alt=""
+              fill
+              className="object-contain object-left"
+              sizes="847px"
+            />
+          </div>
+
+        <div className="relative max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto ">
           <h2 className="text-[#161C2D] text-[24px] font-semibold mb-[48px] uppercase tracking-normal text-center md:text-center lg:text-left">
             Related Blogs
           </h2>
-          <AllBlogs 
-            showTitle={false} 
-            excludeDocumentId={blog.documentId} 
-            tags={blog.tags?.map((t) => t.name)} 
+          <AllBlogs
+            showTitle={false}
+            excludeDocumentId={blog.documentId}
+            tags={blog.tags?.map((t) => t.name)}
           />
         </div>
       </div>

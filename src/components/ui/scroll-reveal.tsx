@@ -17,7 +17,7 @@ type ScrollRevealProps = {
   direction?: Direction;
   distance?: number;
   once?: boolean;
-  amount?: number;
+  amount?: number | "some" | "all";
   as?: "div" | "section" | "span";
 };
 
