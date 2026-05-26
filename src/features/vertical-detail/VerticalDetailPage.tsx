@@ -35,7 +35,7 @@ export function VerticalDetailPage({ content }: Props) {
             paragraphs={content.institutionalParagraphs}
           />
 
-        <ScrollReveal>
+        <ScrollReveal amount="some">
           <FocusAreasSection
             title={content.focusIntroTitle}
             subtitle={content.focusIntroSubtitle}
@@ -45,7 +45,7 @@ export function VerticalDetailPage({ content }: Props) {
           />
         </ScrollReveal>
 
-        <ScrollReveal>
+        <ScrollReveal amount="some">
           <PartnerCardsSection
             title={content.partnersTitle}
             subtitle={content.partnersSubtitle}
@@ -53,7 +53,7 @@ export function VerticalDetailPage({ content }: Props) {
           />
         </ScrollReveal>
 
-        <ScrollReveal>
+        <ScrollReveal amount="some">
           <ContactSection
             heading={homeContent.contact.heading}
             description={content.contactSubtitle}
