@@ -1,0 +1,66 @@
+name: Deploy
+ 
+on:
+  push:
+    branches:
+      - dev
+ 
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+ 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+ 
+      - name: Install dependencies
+        run: npm ci
+ 
+      - name: Build
+        run: npm run build
+        env:
+          NODE_ENV: production
+ 
+      - name: List build output
+        run: |
+          echo "=== .next/ ===" && ls -la .next/ 2>/dev/null || echo "no .next/"
+          echo "=== public/ ===" && ls public/ 2>/dev/null || echo "no public/"
+ 
+      - name: Copy dist to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: 22
+          source: ".next/,public/"
+          target: "/home/sinoafsv/public_html/sino-africa"
+          timeout: 120s
+          command_timeout: 20m
+          overwrite: true
+ 
+      - name: Update code and restart on server
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: 22
+          command_timeout: 5m
+          script_stop: true
+          script: |
+            set -e
+            source /home/sinoafsv/nodevenv/public_html/sino-africa/22/bin/activate
+            cd /home/sinoafsv/public_html/sino-africa
+            git fetch origin
+            git reset --hard origin/dev
+            mkdir -p tmp
+            touch tmp/restart.txt
+ 
+ 
