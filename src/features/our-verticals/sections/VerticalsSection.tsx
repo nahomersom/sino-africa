@@ -97,12 +97,13 @@ export function VerticalsSection() {
             Our Verticals
           </h2>
           <p
-            className="max-w-[540px] text-[18px] font-normal leading-[1.5em] text-muted"
+            className="max-w-[552px] text-[18px] font-normal leading-[1.5em] text-muted"
             style={{ letterSpacing: "-0.011111111276679568em" }}
           >
-            Three focused businesses—each delivering depth, compliance, and outcomes where it matters most.
+            Sino Africa delivers essential institutional frameworks across monetary systems, sovereign security and public administration platforms, and national transport and supply networks.
           </p>
         </div>
+        
 
         <div className="relative mx-auto w-full">
           <div className="grid w-full grid-cols-1 gap-2 md:grid-cols-3 md:auto-rows-[1fr] lg:auto-rows-[552px] lg:grid-cols-3">
@@ -166,7 +167,7 @@ export function VerticalsSection() {
                         )}
                         {description ? (
                           <p
-                            className=" overflow-hidden text-base font-light leading-[1.5em] text-white "
+                            className=" overflow-hidden text-base font-light leading-[1.5em] text-white lg:w-71 "
                             style={{ letterSpacing: "-0.012500000186264515em" }}
                           >
                             {description}

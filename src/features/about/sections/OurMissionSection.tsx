@@ -13,7 +13,7 @@ export function OurMissionSection({
   description,
 }: OurMissionSectionProps) {
   return (
-    <section className="relative flex w-full items-center justify-center overflow-hidden bg-white px-8 py-20 md:px-20 md:py-24 lg:px-[120px] lg:py-[120px] xl:px-[240px]">
+    <section className="relative flex w-full items-center justify-center overflow-hidden bg-white px-8 py-20 md:px-20 md:py-24 lg:px-[120px] lg:py-[110px] xl:px-[240px]">
       {/* Face-icon background pattern */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.1]"
