@@ -136,14 +136,14 @@ export const verticalDetailBySlug: Record<VerticalDetailSlug, VerticalDetailCont
   },
   mobilitex: {
     slug: "mobilitex",
-    name: "Mobilutex",
-    shortLabel: "Mobilutex",
+    name: "Mobilitex",
+    shortLabel: "Mobilitex",
     heroDescription:
       "Mobility and logistics solutions that connect assets, routes, and people—combining asset management, technical advisory, and project delivery for operators who need reliability at scale.",
-    heroImageAlt: "Mobilutex vertical hero",
+    heroImageAlt: "Mobilitex vertical hero",
     institutionalTitle: "Institutional Capacity",
     institutionalParagraphs: [
-      "Mobilutex supports operators and public authorities modernising transport and logistics networks. We bring programme structure, vendor-neutral technical judgement, and a focus on safe, capital-efficient rollouts.",
+      "Mobilitex supports operators and public authorities modernising transport and logistics networks. We bring programme structure, vendor-neutral technical judgement, and a focus on safe, capital-efficient rollouts.",
       "Whether you are integrating OEM systems, designing SLAs, or standing up control towers, we align delivery to operational reality—not slide decks.",
     ],
     focusIntroTitle: "Core Operational Areas",
