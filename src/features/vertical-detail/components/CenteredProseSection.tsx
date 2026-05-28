@@ -4,7 +4,7 @@ import type { VerticalDetailSlug } from "../types";
 
 const INSTITUTIONAL_TITLE_DOT_BY_SLUG: Record<VerticalDetailSlug, string> = {
   "act-it": "/images/our-verticals/green-dot.png",
-  "sino-sec": "/images/our-verticals/black-dot.png",
+  sinosec: "/images/our-verticals/black-dot.png",
   mobilitex: "/images/our-verticals/blue-dot.png",
 };
 

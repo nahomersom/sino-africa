@@ -45,7 +45,7 @@ export const verticalDetailBySlug: Record<VerticalDetailSlug, VerticalDetailCont
         images: [u("photo-1506905925346-21bda4d32df4", 1200, 640)],
       },
     ],
-    partnersTitle: "Ecosystem Partners",
+    partnersTitle: "Operating Ecosystems",
     partnersSubtitle:"The partners we work with",
     partners: [
       {
@@ -70,16 +70,16 @@ export const verticalDetailBySlug: Record<VerticalDetailSlug, VerticalDetailCont
       focusPatternSrc: "/images/our-verticals/green-pattern.png",
     },
   },
-  "sino-sec": {
-    slug: "sino-sec",
-    name: "Sino Sec.",
-    shortLabel: "Sino Sec",
+  sinosec: {
+    slug: "sinosec",
+    name: "SinoSec",
+    shortLabel: "SinoSec",
     heroDescription:
       "Security consulting, risk reduction, and resilient operations so your organisation can operate with confidence—across identity, infrastructure, and government-scale platforms.",
-    heroImageAlt: "Sino Sec. vertical hero",
+    heroImageAlt: "SinoSec vertical hero",
     institutionalTitle: "Institutional Capacity",
     institutionalParagraphs: [
-      "Sino Sec. supports public and private institutions that cannot afford ambiguity in security posture. We translate policy into architecture, controls, and operating rhythms your teams can run.",
+      "SinoSec supports public and private institutions that cannot afford ambiguity in security posture. We translate policy into architecture, controls, and operating rhythms your teams can run.",
       "Our work spans advisory, design, and implementation support—with emphasis on traceability, incident readiness, and long-term maintainability.",
     ],
     focusIntroTitle: "Core Operational Areas",
@@ -139,7 +139,7 @@ export const verticalDetailBySlug: Record<VerticalDetailSlug, VerticalDetailCont
     name: "Mobilitex",
     shortLabel: "Mobilitex",
     heroDescription:
-      "Mobility and logistics solutions that connect assets, routes, and people—combining asset management, technical advisory, and project delivery for operators who need reliability at scale.",
+      "Mobilitex designs, integrates, and governs regulated mobility and autonomous logistics infrastructure enabling smart transport networks, autonomous platforms, urban mobility systems, safety compliance, and long-term mobility operations for cities, transport authorities, governments, and institutional partners.",
     heroImageAlt: "Mobilitex vertical hero",
     institutionalTitle: "Institutional Capacity",
     institutionalParagraphs: [

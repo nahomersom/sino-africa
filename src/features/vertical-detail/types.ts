@@ -1,5 +1,5 @@
 /** Known slugs with full static fallbacks in `content.ts`. */
-export type VerticalDetailSlug = "act-it" | "sino-sec" | "mobilitex";
+export type VerticalDetailSlug = "act-it" | "sinosec" | "mobilitex";
 
 export type VerticalDetailTheme = {
   /** Partner cards, hero logo tint, contact CTA accent */

@@ -3,11 +3,10 @@
 import { AnimatePresence, motion, type Transition } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import {
-  StaggerContainer,
-  StaggerItem,
-} from "@/src/components/ui/scroll-reveal";
+import { useRef, useState } from "react";
+// Inlined stagger here (instead of StaggerContainer/Item) so the pagination
+// wrapper and the entrance animation share one motion tree — avoids a hydration
+// flicker where cards SSR-paint, then briefly disappear, then stagger back in.
 import {
   VERTICALS_ELLIPSE_TOP_PX_BY_GRADIENT,
   VERTICALS_REFERENCE_ELLIPSES,
@@ -106,6 +105,9 @@ export function VerticalsSection({
   const MAX_VISIBLE_CARDS = 3;
   const [activeIndex, setActiveIndex] = useState(0);
   const [cardStart, setCardStart] = useState(0);
+  // Tracks whether the user has clicked next/prev. Stays false on first mount
+  // so the SSR-painted cards don't briefly disappear and re-animate.
+  const hasPaginatedRef = useRef(false);
   const hasOverflowCards = items.length > MAX_VISIBLE_CARDS;
   const activeGradient = items[activeIndex]?.gradient ?? GRADIENTS[0];
   const activeEllipseTopRow =
@@ -115,10 +117,9 @@ export function VerticalsSection({
     VERTICALS_TITLE_ENTRANCE[activeIndex] ?? VERTICALS_TITLE_ENTRANCE[0];
   const titleTransition =
     VERTICALS_TITLE_TRANSITIONS[activeIndex] ?? VERTICALS_TITLE_TRANSITIONS[0];
-  const totalPages = Math.ceil(items.length / MAX_VISIBLE_CARDS);
-  const currentPage = Math.floor(cardStart / MAX_VISIBLE_CARDS);
-  const canGoPrev = currentPage > 0;
-  const canGoNext = currentPage < totalPages - 1;
+  const maxCardStart = Math.max(0, items.length - MAX_VISIBLE_CARDS);
+  const canGoPrev = cardStart > 0;
+  const canGoNext = cardStart < maxCardStart;
   const visibleCards = hasOverflowCards
     ? items
         .slice(cardStart, cardStart + MAX_VISIBLE_CARDS)
@@ -127,9 +128,10 @@ export function VerticalsSection({
 
   const shiftCards = (direction: -1 | 1) => {
     if (!hasOverflowCards) return;
+    hasPaginatedRef.current = true;
     setCardStart((prev) => {
       if (direction < 0) return Math.max(0, prev - MAX_VISIBLE_CARDS);
-      return Math.min((totalPages - 1) * MAX_VISIBLE_CARDS, prev + MAX_VISIBLE_CARDS);
+      return Math.min(maxCardStart, prev + MAX_VISIBLE_CARDS);
     });
   };
 
@@ -246,47 +248,50 @@ export function VerticalsSection({
 
         <motion.div
           key={cardStart}
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, ease: "easeOut" }}
+          initial={hasPaginatedRef.current ? "hidden" : false}
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.12 } },
+          }}
+          className={`relative flex w-full flex-col gap-2 lg:flex-row ${
+            hasOverflowCards && visibleCards.length < MAX_VISIBLE_CARDS ? "items-center lg:justify-center" : ""
+          }`}
         >
-          <StaggerContainer
-            className={`relative flex w-full flex-col gap-2 lg:flex-row ${
-              hasOverflowCards && visibleCards.length < MAX_VISIBLE_CARDS ? "items-center lg:justify-center" : ""
-            }`}
-            stagger={0.12}
-          >
-            {visibleCards.map(({ item, index }) => {
-              const href = item.slug ? `/our-verticals/${item.slug}` : undefined;
-              const cardClassName =
-                "flex min-w-0 cursor-pointer items-center gap-4 rounded-2xl bg-accent-60 p-4 backdrop-blur-[20px] transition-all duration-300";
+          {visibleCards.map(({ item, index }) => {
+            const href = item.slug ? `/our-verticals/${item.slug}` : undefined;
+            const cardClassName =
+              "flex min-w-0 cursor-pointer items-center gap-4 rounded-2xl bg-accent-60 p-4 backdrop-blur-[20px] transition-all duration-300";
 
-              return (
-                <StaggerItem
-                  key={`${item.title}-${index}`}
-                  className={`min-w-0 ${
-                    hasOverflowCards && visibleCards.length < MAX_VISIBLE_CARDS
-                      ? "w-full lg:max-w-[420px]"
-                      : "flex-1"
-                  }`}
-                >
-                  {href ? (
-                    <Link
-                      href={href}
-                      onMouseEnter={() => setActiveIndex(index)}
-                      className={cardClassName}
-                    >
-                      <VerticalCardInner item={item} />
-                    </Link>
-                  ) : (
-                    <div onMouseEnter={() => setActiveIndex(index)} className={cardClassName}>
-                      <VerticalCardInner item={item} />
-                    </div>
-                  )}
-                </StaggerItem>
-              );
-            })}
-          </StaggerContainer>
+            return (
+              <motion.div
+                key={`${item.title}-${index}`}
+                variants={{
+                  hidden: { opacity: 0, y: 30 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+                }}
+                className={`min-w-0 ${
+                  hasOverflowCards && visibleCards.length < MAX_VISIBLE_CARDS
+                    ? "w-full lg:max-w-[420px]"
+                    : "flex-1"
+                }`}
+              >
+                {href ? (
+                  <Link
+                    href={href}
+                    onMouseEnter={() => setActiveIndex(index)}
+                    className={cardClassName}
+                  >
+                    <VerticalCardInner item={item} />
+                  </Link>
+                ) : (
+                  <div onMouseEnter={() => setActiveIndex(index)} className={cardClassName}>
+                    <VerticalCardInner item={item} />
+                  </div>
+                )}
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </section>

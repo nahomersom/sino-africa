@@ -1,6 +1,6 @@
 import type { RichTextBlock } from "@/src/store/strapiApi";
 
-export type ProjectFilterId = "all" | "act-it" | "sino-sec" | "mobilitex" | "pilot";
+export type ProjectFilterId = "all" | "act-it" | "sinosec" | "mobilitex" | "pilot";
 
 export type ProjectFilterTab = {
   id: ProjectFilterId;
@@ -10,7 +10,7 @@ export type ProjectFilterTab = {
 export const projectFilterTabs: readonly ProjectFilterTab[] = [
   { id: "all", label: "All" },
   { id: "act-it", label: "ACT IT" },
-  { id: "sino-sec", label: "Sino Sec" },
+  { id: "sinosec", label: "SinoSec" },
   { id: "mobilitex", label: "Mobilitex" },
   { id: "pilot", label: "Pilot Projects" },
 ] as const;
@@ -50,14 +50,14 @@ export const projectsContent = {
         imageAlt: "Act IT project preview",
       },
       {
-        id: "sino-sec",
-        filterId: "sino-sec",
-        filterLabel: "Sino Sec",
-        title: "SINO Sec compliance program",
+        id: "sinosec",
+        filterId: "sinosec",
+        filterLabel: "SinoSec",
+        title: "SinoSec compliance program",
         description:
           "Hardening, monitoring, and policy alignment for organisations scaling across regulated environments.",
         imageSrc: "/images/about/hero-photo-0.jpg",
-        imageAlt: "SINO Sec project preview",
+        imageAlt: "SinoSec project preview",
       },
       {
         id: "mobilitex",

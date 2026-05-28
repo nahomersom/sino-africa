@@ -36,7 +36,7 @@ export function HomePage() {
     }),
   );
 
-  const fallbackVerticalSlugs = ["act-it", "sino-sec", "mobilitex"] as const;
+  const fallbackVerticalSlugs = ["act-it", "sinosec", "mobilitex"] as const;
 
   const orderedVerticals = sortByVerticalOrder(verticals, (v) => v.slug ?? v.title ?? v.name);
 

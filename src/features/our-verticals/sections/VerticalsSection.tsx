@@ -231,8 +231,8 @@ export function VerticalsSection() {
                   const slug =
                     item.title === "ACT IT"
                       ? "act-it"
-                      : item.title === "SINO SEC"
-                        ? "sino-sec"
+                      : item.title === "SINOSEC"
+                        ? "sinosec"
                         : item.title === "MOBILITEX"
                           ? "mobilitex"
                           : "";

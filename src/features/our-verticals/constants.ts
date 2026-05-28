@@ -16,7 +16,7 @@ export const verticalItems: VerticalItem[] = [
     arrowSrc: "/images/our-verticals/vertical-card-arrow-1.svg",
   },
   {
-    title: "SINO SEC",
+    title: "SINOSEC",
     description:
       "Security consulting, risk reduction, and resilient operations so your organisation can operate with confidence.",
     colorClass: "bg-[#4A5568]",

@@ -114,7 +114,7 @@ export const homeContent = {
         subtitle: "Software Development",
       },
       {
-        name: "SINO SEC",
+        name: "SINOSEC",
         subtitle: "Security Provider",
       },
       {

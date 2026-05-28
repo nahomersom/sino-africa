@@ -24,7 +24,7 @@ function sortVerticalNavLinks(links: readonly NavSubLink[]): NavSubLink[] {
 
 const verticalSubLinks: readonly NavSubLink[] = [
   { label: "Act IT", href: "/our-verticals/act-it" },
-  { label: "Sino Tec", href: "/our-verticals/sino-sec" },
+  { label: "SinoSec", href: "/our-verticals/sinosec" },
   { label: "Mobilitex", href: "/our-verticals/mobilitex" },
 ];
 
@@ -136,6 +136,9 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
   const pathname = usePathname();
   const useLightMobileBranding = variant === "default" && pathname === "/";
   const [isMobileMdScrolled, setIsMobileMdScrolled] = useState(false);
+  // True once the user has scrolled past the first viewport (≈ past the hero).
+  // We collapse the nav's outer padding so the pill attaches to the top edge.
+  const [isPastFirstSection, setIsPastFirstSection] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const STRAPI_URL =
     process.env.NEXT_PUBLIC_STRAPI_URL?.trim() ||
@@ -178,6 +181,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
     const onViewportChange = () => {
       const isLgUp = window.matchMedia("(min-width: 1024px)").matches;
       setIsMobileMdScrolled(!isLgUp && window.scrollY > 6);
+      setIsPastFirstSection(window.scrollY > window.innerHeight * 0.8);
       if (isLgUp) setMenuOpen(false);
     };
 
@@ -194,7 +198,12 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
 
   return (
     <header className={`fixed inset-x-0 top-0 z-30 w-full ${className}`}>
-      <div className="md:mx-auto w-full max-w-[1252px] px-8 py-6 lg:px-4 lg:pt-8 lg:pb-0">
+      <div
+        className={cn(
+          "md:mx-auto w-full max-w-[1252px] px-8 lg:px-4",
+          isPastFirstSection ? "py-0 lg:py-0" : "py-6 lg:pt-8 lg:pb-0",
+        )}
+      >
         <div
           className={`flex items-center justify-between transition-colors duration-200 ${isMobileMdScrolled
             ? "rounded-[20px] bg-white/95 p-3 shadow-[0_6px_20px_rgba(15,23,42,0.08)] backdrop-blur-md"

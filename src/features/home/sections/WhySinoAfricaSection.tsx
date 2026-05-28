@@ -49,7 +49,7 @@ export function WhySinoAfricaSection({
         ))}
       </div>
 
-      <div className="flex w-full  flex-col items-center md:items-start gap-16 lg:min-h-[529px] lg:flex-row  lg:gap-[46.93px]">
+      <div className="flex w-full  flex-col items-center md:items-start gap-16 lg:mx-auto lg:min-h-[529px] lg:max-w-[1118px] lg:flex-row lg:gap-[46.93px]">
         <ScrollReveal direction="left" distance={50} className="relative w-full max-w-[382.79px]  shrink-0 lg:h-[529px]">
           <div className="absolute top-[25.48px] left-[54.19px] md:top-[28px] md:left-[55px] lg:top-[57.72px] lg:bottom-0 lg:right-0  h-[208.02px] w-[311.81px]  md:h-[228.51px] md:w-[392.7940673828125px] lg:h-[471.28px] lg:w-[357.57px] rounded-[10px] bg-primary/10" />
           <div className="relative h-[208.02px] w-[311.81px] overflow-hidden rounded-[10px] shadow-[0_31px_34px_rgba(0,0,0,0.09)] md:h-[228.51px] md:w-[392.7940673828125px] lg:h-[491.95px] lg:w-[382.79px]">
@@ -63,7 +63,7 @@ export function WhySinoAfricaSection({
           </div>
         </ScrollReveal>
 
-        <StaggerContainer className="flex w-full max-w-[364.33px] flex-col gap-[43px] md:grid md:max-w-none md:grid-cols-2 md:gap-8 lg:flex-1 lg:max-w-none" stagger={0.2}>
+        <StaggerContainer className="flex w-full max-w-[364.33px] flex-col gap-[43px] md:grid md:max-w-none md:grid-cols-2 md:gap-8 lg:max-w-[688px]" stagger={0.2}>
           {steps.map((step, index) => (
             <StaggerItem
               key={step.number}

@@ -26,7 +26,7 @@ const footerLinks = {
     title: "Our Verticals",
     links: [
       { label: "ACT IT", href: "/our-verticals/act-it" },
-      { label: "Sino Sec", href: "/our-verticals/sino-sec" },
+      { label: "SinoSec", href: "/our-verticals/sinosec" },
       { label: "Mobilitex", href: "/our-verticals/mobilitex" },
     ],
   },

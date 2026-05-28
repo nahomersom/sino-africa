@@ -2,18 +2,17 @@
 const VERTICAL_DISPLAY_ORDER: Readonly<Record<string, number>> = {
   actit: 0,
   sinosec: 1,
-  sinotec: 1,
   mobilitex: 2,
 };
 
 const UNORDERED_RANK = 100;
 
-/** Lowercase + strip non-alphanumerics so "Sino Sec.", "sino-sec", and "SinoSec" all match. */
+/** Lowercase + strip non-alphanumerics so "SinoSec", "sinosec", and any legacy "Sino Sec." all match. */
 function normalize(s: string | null | undefined): string {
   return (s ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "");
 }
 
-/** Rank a vertical-like value (slug, title, or href like "/our-verticals/sino-sec"). */
+/** Rank a vertical-like value (slug, title, or href like "/our-verticals/sinosec"). */
 export function rankVertical(value: string | null | undefined): number {
   const raw = (value ?? "").trim();
   const tail = raw.includes("/") ? raw.split("/").filter(Boolean).pop() ?? "" : raw;
