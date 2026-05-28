@@ -126,6 +126,8 @@ export function mergeVerticalDetailFromApi(
     fallback?.shortLabel || name.split(/\s+/)[0] || name || slug;
   const heroDescription =
     api?.description?.trim() || fallback?.heroDescription || "";
+  const additionalDescription =
+    api?.additionalDescription?.trim() || fallback?.additionalDescription || "";
   const heroImageAlt =
     api?.heroImage?.alternativeText?.trim() ||
     api?.title ||
@@ -193,6 +195,7 @@ export function mergeVerticalDetailFromApi(
     name,
     shortLabel,
     heroDescription,
+    additionalDescription,
     heroImageAlt,
     institutionalTitle: fallback?.institutionalTitle ?? "Institutional Capacity",
     institutionalParagraphs,

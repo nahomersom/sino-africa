@@ -24,7 +24,7 @@ export function VerticalDetailPage({ content }: Props) {
       <main className="w-full min-w-0">
         <DetailHero
           name={content.name}
-          heroDescription={content.heroDescription}
+          additionalDescription={content.additionalDescription}
           heroImageAlt={content.heroImageAlt}
           heroLogoSrc={content.heroLogoSrc}
           theme={theme}

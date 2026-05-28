@@ -8,14 +8,14 @@ import { HeroWave } from "./HeroWave";
 const HERO_DOTS_SRC = "/images/our-verticals/hero-dots.png";
 const DOWN_ARROW_SRC = "/icons/down-arrow.svg";
 
-type Props = Pick<VerticalDetailContent, "name" | "heroDescription" | "heroImageAlt"> & {
+type Props = Pick<VerticalDetailContent, "name" | "additionalDescription" | "heroImageAlt"> & {
   theme: VerticalDetailTheme;
   heroLogoSrc?: string;
 };
 
 export function DetailHero({
   name,
-  heroDescription,
+  additionalDescription,
   heroImageAlt,
   heroLogoSrc,
   theme,
@@ -73,7 +73,7 @@ export function DetailHero({
                   )}
                 </h1>
                 <p className="max-w-xl text-lg font-normal leading-normal tracking-[-0.011em] text-white text-center md:text-left md:w-[321px] md:text-[14px] lg:w-auto lg:text-lg">
-                  {heroDescription || (
+                  {additionalDescription || (
                     <span className="flex flex-col gap-2">
                       <span className="block h-5 w-full max-w-md animate-pulse rounded-md bg-white/20" />
                       <span className="block h-5 w-full max-w-sm animate-pulse rounded-md bg-white/15" />

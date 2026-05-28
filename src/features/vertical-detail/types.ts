@@ -48,6 +48,8 @@ export type VerticalDetailContent = {
   name: string;
   shortLabel: string;
   heroDescription: string;
+  /** Longer hero body copy from Strapi (`additionalDescription`). Missing → skeleton renders. */
+  additionalDescription?: string;
   heroImageAlt: string;
   institutionalTitle: string;
   institutionalParagraphs: string[];

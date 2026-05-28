@@ -248,6 +248,8 @@ export type Vertical = {
   name?: string;
   slug?: string;
   description?: string;
+  /** Extended copy shown under the title on the vertical detail hero. */
+  additionalDescription?: string;
   summary?: string;
   icon?: StrapiMedia | null;
   institutionalCapacityDescription?: string;
