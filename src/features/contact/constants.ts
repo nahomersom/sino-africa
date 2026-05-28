@@ -9,7 +9,7 @@ export const contactContent = {
       icon: "/images/contact/email-icon.svg",
       title: "Email us",
       lines: [
-        "info@api.sinoafricatrading.com ",
+        "info@Sinoafricatrading.com ",
       ],
     },
     {
