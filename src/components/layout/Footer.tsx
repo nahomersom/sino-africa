@@ -42,7 +42,7 @@ const footerLinks = {
     links: [
       {
         label: "info@sinoafricatrading.com",
-        href: "mailto:info@sinoafricatrading.com ",
+        href: "mailto:info@sinoafricatrading.com",
         leadingIconSrc: "/icons/mail.svg",
       },
       {
