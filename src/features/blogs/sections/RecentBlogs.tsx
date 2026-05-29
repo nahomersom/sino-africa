@@ -31,16 +31,7 @@ const RecentBlogCard = ({ slug, title, date, readTime, image, className = "" }: 
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent opacity-80" />
 
-      {/* Content */}
-      <div className="absolute inset-0 pt-[32px] px-[24px] pb-[24px] flex flex-col justify-end z-10">
-        <div className="flex justify-between items-center mb-[8px]">
-          <span className="text-white text-[12px] font-medium opacity-80">{readTime}</span>
-          <span className="text-white text-[12px] font-medium opacity-80">{date}</span>
-        </div>
-        <h3 className="text-white text-[18px] font-semibold leading-tight group-hover:underline">
-          {title}
-        </h3>
-      </div>
+      
     </Link>
   );
 };
@@ -66,7 +57,7 @@ export function RecentBlogs() {
   const blogs = data?.blogs ?? [];
 
   return (
-    <section className="w-full bg-white pb-[100px]">
+    <section className="w-full bg-white pb-[56px]">
       <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 md:px-0 lg:px-0 flex flex-col gap-[24px]">
         {/* Section Heading */}
         <h2 className="text-[#161C2D] text-[24px] font-normal uppercase leading-none tracking-tight">

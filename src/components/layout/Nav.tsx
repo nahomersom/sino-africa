@@ -200,12 +200,12 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
     <header className={`fixed inset-x-0 top-0 z-30 w-full ${className}`}>
       <div
         className={cn(
-          "md:mx-auto w-full max-w-[1252px] px-8 lg:px-4",
+          "md:mx-auto w-full max-w-[1252px] px-8 lg:px-4 transition-[padding] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[padding]",
           isPastFirstSection ? "py-0 lg:py-0" : "py-6 lg:pt-8 lg:pb-0",
         )}
       >
         <div
-          className={`flex items-center justify-between transition-colors duration-200 ${isMobileMdScrolled
+          className={`flex items-center justify-between transition-[background-color,box-shadow,backdrop-filter] duration-[350ms] ease-out ${isMobileMdScrolled
             ? "rounded-[20px] bg-white/95 p-3 shadow-[0_6px_20px_rgba(15,23,42,0.08)] backdrop-blur-md"
             : ""
             } lg:rounded-[32px] lg:p-4 lg:backdrop-blur-[32px] ${variant === "default"
