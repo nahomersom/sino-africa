@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 import Image from "next/image";
 
 import type { PartnerCard } from "../types";
@@ -6,9 +8,11 @@ type Props = {
   title: string;
   subtitle: string;
   partners: readonly PartnerCard[];
+  /** Vertical brand color used for the card hover background. */
+  accentColor: string;
 };
 
-export function PartnerCardsSection({ title, subtitle, partners }: Props) {
+export function PartnerCardsSection({ title, subtitle, partners, accentColor }: Props) {
   return (
     <section className="relative mx-auto w-full  overflow-hidden px-6 py-20 md:px-12 lg:px-20 lg:pb-[64px] lg:pt-[104px] xl:px-[237px]">
       {/* Background noise image */}
@@ -42,7 +46,8 @@ export function PartnerCardsSection({ title, subtitle, partners }: Props) {
           {partners.map((card, index) => (
             <article
               key={`${card.title}-${index}`}
-              className="group flex min-h-[220px] w-full flex-col justify-between rounded-[16px] border border-[#e7e9ed] bg-white p-[32px] text-left transition-colors duration-300 ease-out hover:bg-primary"
+              style={{ "--brand": accentColor } as CSSProperties}
+              className="group flex min-h-[220px] w-full flex-col justify-between rounded-[16px] border border-[#e7e9ed] bg-white p-[32px] text-left transition-colors duration-300 ease-out hover:bg-(--brand)"
             >
               {card.iconSrc ? (
                 <div className="relative flex size-[80px] shrink-0 items-center justify-center rounded-[8px] bg-accent-60 p-[8px] transition-colors duration-300 ease-out group-hover:bg-white">

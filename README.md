@@ -29,8 +29,32 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## ⚙️ Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is deployed automatically to cPanel (CloudLinux) via GitHub Actions on every push to `dev`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### How it works
+
+The CI/CD pipeline ([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)) runs three stages:
+
+1. **Build on the GitHub Actions runner**
+   - Installs all dependencies with `npm ci`
+   - Builds the Next.js app with `npm run build` (standalone output, Node 22)
+   - Running on the GitHub-hosted runner avoids memory limits on the shared cPanel server
+
+2. **Copy build artifacts to the server**
+   - Transfers the compiled `.next/` directory and `public/` assets to the cPanel server via SCP
+
+3. **Update code and restart**
+   - Uses `git fetch` + `git reset --hard origin/dev` to update source files (avoids triggering CloudLinux's post-merge hook)
+   - Touches `tmp/restart.txt` to trigger a Passenger app restart
+
+### Required GitHub Secrets
+
+Set these in **Settings → Secrets and variables → Actions**:
+
+| Secret | Description |
+| --- | --- |
+| `DEPLOY_HOST` | cPanel server hostname or IP |
+| `DEPLOY_USER` | SSH username (cPanel account) |
+| `DEPLOY_SSH_KEY` | Private SSH key for the cPanel user |

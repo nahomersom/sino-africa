@@ -50,6 +50,7 @@ export function VerticalDetailPage({ content }: Props) {
             title={content.partnersTitle}
             subtitle={content.partnersSubtitle}
             partners={content.partners}
+            accentColor={content.theme.heroGradient.baseColor}
           />
         </ScrollReveal>
 
