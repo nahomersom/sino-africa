@@ -46,7 +46,7 @@ export function CareerDetail({ documentId }: { documentId: string }) {
       <section className="relative flex w-full flex-col items-center bg-white overflow-hidden
         pt-[131px] pb-10 px-8
         md:pt-[102px] md:pb-[88px] md:px-20
-        lg:pt-[189px] lg:pb-[88px] lg:px-[237px]">
+        lg:pt-[189px] lg:pb-[88px] lg:px-[clamp(32px,8vw,237px)]">
 
         {/* Background Decoration */}
         <div
@@ -121,7 +121,7 @@ export function CareerDetail({ documentId }: { documentId: string }) {
         <section className="relative flex w-full flex-col items-center bg-white overflow-hidden
           pt-10 pb-20 px-8 gap-10
           md:px-20
-          lg:px-[237px]">
+          lg:px-[clamp(32px,8vw,237px)]">
 
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.05]"

@@ -14,7 +14,11 @@ type ContactInfoItem = {
   icon: string;
   title: string;
   lines: readonly string[];
+  mapUrl?: string;
 };
+
+const LINE_TEXT =
+  "text-[13px] font-light leading-relaxed tracking-[-0.03em] text-muted sm:text-sm md:text-[15px] md:leading-[1.5] md:tracking-[-0.0313em] lg:text-base";
 
 type ContactInfoSectionProps = {
   items: readonly ContactInfoItem[];
@@ -79,14 +83,26 @@ export function ContactInfoSection({ items }: ContactInfoSectionProps) {
                   {item.title}
                 </h3>
                 <div className="flex min-w-0 flex-col gap-1 break-words sm:gap-1.5">
-                  {item.lines.map((line) => (
-                    <p
-                      key={line}
-                      className="text-[13px] font-light leading-relaxed tracking-[-0.03em] text-muted sm:text-sm md:text-[15px] md:leading-[1.5] md:tracking-[-0.0313em] lg:text-base"
-                    >
-                      {line}
-                    </p>
-                  ))}
+                  {item.lines.map((line) =>
+                    item.mapUrl ? (
+                      <a
+                        key={line}
+                        href={item.mapUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={cn(
+                          LINE_TEXT,
+                          "w-fit underline decoration-muted/40 decoration-1 underline-offset-4 transition-colors hover:text-text-100 hover:decoration-text-100",
+                        )}
+                      >
+                        {line}
+                      </a>
+                    ) : (
+                      <p key={line} className={LINE_TEXT}>
+                        {line}
+                      </p>
+                    ),
+                  )}
                 </div>
               </div>
             </div>

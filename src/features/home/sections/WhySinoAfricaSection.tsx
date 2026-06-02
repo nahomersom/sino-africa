@@ -26,7 +26,7 @@ export function WhySinoAfricaSection({
   steps,
 }: WhySinoAfricaSectionProps) {
   return (
-    <section className="relative flex w-full flex-col items-center gap-24 overflow-hidden bg-white px-8 py-10 md:px-20 md:py-20 lg:px-[200.4px] lg:py-[152px]">
+    <section className="relative flex w-full flex-col items-center gap-24 overflow-hidden bg-white px-8 py-10 md:px-20 md:py-20 lg:px-[clamp(32px,8vw,200.4px)] lg:py-[152px]">
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.1]"
         style={{

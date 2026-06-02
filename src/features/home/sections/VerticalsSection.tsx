@@ -138,7 +138,7 @@ export function VerticalsSection({
   return (
     <section
       id="platforms"
-      className="relative flex h-auto min-h-screen max-w-screen w-full flex-col gap-4  px-8 py-20 md:px-20 md:py-20 lg:px-[286px] lg:pb-16 lg:pt-[160px] overflow-hidden   "
+      className="relative flex h-auto min-h-screen max-w-screen w-full flex-col gap-4  px-8 py-20 md:px-20 md:py-20 lg:px-[clamp(32px,8vw,286px)] lg:pb-16 lg:pt-[160px] overflow-hidden   "
       style={{ background: GRADIENTS[0] }}
     >
       <AnimatePresence initial={false}>

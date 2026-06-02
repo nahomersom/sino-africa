@@ -76,7 +76,7 @@ export function AllBlogs({ showTitle = true, excludeDocumentId, tags }: AllBlogs
 
   return (
     <section className="w-full bg-white py-[16px]">
-      <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 md:px-0">
+      <div className="max-w-[1254px] md:max-w-[677px] lg:max-w-[1254px] mx-auto px-4 md:px-0 lg:px-8 xl:px-0">
         {/* Section Heading */}
         <div className="flex flex-col gap-[24px] mb-[24px]">
           {showTitle && (

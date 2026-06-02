@@ -9,7 +9,7 @@ type CtaSectionProps = {
 
 export function CtaSection({ heading, text, buttonLabel }: CtaSectionProps) {
   return (
-    <section className="w-full bg-surface px-8 pb-10 md:px-20 md:pb-20 lg:px-[279px] lg:pb-[76px]">
+    <section className="w-full bg-surface px-8 pb-10 md:px-20 md:pb-20 lg:px-[clamp(32px,8vw,279px)] lg:pb-[76px]">
       <div className="mx-auto w-full max-w-[962px] border-t border-[#E7E9ED] pt-10 lg:pt-12">
         <div className="flex flex-col items-center gap-6 md:gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-12">
           <div className="flex w-full max-w-[589px] flex-col items-center text-center md:items-center lg:items-start lg:text-left">

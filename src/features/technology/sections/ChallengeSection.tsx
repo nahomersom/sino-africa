@@ -33,7 +33,7 @@ const challengeItems = [
 export function ChallengeSection() {
   return (
     <section
-      className="relative overflow-hidden flex w-full mx-auto items-center justify-center bg-white flex-col lg:flex-row h-auto lg:h-[996px] pt-[40px] lg:pt-[152px] pb-[40px] px-[32px] md:px-[80px] lg:px-[220px] gap-[32px]"
+      className="relative overflow-hidden flex w-full mx-auto items-center justify-center bg-white flex-col lg:flex-row h-auto lg:h-[996px] pt-[40px] lg:pt-[152px] pb-[40px] px-[32px] md:px-[80px] lg:px-[clamp(32px,8vw,220px)] gap-[32px]"
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.1] hidden lg:block"

@@ -18,6 +18,8 @@ export const contactContent = {
       lines: [
         "Bole Sur Construction, 3rd Floor",
       ],
+      mapUrl:
+        "https://www.google.com/maps/search/?api=1&query=Bole+Sur+Construction+Addis+Ababa",
     },
   ],
 } as const;

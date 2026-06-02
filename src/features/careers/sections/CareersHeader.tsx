@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 export function CareersHeader() {
   return (
     <section className="w-full bg-white pt-[131px] pb-16 md:pt-[102px] lg:pt-[189px] lg:pb-[82px]">
-      <div className="mx-auto flex w-full flex-col items-center px-8 text-center md:max-w-[837px] md:gap-2 md:px-0 md:pb-10 lg:max-w-[1254px] lg:items-start lg:gap-2 lg:pb-0 lg:text-left">
+      <div className="mx-auto flex w-full flex-col items-center px-8 text-center md:max-w-[837px] md:gap-2 md:px-0 md:pb-10 lg:max-w-[1254px] lg:px-8 xl:px-0 lg:items-start lg:gap-2 lg:pb-0 lg:text-left">
       <div className="flex justify-between w-full flex-col md:flex-row">
         <div>
 

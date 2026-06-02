@@ -10,7 +10,7 @@ export function TechnologyHero() {
       className="relative flex min-h-[800px] w-full items-center overflow-hidden bg-cover bg-center bg-no-repeat mt-28 md:min-h-[600px] lg:mt-0 lg:min-h-[882px]"
       style={{ backgroundImage: "url('/assets/images/herobg.png')" }}
     >
-      <div className="mx-auto flex w-full max-w-7xl flex-col-reverse items-center justify-between gap-[8px] px-6 pb-[40px] pt-24 md:max-w-[837px] md:flex-row-reverse md:gap-[65px] md:px-[80px] md:py-[60px] lg:max-w-7xl lg:flex-row lg:gap-12 lg:px-20 lg:py-32">
+      <div className="mx-auto flex w-full max-w-7xl flex-col-reverse items-center justify-between gap-[8px] px-6 pb-[40px] pt-24 md:max-w-[837px] md:flex-row-reverse md:gap-[65px] md:px-[80px] md:py-[60px] lg:max-w-7xl lg:flex-row lg:gap-12 lg:px-[clamp(32px,6vw,80px)] lg:py-32">
 
         {/* Text Content */}
         <motion.div

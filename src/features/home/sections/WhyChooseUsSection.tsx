@@ -24,7 +24,7 @@ export function WhyChooseUsSection({
   statements,
 }: WhyChooseUsSectionProps) {
   return (
-    <section className="relative flex w-full flex-col items-center gap-10 overflow-hidden bg-surface px-8 py-10 md:gap-6 md:px-20 md:py-20 lg:px-72 lg:py-20">
+    <section className="relative flex w-full flex-col items-center gap-10 overflow-hidden bg-surface px-8 py-10 md:gap-6 md:px-20 md:py-20 lg:px-[clamp(32px,8vw,288px)] lg:py-20">
       <Image
         src="/images/home/why-choose-dots.svg"
         alt=""
