@@ -57,7 +57,7 @@ function HeroCollage({
   );
 
   return (
-    <div className="relative mt-2 w-full shrink-0 lg:mt-2 lg:w-full lg:max-w-[1236px] lg:left-[103px]">
+    <div className="relative mt-2 w-full shrink-0 lg:mt-2 lg:w-full lg:max-w-[1236px]">
       {/* Figma mobile stack: visible below lg (md alone is too narrow — tablets saw collage only) */}
       {/* Below lg: mobile stack + Tablet (md) row — Figma Tablet Hero 6:6503 */}
       <div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-10 lg:hidden">
@@ -187,7 +187,7 @@ function HeroCollage({
 
 export function AboutHeroSection({ label, heading, headingDescription ,description, images }: AboutHeroSectionProps) {
   return (
-    <section className="relative flex w-full flex-col items-stretch  bg-white px-8 lg:pb-[220px] pt-16 md:items-center md:px-20 md:pt-[211px] lg:h-auto lg:px-[clamp(32px,8vw,237px)] lg:pt-[152px] overflow-visible">
+    <section className="relative flex w-full flex-col items-stretch  bg-white px-8 lg:pb-[220px] pt-16 md:items-center md:px-20 md:pt-[211px] lg:h-auto lg:px-[246px] lg:pt-[152px] overflow-visible">
       {/* Green glow — concentric ellipses behind the content */}
       <motion.div
         className="pointer-events-none absolute -left-[155px] top-[49px] block w-[404px] select-none md:-left-[435px] md:top-[120px] md:w-[860.84px] lg:-left-[471px] lg:-top-[150px] lg:w-[1074px]"
@@ -208,7 +208,7 @@ export function AboutHeroSection({ label, heading, headingDescription ,descripti
 
       {/* Title block — label + heading */}
       <motion.div
-        className="relative z-10 flex w-full flex-col items-start gap-2 md:items-center md:px-0 lg:items-start"
+        className="relative z-10 flex w-full flex-col items-start gap-2 md:items-center md:px-0 lg:max-w-[1236px] lg:items-start"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
@@ -225,7 +225,7 @@ export function AboutHeroSection({ label, heading, headingDescription ,descripti
       </motion.div>
 
       <motion.div
-        className="relative w-full shrink-0 md:w-full lg:w-[1236px]"
+        className="relative w-full shrink-0 md:w-full lg:w-full lg:max-w-[1236px]"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
