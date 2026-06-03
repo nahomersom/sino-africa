@@ -72,7 +72,7 @@ function HeroCollage({
         </div>
 
         <div className="relative flex min-w-0 flex-col items-start gap-6 md:min-w-0 md:flex-1 md:overflow-visible">
-          <div className="pointer-events-none absolute left-[calc(201.7/366*100%)] -top-[70px] hidden h-[109px] w-[calc(119.15/366*100%)] overflow-hidden md:left-[201.7px] md:top-[-70px] md:block md:w-[119.15px]">
+          <div className="pointer-events-none absolute left-[calc(201.7/366*100%)] -top-[30px] hidden h-[109px] w-[calc(119.15/366*100%)] overflow-hidden md:left-[201.7px] md:top-[-30px] md:block md:w-[119.15px]">
             <Image
               src="/images/about/hero-dots.svg"
               alt=""
@@ -187,7 +187,7 @@ function HeroCollage({
 
 export function AboutHeroSection({ label, heading, headingDescription ,description, images }: AboutHeroSectionProps) {
   return (
-    <section className="relative flex w-full flex-col items-stretch  bg-white px-8 lg:pb-[220px] pt-16 md:items-center md:px-20 md:pt-[211px] lg:h-auto lg:px-[237px] lg:pt-[152px] overflow-visible">
+    <section className="relative flex w-full flex-col items-stretch  bg-white px-8 lg:pb-[220px] pt-16 md:items-center md:px-20 md:pt-[211px] lg:h-auto lg:px-[clamp(32px,8vw,237px)] lg:pt-[152px] overflow-visible">
       {/* Green glow — concentric ellipses behind the content */}
       <motion.div
         className="pointer-events-none absolute -left-[155px] top-[49px] block w-[404px] select-none md:-left-[435px] md:top-[120px] md:w-[860.84px] lg:-left-[471px] lg:-top-[150px] lg:w-[1074px]"

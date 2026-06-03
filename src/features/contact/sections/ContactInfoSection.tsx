@@ -5,6 +5,7 @@ import {
   ContactPhoneMethodIcon,
 } from "@/src/components/icons/ContactMethodIcons";
 import { cn } from "@/src/lib/utils";
+import { gmailHref, phoneHref } from "@/src/lib/contact-links";
 import {
   StaggerContainer,
   StaggerItem,
@@ -29,6 +30,21 @@ const sectionX =
 
 const ICON_BOX =
   "mt-0.5 size-7 shrink-0 min-[400px]:size-8 sm:size-10 md:mt-0 md:size-11 lg:size-[54px]";
+
+/** Resolve a clickable href for a contact line, or `null` to render as text. */
+function lineLink(
+  item: ContactInfoItem,
+  line: string,
+): { href: string; newTab: boolean } | null {
+  if (item.mapUrl) return { href: item.mapUrl, newTab: true };
+  if (item.icon.endsWith("/email-icon.svg")) {
+    return { href: gmailHref(line), newTab: true };
+  }
+  if (item.icon.endsWith("/phone-icon.svg")) {
+    return phoneHref(line);
+  }
+  return null;
+}
 
 function ContactInfoIcon({ icon }: Pick<ContactInfoItem, "icon">) {
   if (icon.endsWith("/email-icon.svg")) {
@@ -83,13 +99,15 @@ export function ContactInfoSection({ items }: ContactInfoSectionProps) {
                   {item.title}
                 </h3>
                 <div className="flex min-w-0 flex-col gap-1 break-words sm:gap-1.5">
-                  {item.lines.map((line) =>
-                    item.mapUrl ? (
+                  {item.lines.map((line) => {
+                    const link = lineLink(item, line);
+                    return link ? (
                       <a
                         key={line}
-                        href={item.mapUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        href={link.href}
+                        {...(link.newTab
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {})}
                         className={cn(
                           LINE_TEXT,
                           "w-fit underline decoration-muted/40 decoration-1 underline-offset-4 transition-colors hover:text-text-100 hover:decoration-text-100",
@@ -101,8 +119,8 @@ export function ContactInfoSection({ items }: ContactInfoSectionProps) {
                       <p key={line} className={LINE_TEXT}>
                         {line}
                       </p>
-                    ),
-                  )}
+                    );
+                  })}
                 </div>
               </div>
             </div>

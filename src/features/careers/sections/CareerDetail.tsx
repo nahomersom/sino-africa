@@ -5,6 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useGetCareerByDocumentIdQuery, useGetCareersQuery } from "@/src/store/strapiApi";
 import { StrapiRichTextBody } from "@/src/lib/strapiBlocksRichText";
+import { gmailHref } from "@/src/lib/contact-links";
+
+const APPLY_EMAIL = "info@sinoafricatrading.com";
 
 export function CareerDetail({ documentId }: { documentId: string }) {
   const { data: job, isLoading } = useGetCareerByDocumentIdQuery(documentId);
@@ -80,31 +83,53 @@ export function CareerDetail({ documentId }: { documentId: string }) {
                 <span>{job.level}</span>
               </div>
 
-              <div className="flex flex-col gap-4">
-                {job.googleFormLink ? (
-                  <a
-                    href={jobExpired ? undefined : job.googleFormLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`flex items-center justify-center text-white font-medium text-sm
-                      h-[69px] w-full rounded-[23px] px-6 py-4 gap-2 md:w-[142px] transition-all
-                      ${jobExpired ? "bg-gray-400 cursor-not-allowed opacity-70" : "bg-[#64C294] hover:bg-[#55a67f]"}`}
-                    onClick={(e) => jobExpired && e.preventDefault()}
-                  >
-                    {jobExpired ? "Expired" : "Apply"}
-                  </a>
-                ) : (
+              <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+                {jobExpired ? (
                   <button
                     type="button"
-                    disabled={jobExpired}
-                    className={`flex items-center justify-center text-white font-medium text-sm
-                      h-[69px] w-full rounded-[23px] px-6 py-4 gap-2 md:w-[142px] transition-all
-                      ${jobExpired ? "bg-gray-400 cursor-not-allowed opacity-70" : "bg-[#64C294] hover:bg-[#55a67f]"}`}
+                    disabled
+                    className="flex items-center justify-center text-white font-medium text-sm
+                      h-[69px] w-full rounded-[23px] px-6 py-4 gap-2 sm:w-auto transition-all
+                      bg-gray-400 cursor-not-allowed opacity-70"
                   >
-                    {jobExpired ? "Expired" : "Apply"}
+                    Expired
                   </button>
+                ) : (
+                  <>
+                    {job.googleFormLink ? (
+                      <a
+                        href={job.googleFormLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center text-white font-medium text-sm
+                          h-[69px] w-full rounded-[23px] px-6 py-4 gap-2 sm:w-auto transition-all
+                          bg-[#64C294] hover:bg-[#55a67f]"
+                      >
+                        Apply with Google Form
+                      </a>
+                    ) : (
+                      <button
+                        type="button"
+                        className="flex items-center justify-center text-white font-medium text-sm
+                          h-[69px] w-full rounded-[23px] px-6 py-4 gap-2 sm:w-auto transition-all
+                          bg-[#64C294] hover:bg-[#55a67f]"
+                      >
+                        Apply with Google Form
+                      </button>
+                    )}
+
+                    <a
+                      href={gmailHref(APPLY_EMAIL, `Application: ${job.title}`)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center font-medium text-sm
+                        h-[69px] w-full rounded-[23px] px-6 py-4 gap-2 sm:w-auto border-2 transition-all
+                        border-[#64C294] text-[#64C294] hover:bg-[#64C294] hover:text-white"
+                    >
+                      Apply with Email
+                    </a>
+                  </>
                 )}
-                <span className="text-base text-[#5C606C]">jobs@sinoafrica.com</span>
               </div>
             </div>
 

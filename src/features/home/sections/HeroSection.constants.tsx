@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { gmailHref } from "@/src/lib/contact-links";
 
 export type HeroSocialIcon = {
   label: string;
@@ -28,7 +29,7 @@ export const HERO_SOCIAL_ICONS: readonly HeroSocialIcon[] = [
   },
   {
     label: "Email",
-    href: "mailto:info@sinoafricatrading.com",
+    href: gmailHref("info@sinoafricatrading.com"),
     icon: (
       <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0.665039 2.72386L6.19545 5.9496C8.23431 7.1388 9.09575 7.1388 11.1346 5.9496L16.665 2.72386M0.677655 8.88024C0.729951 11.4049 0.756103 12.6671 1.66101 13.6022C2.5659 14.5372 3.8253 14.5698 6.3441 14.6349C7.89647 14.6751 9.43359 14.6751 10.986 14.6349C13.5048 14.5698 14.7641 14.5372 15.6691 13.6022C16.574 12.6671 16.6001 11.4049 16.6524 8.88024C16.6693 8.06849 16.6693 7.26159 16.6524 6.44984C16.6001 3.92528 16.574 2.663 15.6691 1.72794C14.7641 0.792876 13.5048 0.760306 10.986 0.695157C9.43359 0.655001 7.89647 0.655001 6.34409 0.695148C3.8253 0.760289 2.5659 0.79286 1.661 1.72793C0.756095 2.66299 0.729951 3.92527 0.677647 6.44984C0.660831 7.26159 0.660839 8.06849 0.677655 8.88024Z" stroke="#7D818D" strokeWidth="1.33" strokeLinejoin="round" />

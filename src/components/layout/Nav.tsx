@@ -327,7 +327,7 @@ export function Nav({ variant = "default", className = "" }: NavProps) {
                 <Link
                   key={`${item.label}-${item.href}`}
                   href={item.href}
-                  className={`px-2 py-3 text-sm transition-colors ${isActive
+                  className={`px-2 py-3  transition-colors  ${isActive
                     ? "font-medium text-primary"
                     : "font-normal text-text-100"
                     }`}

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useGetVerticalsQuery } from "@/src/store/strapiApi";
 import { sortByVerticalOrder } from "@/src/lib/vertical-order";
+import { gmailHref } from "@/src/lib/contact-links";
 
 type FooterNavLink = {
   label: string;
@@ -42,12 +43,12 @@ const footerLinks = {
     links: [
       {
         label: "info@sinoafricatrading.com",
-        href: "mailto:info@sinoafricatrading.com",
+        href: gmailHref("info@sinoafricatrading.com"),
         leadingIconSrc: "/icons/mail.svg",
       },
       {
         label: "+251944317816",
-        href: "tel:+251944317816",
+        href: "https://wa.me/251944317816",
         leadingIconSrc: "/icons/tel.svg",
       },
       { label: "+251982919293", href: "tel:+251982919293" },
@@ -111,43 +112,60 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-2 md:grid-cols-[1fr_1fr_1fr_1.4fr]">
           {sections.map((section) => (
             <div key={section.title} className="flex flex-col gap-5">
-              <h3 className="text-[15px] font-light text-white/65">
+              <h3 className=" font-light text-white/65">
                 {section.title}
               </h3>
               <div className="flex flex-col gap-2">
                 {(() => {
                   const links = section.links as readonly FooterNavLink[];
                   const hasLeadingIcon = links.some((l) => Boolean(l.leadingIconSrc));
-                  return links.map((link) => (
-                    <Link
-                      key={link.label}
-                      href={link.href}
-                      className={`${link.href.startsWith("mailto:")
-                        ? "max-w-full wrap-break-word text-sm sm:text-base"
-                        : "text-base"
-                        } flex items-center gap-2 py-2 text-white transition-colors hover:text-primary`}
-                    >
-                      {link.leadingIconSrc ? (
-                        <Image
-                          src={link.leadingIconSrc}
-                          alt=""
-                          width={24}
-                          height={24}
-                          className="size-6 shrink-0"
-                          aria-hidden
-                        />
-                      ) : hasLeadingIcon ? (
-                        <span className="size-6 shrink-0" aria-hidden />
-                      ) : null}
-                      <span
-                        className={
-                          link.href.startsWith("mailto:") ? "min-w-0 flex-1" : undefined
-                        }
+                  return links.map((link) => {
+                    const isMailto = link.label.includes("@");
+                    // Internal routes use <Link>; mail/tel/http schemes must
+                    // use a plain <a> (Next <Link> opens a blank page on them).
+                    const isInternal = link.href.startsWith("/");
+                    const opensNewTab = link.href.startsWith("http");
+                    const className = `${isMailto
+                      ? "max-w-full wrap-break-word text-sm sm:text-base"
+                      : "text-base"
+                      } flex items-center gap-2 py-2 text-white transition-colors hover:text-primary`;
+                    const content = (
+                      <>
+                        {link.leadingIconSrc ? (
+                          <Image
+                            src={link.leadingIconSrc}
+                            alt=""
+                            width={24}
+                            height={24}
+                            className="size-6 shrink-0"
+                            aria-hidden
+                          />
+                        ) : hasLeadingIcon ? (
+                          <span className="size-6 shrink-0" aria-hidden />
+                        ) : null}
+                        <span className={isMailto ? "min-w-0 flex-1" : undefined}>
+                          {link.label}
+                        </span>
+                      </>
+                    );
+
+                    return isInternal ? (
+                      <Link key={link.label} href={link.href} className={className}>
+                        {content}
+                      </Link>
+                    ) : (
+                      <a
+                        key={link.label}
+                        href={link.href}
+                        className={className}
+                        {...(opensNewTab
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {})}
                       >
-                        {link.label}
-                      </span>
-                    </Link>
-                  ));
+                        {content}
+                      </a>
+                    );
+                  });
                 })()}
               </div>
             </div>
