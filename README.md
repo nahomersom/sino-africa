@@ -1,33 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sino-Africa
+
+Marketing website for Sino-Africa Trading, built with Next.js 16 (App Router) and backed by a Strapi CMS.
+
+## Tech Stack
+
+- **Framework:** [Next.js 16](https://nextjs.org) (App Router, standalone output, Webpack)
+- **UI:** React 19, [Tailwind CSS v4](https://tailwindcss.com), [Framer Motion](https://www.framer.com/motion/), [lucide-react](https://lucide.dev) icons
+- **State / data:** [Redux Toolkit](https://redux-toolkit.js.org) + RTK Query (`src/store/strapiApi.ts`)
+- **CMS:** [Strapi](https://strapi.io), rendered via `@strapi/blocks-react-renderer`
+
+## Project Structure
+
+The UI is organized by feature under [`src/features/`](src/features/):
+
+| Feature | Description |
+| --- | --- |
+| `home` | Landing page (hero, verticals, why-choose-us, contact sections) |
+| `about` | Company about page |
+| `our-verticals` / `vertical-detail` | Business verticals listing and detail pages |
+| `technology` | Technology offering page |
+| `projects` | Projects showcase |
+| `blogs` | Blog listing and detail pages (CMS-driven) |
+| `careers` | Career listings and detail pages |
+| `contact` | Contact page |
+
+Shared layout (`Nav`, `Footer`, `FloatingSocialBar`) lives in [`src/components/layout/`](src/components/layout/), and Strapi/contact helpers live in [`src/lib/`](src/lib/).
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies and run the development server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the dev server (Webpack) |
+| `npm run build` | Production build (standalone output) |
+| `npm run start` | Serve the production build |
+| `npm run lint` | Run ESLint |
 
-## Learn More
+## Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
+Copy [`.env.example`](.env.example) and fill in the values:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Variable | Description |
+| --- | --- |
+| `NEXT_PUBLIC_STRAPI_URL` | Base URL of the Strapi CMS (exposed to the browser). The optional trailing `/api` is stripped automatically. |
+| `STRAPI_URL` | Optional server-only override for the CMS origin; takes precedence over `NEXT_PUBLIC_STRAPI_URL`. |
 
 ## ⚙️ Deployment
 
